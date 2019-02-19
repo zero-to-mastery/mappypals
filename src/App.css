@@ -11,7 +11,10 @@ header{
 	background-color: #b3442e;
 	display: inline-flex;
 	width: 100%;
+	box-shadow: -2px 1px 3px #0005, 2px 1px 3px #0005;
 }
+
+
 #logo-wrapper{
 	display: flex;
 	float: left;
@@ -49,7 +52,8 @@ header i{
 	padding: 20px;
 	font-size: 6em;
 	color: black;
-	opacity: 0.6;}
+	opacity: 0.7;
+}
 #logo{
 	display: flex;
 	line-height: 0.4em;
@@ -63,13 +67,13 @@ header i{
 	font-family: 'Leckerli One', cursive;
 	font-size: 3em;
 	z-index: 2;
-	margin-top: 76px
+	margin-top: 85px
 }
 .pin{
 	position: absolute;
 	font-size: 3em;
 	color: #568b98;
-	margin-top: 45px;
+	margin-top: 50px;
 	margin-left:133px;
 	opacity: 1;
 	z-index: 3;
@@ -106,7 +110,7 @@ section div div{
 section div div:hover{
 	background-color: #B3442Edd;
 }
-i[aria]:hover:after{
+div[aria]:hover:after{
 	content: attr(aria);
 	display: block;
 	font-family: 'Play', sans-serif;
@@ -127,3 +131,7 @@ section i{
 	margin-left: 70px;
 	color: white;
 }
+.user-pointer:hover{
+	transform: none;
+}
+

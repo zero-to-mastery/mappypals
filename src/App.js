@@ -20,17 +20,17 @@ class App extends Component {
                </div>
             </header>
             <section>
-               <h1>Mappypals helps you keep track of your friend aboard.</h1>
+               <h1>Mappypals helps you keep track of your friend abroad.</h1>
                <div>
-                  <div>
-                  <i className="fas fa-mouse-pointer user-pointer" aria="login"></i>
-                     <i className="fas fa-user-circle" aria="login"></i>
+                  <div aria="login">
+                     <i className="fas fa-mouse-pointer user-pointer"></i>
+                     <i className="fas fa-user-circle"></i>
                   </div>
-                  <div>
-                     <i className="fas fa-user-plus" aria="add friends"></i>
+                  <div aria="add friends">
+                     <i className="fas fa-user-plus" ></i>
                   </div>
-                  <div>
-                     <i className="fas fa-map-marked-alt" aria="view friends"></i>
+                  <div aria="view friends">
+                     <i className="fas fa-map-marked-alt" ></i>
                   </div>
                </div>
             </section>
