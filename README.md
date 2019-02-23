@@ -1,6 +1,10 @@
 # MAPPYPALS :earth_africa:
 __An app that keeps track of your friends by putting them on a map__
 
+Here are the [__Mock Ups__](https://xd.adobe.com/spec/d0f02fb5-5fa5-4aff-63e8-d8d329d90a0d-a6c1/) for the app.
+
+Visit the [__DEV_README__](https://github.com/zero-to-mastery/mappypals/blob/master/DEV_README.md) to find out how to contribute.
+
 # Preface
 - __Background__: I’d like to travel to different countries but i’m unable to remember all the friends I have in those countries. 
 - __Problem Context__: It is difficult to remember all the friends you have across the globe and that could slow down your travel plan.
@@ -21,4 +25,4 @@ __An app that keeps track of your friends by putting them on a map__
 ## Tools
 - __Frontend__: React, CSS3
 - __Backend__: Node/Firebase
-- __Map__: MapBox
+- __Map Api__: MapBox/Google Maps
