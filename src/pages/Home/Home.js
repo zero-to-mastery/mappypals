@@ -7,7 +7,6 @@ import Map from "./Map";
 
 
 const Home = (user) => {
-	const [point, getPoint]=useState({x: 0, y:.0})
 	return(
 		(false)?
 		(
