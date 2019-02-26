@@ -20,10 +20,13 @@ Q: what do we use for the backend? Firebase? Node? Headless CMS like Strapi or N
 A: 
 
 ### CODE NOTE
-* the login page is currently working as if the user was already logged in for us to be able to work with the map.
+The login page is currently working as if the user was already logged in for us to be able to work with the map.
+To set to the correct status just use "user" instead of "false"
 
+```
 const Home = (user) => {
 	const [point, getPoint]=useState({x: 0, y:.0})
 	return(
-###     (false)?
+     (false)?
 		(
+```
