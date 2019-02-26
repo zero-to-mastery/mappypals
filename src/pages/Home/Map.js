@@ -30,7 +30,8 @@ class Map extends Component {
   };
   getLocation=(event)=>{
     const lngLat=event.lngLat;
-    this.setState({pin:{long:lngLat[0], lat: lngLat[1]}})
+    this.setState({pin:{...this.state.pin, long:lngLat[0], lat: lngLat[1]}})
+    
   }
 
   componentDidMount(){
@@ -43,6 +44,7 @@ class Map extends Component {
   }
 
   render() {
+    console.log({state: this.state})
     return (
       <div style={{height:"100vh"}}>
       <MapGL
