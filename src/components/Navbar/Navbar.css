@@ -31,13 +31,12 @@ header .nav-item{
 	display: flex;
 	justify-content: center;
 	align-items: flex-end;
-	transition: background-color 0.3s linear;
+	transition: background-color 0.3s ease;
 	cursor: pointer;
 	padding-bottom: 3px
 }
 header .nav-item:hover{
-	background-color: #fff3b2;
-	color: #568b98;
+	background-color: #a537fd;
 }
 header i{
 	padding: 20px;

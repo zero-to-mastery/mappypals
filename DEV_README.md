@@ -18,3 +18,12 @@ A: Yes, this'll easy the login process for users.
 
 Q: what do we use for the backend? Firebase? Node? Headless CMS like Strapi or Netlify? please make your suggestions
 A: 
+
+### CODE NOTE
+* the login page is currently working as if the user was already logged in for us to be able to work with the map.
+
+const Home = (user) => {
+	const [point, getPoint]=useState({x: 0, y:.0})
+	return(
+###     (false)?
+		(

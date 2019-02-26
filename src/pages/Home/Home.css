@@ -8,17 +8,17 @@ section{
 	display: flex;
 	flex-direction: column;
 	width:100%;
-	padding-top: 200px
 }
-section>div{
+#not-logged-in>div{
 	justify-content: center;
 	display: inline-flex;
 }
 section h1{
+	padding-top: 200px;
 	font-size: 3em;
 	margin: 0px;
 }
-section div div{
+#not-logged-in div div{
 	border-radius: 100%;
 	width:150px;
 	height: 150px;
@@ -26,7 +26,7 @@ section div div{
 	background-color: #f1f1ff;
 	transition: transform 0.2s ease-out, background-color 0.2s linear;
 }
-section div div:hover{
+#not-logged-in div div:hover{
 	background-color: #B3442Edd;
 }
 div[aria]:hover:after{
@@ -36,7 +36,7 @@ div[aria]:hover:after{
 	font-size: 20px;
 }
 
-section div div:hover{
+#not-logged-in div div:hover{
 	transform: scale(1.3)
 }
 section i{
@@ -64,4 +64,39 @@ a{
 	color: #B3442E;
 	transform: scale(1.1);
 	
+}
+main, main section{
+	width: 100vw;
+	height: 90vh;
+}
+section canvas{
+	position: relative!important;
+	width:100%!important;
+	height: 100%!important;
+}
+
+.mapboxgl-marker i{
+	color: #e27cdf; 
+	font-size: 22px ;
+	padding:0px; 
+	position: relative;
+	top:-20px; 
+	left:-8px;
+	transition: transform .3s ease-in-out
+}
+.mapboxgl-marker i:hover{
+	transform: scale(1.3)
+}
+.popup{
+	position: absolute;
+	width: 250px;
+	height: 180px;
+	background-color: white;
+	color: black;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	justify-content: center;
+	border: 1px solid black;
+	border-radius: 20px
 }
