@@ -6,11 +6,7 @@ import Main from './Main';
 // To create a specific layout for a specific page, create its own css file. 
 
 export default ({ children }) => (
-  <div
-    style={{
-      paddingTop: '10px'
-    }}
-  >
+  <React.Fragment>
     {children}
-  </div>
+  </React.Fragment>
 )

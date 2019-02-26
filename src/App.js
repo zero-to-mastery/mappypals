@@ -7,12 +7,12 @@ import Layout  from './components/Layout'
 class App extends Component {
 	render() {
 		return (
-				<div>
+				<React.Fragment>
 					<Navbar />
 					<Layout>
 						<Main />
 					</Layout>	
-				</div>
+				</React.Fragment>
 		);
 	}
 }

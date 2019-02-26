@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import './Navbar.css'
 
 export default () => (
-  <div>
     <React.Fragment>
       <header>
           <div id="logo-wrapper">
@@ -21,5 +20,4 @@ export default () => (
           </div>
       </header>
     </React.Fragment>
-  </div>
 )
