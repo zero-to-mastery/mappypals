@@ -1,6 +1,7 @@
 import React , {Component} from 'react';
 import MapGL, {NavigationControl, Marker} from 'react-map-gl';
 import PopUp from "./PopUp.js";
+import AddFriendForm from "./AddFriendForm.js"
 import "./Home.css";
 const TOKEN = 'pk.eyJ1Ijoic2Npb3J0aW5vbXJjIiwiYSI6ImNqc2RocmRzYTB2OGUzeWxuZDNmdDhrcDgifQ.txLXHEJPl4lYa8an6fcjuA';
 const navStyle = {
@@ -12,14 +13,18 @@ const navStyle = {
 class Map extends Component {
 
   state = {
-    pin: {
+    newFriend: {
       long:null, 
       lat: null, 
-      name:"John Snow", 
-      email: "johnsnow@gmail.com", 
-      phone:"0123456789", 
-      postcode:"nw145pg"
+      name:"", 
+      email: "", 
+      phone:"", 
+      postcode:"",
+      country:"",
+      nickname:""
     },
+    //temporary "database"
+    friendsList: [],
     viewport: {
       width: "100vw",
       height: "100vh",
@@ -28,10 +33,35 @@ class Map extends Component {
       zoom: 11
     }
   };
+  getPostcode=()=>{
+    fetch("https://api.mapbox.com/geocoding/v5/mapbox.places/"+this.state.newFriend.long+","+this.state.newFriend.lat+".json?access_token="+TOKEN)
+    .then(resp=>resp.json())
+    .then(data=>this.setState({newFriend:{...this.state.newFriend, postcode:data.features[1].text, country: data.features[6].text}}))
+  }
   getLocation=(event)=>{
     const lngLat=event.lngLat;
-    this.setState({pin:{...this.state.pin, long:lngLat[0], lat: lngLat[1]}})
-    
+    this.setState({newFriend:{...this.state.newFriend, long:lngLat[0], lat: lngLat[1]}})
+  }
+  
+  showPopup=()=>{
+    const popup=document.getElementById("popup");
+    popup.style.height="180px";
+    popup.style.display="flex"
+  }
+  hidePopup=()=>{
+  const popup=document.getElementById("popup");
+  popup.style.height="0px"
+  popup.style.display="none"
+}
+//temporary "database insert"
+  addFriendData=(friendState)=>{
+    const {nickname, name, email, phone}=friendState.data
+    this.setState({newFriend: {...this.state.newFriend, nickname, name, email, phone}})
+    setTimeout(()=>this.addFriendToList(),1000);
+  }
+//temporary add friend - restful api call with db insert while implementing Backend
+  addFriendToList=()=>{
+   console.log(this.state.newFriend)
   }
 
   componentDidMount(){
@@ -44,7 +74,7 @@ class Map extends Component {
   }
 
   render() {
-    console.log({state: this.state})
+    console.log(this.state)
     return (
       <div style={{height:"100vh"}}>
       <MapGL
@@ -52,19 +82,21 @@ class Map extends Component {
         onViewportChange={(viewport) =>this.setState({viewport})}
         mapboxApiAccessToken={TOKEN}
         mapStyle='mapbox://styles/mapbox/streets-v11'
-        onClick={this.getLocation}
+        onClick={(e)=>{this.getLocation(e); this.getPostcode() }}
       >
         {
-        (this.state.pin.long)?<Marker
-          latitude={this.state.pin.lat}
-          longitude={this.state.pin.long}
+        (this.state.newFriend.long)?<Marker
+          latitude={this.state.newFriend.lat}
+          longitude={this.state.newFriend.long}
         >
-          <i className="fas fa-map-marker-alt"></i>
-          <PopUp name={this.state.pin.name} email={this.state.pin.email} phone={this.state.pin.phone} postcode={this.state.pin.postcode}/>
+          <i onMouseOver={this.showPopup} onMouseLeave={this.hidePopup} className="fas fa-map-marker-alt"></i>
         </Marker>:""
         }
 
       </MapGL>
+      <PopUp name={this.state.newFriend.name} email={this.state.newFriend.email} phone={this.state.newFriend.phone} postcode={this.state.newFriend.postcode}/>
+      {/*this is for now fully visible still being implemented*/}
+      <AddFriendForm onFriendLoaded={this.addFriendData}/>
       </div>
     );
   }
