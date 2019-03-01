@@ -1,6 +1,7 @@
 {
   "name": "mappypals",
   "version": "0.1.0",
+  "homepage": "https://zero-to-mastery.github.io/mappypals/",
   "private": true,
   "dependencies": {
     "mapbox-gl": "^0.53.0",
