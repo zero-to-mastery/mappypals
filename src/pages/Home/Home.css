@@ -89,37 +89,52 @@ section canvas{
 }
 #popup{
 	position: absolute;
-	width:100vw;
-	height: 180px;
-	bottom:0px;
-	left: 0px;
-	background-color: white;
-	color: black;
-	display: none;
-	flex-direction: column;
-	text-align: center;
-	justify-content: center;
-	border: 1px solid black;
-	border-radius: 20px;
-	overflow: hidden;
-}
-#add-new{
-	position: absolute;
 	width:50vw;
-	height: 180px;
+	height: 0px;
 	bottom:0px;
 	border-radius: 20px;
 	border-bottom-left-radius: 0px;
 	border-bottom-right-radius: 0px;
 	left: 25%;
-	background-color: #fff8;
+	background-color: #1f3a9388;
+	color: black;
+	display: flex;
+	flex-wrap: wrap;
+	text-align: center;
+	justify-content: center;
+	overflow: hidden;
+	transition: height 0.4s ease-in-out;
+}
+#popup div{
+	text-align: center;
+	width: 40%;
+	height: 50px;
+	margin: auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: white;
+	border-radius: 18px;
+	font-weight: bold;
+	background-color: #1f3a93aa
+}
+#add-new{
+	position: absolute;
+	width:50vw;
+	height: 0px;
+	bottom:0px;
+	border-radius: 20px;
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
+	left: 25%;
+	background-color: #1f3a9388;
 	color: black;
 	display: flex;
 	flex-direction: column;
 	text-align: center;
 	justify-content: center;
-	border: 1px solid black;
 	overflow: hidden;
+	transition: height 0.4s ease-in-out;
 }
 #add-new input{
 	height: 30px;
