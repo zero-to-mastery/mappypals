@@ -47,17 +47,44 @@ class Map extends Component {
       this.setState({currentPin:this.state.friendsList[event.target.id]})
       setTimeout(()=>{
         const popup=document.getElementById("popup");
-        popup.style.height="180px"
-      },1000) 
+        if(popup)popup.style.height="180px"
+      },500) 
   }
   hidePopup=(event)=>{
       const popup=document.getElementById("popup");
-      popup.style.height="0px";
+      if(this.state.currentPin.long) popup.style.height="0px";
       this.setState({currentPin: {}})
 }
 //temporary "database insert"
+  nicknameExists=(nickname,email)=>{
+    const addNew=document.getElementById("add-new")
+    const hashListKeys=Object.keys(this.state.friendsList);
+    let flag=false
+    console.log({nickname, email})
+    if(!nickname || !nickname.length || hashListKeys.includes(nickname)) {
+      addNew.children[0].style.border="2px solid red"
+      flag=true
+    }
+    else addNew.children[0].style.border="";
+    if(!email || !email.length){
+      addNew.children[1].style.border="2px solid red"
+      flag=true
+    }
+    else addNew.children[1].style.border=""
+    if(Object.keys(this.state.friendsList)>0){
+      for(let friend of this.state.friendsList){
+        if(this.state.friendsList[friend].email) {
+          addNew.children[1].style.border="2px solid red"
+          flag=true
+        }
+        else addNew.children[1].style.border=""
+      }
+    }
+   return flag
+  }
   addFriendData=(friendState)=>{
     const {nickname, name, email, phone}=friendState.data
+    if(this.nicknameExists(nickname,email)) return
     const newFriend={...this.state.newFriend, nickname, name, email, phone};
     this.setState({newFriend})
     setTimeout(()=>this.addFriendToList(),1000);
@@ -77,7 +104,9 @@ class Map extends Component {
     this.setState({friendsList: {...this.state.friendsList, [this.state.newFriend.nickname]: this.state.newFriend}, newFriend: resetNewFriend})
     const addNew=document.getElementById("add-new");
     addNew.style.height="0px";
-
+    for(let child of addNew.children){
+     child.value=""
+    }
   }
 
   newPin=(event)=>{
