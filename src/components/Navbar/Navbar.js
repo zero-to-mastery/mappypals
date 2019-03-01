@@ -1,15 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import './Navbar.css'
+import logo from "../../pics/mappyPals.svg";
 
 export default () => (
     <React.Fragment>
       <header>
           <div id="logo-wrapper">
           <Link to="/">
-            <p id="logo"> <span>Mappy&nbsp; als  &nbsp;</span> </p>
-            <i className="fas fa-map-marker-alt pin"></i>
-            <i className="fas fa-users"></i>
+            {/*<p id="logo"> <span>Mappy&nbsp; als  &nbsp;</span> </p>
+            <i className="fas fa-map-marker-alt pin"></i>*/}
+            <img src={logo} alt="Mappy Pals"/>
           </Link>
           </div>
           <div id="nav-wrapper">

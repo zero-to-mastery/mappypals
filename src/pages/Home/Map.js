@@ -11,8 +11,8 @@ const navStyle = {
   padding: '10px',
 };
 class Map extends Component {
-
   state = {
+    currentPin:{},
     newFriend: {
       long:null, 
       lat: null, 
@@ -24,7 +24,7 @@ class Map extends Component {
       nickname:""
     },
     //temporary "database"
-    friendsList: [],
+    friendsList: {},
     viewport: {
       width: "100vw",
       height: "100vh",
@@ -43,25 +43,48 @@ class Map extends Component {
     this.setState({newFriend:{...this.state.newFriend, long:lngLat[0], lat: lngLat[1]}})
   }
   
-  showPopup=()=>{
-    const popup=document.getElementById("popup");
-    popup.style.height="180px";
-    popup.style.display="flex"
+  showPopup=(event)=>{
+      this.setState({currentPin:this.state.friendsList[event.target.id]})
+      setTimeout(()=>{
+        const popup=document.getElementById("popup");
+        popup.style.height="180px"
+      },1000) 
   }
-  hidePopup=()=>{
-  const popup=document.getElementById("popup");
-  popup.style.height="0px"
-  popup.style.display="none"
+  hidePopup=(event)=>{
+      const popup=document.getElementById("popup");
+      popup.style.height="0px";
+      this.setState({currentPin: {}})
 }
 //temporary "database insert"
   addFriendData=(friendState)=>{
     const {nickname, name, email, phone}=friendState.data
-    this.setState({newFriend: {...this.state.newFriend, nickname, name, email, phone}})
+    const newFriend={...this.state.newFriend, nickname, name, email, phone};
+    this.setState({newFriend})
     setTimeout(()=>this.addFriendToList(),1000);
   }
 //temporary add friend - restful api call with db insert while implementing Backend
   addFriendToList=()=>{
-   console.log(this.state.newFriend)
+    const resetNewFriend={
+      long:null, 
+      lat: null, 
+      name:"", 
+      email: "", 
+      phone:"", 
+      postcode:"",
+      country:"",
+      nickname:""
+    }
+    this.setState({friendsList: {...this.state.friendsList, [this.state.newFriend.nickname]: this.state.newFriend}, newFriend: resetNewFriend})
+    const addNew=document.getElementById("add-new");
+    addNew.style.height="0px";
+
+  }
+
+  newPin=(event)=>{
+    this.getLocation(event); 
+    this.getPostcode();
+    const addNew=document.getElementById("add-new");
+    addNew.style.height="180px";
   }
 
   componentDidMount(){
@@ -71,10 +94,32 @@ class Map extends Component {
     window.addEventListener("resize", (viewport)=>{
       this.setState({viewport:{...viewport, width: viewport.target.innerWidth, height: viewport.target.innerHeight}})
     })
+    window.addEventListener("keydown",(event)=>{
+      if(event.key==="Escape") {
+        this.setState({newFriend: {long: null}, currentPin:{}});
+        document.getElementById("add-new").style.height="";
+      }
+    })
+  }
+  allPins=()=>{
+    const htmlMarkersCollection=[];
+    const hashList=this.state.friendsList;
+    for(let friend in hashList){
+      const{ nickname, name, lat, long }=hashList[friend]
+      htmlMarkersCollection.push(
+        <Marker
+          key={nickname}
+          latitude={lat}
+          longitude={long}
+        >
+          <i id={nickname} key={nickname+"k"} onClick={()=>console.log("Here to edit friends details")}onMouseOver={(e)=>this.showPopup(e)} onMouseLeave={(e)=>this.hidePopup(e)} className="fas fa-map-marker-alt"></i>
+        </Marker>
+        )
+    }
+    return htmlMarkersCollection
   }
 
   render() {
-    console.log(this.state)
     return (
       <div style={{height:"100vh"}}>
       <MapGL
@@ -82,19 +127,22 @@ class Map extends Component {
         onViewportChange={(viewport) =>this.setState({viewport})}
         mapboxApiAccessToken={TOKEN}
         mapStyle='mapbox://styles/mapbox/streets-v11'
-        onClick={(e)=>{this.getLocation(e); this.getPostcode() }}
+        onClick={this.newPin}
       >
         {
-        (this.state.newFriend.long)?<Marker
+          (Object.keys(this.state.friendsList).length>0)?this.allPins():""
+        }
+        {
+        (this.state.newFriend.long!==null)?<Marker
           latitude={this.state.newFriend.lat}
           longitude={this.state.newFriend.long}
         >
-          <i onMouseOver={this.showPopup} onMouseLeave={this.hidePopup} className="fas fa-map-marker-alt"></i>
+          <i id="new-pin" className="fas fa-map-marker-alt"></i>
         </Marker>:""
         }
 
       </MapGL>
-      <PopUp name={this.state.newFriend.name} email={this.state.newFriend.email} phone={this.state.newFriend.phone} postcode={this.state.newFriend.postcode}/>
+      {(this.state.currentPin.nickname && !this.state.newFriend.long) ?<PopUp nickname={this.state.currentPin.nickname} name={this.state.currentPin.name} email={this.state.currentPin.email} phone={this.state.currentPin.phone} postcode={this.state.currentPin.postcode}/>:""}
       {/*this is for now fully visible still being implemented*/}
       <AddFriendForm onFriendLoaded={this.addFriendData}/>
       </div>

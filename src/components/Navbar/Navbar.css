@@ -1,7 +1,7 @@
 /*b3442e	636863	b49410	d1d1d1	568b98*/
 
 header{
-	height: 10vh;
+	height: 75px;
 	background-color: #1f3a93;
 	display: inline-flex;
 	width: 100%;
@@ -13,13 +13,20 @@ header{
 }
 #nav-wrapper{
 	font-family: 'Play', sans-serif;
-	width: 80%;
+	width: 96%;
 	height: 30px;
-	justify-content: flex-end;
 	display: flex;
 	float: right;
+	justify-content: flex-end;
 	align-self: flex-end;
-	font-size: 18px
+	font-size: 18px;
+	padding-bottom: 5px;
+}
+#logo-wrapper img{
+	width: 160px;
+	position: absolute;
+	z-index: 1;
+	top: 0px;
 }
 header .nav-item{
 	width: 100px;
