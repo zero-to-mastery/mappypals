@@ -1,5 +1,4 @@
 import React from 'react';
-import Main from './Main';
 
 // The Layout componet is where we define how the pages ({children}) are laid out. 
 // You may style this componet for general page layout
