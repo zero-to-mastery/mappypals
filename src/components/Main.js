@@ -1,8 +1,9 @@
 import React from 'react'
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom';
 import Login from '../pages/Login/Login'
-import Home from '../pages/Home/Home'
-import Contact from '../pages/Contact/Contact'
+import Home from '../pages/Home/Home';
+import Contact from '../pages/Contact/Contact';
+import About from '../pages/About/About';
 import Signup from '../pages/Login/Signup';
 
 // The Main component renders one of the three provided
@@ -16,6 +17,7 @@ const Main = () => (
       <Route exact path='/' component={Home}/>
       <Route path='/login' component={Login}/>
       <Route path="/signup" component={Signup}/>
+      <Route path="/about" component={}/> 
       <Route path="/contact" component={Contact} />
     </Switch>
   </main>
