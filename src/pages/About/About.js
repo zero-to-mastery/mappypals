@@ -40,7 +40,7 @@ const About = () => {
         </WhoWeAre>
         <TeamCardGrid>
           {team.map((data, id) => {
-            return(
+            return( 
               <TeamCard key={id} 
                 id={id}
                 name={data.name}
