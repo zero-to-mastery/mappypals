@@ -196,7 +196,6 @@ class Map extends Component {
   }
 
   render() {
-    console.log(this.state.edit, this.state.show);
     return (
       <div style={{ height: "100vh" }}>
         <MapGL
