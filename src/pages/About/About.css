@@ -2,11 +2,9 @@ div.user-photo {
         width: 150px;
         height: 150px;
         margin: 1em auto;
-        background: #fff;
-        border-radius: 50%;
-        overflow: hidden;
       }
       div.user-photo img{
-        display: block;
         max-height: 100%;
+        border-radius: 50%;
+        background:#fff;
       }
