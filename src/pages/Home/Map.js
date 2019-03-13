@@ -18,6 +18,7 @@ class Map extends Component {
       country: "",
       nickname: ""
     },
+    edit: false,
     //temporary "database"
     friendsList: {},
     viewport: {
@@ -41,7 +42,6 @@ class Map extends Component {
       .then(data =>
         this.setState({
           newFriend: {
-            ...this.state.newFriend,
             postcode: data.features[1].text,
             country: data.features[6].text
           }
@@ -53,10 +53,11 @@ class Map extends Component {
     this.setState({
       newFriend: { ...this.state.newFriend, long: lngLat[0], lat: lngLat[1] }
     });
+    this.setState({edit: false, show: true});
   };
 
   showPopup = event => {
-    this.setState({ currentPin: this.state.friendsList[event.target.id] });
+    this.setState({ currentPin: this.state.friendsList[event.target.id]});
     setTimeout(() => {
       const popup = document.getElementById("popup");
       if (popup) popup.style.height = "180px";
@@ -64,15 +65,13 @@ class Map extends Component {
   };
   hidePopup = event => {
     const popup = document.getElementById("popup");
-    if (this.state.currentPin.long) popup.style.height = "0px";
-    this.setState({ currentPin: {} });
+    this.setState({ currentPin: {}});
   };
   //temporary "database insert"
   nicknameExists = (nickname, email) => {
     const addNew = document.getElementById("add-new");
     const hashListKeys = Object.keys(this.state.friendsList);
     let flag = false;
-    console.log({ nickname, email });
     if (!nickname || !nickname.length || hashListKeys.includes(nickname)) {
       addNew.children[0].style.border = "2px solid red";
       flag = true;
@@ -91,6 +90,11 @@ class Map extends Component {
     }
     return flag;
   };
+
+  onClose = () => {
+    this.setState({show: false });
+  }
+
   addFriendData = friendState => {
     const { nickname, name, email, phone } = friendState.data;
     if (this.nicknameExists(nickname, email)) return;
@@ -115,20 +119,15 @@ class Map extends Component {
         ...this.state.friendsList,
         [this.state.newFriend.nickname]: this.state.newFriend
       },
-      newFriend: resetNewFriend
+      newFriend: resetNewFriend,
+      edit: false,
+      show: false
     });
-    const addNew = document.getElementById("add-new");
-    addNew.style.height = "0px";
-    for (let child of addNew.children) {
-      child.value = "";
-    }
   };
 
   newPin = event => {
     this.getLocation(event);
     this.getPostcode();
-    const addNew = document.getElementById("add-new");
-    addNew.style.height = "180px";
   };
 
   componentDidMount() {
@@ -170,7 +169,7 @@ class Map extends Component {
           <i
             id={nickname}
             key={nickname + "k"}
-            onClick={() => console.log("Here to edit friends details")}
+            onClick={() => this.handleEdit(hashList[friend])}
             onMouseOver={e => this.showPopup(e)}
             onMouseLeave={e => this.hidePopup(e)}
             className="fas fa-map-marker-alt"
@@ -180,6 +179,21 @@ class Map extends Component {
     }
     return htmlMarkersCollection;
   };
+
+  handleEdit = (friend) => {
+    this.setState({newFriend: friend, edit: true, show: true });
+  }
+
+  renderForm() {
+    if(this.state.show == true) {
+      return(
+        <AddFriendForm onFriendLoaded={this.addFriendData} data={this.state.newFriend} edit={this.state.edit} show={this.state.show} onCloseClick={this.onClose} />
+      )
+    } else {
+      return null;
+    }
+    
+  }
 
   render() {
     return (
@@ -215,7 +229,7 @@ class Map extends Component {
           ""
         )}
         {/*this is for now fully visible still being implemented*/}
-        <AddFriendForm onFriendLoaded={this.addFriendData} />
+        {this.renderForm()}
       </div>
     );
   }
