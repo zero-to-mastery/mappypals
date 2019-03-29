@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Login from '../pages/Login/Login'
+import Login from '../pages/Login/Login';
 import Home from '../pages/Home/Home';
 import Contact from '../pages/Contact/Contact';
 import About from '../pages/About/About';
@@ -14,13 +14,13 @@ import Signup from '../pages/Login/Signup';
 const Main = () => (
   <main>
     <Switch>
-      <Route exact path='/' component={Home}/>
-      <Route path='/login' component={Login}/>
-      <Route path="/signup" component={Signup}/>
-      <Route path="/about" component={About}/> 
+      <Route exact path="/" component={Home} />
+      <Route path="/login" component={Login} />
+      <Route path="/signup" component={Signup} />
+      <Route path="/about" component={About} />
       <Route path="/contact" component={Contact} />
     </Switch>
   </main>
-)
+);
 
-export default Main
+export default Main;

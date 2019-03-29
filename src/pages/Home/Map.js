@@ -1,29 +1,29 @@
-import React, { Component } from "react";
-import MapGL, { Marker } from "react-map-gl";
-import PopUp from "./PopUp.js";
-import AddFriendForm from "./AddFriendForm.js";
-import "./Home.css";
+import React, { Component } from 'react';
+import MapGL, { Marker } from 'react-map-gl';
+import PopUp from './PopUp.js';
+import AddFriendForm from './AddFriendForm.js';
+import './Home.css';
 const TOKEN =
-  "pk.eyJ1Ijoic2Npb3J0aW5vbXJjIiwiYSI6ImNqc2RocmRzYTB2OGUzeWxuZDNmdDhrcDgifQ.txLXHEJPl4lYa8an6fcjuA";
+  'pk.eyJ1Ijoic2Npb3J0aW5vbXJjIiwiYSI6ImNqc2RocmRzYTB2OGUzeWxuZDNmdDhrcDgifQ.txLXHEJPl4lYa8an6fcjuA';
 class Map extends Component {
   state = {
     currentPin: {},
     newFriend: {
       long: null,
       lat: null,
-      name: "",
-      email: "",
-      phone: "",
-      postcode: "",
-      country: "",
-      nickname: ""
+      name: '',
+      email: '',
+      phone: '',
+      postcode: '',
+      country: '',
+      nickname: ''
     },
     edit: false,
     //temporary "database"
     friendsList: {},
     viewport: {
-      width: "100vw",
-      height: "100vh",
+      width: '100vw',
+      height: '100vh',
       latitude: 37.7577,
       longitude: -122.4376,
       zoom: 11
@@ -31,11 +31,11 @@ class Map extends Component {
   };
   getPostcode = () => {
     fetch(
-      "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
+      'https://api.mapbox.com/geocoding/v5/mapbox.places/' +
         this.state.newFriend.long +
-        "," +
+        ',' +
         this.state.newFriend.lat +
-        ".json?access_token=" +
+        '.json?access_token=' +
         TOKEN
     )
       .then(resp => resp.json())
@@ -53,47 +53,46 @@ class Map extends Component {
     this.setState({
       newFriend: { ...this.state.newFriend, long: lngLat[0], lat: lngLat[1] }
     });
-    this.setState({edit: false, show: true});
+    this.setState({ edit: false, show: true });
   };
 
   showPopup = event => {
-    this.setState({ currentPin: this.state.friendsList[event.target.id]});
+    this.setState({ currentPin: this.state.friendsList[event.target.id] });
     setTimeout(() => {
-      const popup = document.getElementById("popup");
-      if (popup) popup.style.height = "180px";
+      const popup = document.getElementById('popup');
+      if (popup) popup.style.height = '180px';
     }, 500);
   };
   hidePopup = event => {
-    const popup = document.getElementById("popup");
-    this.setState({ currentPin: {}});
+    this.setState({ currentPin: {} });
   };
   //temporary "database insert"
   nicknameExists = (nickname, email) => {
-    const addNew = document.getElementById("add-new");
+    const addNew = document.getElementById('add-new');
     const hashListKeys = Object.keys(this.state.friendsList);
     let flag = false;
     if (!nickname || !nickname.length || hashListKeys.includes(nickname)) {
-      addNew.children[0].style.border = "2px solid red";
+      addNew.children[0].style.border = '2px solid red';
       flag = true;
-    } else addNew.children[0].style.border = "";
+    } else addNew.children[0].style.border = '';
     if (!email || !email.length) {
-      addNew.children[1].style.border = "2px solid red";
+      addNew.children[1].style.border = '2px solid red';
       flag = true;
-    } else addNew.children[1].style.border = "";
+    } else addNew.children[1].style.border = '';
     if (Object.keys(this.state.friendsList) > 0) {
       for (let friend of this.state.friendsList) {
         if (this.state.friendsList[friend].email) {
-          addNew.children[1].style.border = "2px solid red";
+          addNew.children[1].style.border = '2px solid red';
           flag = true;
-        } else addNew.children[1].style.border = "";
+        } else addNew.children[1].style.border = '';
       }
     }
     return flag;
   };
 
   onClose = () => {
-    this.setState({show: false });
-  }
+    this.setState({ show: false });
+  };
 
   addFriendData = friendState => {
     const { nickname, name, email, phone } = friendState.data;
@@ -107,12 +106,12 @@ class Map extends Component {
     const resetNewFriend = {
       long: null,
       lat: null,
-      name: "",
-      email: "",
-      phone: "",
-      postcode: "",
-      country: "",
-      nickname: ""
+      name: '',
+      email: '',
+      phone: '',
+      postcode: '',
+      country: '',
+      nickname: ''
     };
     this.setState({
       friendsList: {
@@ -131,19 +130,17 @@ class Map extends Component {
   };
 
   componentDidMount() {
-    window.navigator.geolocation.getCurrentPosition(
-      position => {
-        if (position.coords.latitude)
-          this.setState({
-            viewport: {
-              ...this.state.viewport,
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude
-            }
-          });
-      }
-    );
-      window.addEventListener("resize", viewport => {
+    window.navigator.geolocation.getCurrentPosition(position => {
+      if (position.coords.latitude)
+        this.setState({
+          viewport: {
+            ...this.state.viewport,
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+          }
+        });
+    });
+    window.addEventListener('resize', viewport => {
       this.setState({
         viewport: {
           ...viewport,
@@ -152,10 +149,10 @@ class Map extends Component {
         }
       });
     });
-    window.addEventListener("keydown", event => {
-      if (event.key === "Escape") {
+    window.addEventListener('keydown', event => {
+      if (event.key === 'Escape') {
         this.setState({ newFriend: { long: null }, currentPin: {} });
-        document.getElementById("add-new").style.height = "";
+        document.getElementById('add-new').style.height = '';
       }
     });
   }
@@ -168,7 +165,7 @@ class Map extends Component {
         <Marker key={nickname} latitude={lat} longitude={long}>
           <i
             id={nickname}
-            key={nickname + "k"}
+            key={nickname + 'k'}
             onClick={() => this.handleEdit(hashList[friend])}
             onMouseOver={e => this.showPopup(e)}
             onMouseLeave={e => this.hidePopup(e)}
@@ -180,24 +177,29 @@ class Map extends Component {
     return htmlMarkersCollection;
   };
 
-  handleEdit = (friend) => {
-    this.setState({newFriend: friend, edit: true, show: true });
-  }
+  handleEdit = friend => {
+    this.setState({ newFriend: friend, edit: true, show: true });
+  };
 
   renderForm() {
-    if(this.state.show == true) {
-      return(
-        <AddFriendForm onFriendLoaded={this.addFriendData} data={this.state.newFriend} edit={this.state.edit} show={this.state.show} onCloseClick={this.onClose} />
-      )
+    if (this.state.show === true) {
+      return (
+        <AddFriendForm
+          onFriendLoaded={this.addFriendData}
+          data={this.state.newFriend}
+          edit={this.state.edit}
+          show={this.state.show}
+          onCloseClick={this.onClose}
+        />
+      );
     } else {
       return null;
     }
-    
   }
 
   render() {
     return (
-      <div style={{ height: "100vh" }}>
+      <div style={{ height: '100vh' }}>
         <MapGL
           {...this.state.viewport}
           onViewportChange={viewport => this.setState({ viewport })}
@@ -205,7 +207,7 @@ class Map extends Component {
           mapStyle="mapbox://styles/mapbox/streets-v11"
           onClick={this.newPin}
         >
-          {Object.keys(this.state.friendsList).length > 0 ? this.allPins() : ""}
+          {Object.keys(this.state.friendsList).length > 0 ? this.allPins() : ''}
           {this.state.newFriend.long !== null ? (
             <Marker
               latitude={this.state.newFriend.lat}
@@ -214,7 +216,7 @@ class Map extends Component {
               <i id="new-pin" className="fas fa-map-marker-alt" />
             </Marker>
           ) : (
-            ""
+            ''
           )}
         </MapGL>
         {this.state.currentPin.nickname && !this.state.newFriend.long ? (
@@ -226,7 +228,7 @@ class Map extends Component {
             postcode={this.state.currentPin.postcode}
           />
         ) : (
-          ""
+          ''
         )}
         {/*this is for now fully visible still being implemented*/}
         {this.renderForm()}

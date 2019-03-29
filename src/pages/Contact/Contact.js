@@ -1,5 +1,5 @@
 import React from 'react';
-import './Contact.css'
+import './Contact.css';
 
 // add some content here
 
@@ -9,15 +9,18 @@ const Contact = () => (
       <fieldset>
         <legend>Send us a Message!</legend>
         <div className="Contact-item">
-          <label>Name</label><br/>
+          <label>Name</label>
+          <br />
           <input type="text" name="name" />
         </div>
         <div className="Contact-item">
-          <label>Email</label><br/>
+          <label>Email</label>
+          <br />
           <input type="email" name="name" />
         </div>
         <div className="Contact-item">
-          <label>Message</label><br/>
+          <label>Message</label>
+          <br />
           <textarea type="text" rows="6" />
         </div>
       </fieldset>
