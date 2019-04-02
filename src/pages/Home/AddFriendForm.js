@@ -5,7 +5,7 @@ class AddFriendForm extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-          data: this.props.edit == true ? this.props.data : {}
+          data: this.props.edit === true ? this.props.data : {}
       }
       this.anythingChanges.bind(this.anythingChanges);
     }

@@ -1,5 +1,4 @@
 import React from 'react'
-import Layout from '../../components/Layout'
 import team from './team-data'
 import TeamCard from './TeamCard';
 import styled from 'styled-components'; 

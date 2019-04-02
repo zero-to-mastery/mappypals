@@ -64,7 +64,7 @@ class Map extends Component {
     }, 500);
   };
   hidePopup = event => {
-    const popup = document.getElementById("popup");
+    // const popup = document.getElementById("popup");
     this.setState({ currentPin: {}});
   };
   //temporary "database insert"
@@ -185,7 +185,7 @@ class Map extends Component {
   }
 
   renderForm() {
-    if(this.state.show == true) {
+    if(this.state.show === true) {
       return(
         <AddFriendForm onFriendLoaded={this.addFriendData} data={this.state.newFriend} edit={this.state.edit} show={this.state.show} onCloseClick={this.onClose} />
       )
