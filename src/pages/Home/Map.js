@@ -69,11 +69,11 @@ class Map extends Component {
     }, 500);
   };
   hidePopup = event => {
-    console.log({editmode: this.state.edit})
     if(!this.state.edit){
       const popup = document.getElementById("popup");
-      if (this.state.currentPin.long) popup.style.height = "0px";
-      this.setState({ currentPin: {} });
+      console.log(this.state.currentPin)
+      popup.style.height = "0px";
+      setTimeout(()=>this.setState({ currentPin: {} }),600);
     }
   };
   nicknameExists = (nickname, email) => {
@@ -195,6 +195,9 @@ class Map extends Component {
   activateEditMode=()=>{
     this.setState({edit: true})
   }
+  closeEditMode=()=>{
+    this.setState({edit: false})
+  }
 
   render() {
     return (
@@ -229,11 +232,14 @@ class Map extends Component {
         </MapGL>
         {this.state.currentPin.nickname && !this.state.newFriend.long ? (
           <PopUp
+            editMode={this.state.edit}
             nickname={this.state.currentPin.nickname}
             name={this.state.currentPin.name}
             email={this.state.currentPin.email}
             phone={this.state.currentPin.phone}
             postcode={this.state.currentPin.postcode}
+            save={this.closeEditMode}
+            hideThis={this.hidePopup}
           />
         ) : (
           ""

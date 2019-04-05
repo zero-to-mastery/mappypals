@@ -124,7 +124,7 @@ section canvas {
     text-align: center;
     justify-content: center;
     overflow: hidden;
-    transition: height 0.4s ease-in-out;
+    transition: height 0.6s ease-in-out;
 }
 
 #popup div{
@@ -192,4 +192,9 @@ section canvas {
     font-weight: bold;
     border: none;
     height: 40px;
+}
+.close-btn {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
 }
