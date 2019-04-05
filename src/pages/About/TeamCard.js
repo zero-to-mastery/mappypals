@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import './About.css';
 
 const Card = styled.div` 
   background-color: pink;
@@ -19,7 +20,9 @@ const Card = styled.div`
 const TeamCard = ({ id, name, role, location,  isEmployed }) => (
   <React.Fragment>
     <Card>
-      <img src={`https://robohash.org/${id}?size=200x200`} alt="Team Avatars"/>
+      <div className="user-photo">
+        <img src={`https://robohash.org/${id}?size=200x200`} alt="Team Avatars"/>
+      </div>
       <h2>{name}</h2>
       <h3>{role}</h3>
       <h4>{location}</h4>

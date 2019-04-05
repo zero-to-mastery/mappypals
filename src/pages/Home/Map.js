@@ -19,6 +19,7 @@ class Map extends Component {
       country: "",
       nickname: ""
     },
+    edit: false,
     //temporary "database"
     friendsList: {},
     viewport: {
@@ -34,6 +35,7 @@ class Map extends Component {
       longitude: "",
     }
   };
+
   getPostcode = () => {
     fetch(
       "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
@@ -47,7 +49,6 @@ class Map extends Component {
       .then(data =>
         this.setState({
           newFriend: {
-            ...this.state.newFriend,
             postcode: data.features[1].text,
             country: data.features[6].text
           }
@@ -59,10 +60,11 @@ class Map extends Component {
     this.setState({
       newFriend: { ...this.state.newFriend, long: lngLat[0], lat: lngLat[1] }
     });
+    this.setState({edit: false, show: true});
   };
 
   showPopup = event => {
-    this.setState({ currentPin: this.state.friendsList[event.target.id] });
+    this.setState({ currentPin: this.state.friendsList[event.target.id]});
     setTimeout(() => {
       const popup = document.getElementById("popup");
       if (popup) popup.style.height = "180px";
@@ -99,6 +101,7 @@ class Map extends Component {
     return flag;
   };
   //temporary "database insert"
+
   addFriendData = friendState => {
     const { nickname, name, email, phone } = friendState.data;
     if (this.nicknameExists(nickname, email)) return;
@@ -123,20 +126,15 @@ class Map extends Component {
         ...this.state.friendsList,
         [this.state.newFriend.nickname]: this.state.newFriend
       },
-      newFriend: resetNewFriend
+      newFriend: resetNewFriend,
+      edit: false,
+      show: false
     });
-    const addNew = document.getElementById("add-new");
-    addNew.style.height = "0px";
-    for (let child of addNew.children) {
-      child.value = "";
-    }
   };
 
   newPin = event => {
     this.getLocation(event);
     this.getPostcode();
-    const addNew = document.getElementById("add-new");
-    addNew.style.height = "180px";
   };
 
   componentDidMount() {
@@ -199,6 +197,21 @@ class Map extends Component {
     this.setState({edit: false})
   }
 
+  handleEdit = (friend) => {
+    this.setState({newFriend: friend, edit: true, show: true });
+  }
+
+  renderForm() {
+    if(this.state.show == true) {
+      return(
+        <AddFriendForm onFriendLoaded={this.addFriendData} data={this.state.newFriend} edit={this.state.edit} show={this.state.show} onCloseClick={this.onClose} />
+      )
+    } else {
+      return null;
+    }
+    
+  }
+
   render() {
     return (
       <div style={{ height: "100vh" }}>
@@ -245,7 +258,7 @@ class Map extends Component {
           ""
         )}
         {/*this is for now fully visible still being implemented*/}
-        <AddFriendForm onFriendLoaded={this.addFriendData} />
+        {this.renderForm()}
       </div>
     );
   }

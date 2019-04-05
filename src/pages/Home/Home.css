@@ -162,7 +162,7 @@ section canvas {
 #add-new {
     position: absolute;
     width: 50vw;
-    height: 0px;
+    height: 180px;
     bottom: 0px;
     border-radius: 20px;
     border-bottom-left-radius: 0px;
