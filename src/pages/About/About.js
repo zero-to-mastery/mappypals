@@ -32,7 +32,7 @@ const WhoWeAre = styled.div`
 
 const About = () => {
   return (
-    <>
+    <Layout>
       <AboutPageLayout>
         <WhoWeAre>
           <h2>Who We Are</h2>
@@ -46,14 +46,14 @@ const About = () => {
                 name={data.name}
                 role= {data.role}
                 location={data.location}
-                isEmployed={data.isEmployed ? "true" : 'false'}
+                isEmployed={data.isEmployed}
               /> 
             )
             }
           )}
         </TeamCardGrid>
       </AboutPageLayout>
-    </>
+    </Layout>
   )
 }
 

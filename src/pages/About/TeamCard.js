@@ -10,7 +10,7 @@ const Card = styled.div`
   padding: 10px;
   border-radius: 10px;
   box-shadow: 0 0 10px 1px lightgrey;
-  transition: all .2s ease-in-out;    
+  transition: all .4s ease-in-out;    
   &:hover {
     transform: scale(1.1); 
   }
@@ -23,7 +23,7 @@ const TeamCard = ({ id, name, role, location,  isEmployed }) => (
       <h2>{name}</h2>
       <h3>{role}</h3>
       <h4>{location}</h4>
-      <h4>Employed: {isEmployed}</h4>
+      <h4>{(isEmployed)?"Employed":"Unemployed"}</h4>
     </Card>
   </React.Fragment>
 )
