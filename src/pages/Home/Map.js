@@ -19,7 +19,6 @@ class Map extends Component {
       country: "",
       nickname: ""
     },
-    edit: false,
     //temporary "database"
     friendsList: {},
     viewport: {
@@ -202,7 +201,7 @@ class Map extends Component {
   }
 
   renderForm() {
-    if(this.state.show == true) {
+    if(this.state.show === true) {
       return(
         <AddFriendForm onFriendLoaded={this.addFriendData} data={this.state.newFriend} edit={this.state.edit} show={this.state.show} onCloseClick={this.onClose} />
       )
