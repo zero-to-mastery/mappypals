@@ -3,9 +3,8 @@ import { Link } from 'react-router-dom'
 import './Navbar.css'
 import logo from "../../pics/mappyPals.svg";
 
-const Navbar=({isUserLogged, onLogin})=>{
-  return(
-  <React.Fragment>
+export default () => (
+    <React.Fragment>
       <header>
           <div id="logo-wrapper">
           <Link to="/">
@@ -18,11 +17,8 @@ const Navbar=({isUserLogged, onLogin})=>{
             <Link className="nav-item" to='/'> Home </Link>
             <Link className="nav-item" to='/about'> About </Link>
             <Link className="nav-item" to='/contact'> Contact us </Link>
-            <Link className="nav-item" to='/login'> <p onClick={onLogin}> Login </p> </Link>
+            <Link className="nav-item" to='/login'> Login </Link>
           </div>
       </header>
     </React.Fragment>
-    ) 
-}
-
-export default Navbar
+)

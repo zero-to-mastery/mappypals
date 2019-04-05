@@ -20,6 +20,7 @@ header{
 	justify-content: flex-end;
 	align-self: flex-end;
 	font-size: 18px;
+	padding-bottom: 5px;
 }
 #logo-wrapper img{
 	width: 160px;
@@ -44,11 +45,33 @@ header .nav-item{
 header .nav-item:hover{
 	background-color: #a537fd;
 }
-header p{ padding: 0px; margin: 0px; }
 header i{
 	padding: 20px;
 	font-size: 6em;
 	color: black;
 	opacity: 0.6;}
-
-
+#logo{
+	display: flex;
+	line-height: 0.4em;
+	position: absolute;
+	background-color: #ffffffcc;
+	width: auto;
+	height: 0.7em;
+	border-radius: 30px;
+	padding: 0px;
+	color: #568b98;
+	font-family: 'Leckerli One', cursive;
+	font-size: 3em;
+	z-index: 2;
+	margin-top: 76px
+}
+.pin{
+	position: absolute;
+	font-size: 3em;
+	color: #568b98;
+	margin-top: 45px;
+	margin-left:133px;
+	opacity: 1;
+	z-index: 3;
+	transform: rotate(37deg);
+}

@@ -7,7 +7,6 @@ const TOKEN =
   "pk.eyJ1Ijoic2Npb3J0aW5vbXJjIiwiYSI6ImNqc2RocmRzYTB2OGUzeWxuZDNmdDhrcDgifQ.txLXHEJPl4lYa8an6fcjuA";
 class Map extends Component {
   state = {
-    edit: false,
     currentPin: {},
     newFriend: {
       long: null,
@@ -27,11 +26,6 @@ class Map extends Component {
       latitude: 37.7577,
       longitude: -122.4376,
       zoom: 11
-    },
-    //user pin
-    pinMe:{
-      latitude: "",
-      longitude: "",
     }
   };
   getPostcode = () => {
@@ -69,17 +63,16 @@ class Map extends Component {
     }, 500);
   };
   hidePopup = event => {
-    console.log({editmode: this.state.edit})
-    if(!this.state.edit){
-      const popup = document.getElementById("popup");
-      if (this.state.currentPin.long) popup.style.height = "0px";
-      this.setState({ currentPin: {} });
-    }
+    const popup = document.getElementById("popup");
+    if (this.state.currentPin.long) popup.style.height = "0px";
+    this.setState({ currentPin: {} });
   };
+  //temporary "database insert"
   nicknameExists = (nickname, email) => {
     const addNew = document.getElementById("add-new");
     const hashListKeys = Object.keys(this.state.friendsList);
     let flag = false;
+    console.log({ nickname, email });
     if (!nickname || !nickname.length || hashListKeys.includes(nickname)) {
       addNew.children[0].style.border = "2px solid red";
       flag = true;
@@ -98,7 +91,6 @@ class Map extends Component {
     }
     return flag;
   };
-  //temporary "database insert"
   addFriendData = friendState => {
     const { nickname, name, email, phone } = friendState.data;
     if (this.nicknameExists(nickname, email)) return;
@@ -148,18 +140,14 @@ class Map extends Component {
               ...this.state.viewport,
               latitude: position.coords.latitude,
               longitude: position.coords.longitude
-            },
-            pinMe:{
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude
-            },
+            }
           });
       }
     );
       window.addEventListener("resize", viewport => {
       this.setState({
         viewport: {
-          ...this.state.viewport,
+          ...viewport,
           width: viewport.target.innerWidth,
           height: viewport.target.innerHeight
         }
@@ -182,7 +170,7 @@ class Map extends Component {
           <i
             id={nickname}
             key={nickname + "k"}
-            onClick={this.activateEditMode}
+            onClick={() => console.log("Here to edit friends details")}
             onMouseOver={e => this.showPopup(e)}
             onMouseLeave={e => this.hidePopup(e)}
             className="fas fa-map-marker-alt"
@@ -192,9 +180,6 @@ class Map extends Component {
     }
     return htmlMarkersCollection;
   };
-  activateEditMode=()=>{
-    this.setState({edit: true})
-  }
 
   render() {
     return (
@@ -217,15 +202,6 @@ class Map extends Component {
           ) : (
             ""
           )}
-          {this.state.pinMe.latitude?
-            <Marker key="me" latitude={this.state.pinMe.latitude} longitude={this.state.pinMe.longitude}>
-              <i
-                id="me"
-                key="me-pin"
-                className="fas fa-map-marker-alt"
-              />
-            </Marker>:""
-          }
         </MapGL>
         {this.state.currentPin.nickname && !this.state.newFriend.long ? (
           <PopUp
