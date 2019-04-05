@@ -1,0 +1,28 @@
+{
+  "name": "mappypals",
+  "version": "1.0.0",
+  "description": "track your friend abroad",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/zerotomastery/mappypals.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zerotomastery/mappypals/issues"
+  },
+  "homepage": "https://github.com/zerotomastery/mappypals#readme",
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "mongodb": "^3.1.13",
+    "postgresql": "0.0.1"
+  }
+}
