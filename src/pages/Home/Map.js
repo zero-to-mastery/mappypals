@@ -48,6 +48,7 @@ class Map extends Component {
       .then(data =>
         this.setState({
           newFriend: {
+            ...this.state.newFriend,
             postcode: data.features[1].text,
             country: data.features[6].text
           }
@@ -57,9 +58,9 @@ class Map extends Component {
   getLocation = event => {
     const lngLat = event.lngLat;
     this.setState({
-      newFriend: { ...this.state.newFriend, long: lngLat[0], lat: lngLat[1] }
+      newFriend: { ...this.state.newFriend, long: lngLat[0], lat: lngLat[1] },
     });
-    this.setState({edit: false, show: true});
+   setTimeout(()=>console.log(this.state.newFriend),500)
   };
 
   showPopup = event => {
