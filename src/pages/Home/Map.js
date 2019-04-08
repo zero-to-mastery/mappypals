@@ -7,6 +7,7 @@ const TOKEN =
   "pk.eyJ1Ijoic2Npb3J0aW5vbXJjIiwiYSI6ImNqc2RocmRzYTB2OGUzeWxuZDNmdDhrcDgifQ.txLXHEJPl4lYa8an6fcjuA";
 class Map extends Component {
   state = {
+    edit: false,
     currentPin: {},
     newFriend: {
       long: null,
@@ -18,7 +19,6 @@ class Map extends Component {
       country: "",
       nickname: ""
     },
-    edit: false,
     //temporary "database"
     friendsList: {},
     viewport: {
@@ -27,8 +27,14 @@ class Map extends Component {
       latitude: 37.7577,
       longitude: -122.4376,
       zoom: 11
+    },
+    //user pin
+    pinMe:{
+      latitude: "",
+      longitude: "",
     }
   };
+
   getPostcode = () => {
     fetch(
       "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
@@ -64,10 +70,13 @@ class Map extends Component {
     }, 500);
   };
   hidePopup = event => {
-    const popup = document.getElementById("popup");
-    this.setState({ currentPin: {}});
+    if(!this.state.edit){
+      const popup = document.getElementById("popup");
+      console.log(this.state.currentPin)
+      popup.style.height = "0px";
+      setTimeout(()=>this.setState({ currentPin: {} }),600);
+    }
   };
-  //temporary "database insert"
   nicknameExists = (nickname, email) => {
     const addNew = document.getElementById("add-new");
     const hashListKeys = Object.keys(this.state.friendsList);
@@ -90,10 +99,7 @@ class Map extends Component {
     }
     return flag;
   };
-
-  onClose = () => {
-    this.setState({show: false });
-  }
+  //temporary "database insert"
 
   addFriendData = friendState => {
     const { nickname, name, email, phone } = friendState.data;
@@ -139,14 +145,18 @@ class Map extends Component {
               ...this.state.viewport,
               latitude: position.coords.latitude,
               longitude: position.coords.longitude
-            }
+            },
+            pinMe:{
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude
+            },
           });
       }
     );
       window.addEventListener("resize", viewport => {
       this.setState({
         viewport: {
-          ...viewport,
+          ...this.state.viewport,
           width: viewport.target.innerWidth,
           height: viewport.target.innerHeight
         }
@@ -169,7 +179,7 @@ class Map extends Component {
           <i
             id={nickname}
             key={nickname + "k"}
-            onClick={() => this.handleEdit(hashList[friend])}
+            onClick={this.activateEditMode}
             onMouseOver={e => this.showPopup(e)}
             onMouseLeave={e => this.hidePopup(e)}
             className="fas fa-map-marker-alt"
@@ -179,13 +189,19 @@ class Map extends Component {
     }
     return htmlMarkersCollection;
   };
+  activateEditMode=()=>{
+    this.setState({edit: true})
+  }
+  closeEditMode=()=>{
+    this.setState({edit: false})
+  }
 
   handleEdit = (friend) => {
     this.setState({newFriend: friend, edit: true, show: true });
   }
 
   renderForm() {
-    if(this.state.show == true) {
+    if(this.state.show === true) {
       return(
         <AddFriendForm onFriendLoaded={this.addFriendData} data={this.state.newFriend} edit={this.state.edit} show={this.state.show} onCloseClick={this.onClose} />
       )
@@ -216,14 +232,26 @@ class Map extends Component {
           ) : (
             ""
           )}
+          {this.state.pinMe.latitude?
+            <Marker key="me" latitude={this.state.pinMe.latitude} longitude={this.state.pinMe.longitude}>
+              <i
+                id="me"
+                key="me-pin"
+                className="fas fa-map-marker-alt"
+              />
+            </Marker>:""
+          }
         </MapGL>
         {this.state.currentPin.nickname && !this.state.newFriend.long ? (
           <PopUp
+            editMode={this.state.edit}
             nickname={this.state.currentPin.nickname}
             name={this.state.currentPin.name}
             email={this.state.currentPin.email}
             phone={this.state.currentPin.phone}
             postcode={this.state.currentPin.postcode}
+            save={this.closeEditMode}
+            hideThis={this.hidePopup}
           />
         ) : (
           ""
