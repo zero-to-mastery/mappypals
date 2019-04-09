@@ -6,28 +6,32 @@ import "./Home.css";
 const TOKEN =
   "pk.eyJ1Ijoic2Npb3J0aW5vbXJjIiwiYSI6ImNqc2RocmRzYTB2OGUzeWxuZDNmdDhrcDgifQ.txLXHEJPl4lYa8an6fcjuA";
 class Map extends Component {
-  state = {
-    currentPin: {},
-    newFriend: {
-      long: null,
-      lat: null,
-      name: "",
-      email: "",
-      phone: "",
-      postcode: "",
-      country: "",
-      nickname: ""
-    },
-    //temporary "database"
-    friendsList: {},
-    viewport: {
-      width: "100vw",
-      height: "100vh",
-      latitude: 37.7577,
-      longitude: -122.4376,
-      zoom: 11
-    }
-  };
+   constructor(){
+      super();
+      this.state = {
+         currentPin: {},
+         newFriend: {
+            long: null, lat: null,
+            name: "", email: "",
+            phone: "", postcode: "",
+            country: "", nickname: ""
+         },
+         //temporary "database"
+         friendsList: {},
+         viewport: {
+            width: "100vw", height: "100vh",
+            latitude: 37.7577, longitude: -122.4376,
+            zoom: 11
+         },
+             //user pin
+         pinMe:{
+            latitude: "",
+            longitude: "",
+         }
+      };
+      this.addNewRef=React.createRef();
+      this.popUpRef=React.createRef();
+   }
   getPostcode = () => {
     fetch(
       "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
@@ -69,24 +73,23 @@ class Map extends Component {
   };
   //temporary "database insert"
   nicknameExists = (nickname, email) => {
-    const addNew = document.getElementById("add-new");
     const hashListKeys = Object.keys(this.state.friendsList);
     let flag = false;
     console.log({ nickname, email });
     if (!nickname || !nickname.length || hashListKeys.includes(nickname)) {
-      addNew.children[0].style.border = "2px solid red";
+      this.addNewRef.current._reactInternalFiber.child.alternate.stateNode.children[0].style.border = "2px solid red";
       flag = true;
-    } else addNew.children[0].style.border = "";
+    } else this.addNewRef.current._reactInternalFiber.child.alternate.stateNode.children[0].style.border = "";
     if (!email || !email.length) {
-      addNew.children[1].style.border = "2px solid red";
+      this.addNewRef.current._reactInternalFiber.child.alternate.stateNode.children[1].style.border = "2px solid red";
       flag = true;
-    } else addNew.children[1].style.border = "";
+    } else this.addNewRef.current._reactInternalFiber.child.alternate.stateNode.children[1].style.border = "";
     if (Object.keys(this.state.friendsList) > 0) {
       for (let friend of this.state.friendsList) {
         if (this.state.friendsList[friend].email) {
-          addNew.children[1].style.border = "2px solid red";
+          this.addNewRef.current._reactInternalFiber.child.alternate.stateNode.children[1].style.border = "2px solid red";
           flag = true;
-        } else addNew.children[1].style.border = "";
+        } else this.addNewRef.current._reactInternalFiber.child.alternate.stateNode.children[1].style.border = "";
       }
     }
     return flag;
@@ -101,14 +104,10 @@ class Map extends Component {
   //temporary add friend - restful api call with db insert while implementing Backend
   addFriendToList = () => {
     const resetNewFriend = {
-      long: null,
-      lat: null,
-      name: "",
-      email: "",
-      phone: "",
-      postcode: "",
-      country: "",
-      nickname: ""
+      long: null, lat: null,
+      name: "", email: "",
+      phone: "", postcode: "",
+      country: "", nickname: ""
     };
     this.setState({
       friendsList: {
@@ -117,9 +116,8 @@ class Map extends Component {
       },
       newFriend: resetNewFriend
     });
-    const addNew = document.getElementById("add-new");
-    addNew.style.height = "0px";
-    for (let child of addNew.children) {
+    this.addNewRef.current._reactInternalFiber.child.alternate.stateNode.style.height = "0px";
+    for (let child of this.addNewRef.current._reactInternalFiber.child.alternate.stateNode.children) {
       child.value = "";
     }
   };
@@ -127,10 +125,12 @@ class Map extends Component {
   newPin = event => {
     this.getLocation(event);
     this.getPostcode();
-    const addNew = document.getElementById("add-new");
-    addNew.style.height = "180px";
+    this.addNewRef.current._reactInternalFiber.child.alternate.stateNode.style.height="180px";
   };
-
+  closeForm=()=>{
+      this.setState({ newFriend: { long: null }, currentPin: {} });
+      document.getElementById("add-new").style.height = "";
+  }
   componentDidMount() {
     window.navigator.geolocation.getCurrentPosition(
       position => {
@@ -140,6 +140,10 @@ class Map extends Component {
               ...this.state.viewport,
               latitude: position.coords.latitude,
               longitude: position.coords.longitude
+            },
+            pinMe:{
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude
             }
           });
       }
@@ -147,7 +151,7 @@ class Map extends Component {
       window.addEventListener("resize", viewport => {
       this.setState({
         viewport: {
-          ...viewport,
+          ...this.state.viewport,
           width: viewport.target.innerWidth,
           height: viewport.target.innerHeight
         }
@@ -155,8 +159,7 @@ class Map extends Component {
     });
     window.addEventListener("keydown", event => {
       if (event.key === "Escape") {
-        this.setState({ newFriend: { long: null }, currentPin: {} });
-        document.getElementById("add-new").style.height = "";
+        this.closeForm();
       }
     });
   }
@@ -202,6 +205,15 @@ class Map extends Component {
           ) : (
             ""
           )}
+          {this.state.pinMe.latitude?
+            <Marker key="me" latitude={this.state.pinMe.latitude} longitude={this.state.pinMe.longitude}>
+              <i
+                id="me"
+                key="me-pin"
+                className="fas fa-map-marker-alt"
+              />
+            </Marker>:""
+          }
         </MapGL>
         {this.state.currentPin.nickname && !this.state.newFriend.long ? (
           <PopUp
@@ -210,12 +222,13 @@ class Map extends Component {
             email={this.state.currentPin.email}
             phone={this.state.currentPin.phone}
             postcode={this.state.currentPin.postcode}
+            ref={this.popUpRef}
           />
         ) : (
           ""
         )}
         {/*this is for now fully visible still being implemented*/}
-        <AddFriendForm onFriendLoaded={this.addFriendData} />
+        <AddFriendForm onFriendLoaded={this.addFriendData} ref={this.addNewRef} closeForm={this.closeForm}/>
       </div>
     );
   }
