@@ -42,14 +42,19 @@ class Map extends Component {
         TOKEN
     )
       .then(resp => resp.json())
-      .then(data =>
-        this.setState({
-          newFriend: {
-            ...this.state.newFriend,
-            postcode: data.features[1].text,
-            country: data.features[6].text
-          }
-        })
+      .then(data =>{
+         if(data && data.features[1] && data.features[6]){
+           this.setState({
+             newFriend: {
+               ...this.state.newFriend,
+               postcode: data.features[1].text,
+               country: data.features[6].text
+             }
+           })
+            
+         }
+
+      }
       );
   };
   getLocation = event => {
@@ -222,7 +227,6 @@ class Map extends Component {
             email={this.state.currentPin.email}
             phone={this.state.currentPin.phone}
             postcode={this.state.currentPin.postcode}
-            ref={this.popUpRef}
           />
         ) : (
           ""
