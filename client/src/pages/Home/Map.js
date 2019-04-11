@@ -6,35 +6,32 @@ import "./Home.css";
 const TOKEN =
   "pk.eyJ1Ijoic2Npb3J0aW5vbXJjIiwiYSI6ImNqc2RocmRzYTB2OGUzeWxuZDNmdDhrcDgifQ.txLXHEJPl4lYa8an6fcjuA";
 class Map extends Component {
-  state = {
-    edit: false,
-    currentPin: {},
-    newFriend: {
-      long: null,
-      lat: null,
-      name: "",
-      email: "",
-      phone: "",
-      postcode: "",
-      country: "",
-      nickname: ""
-    },
-    //temporary "database"
-    friendsList: {},
-    viewport: {
-      width: "100vw",
-      height: "100vh",
-      latitude: 37.7577,
-      longitude: -122.4376,
-      zoom: 11
-    },
-    //user pin
-    pinMe:{
-      latitude: "",
-      longitude: "",
-    }
-  };
-
+   constructor(){
+      super();
+      this.state = {
+         currentPin: {},
+         newFriend: {
+            long: null, lat: null,
+            name: "", email: "",
+            phone: "", postcode: "",
+            country: "", nickname: ""
+         },
+         //temporary "database"
+         friendsList: {},
+         viewport: {
+            width: "100vw", height: "100vh",
+            latitude: 37.7577, longitude: -122.4376,
+            zoom: 11
+         },
+             //user pin
+         pinMe:{
+            latitude: "",
+            longitude: "",
+         }
+      };
+      this.addNewRef=React.createRef();
+      this.popUpRef=React.createRef();
+   }
   getPostcode = () => {
     fetch(
       "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
@@ -45,63 +42,63 @@ class Map extends Component {
         TOKEN
     )
       .then(resp => resp.json())
-      .then(data =>
-        this.setState({
-          newFriend: {
-            ...this.state.newFriend,
-            postcode: data.features[1].text,
-            country: data.features[6].text
-          }
-        })
+      .then(data =>{
+         if(data && data.features[1] && data.features[6]){
+           this.setState({
+             newFriend: {
+               ...this.state.newFriend,
+               postcode: data.features[1].text,
+               country: data.features[6].text
+             }
+           })
+            
+         }
+
+      }
       );
   };
   getLocation = event => {
     const lngLat = event.lngLat;
     this.setState({
-      newFriend: { ...this.state.newFriend, long: lngLat[0], lat: lngLat[1] },
+      newFriend: { ...this.state.newFriend, long: lngLat[0], lat: lngLat[1] }
     });
-   setTimeout(()=>console.log(this.state.newFriend),500)
   };
 
   showPopup = event => {
-    this.setState({ currentPin: this.state.friendsList[event.target.id]});
+    this.setState({ currentPin: this.state.friendsList[event.target.id] });
     setTimeout(() => {
       const popup = document.getElementById("popup");
       if (popup) popup.style.height = "180px";
     }, 500);
   };
   hidePopup = event => {
-    if(!this.state.edit){
-      const popup = document.getElementById("popup");
-      console.log(this.state.currentPin)
-      popup.style.height = "0px";
-      setTimeout(()=>this.setState({ currentPin: {} }),600);
-    }
+    const popup = document.getElementById("popup");
+    if (this.state.currentPin.long) popup.style.height = "0px";
+    this.setState({ currentPin: {} });
   };
+  //temporary "database insert"
   nicknameExists = (nickname, email) => {
-    const addNew = document.getElementById("add-new");
     const hashListKeys = Object.keys(this.state.friendsList);
     let flag = false;
+    console.log({ nickname, email });
     if (!nickname || !nickname.length || hashListKeys.includes(nickname)) {
-      addNew.children[0].style.border = "2px solid red";
+      this.addNewRef.current._reactInternalFiber.child.alternate.stateNode.children[0].style.border = "2px solid red";
       flag = true;
-    } else addNew.children[0].style.border = "";
+    } else this.addNewRef.current._reactInternalFiber.child.alternate.stateNode.children[0].style.border = "";
     if (!email || !email.length) {
-      addNew.children[1].style.border = "2px solid red";
+      this.addNewRef.current._reactInternalFiber.child.alternate.stateNode.children[1].style.border = "2px solid red";
       flag = true;
-    } else addNew.children[1].style.border = "";
+    } else this.addNewRef.current._reactInternalFiber.child.alternate.stateNode.children[1].style.border = "";
     if (Object.keys(this.state.friendsList) > 0) {
       for (let friend of this.state.friendsList) {
         if (this.state.friendsList[friend].email) {
-          addNew.children[1].style.border = "2px solid red";
+          this.addNewRef.current._reactInternalFiber.child.alternate.stateNode.children[1].style.border = "2px solid red";
           flag = true;
-        } else addNew.children[1].style.border = "";
+        } else this.addNewRef.current._reactInternalFiber.child.alternate.stateNode.children[1].style.border = "";
       }
     }
     return flag;
   };
-  //temporary "database insert"
-
   addFriendData = friendState => {
     const { nickname, name, email, phone } = friendState.data;
     if (this.nicknameExists(nickname, email)) return;
@@ -112,31 +109,33 @@ class Map extends Component {
   //temporary add friend - restful api call with db insert while implementing Backend
   addFriendToList = () => {
     const resetNewFriend = {
-      long: null,
-      lat: null,
-      name: "",
-      email: "",
-      phone: "",
-      postcode: "",
-      country: "",
-      nickname: ""
+      long: null, lat: null,
+      name: "", email: "",
+      phone: "", postcode: "",
+      country: "", nickname: ""
     };
     this.setState({
       friendsList: {
         ...this.state.friendsList,
         [this.state.newFriend.nickname]: this.state.newFriend
       },
-      newFriend: resetNewFriend,
-      edit: false,
-      show: false
+      newFriend: resetNewFriend
     });
+    this.addNewRef.current._reactInternalFiber.child.alternate.stateNode.style.height = "0px";
+    for (let child of this.addNewRef.current._reactInternalFiber.child.alternate.stateNode.children) {
+      child.value = "";
+    }
   };
 
   newPin = event => {
     this.getLocation(event);
     this.getPostcode();
+    this.addNewRef.current._reactInternalFiber.child.alternate.stateNode.style.height="180px";
   };
-
+  closeForm=()=>{
+      this.setState({ newFriend: { long: null }, currentPin: {} });
+      document.getElementById("add-new").style.height = "";
+  }
   componentDidMount() {
     window.navigator.geolocation.getCurrentPosition(
       position => {
@@ -150,7 +149,7 @@ class Map extends Component {
             pinMe:{
               latitude: position.coords.latitude,
               longitude: position.coords.longitude
-            },
+            }
           });
       }
     );
@@ -165,8 +164,7 @@ class Map extends Component {
     });
     window.addEventListener("keydown", event => {
       if (event.key === "Escape") {
-        this.setState({ newFriend: { long: null }, currentPin: {} });
-        document.getElementById("add-new").style.height = "";
+        this.closeForm();
       }
     });
   }
@@ -180,7 +178,7 @@ class Map extends Component {
           <i
             id={nickname}
             key={nickname + "k"}
-            onClick={this.activateEditMode}
+            onClick={() => console.log("Here to edit friends details")}
             onMouseOver={e => this.showPopup(e)}
             onMouseLeave={e => this.hidePopup(e)}
             className="fas fa-map-marker-alt"
@@ -190,27 +188,6 @@ class Map extends Component {
     }
     return htmlMarkersCollection;
   };
-  activateEditMode=()=>{
-    this.setState({edit: true})
-  }
-  closeEditMode=()=>{
-    this.setState({edit: false})
-  }
-
-  handleEdit = (friend) => {
-    this.setState({newFriend: friend, edit: true, show: true });
-  }
-
-  renderForm() {
-    if(this.state.show === true) {
-      return(
-        <AddFriendForm onFriendLoaded={this.addFriendData} data={this.state.newFriend} edit={this.state.edit} show={this.state.show} onCloseClick={this.onClose} />
-      )
-    } else {
-      return null;
-    }
-    
-  }
 
   render() {
     return (
@@ -245,20 +222,17 @@ class Map extends Component {
         </MapGL>
         {this.state.currentPin.nickname && !this.state.newFriend.long ? (
           <PopUp
-            editMode={this.state.edit}
             nickname={this.state.currentPin.nickname}
             name={this.state.currentPin.name}
             email={this.state.currentPin.email}
             phone={this.state.currentPin.phone}
             postcode={this.state.currentPin.postcode}
-            save={this.closeEditMode}
-            hideThis={this.hidePopup}
           />
         ) : (
           ""
         )}
         {/*this is for now fully visible still being implemented*/}
-        {this.renderForm()}
+        <AddFriendForm onFriendLoaded={this.addFriendData} ref={this.addNewRef} closeForm={this.closeForm}/>
       </div>
     );
   }
