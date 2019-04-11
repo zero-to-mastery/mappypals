@@ -7,7 +7,8 @@
         "start": "node index.js",
         "server": "nodemon index.js",
         "client": "yarn --cwd client run start",
-        "dev": "concurrently --k \"yarn run server\" \"yarn run client\""
+        "dev": "concurrently --k \"yarn run server\" \"yarn run client\"",
+        "prod": "yarn --cwd client run build"
     },
     "repository": {
         "type": "git",
