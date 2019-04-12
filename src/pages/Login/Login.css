@@ -1,10 +1,17 @@
 @media all and (min-width: 480px) {
   .Login {
-    padding: 60px 0;
+    padding: 30px 0;
   }
 
   .Login form {
     margin: 0 auto;
-    max-width: 320px;
+    max-width: 230px;
   }
 }
+.Login {margin: auto; width: 300px; background: linear-gradient(89deg, #2D1D82 0%, #27AAE1 100%); color: #fff;}
+.Login input, .Login button {padding: 6px 16px; border-radius: 14px; margin: 10px; border: 1px solid #FFF;}
+.Login input:hover {border: 1px solid #27AAE1;}
+.Login button:hover {border: 1px solid #2D1D82;}
+.Login a {color: #fff;}
+.Login a:hover {color: #cecece;}
+.Login button {background: #FF31EA; color: #fff;}

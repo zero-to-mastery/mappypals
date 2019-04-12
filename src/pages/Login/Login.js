@@ -31,7 +31,8 @@ class Login extends Component {
 				<form onSubmit={this.handleSubmit}>
 					<input type="email" placeholder="Enter Username" value={this.state.email} onChange={this.handleChange} required />
 					<input type="password" placeholder="Enter Password" value={this.state.password} onChange={this.handleChange} required />
-					<button type="submit" disabled={!this.validateForm()}>Login</button>
+					<button type="submit" disabled={!this.validateForm()}>Sign In</button>
+					<p>Don't have an account? <a href="/signup">SignUp</a></p>
 				</form>
 			</div>
 		);
