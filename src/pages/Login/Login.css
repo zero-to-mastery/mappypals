@@ -7,4 +7,7 @@
     margin: 0 auto;
     max-width: 320px;
   }
+  .u-text-center{
+    text-align: center;
+  }
 }
