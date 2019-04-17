@@ -11,7 +11,7 @@ class Login extends Component {
 	      email: "",
 	      password: ""
 	    };
-  	}
+		}
 
 	validateForm() {
 		return this.state.email.length > 0 && this.state.password.length > 0;
@@ -38,7 +38,7 @@ class Login extends Component {
 	}
 
 	render() {
-		const { onSignUp } = this.props;
+		const { onSignUp, checkLoginState } = this.props;
 		return (
 			<div className="Login">
 				<Form onSubmit={this.handleSubmit}>
@@ -65,15 +65,20 @@ class Login extends Component {
 					</div>
 					<div class="btnContainer">
 					    <button type="submit" disabled={!this.validateForm()}>Login</button>
-				    </div>
-
+				  </div>
 					<p className = 'u-text-center'>No account? 
-						<Link className="nav-item" to='/signup'> <span onClick={onSignUp}> SignUp </span> </Link>
-						&emsp;Or sign up with:
+						<Link className="nav-item" to='/signup' onClick={onSignUp}> SignUp </Link>
+						&ensp;Or sign up with:
 					</p>
-				<div>
-					<p>FACEBOOK LOGIN BUTTON</p>
-				</div>
+					<div class="btnContainer">
+							<div class="fb-login-button" 
+								data-size="large" 
+								data-button-type="continue_with" 
+								data-auto-logout-link="false" 
+								data-use-continue-as="false"
+								onlogin={checkLoginState}>
+							</div>
+					</div>
 				</Form>
 			</div>
 		);
