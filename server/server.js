@@ -18,8 +18,7 @@ app.use(parser.urlencoded({extended:false}));
 app.use(parser.json());
 //root endpoint
 app.get("/",(req,res)=>{
-	client.
-	res.send("LULZ");
+	res.send("reached main endpoint");
 })
 //login
 //register
