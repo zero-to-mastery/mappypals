@@ -1,5 +1,7 @@
- import React, { Component } from "react";
+import React, { Component } from "react";
+import { Link } from 'react-router-dom';
 import './Login.css';
+import Form from './Form.js';
 
 class Login extends Component {
 	 constructor(props) {
@@ -15,11 +17,14 @@ class Login extends Component {
 		return this.state.email.length > 0 && this.state.password.length > 0;
 	}
 
-	handleChange = event => {
-		this.setState({
-	  		[event.target.name]: event.target.value
-		});
+	onEmailChange = (event) => {
+		this.setState({signInEmail: event.target.value})
 	}
+
+	onPasswordChange = (event) => {
+		this.setState({signInPassword: event.target.value})
+	}
+
 	// Submited values
 	handleSubmit = event => {
 		event.preventDefault();
@@ -33,15 +38,43 @@ class Login extends Component {
 	}
 
 	render() {
+		const { onSignUp } = this.props;
 		return (
 			<div className="Login">
-				<form onSubmit={this.handleSubmit}>
-					<input type="email" placeholder="Enter Username" name = 'email' value={this.state.email} onChange={this.handleChange} required />
-					<input type="password" placeholder="Enter Password" name = "password" value={this.state.password} onChange={this.handleChange} required />
-					<button type="submit" disabled={!this.validateForm()}>Login</button>
-				</form>
+				<Form onSubmit={this.handleSubmit}>
+					<label htmlFor="email">
+					  Email
+						<input
+						type="email"
+						name="email"
+						placeholder=""
+						onChange={this.onEmailChange}
+						/>
+					</label>
+					<label htmlFor="password">
+					  Password
+						<input
+						type="password"
+						name="password"
+						placeholder=""
+						onChange={this.onPasswordChange}
+						/>
+					</label>
+					<div class="forgot-password">
+						<a href="url">I forgot my password</a>
+					</div>
+					<div class="btnContainer">
+					    <button type="submit" disabled={!this.validateForm()}>Login</button>
+				    </div>
 
-				<p className = 'u-text-center'>Don't have an account? <a href="/signup">SignUp</a></p>
+					<p className = 'u-text-center'>No account? 
+						<Link className="nav-item" to='/signup'> <span onClick={onSignUp}> SignUp </span> </Link>
+						&emsp;Or sign up with:
+					</p>
+				<div>
+					<p>FACEBOOK LOGIN BUTTON</p>
+				</div>
+				</Form>
 			</div>
 		);
 	}
