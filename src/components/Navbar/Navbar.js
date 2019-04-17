@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import './Navbar.css'
-import logo from "../../pics/mappyPals.svg";
 import navLogo from "../../pics/Logo.svg";
 import team from "../../pics/Team.svg";
 import about from "../../pics/AboutUs.svg";
