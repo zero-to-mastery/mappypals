@@ -18,7 +18,7 @@ app.use(parser.urlencoded({extended:false}));
 app.use(parser.json());
 //root endpoint
 app.get("/",(req,res)=>{
-	res.send("reached main endpoint");
+	res.send("Reached root end point");
 })
 //login
 //register

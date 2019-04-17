@@ -7,10 +7,10 @@ class Login extends Component {
 
 	    this.state = {
 		name:"",
-		zip:"",
 		email: "",
+		number: "",
 		password: "",
-		confrimPassword:"",
+		confirmPassword:"",
 	    };
   	}
   	verifiedEmail(){
@@ -20,32 +20,39 @@ class Login extends Component {
   		return true
   	}
 	validateForm() {
-		const {name, zip, email, password, confrimPassword}=this.state;
-		if(name==="" || zip==="" || email==="" || password==="" || confrimPassword==="") return false
-		else if(password!==confrimPassword) return false
+		const {name, email, number, password, confirmPassword}= this.state;
+		if(name==="" || email==="" || number === ""|| password==="" || confirmPassword==="") return false
+		else if(password!==confirmPassword) return false
 		else if(!this.verifiedEmail) return false
 		return true;
 	}
 
 	handleChange = event => {
 		this.setState({
-	  		[event.target.id]: event.target.value
+	  		[event.target.name]: event.target.value
 		});
 	}
 
 	handleSubmit = event => {
 		event.preventDefault();
+		
+		console.log(`${this.state.name} ${this.state.email} ${this.state.number} ${this.state.password} ${this.state.confirmPassword}`)
+
+		// Clear inputs.
+		this.setState({name: '', email: '', number: '' , password: '', confirmPassword: ''});
 	}
 
 	render() {
 		return (
 			<div className="Login">
 				<form onSubmit={this.handleSubmit}>
-					<input type="text" id="name" placeholder="Entrer Name" value={this.state.name} onChange={this.handleChange} required />
-					<input type="text" id="zip" placeholder="Entrer Zip/Postcode" value={this.state.zip} onChange={this.handleChange} required />
-					<input type="email" id="email" placeholder="Enter Username" value={this.state.email} onChange={this.handleChange} required />
-					<input type="password" id="password" placeholder="Enter Password" value={this.state.password} onChange={this.handleChange} required />
-					<input type="password" id="confirmPassword" placeholder="Confirm Password" value={this.state.confirmPassword} onChange={this.handleChange} required />
+					<input type="text" id="name" name = "name" placeholder="Enter Name" value={this.state.name} onChange={this.handleChange} required />
+					<input type="email" id="email" name = "email" placeholder="Enter Email" value={this.state.email} onChange={this.handleChange} required />
+					<input type = 'number' id = 'number' name = 'number' placeholder = "Enter Number" value = {this.state.number} onChange = {this.handleChange} required />
+					<input type="password" id="password" name = "password" placeholder="Enter Password" value={this.state.password} onChange={this.handleChange} required />
+					<input type="password" id="confirmPassword" name = "confirmPassword" placeholder="Confirm Password" 
+						value={this.state.confirmPassword}
+						onChange={this.handleChange} required />
 					<button type="submit" disabled={!this.validateForm()}>Login</button>
 				</form>
 			</div>

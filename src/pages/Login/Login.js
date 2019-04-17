@@ -17,22 +17,31 @@ class Login extends Component {
 
 	handleChange = event => {
 		this.setState({
-	  		[event.target.id]: event.target.value
+	  		[event.target.name]: event.target.value
 		});
 	}
-
+	// Submited values
 	handleSubmit = event => {
 		event.preventDefault();
+
+		console.log(`${this.state.email} ${this.state.password}`);
+		
+		// Clear inputs.
+		this.setState({email: ''});
+		this.setState({password: ''});
+		
 	}
 
 	render() {
 		return (
 			<div className="Login">
 				<form onSubmit={this.handleSubmit}>
-					<input type="email" placeholder="Enter Username" value={this.state.email} onChange={this.handleChange} required />
-					<input type="password" placeholder="Enter Password" value={this.state.password} onChange={this.handleChange} required />
+					<input type="email" placeholder="Enter Username" name = 'email' value={this.state.email} onChange={this.handleChange} required />
+					<input type="password" placeholder="Enter Password" name = "password" value={this.state.password} onChange={this.handleChange} required />
 					<button type="submit" disabled={!this.validateForm()}>Login</button>
 				</form>
+
+				<p className = 'u-text-center'>Don't have an account? <a href="/signup">SignUp</a></p>
 			</div>
 		);
 	}
