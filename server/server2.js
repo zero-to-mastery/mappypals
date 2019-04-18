@@ -5,8 +5,16 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const cors = require('cors');
 const session = require('express-session');
+const bodyParser = require('body-parser');
 
 const app = express();
+
+// CORS
+app.use(cors());
+
+// Body parser    
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // Routes
 const index = require('./routes/index.js');
@@ -21,12 +29,6 @@ const db = require('./config/db').mongoURI;
 mongoose.connect( db, { useNewUrlParser: true })
     .then(() => console.log('MongoDB Connected'))
     .catch(err => console.log(err));
-
-// Body parser    
-app.use(express.urlencoded({ extended: true }));
-
-// CORS
-
 
 app.use(
     session({
