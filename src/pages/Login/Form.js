@@ -18,7 +18,7 @@ const Form = styled.form`
   input,
   textarea,
   select {
-    width: 100%;
+    width: 105%;
     box-sizing: border-box;
     padding: 0.5rem;
     font-size: 1.35rem;
