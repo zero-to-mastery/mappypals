@@ -5,7 +5,13 @@ import Form from './Form.js';
 
 class Login extends Component {
 	 constructor(props) {
-	    super(props);
+			super(props);
+			window.FB.init({
+	      appId      : '298824577401793',
+	      cookie     : true,
+	      xfbml      : true,
+	      version    : 'v3.2'
+	    });
 
 	    this.state = {
 	      email: "",
@@ -60,23 +66,24 @@ class Login extends Component {
 						onChange={this.onPasswordChange}
 						/>
 					</label>
-					<div class="forgot-password">
+					<div className="forgot-password">
 						<a href="url">I forgot my password</a>
 					</div>
-					<div class="btnContainer">
+					<div className="btnContainer">
 					    <button type="submit" disabled={!this.validateForm()}>Login</button>
 				  </div>
 					<p className = 'u-text-center'>No account? 
 						<Link className="nav-item" to='/signup' onClick={onSignUp}> SignUp </Link>
 						&ensp;Or sign up with:
 					</p>
-					<div class="btnContainer">
-							<div class="fb-login-button" 
+					<div className="btnContainer">
+							<div className="fb-login-button" 
 								data-size="large" 
-								data-button-type="continue_with" 
+								data-button-type="login_with" 
 								data-auto-logout-link="false" 
 								data-use-continue-as="false"
-								onlogin={checkLoginState}>
+								onClick={checkLoginState}
+								>
 							</div>
 					</div>
 				</Form>
