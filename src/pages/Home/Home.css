@@ -2,11 +2,10 @@ section {
     background: linear-gradient(to bottom, white 70%, #63686355);
     height: 70vh;
     margin: auto;
-    text-align: center;
     font-family: "Play", sans-serif;
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 80%;
     margin-top:-4px;
 }
 
@@ -83,8 +82,9 @@ main section {
 
 section canvas {
     position: relative !important;
-    width: 100% !important;
+    width: 80% !important;
     height: 100% !important;
+    left:0;
 }
 
 .mapboxgl-marker i {
