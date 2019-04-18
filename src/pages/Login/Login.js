@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import './Login.css';
 import Form from './Form.js';
+import axios from 'axios'
 
 class Login extends Component {
 	 constructor(props) {
@@ -28,6 +29,21 @@ class Login extends Component {
 	// Submited values
 	handleSubmit = event => {
 		event.preventDefault();
+
+		const url = 'http://localhost:3001/users/login'
+		axios({
+			url: url,
+			method: 'POST',
+			data: JSON.stringify(this.state),
+			headers: {
+				"Content-Type": "application/json"
+			}
+		})
+			.then(res => {
+				if (res.redirect === true) {
+					console.log("Redicrect this to login");
+				}
+			})
 
 		console.log(`${this.state.email} ${this.state.password}`);
 		

@@ -4,6 +4,7 @@
     "homepage": "https://zero-to-mastery.github.io/mappypals/",
     "private": true,
     "dependencies": {
+        "axios": "^0.18.0",
         "concurrently": "^4.1.0",
         "mapbox-gl": "^0.53.0",
         "react": "^16.8.2",

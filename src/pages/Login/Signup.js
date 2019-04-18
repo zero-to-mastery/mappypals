@@ -1,5 +1,6 @@
- import React, { Component } from "react";
+import React, { Component } from "react";
 import './Login.css';
+import axios from 'axios'
 
 class Login extends Component {
 	 constructor(props) {
@@ -37,23 +38,19 @@ class Login extends Component {
 		event.preventDefault();
 
 		const url = 'http://localhost:3001/users/register'
-		fetch(url, {
+		axios({
+			url: url,
 			method: 'POST',
-			body: JSON.stringify(this.state),
+			data: JSON.stringify(this.state),
 			headers: {
 				"Content-Type": "application/json"
-			},
-			mode: 'no-cors'
-		})
-		.then(res => {
-			if(res.status === 200) {
-				console.log("========");
 			}
 		})
-		.catch(err => {
-			console.error(err);
-				alert('Error logging in please try again');
-		});
+		.then(res => {
+			if(res.redirect === true) {
+				console.log("Redicrect this to login");
+			}
+		})
 		
 		console.log(JSON.stringify(this.state));
 
