@@ -191,7 +191,7 @@ class Map extends Component {
 
   render() {
     return (
-      <div style={{ height: "100vh", width:'60%'  }}>
+      <div style={{ height: "100vh" }}>
         <MapGL
           {...this.state.viewport}
           onViewportChange={viewport => this.setState({ viewport })}
