@@ -40,8 +40,8 @@ class Login extends Component {
 			}
 		})
 			.then(res => {
-				if (res.redirect === true) {
-					console.log("Redicrect this to login");
+				if (res.status === 200) {
+					this.props.history.push('/');
 				}
 			})
 
@@ -76,10 +76,10 @@ class Login extends Component {
 						onChange={this.onPasswordChange}
 						/>
 					</label>
-					<div class="forgot-password">
+					<div className="forgot-password">
 						<a href="url">I forgot my password</a>
 					</div>
-					<div class="btnContainer">
+					<div className="btnContainer">
 					    <button type="submit" disabled={!this.validateForm()}>Login</button>
 				    </div>
 

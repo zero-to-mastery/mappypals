@@ -45,12 +45,10 @@ class Login extends Component {
 			headers: {
 				"Content-Type": "application/json"
 			}
-		})
-		.then(res => {
-			if(res.redirect === true) {
-				console.log("Redicrect this to login");
-			}
-		})
+		}) //TODO: Not getting any response back to redirect
+		.then(res => console.log(res.json()));
+				//console.log(res)
+				//this.props.history.push('/');
 		
 		console.log(JSON.stringify(this.state));
 

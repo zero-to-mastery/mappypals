@@ -4,6 +4,8 @@ const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const User = require('../models/User');
 
+let redirect = false;
+
 router.get('/register', (req, res) => {
     res.send("Signup endpoint");
 })
@@ -41,7 +43,7 @@ router.post('/register', (req, res) => {
                         newUser.save()
                             .then(user => {
                                 console.log(`Successfully registered ${user}`);
-                                res.send({ redirect: true })
+                                redirect = true;
                             })
                             .catch(err => console.log(err));
                     }
@@ -49,7 +51,9 @@ router.post('/register', (req, res) => {
             });
         }
     })
-
+/*   if(redirect) {
+        res.json(200, { redirect: true })
+    }*/
 });
 
 router.post('/login', (req, res, next) => {
@@ -57,6 +61,9 @@ router.post('/login', (req, res, next) => {
         successRedirect: 'http://localhost:3000/',
         failureRedirect: '/',
     })(req, res, next);
+/*    if (redirect) {
+        res.json(200, { redirect: true })
+    }*/
 });
 
 router.get('/logout', (req, res) => {
