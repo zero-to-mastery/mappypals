@@ -35,6 +35,21 @@ class Login extends Component {
 
 	handleSubmit = event => {
 		event.preventDefault();
+
+		const url = 'http:localhost:3001/users/register'
+		fetch(url, {
+			method: 'POST',
+			body: JSON.stringify(this.state),
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			mode: 'cors'
+		})
+		.then(res => {
+			if(res.status === 200) {
+				console.log("========");
+			}
+		});
 		
 		console.log(`${this.state.name} ${this.state.email} ${this.state.number} ${this.state.password} ${this.state.confirmPassword}`)
 

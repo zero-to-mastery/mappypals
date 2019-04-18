@@ -3,15 +3,20 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const cors = require('cors');
 const session = require('express-session');
 
 const app = express();
+
+// Routes
+const index = require('./routes/index.js');
+const users = require('./routes/users.js');
 
 // While adding fb or any other auth, make changes to this file
 require('./config/passport')(passport);
 
 // DB config
-const db = require('./config/keys').mongoURI;
+const db = require('./config/db').mongoURI;
 
 mongoose.connect( db, { useNewUrlParser: true })
     .then(() => console.log('MongoDB Connected'))
@@ -19,6 +24,9 @@ mongoose.connect( db, { useNewUrlParser: true })
 
 // Body parser    
 app.use(express.urlencoded({ extended: true }));
+
+// CORS
+
 
 app.use(
     session({
@@ -28,10 +36,12 @@ app.use(
     })
 );
 
-app.use('/', require('./routes/index.js'));
-app.use('/users', require('./routes/users.js'));
+app.use('/', index);
+app.use('/users', users);
 
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.listen(3001, console.log(`Server started on port 3000`));
+const PORT = process.env.PORT || 3001
+
+app.listen(PORT, console.log(`Server started on port ${PORT}`));
