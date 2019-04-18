@@ -4,8 +4,13 @@
   "homepage": "https://zero-to-mastery.github.io/mappypals/",
   "private": true,
   "dependencies": {
+    "bcrypt": "^3.0.6",
     "concurrently": "^4.1.0",
+    "express-session": "^1.16.1",
     "mapbox-gl": "^0.53.0",
+    "mongoose": "^5.5.2",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
     "react-map-gl": "^4.0.11",
