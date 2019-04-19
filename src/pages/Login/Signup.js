@@ -46,9 +46,11 @@ class Login extends Component {
 				"Content-Type": "application/json"
 			}
 		}) //TODO: Not getting any response back to redirect
-		.then(res => console.log(res.json()));
-				//console.log(res)
-				//this.props.history.push('/');
+			.then(res => console.log(res))
+			.catch(err => {
+				console.error(err);
+				console.log('Error logging in please try again');
+			});
 		
 		console.log(JSON.stringify(this.state));
 

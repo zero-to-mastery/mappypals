@@ -56,14 +56,30 @@ router.post('/register', (req, res) => {
     }*/
 });
 
-router.post('/login', (req, res, next) => {
-    passport.authenticate('local', {
-        successRedirect: 'http://localhost:3000/',
-        failureRedirect: '/',
-    })(req, res, next);
-/*    if (redirect) {
-        res.json(200, { redirect: true })
-    }*/
+router.post('/login', (req, res) => {
+    const { email, password} = req.body;
+    User.findOne({ email}, function(err, user) {
+        if(err) {
+            console.log(err);
+            res.status(500).json({ error: 'Internal error' })
+        }
+        else if (!user) {
+            res.status(401).json({ error: 'Incorrect email or password' })
+        }
+        else {
+            bcrypt.compare(password, user.password, (err, isMatch) => {
+                if (err) {
+                    console.log(err);
+                    res.status(500).json({ error: 'Internal error' })
+                }
+                if (!isMatch) {
+                    res.status(401).json({ error: 'Incorrect email or password' }) 
+                } else {
+                    res.sendStatus(200);
+                }
+            });
+        }
+    })
 });
 
 router.get('/logout', (req, res) => {

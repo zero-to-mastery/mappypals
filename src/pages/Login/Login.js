@@ -17,13 +17,19 @@ class Login extends Component {
 	validateForm() {
 		return this.state.email.length > 0 && this.state.password.length > 0;
 	}
-
+/*
 	onEmailChange = (event) => {
 		this.setState({signInEmail: event.target.value})
 	}
 
 	onPasswordChange = (event) => {
 		this.setState({signInPassword: event.target.value})
+	}*/
+
+	handleChange = event => {
+		this.setState({
+			[event.target.name]: event.target.value
+		});
 	}
 
 	// Submited values
@@ -40,12 +46,15 @@ class Login extends Component {
 			}
 		})
 			.then(res => {
-				if (res.status === 200) {
-					this.props.history.push('/');
+				if(res.status === 200) {
+					console.log("Redirect user to main page");
 				}
 			})
+			.catch(err => {
+				console.error(err);
+				console.log('Error logging in please try again');
+			});
 
-		console.log(`${this.state.email} ${this.state.password}`);
 		
 		// Clear inputs.
 		this.setState({email: ''});
@@ -64,7 +73,7 @@ class Login extends Component {
 						type="email"
 						name="email"
 						placeholder=""
-						onChange={this.onEmailChange}
+						onChange={this.handleChange}
 						/>
 					</label>
 					<label htmlFor="password">
@@ -73,7 +82,7 @@ class Login extends Component {
 						type="password"
 						name="password"
 						placeholder=""
-						onChange={this.onPasswordChange}
+						onChange={this.handleChange}
 						/>
 					</label>
 					<div className="forgot-password">
