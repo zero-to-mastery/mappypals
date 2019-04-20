@@ -24,11 +24,11 @@ class Login extends Component {
 	}
 
 	onEmailChange = (event) => {
-		this.setState({signInEmail: event.target.value})
+		this.setState({email: event.target.value})
 	}
 
 	onPasswordChange = (event) => {
-		this.setState({signInPassword: event.target.value})
+		this.setState({password: event.target.value})
 	}
 
 	// Submited values
@@ -44,7 +44,7 @@ class Login extends Component {
 	}
 
 	render() {
-		const { onSignUp, checkLoginState } = this.props;
+		const { checkLoginState } = this.props;
 		return (
 			<div className="Login">
 				<Form onSubmit={this.handleSubmit}>
@@ -73,7 +73,7 @@ class Login extends Component {
 					    <button type="submit" disabled={!this.validateForm()}>Login</button>
 				  </div>
 					<p className = 'u-text-center'>No account? 
-						<Link className="nav-item" to='/signup' onClick={onSignUp}> SignUp </Link>
+						<Link className="nav-item" to='/signup'> SignUp </Link>
 						&ensp;Or sign up with:
 					</p>
 					<div className="btnContainer">

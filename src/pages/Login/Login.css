@@ -7,11 +7,21 @@
     margin: 0 auto;
     max-width: 320px;
   }
+
   .forgot-password {
     display: flex;
     justify-content: flex-end;
     transform: translateY(-1.5rem);
   }
+
+  #newPassword {
+    margin-bottom: -1.5rem;
+    color: red;
+    font-size: 1rem;
+    line-height: 1;
+    transform: translateY(-1.5rem);
+  }
+
   .u-text-center{
     text-align: center;
     white-space: nowrap;

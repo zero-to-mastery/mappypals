@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 
 const Form = styled.form`
@@ -10,15 +11,15 @@ const Form = styled.form`
   font-family: 'Poppins', sans-serif;
   font-weight: 400;
   font-size: 1.2rem;
-  line-height: 2;
+  line-height: 1.75;
   label {
     display: block;
-    margin-bottom: 3.5rem;
+    margin-bottom: 2.5rem;
   }
   input,
   textarea,
   select {
-    width: 105%;
+    width: 100%;
     box-sizing: border-box;
     padding: 0.5rem;
     font-size: 1.35rem;
@@ -34,6 +35,38 @@ const Form = styled.form`
     }
   }
 
+  input[type="text"] {
+    width: 90%;
+  }
+
+  .nameContainer {
+    width: 100%;
+    display: grid;
+    grid-gap: 15px;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 20px 20px;
+    grid-template-areas:
+      "a b"
+      "c d";
+    margin-bottom: 2.5rem;
+  }
+  .item1 {
+    grid-area: a;
+    align-self: start;
+  }
+  .item2 {
+    grid-area: c;
+    align-self: end;
+  }
+  .item3 {
+    grid-area: b;
+    align-self: start;
+  }
+  .item4 {
+    grid-area: d;
+    align-self: end;
+  }
+
   button,
   input[type='submit'] {
     width: auto;
@@ -44,7 +77,7 @@ const Form = styled.form`
     font-size: 1.3rem;
     font-weight: 600;
     text-transform: uppercase;
-    padding: 0.5rem 3.5rem;
+    padding: 0.5rem 2.5rem;
   }
 
   a {
@@ -74,7 +107,7 @@ const Form = styled.form`
   }
 
   .btnContainer {
-    display: flex
+    display: flex;
     justify-content: center;
   }
 
@@ -83,4 +116,8 @@ const Form = styled.form`
   }
 `;
 
-export default Form;
+const PasswordReqs = () => (
+  <div id="newPassword">At least 6 characters, a number or a symbol, at least 1 letter</div>
+);
+export default Form
+export {PasswordReqs}

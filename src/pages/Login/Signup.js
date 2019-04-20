@@ -1,18 +1,36 @@
- import React, { Component } from "react";
+import React, { Component } from "react";
+import { Link } from 'react-router-dom';
+import Form, { PasswordReqs } from "./Form.js";
 import './Login.css';
 
 class Login extends Component {
 	 constructor(props) {
-	    super(props);
+		super(props);
+		window.FB.init({
+			appId      : '298824577401793',
+			cookie     : true,
+			xfbml      : true,
+			version    : 'v3.2'
+		  });
 
 	    this.state = {
-		name:"",
-		email: "",
-		number: "",
-		password: "",
-		confirmPassword:"",
+			firstname:"",
+			lastname:"",
+			email: "",
+			number: "",
+			password: "",
+			confirmPassword:"",
+			isHidden: true,
 	    };
-  	}
+	  }
+	  
+	toggleHidden () {
+		const {isHidden}=this.state;
+		this.setState({
+			isHidden: !isHidden
+		})
+	}	
+
   	verifiedEmail(){
   		const {email}=this.state;
   		if(!email.includes("@") )return false
@@ -43,18 +61,75 @@ class Login extends Component {
 	}
 
 	render() {
+		const { onSignUp, checkLoginState } = this.props;
 		return (
 			<div className="Login">
-				<form onSubmit={this.handleSubmit}>
-					<input type="text" id="name" name = "name" placeholder="Enter Name" value={this.state.name} onChange={this.handleChange} required />
-					<input type="email" id="email" name = "email" placeholder="Enter Email" value={this.state.email} onChange={this.handleChange} required />
-					<input type = 'number' id = 'number' name = 'number' placeholder = "Enter Number" value = {this.state.number} onChange = {this.handleChange} required />
-					<input type="password" id="password" name = "password" placeholder="Enter Password" value={this.state.password} onChange={this.handleChange} required />
-					<input type="password" id="confirmPassword" name = "confirmPassword" placeholder="Confirm Password" 
-						value={this.state.confirmPassword}
-						onChange={this.handleChange} required />
-					<button type="submit" disabled={!this.validateForm()}>Login</button>
-				</form>
+				<Form onSubmit={this.handleSubmit}>
+				  <div className="nameContainer">
+					<label className="item1" htmlFor="firstname">
+					Firstname
+						<input 
+							type="text" 
+							id="firstname"
+							className="item2"
+							onChange={this.handleChange} required 
+							/>
+					</label>
+					<label className="item3" htmlFor="lastname">
+					Lastname
+						<input 
+							type="text" 
+							id="lastname"
+							className="item4"
+							onChange={this.handleChange} required 
+							/>
+					</label>
+				  </div>
+					<label htmlFor="email">
+					Email
+						<input
+							type="email"
+							name="email"
+							onChange={this.handleChange} required 
+							/>
+					</label>
+					<label htmlFor="password">
+					Password
+						<input
+							type="password"
+							name="password"
+							onClick={this.toggleHidden.bind(this)}
+							onChange={this.handleChange} required
+							onBlur={this.toggleHidden.bind(this)}
+						/>
+					</label>
+					{!this.state.isHidden && <PasswordReqs />}
+					<label htmlFor="confirmPassword">
+					Please confirm password
+						<input 
+							type="password" 
+							name = "confirmPassword" 
+							onChange={this.handleChange} required 
+						/>
+					</label>
+					<div className="btnContainer">
+						<button type="submit" disabled={!this.validateForm()} onClick={onSignUp}>Create Account</button>
+					</div>
+					<p className = 'u-text-center'>Or connect with: </p>
+					<div className="btnContainer">
+						<div className="fb-login-button" 
+							data-size="large" 
+							data-button-type="login_with" 
+							data-auto-logout-link="false" 
+							data-use-continue-as="false"
+							onClick={checkLoginState}
+							>
+						</div>
+					</div>
+					<p className = 'u-text-center'>Already have an account? 
+						<Link className="nav-item" to='/login'> Login </Link>
+					</p>
+				</Form>
 			</div>
 		);
 	}
