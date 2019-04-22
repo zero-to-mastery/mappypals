@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-
 import { Link } from 'react-router-dom';
-import Form from './Form.js';
+import Form, { PasswordReqs } from './Form.js';
 import './Login.css';
 import axios from 'axios'
 
