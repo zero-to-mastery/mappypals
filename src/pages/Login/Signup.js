@@ -117,7 +117,7 @@ class Login extends Component {
 					</div>
 					<p className = 'u-text-center'>Or connect with: </p>
 					<div className="btnContainer">
-						<div className="fb-login-button" 
+						<div className="fb-login-button" display="inline-block"
 							data-size="large" 
 							data-button-type="login_with" 
 							data-auto-logout-link="false" 

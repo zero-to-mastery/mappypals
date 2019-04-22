@@ -73,8 +73,8 @@ class Login extends Component {
 					    <button type="submit" disabled={!this.validateForm()}>Login</button>
 				  </div>
 					<p className = 'u-text-center'>No account? 
-						<Link className="nav-item" to='/signup'> SignUp </Link>
-						&ensp;Or sign up with:
+						<Link className="nav-item" to='/signup'> SignUp</Link>
+						&ensp;Or connect via:
 					</p>
 					<div className="btnContainer">
 							<div className="fb-login-button" 
