@@ -1,7 +1,9 @@
 import React, { Component } from "react";
+
 import { Link } from 'react-router-dom';
-import Form, { PasswordReqs } from "./Form.js";
+import Form from './Form.js';
 import './Login.css';
+import axios from 'axios'
 
 class Login extends Component {
 	 constructor(props) {
@@ -53,8 +55,23 @@ class Login extends Component {
 
 	handleSubmit = event => {
 		event.preventDefault();
+
+		const url = 'http://localhost:3001/users/register'
+		axios({
+			url: url,
+			method: 'POST',
+			data: JSON.stringify(this.state),
+			headers: {
+				"Content-Type": "application/json"
+			}
+		}) //TODO: Not getting any response back to redirect
+			.then(res => console.log(res))
+			.catch(err => {
+				console.error(err);
+				console.log('Error logging in please try again');
+			});
 		
-		console.log(`${this.state.name} ${this.state.email} ${this.state.number} ${this.state.password} ${this.state.confirmPassword}`)
+		console.log(JSON.stringify(this.state));
 
 		// Clear inputs.
 		this.setState({name: '', email: '', number: '' , password: '', confirmPassword: ''});
