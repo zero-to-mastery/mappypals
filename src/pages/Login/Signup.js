@@ -82,7 +82,7 @@ class Login extends Component {
 	}
 
 	render() {
-		const { onSignUp, checkLoginState } = this.props;
+		const { checkLoginState } = this.props;
 		return (
 			<div className="Login">
 				<Form onSubmit={this.handleSubmit}>
