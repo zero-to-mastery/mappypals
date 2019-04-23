@@ -6,26 +6,23 @@ import axios from 'axios'
 
 class Login extends Component {
 	 constructor(props) {
-	    super(props);
+			super(props);
+			window.FB.init({
+	      appId      : '298824577401793',
+	      cookie     : true,
+	      xfbml      : true,
+	      version    : 'v3.2'
+	    });
 
 	    this.state = {
 	      email: "",
 	      password: ""
 	    };
-  	}
+		}
 
 	validateForm() {
 		return this.state.email.length > 0 && this.state.password.length > 0;
 	}
-/*
-	onEmailChange = (event) => {
-		this.setState({signInEmail: event.target.value})
-	}
-
-	onPasswordChange = (event) => {
-		this.setState({signInPassword: event.target.value})
-	}*/
-
 	handleChange = event => {
 		this.setState({
 			[event.target.name]: event.target.value
@@ -63,7 +60,7 @@ class Login extends Component {
 	}
 
 	render() {
-		const { onSignUp } = this.props;
+		const { checkLoginState } = this.props;
 		return (
 			<div className="Login">
 				<Form onSubmit={this.handleSubmit}>
@@ -90,15 +87,21 @@ class Login extends Component {
 					</div>
 					<div className="btnContainer">
 					    <button type="submit" disabled={!this.validateForm()}>Login</button>
-				    </div>
-
+				  </div>
 					<p className = 'u-text-center'>No account? 
-						<Link className="nav-item" to='/signup'> <span onClick={onSignUp}> SignUp </span> </Link>
-						&emsp;Or sign up with:
+						<Link className="nav-item" to='/signup'> SignUp</Link>
+						&ensp;Or connect via:
 					</p>
-				<div>
-					<p>FACEBOOK LOGIN BUTTON</p>
-				</div>
+					<div className="btnContainer">
+							<div className="fb-login-button" 
+								data-size="large" 
+								data-button-type="login_with" 
+								data-auto-logout-link="false" 
+								data-use-continue-as="false"
+								onClick={checkLoginState}
+								>
+							</div>
+					</div>
 				</Form>
 			</div>
 		);
