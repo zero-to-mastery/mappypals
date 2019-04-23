@@ -20,9 +20,6 @@ class Login extends Component {
 	    };
 		}
 
-	validateForm() {
-		return this.state.email.length > 0 && this.state.password.length > 0;
-	}
 	handleChange = event => {
 		this.setState({
 			[event.target.name]: event.target.value
@@ -70,7 +67,7 @@ class Login extends Component {
 						type="email"
 						name="email"
 						placeholder=""
-						onChange={this.handleChange}
+						onChange={this.handleChange} required
 						/>
 					</label>
 					<label htmlFor="password">
@@ -79,14 +76,14 @@ class Login extends Component {
 						type="password"
 						name="password"
 						placeholder=""
-						onChange={this.handleChange}
+						onChange={this.handleChange} required
 						/>
 					</label>
 					<div className="forgot-password">
 						<a href="url">I forgot my password</a>
 					</div>
 					<div className="btnContainer">
-					    <button type="submit" disabled={!this.validateForm()}>Login</button>
+					    <button type="submit">Login</button>
 				  </div>
 					<p className = 'u-text-center'>No account? 
 						<Link className="nav-item" to='/signup'> SignUp</Link>

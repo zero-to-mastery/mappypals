@@ -32,17 +32,12 @@ class Login extends Component {
 		})
 	}	
 
-  	verifiedEmail(){
-  		const {email}=this.state;
-  		if(!email.includes("@") )return false
-  		else if(!email.split("@")[1].includes(".")) return false
-  		return true
-  	}
-	validateForm() {
-		const {name, email, number, password, confirmPassword}= this.state;
-		if(name==="" || email==="" || number === ""|| password==="" || confirmPassword==="") return false
-		else if(password!==confirmPassword) return false
-		else if(!this.verifiedEmail) return false
+	validateForm() { 
+		const {password, confirmPassword}= this.state;
+		if(password!==confirmPassword) {
+			alert("Passwords do not match!");
+			return false;
+		}
 		return true;
 	}
 
@@ -54,30 +49,31 @@ class Login extends Component {
 
 	handleSubmit = event => {
 		event.preventDefault();
+        if (this.validateForm()) {
+			const url = 'http://localhost:3001/users/register'
+			axios({
+				url: url,
+				method: 'POST',
+				data: JSON.stringify(this.state),
+				headers: {
+					"Content-Type": "application/json"
+				}
+			}) //TODO: Not getting any response back to redirect
+				.then(res => console.log(res))
+				.catch(err => {
+					console.error(err);
+					console.log('Error logging in please try again');
+				});
+			
+			console.log(JSON.stringify(this.state));
 
-		const url = 'http://localhost:3001/users/register'
-		axios({
-			url: url,
-			method: 'POST',
-			data: JSON.stringify(this.state),
-			headers: {
-				"Content-Type": "application/json"
-			}
-		}) //TODO: Not getting any response back to redirect
-			.then(res => console.log(res))
-			.catch(err => {
-				console.error(err);
-				console.log('Error logging in please try again');
-			});
-		
-		console.log(JSON.stringify(this.state));
-
-		// Clear inputs.
-		this.setState({name: '', email: '', number: '' , password: '', confirmPassword: ''});
+			// Clear inputs.
+			this.setState({name: '', email: '', password: '', confirmPassword: ''});
+		}
 	}
 
 	render() {
-		const { onSignUp, checkLoginState } = this.props;
+		const { checkLoginState } = this.props;
 		return (
 			<div className="Login">
 				<Form onSubmit={this.handleSubmit}>
@@ -129,7 +125,7 @@ class Login extends Component {
 						/>
 					</label>
 					<div className="btnContainer">
-						<button type="submit" disabled={!this.validateForm()} onClick={onSignUp}>Create Account</button>
+						<button type="submit" >Create Account</button>
 					</div>
 					<p className = 'u-text-center'>Or connect with: </p>
 					<div className="btnContainer">
