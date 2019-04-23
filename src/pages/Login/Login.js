@@ -60,10 +60,10 @@ class Login extends Component {
 						onChange={this.onPasswordChange}
 						/>
 					</label>
-					<div class="forgot-password">
+					<div className="forgot-password">
 						<a href="url">I forgot my password</a>
 					</div>
-					<div class="btnContainer">
+					<div className="btnContainer">
 					    <button type="submit" disabled={!this.validateForm()}>Login</button>
 				    </div>
 
