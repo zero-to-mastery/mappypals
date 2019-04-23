@@ -5,7 +5,7 @@
     "main": "server.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "nodemon server2.js",
+        "start": "nodemon server.js",
         "postinstall": "npm audit fix"
     },
     "repository": {
@@ -31,7 +31,6 @@
         "mongodb": "^3.1.13",
         "mongoose": "^5.5.2",
         "passport": "^0.4.0",
-        "passport-local": "^1.0.0",
-        "postgresql": "0.0.1"
+        "passport-local": "^1.0.0"
     }
 }
