@@ -3,6 +3,7 @@ import './App.css';
 import Navbar from './components/Navbar/Navbar'
 import Main from './components/Main'
 import Layout  from './components/Layout'
+import Home from './pages/Home/Home'
 
 
 class App extends Component {
@@ -50,7 +51,8 @@ class App extends Component {
 	render() {
 		return (
 				<React.Fragment>
-					<Navbar user={this.state.isUserLogged} onLogin={this.getFBLoginStatus}/>
+					{/*<Navbar user={this.state.isUserLogged} onLogin={this.getFBLoginStatus}/>*/}
+					<Home />
 					<Layout>
 					<Main />
 					</Layout>	

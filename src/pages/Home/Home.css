@@ -1,14 +1,27 @@
+
+/* removing the original background and put a new image. trying to make it respionsive */
 section {
-    background: linear-gradient(to bottom, white 70%, #63686355);
-    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    background-image: url('../../pics/adult-backlit-beach.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size:cover;
+    min-width: 1024px;
+    min-height: 100%;
+    width: 100%;
+    height: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
     margin: auto;
     text-align: center;
     font-family: "Play", sans-serif;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+    
     margin-top:-4px;
 }
+
+
 
 #not-logged-in>div {
     justify-content: center;
