@@ -4,8 +4,6 @@ const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const User = require('../models/User');
 
-let redirect = false;
-
 router.get('/register', (req, res) => {
     res.send("Signup endpoint");
 })
@@ -43,7 +41,7 @@ router.post('/register', (req, res) => {
                         newUser.save()
                             .then(user => {
                                 console.log(`Successfully registered ${user}`);
-                                redirect = true;
+                                res.status(200).json({ redirect: true})
                             })
                             .catch(err => console.log(err));
                     }
@@ -75,7 +73,7 @@ router.post('/login', (req, res) => {
                 if (!isMatch) {
                     res.status(401).json({ error: 'Incorrect email or password' }) 
                 } else {
-                    res.sendStatus(200);
+                    res.status(200).json({ redirect: true })
                 }
             });
         }

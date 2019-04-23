@@ -63,8 +63,13 @@ class Login extends Component {
 			headers: {
 				"Content-Type": "application/json"
 			}
-		}) //TODO: Not getting any response back to redirect
-			.then(res => console.log(res))
+		})
+			.then(res => {
+				if (res.status === 200 || res.data.redirect) {
+					//Write redirect logic here
+					console.log("Redirect user to login");
+				}
+			})
 			.catch(err => {
 				console.error(err);
 				console.log('Error logging in please try again');
