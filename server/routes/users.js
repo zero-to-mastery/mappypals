@@ -11,9 +11,9 @@ router.get('/register', (req, res) => {
 })
 
 router.post('/register', (req, res) => {
-    const { name, email, number, password, confirmPassword } = req.body;
+    const { name, lastname, email, password, confirmPassword } = req.body;
 
-    if (!name || !email || !number || !password || !confirmPassword) {
+    if (!name || !lastname || !email  || !password || !confirmPassword) {
         console.log("Error: Enter all fields");
     }
 
@@ -28,8 +28,8 @@ router.post('/register', (req, res) => {
         else {
             const newUser = new User({
                 name,
+                lastname,
                 email,
-                number,
                 password
             });
 
