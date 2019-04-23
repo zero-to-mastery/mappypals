@@ -23,15 +23,6 @@ class Login extends Component {
 	validateForm() {
 		return this.state.email.length > 0 && this.state.password.length > 0;
 	}
-/*
-	onEmailChange = (event) => {
-		this.setState({signInEmail: event.target.value})
-	}
-
-	onPasswordChange = (event) => {
-		this.setState({signInPassword: event.target.value})
-	}*/
-
 	handleChange = event => {
 		this.setState({
 			[event.target.name]: event.target.value
@@ -69,7 +60,7 @@ class Login extends Component {
 	}
 
 	render() {
-		const { onSignUp, checkLoginState } = this.props;
+		const { checkLoginState } = this.props;
 		return (
 			<div className="Login">
 				<Form onSubmit={this.handleSubmit}>
@@ -98,8 +89,8 @@ class Login extends Component {
 					    <button type="submit" disabled={!this.validateForm()}>Login</button>
 				  </div>
 					<p className = 'u-text-center'>No account? 
-						<Link className="nav-item" to='/signup' onClick={onSignUp}> SignUp </Link>
-						&ensp;Or sign up with:
+						<Link className="nav-item" to='/signup'> SignUp</Link>
+						&ensp;Or connect via:
 					</p>
 					<div className="btnContainer">
 							<div className="fb-login-button" 
