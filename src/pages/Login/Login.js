@@ -43,7 +43,8 @@ class Login extends Component {
 			}
 		})
 			.then(res => {
-				if(res.status === 200) {
+				if (res.status === 200 || res.data.redirect) {
+					//Write redirect logic here
 					console.log("Redirect user to main page");
 				}
 			})

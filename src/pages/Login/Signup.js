@@ -15,7 +15,7 @@ class Login extends Component {
 		  });
 
 	    this.state = {
-			firstname:"",
+			name:"",
 			lastname:"",
 			email: "",
 			number: "",
@@ -63,8 +63,13 @@ class Login extends Component {
 			headers: {
 				"Content-Type": "application/json"
 			}
-		}) //TODO: Not getting any response back to redirect
-			.then(res => console.log(res))
+		})
+			.then(res => {
+				if (res.status === 200 || res.data.redirect) {
+					//Write redirect logic here
+					console.log("Redirect user to login");
+				}
+			})
 			.catch(err => {
 				console.error(err);
 				console.log('Error logging in please try again');
@@ -77,7 +82,7 @@ class Login extends Component {
 	}
 
 	render() {
-		const { onSignUp, checkLoginState } = this.props;
+		const { checkLoginState } = this.props;
 		return (
 			<div className="Login">
 				<Form onSubmit={this.handleSubmit}>
@@ -88,6 +93,7 @@ class Login extends Component {
 							type="text" 
 							id="firstname"
 							className="item2"
+							name = "name"
 							onChange={this.handleChange} required 
 							/>
 					</label>
@@ -97,6 +103,7 @@ class Login extends Component {
 							type="text" 
 							id="lastname"
 							className="item4"
+							name = "lastname"
 							onChange={this.handleChange} required 
 							/>
 					</label>
@@ -114,9 +121,9 @@ class Login extends Component {
 						<input
 							type="password"
 							name="password"
-							onClick={this.toggleHidden.bind(this)}
+							/*onClick={this.toggleHidden.bind(this)}*/
 							onChange={this.handleChange} required
-							onBlur={this.toggleHidden.bind(this)}
+							/*onBlur={this.toggleHidden.bind(this)}*/
 						/>
 					</label>
 					{!this.state.isHidden && <PasswordReqs />}
@@ -129,7 +136,7 @@ class Login extends Component {
 						/>
 					</label>
 					<div className="btnContainer">
-						<button type="submit" disabled={!this.validateForm()} onClick={onSignUp}>Create Account</button>
+						<button type="submit">Create Account</button>
 					</div>
 					<p className = 'u-text-center'>Or connect with: </p>
 					<div className="btnContainer">
