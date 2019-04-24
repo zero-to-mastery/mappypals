@@ -3,7 +3,7 @@ import './App.css';
 import Navbar from './components/Navbar/Navbar'
 import Main from './components/Main'
 import Layout  from './components/Layout'
-import Home from './pages/Home/Home'
+
 
 
 class App extends Component {

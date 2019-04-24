@@ -7,10 +7,11 @@ import { Link } from 'react-router-dom';
 
 const Home = (user) => {
 	return(
-		(false)?
+		(true)?
 		(
 			<section id="not-logged-in">
-				<h1>Mappypals helps you keep track of your friend abroad.</h1>
+				<h1 className='home-title'>Mappypals</h1>
+				<h3 className='intro'>Connect to your friends accros the world</h3>
 				<div>
 					<div  aria="login">
 						<i className="fas fa-mouse-pointer user-pointer"></i>

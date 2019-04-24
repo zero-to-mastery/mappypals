@@ -3,6 +3,7 @@
 section {
     display: flex;
     flex-direction: column;
+    
     background-image: url('../../pics/adult-backlit-beach.jpg');
     background-position: center;
     background-repeat: no-repeat;
@@ -17,7 +18,7 @@ section {
     margin: auto;
     text-align: center;
     font-family: "Play", sans-serif;
-    
+
     margin-top:-4px;
 }
 
@@ -28,11 +29,20 @@ section {
     display: inline-flex;
 }
 
-section h1 {
+.home-title {
     padding-top: 200px;
     font-size: 3em;
-    margin: 0px;
+    color: white;
+    margin: auto;
+    text-align: center;
 }
+
+.intro{
+    color: white;
+    font-size: 2em;
+}
+
+
 
 #not-logged-in div div {
     border-radius: 100%;
