@@ -5,6 +5,7 @@ import Home from '../pages/Home/Home';
 import Contact from '../pages/Contact/Contact';
 import About from '../pages/About/About';
 import Signup from '../pages/Login/Signup';
+import Reset from '../pages/Login/Reset';
 
 // The Main component renders one of the three provided
 // Routes (provided that one matches). Both the /roster
@@ -17,6 +18,7 @@ const Main = () => (
       <Route exact path='/' component={Home}/>
       <Route path='/login' component={Login}/>
       <Route path="/signup" component={Signup}/>
+      <Route path="/reset" component={Reset}/>
       <Route path="/about" component={About}/> 
       <Route path="/contact" component={Contact} />
     </Switch>

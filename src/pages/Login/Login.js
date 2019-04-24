@@ -80,7 +80,7 @@ class Login extends Component {
 						/>
 					</label>
 					<div className="forgot-password">
-						<a href="url">I forgot my password</a>
+						<Link className="nav-item" to='/reset'> I forgot my password</Link>
 					</div>
 					<div className="btnContainer">
 					    <button type="submit">Login</button>

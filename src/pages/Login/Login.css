@@ -9,16 +9,55 @@
     overflow-x:"hidden";
   }
 
-  #newPassword {
-    margin-bottom: -1.5rem;
-    color: red;
-    font-size: 1rem;
-    line-height: 1;
-    transform: translateY(-1.5rem);
+  .text-center-wrap {
+    text-align: center;
+    white-space: wrap;
+    font-family: 'Poppins', sans-serif;
   }
 
-  .u-text-center{
-    text-align: center;
-    white-space: nowrap;
+  .heavy {
+    font-weight: 600;
+    font-size: 1.2rem;
   }
+  .light {
+    font-weight: 400;
+    font-size: 1.2rem;
+    margin-bottom: 2.3rem;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .text-center-wrap {
+    text-align: center;
+    white-space: wrap;
+    font-family: 'Poppins', sans-serif;
+  }
+  .heavy {
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  .light {
+    font-weight: 400;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+}
+
+#newPassword {
+  margin-bottom: -1.5rem;
+  color: red;
+  font-size: 1rem;
+  line-height: 1;
+  transform: translateY(-1.5rem);
+}
+
+#unknownUser {
+  color: red;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.u-text-center{
+  text-align: center;
+  white-space: nowrap;
 }

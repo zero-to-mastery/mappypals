@@ -32,6 +32,7 @@ const Form = styled.form`
     width: 100%;
     box-sizing: border-box;
     padding: 0.5rem;
+    font-size: 1.2rem;
     border: none;
     border-bottom: 2px solid grey;
     &:hover {
@@ -134,5 +135,8 @@ const Form = styled.form`
 const PasswordReqs = () => (
   <div id="newPassword">At least 6 characters, a number or a symbol, at least 1 letter</div>
 );
+const Msg = () => (
+  <div id="unknownUser">Email not found: Please check entry or go back to Login to sign up</div>
+);
 export default Form
-export {PasswordReqs}
+export {PasswordReqs, Msg}
