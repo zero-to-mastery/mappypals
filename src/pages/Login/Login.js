@@ -2,10 +2,17 @@ import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import './Login.css';
 import Form from './Form.js';
+import axios from 'axios'
 
 class Login extends Component {
 	 constructor(props) {
-	    super(props);
+			super(props);
+			window.FB.init({
+	      appId      : '298824577401793',
+	      cookie     : true,
+	      xfbml      : true,
+	      version    : 'v3.2'
+	    });
 
 	    this.state = {
 	      email: "",
@@ -16,20 +23,36 @@ class Login extends Component {
 	validateForm() {
 		return this.state.email.length > 0 && this.state.password.length > 0;
 	}
-
-	onEmailChange = (event) => {
-		this.setState({signInEmail: event.target.value})
-	}
-
-	onPasswordChange = (event) => {
-		this.setState({signInPassword: event.target.value})
+	handleChange = event => {
+		this.setState({
+			[event.target.name]: event.target.value
+		});
 	}
 
 	// Submited values
 	handleSubmit = event => {
 		event.preventDefault();
 
-		console.log(`${this.state.email} ${this.state.password}`);
+		const url = 'http://localhost:3001/users/login'
+		axios({
+			url: url,
+			method: 'POST',
+			data: JSON.stringify(this.state),
+			headers: {
+				"Content-Type": "application/json"
+			}
+		})
+			.then(res => {
+				if (res.status === 200 || res.data.redirect) {
+					//Write redirect logic here
+					console.log("Redirect user to main page");
+				}
+			})
+			.catch(err => {
+				console.error(err);
+				console.log('Error logging in please try again');
+			});
+
 		
 		// Clear inputs.
 		this.setState({email: ''});
@@ -38,7 +61,7 @@ class Login extends Component {
 	}
 
 	render() {
-		const { onSignUp, checkLoginState } = this.props;
+		const { checkLoginState } = this.props;
 		return (
 			<div className="Login">
 				<Form onSubmit={this.handleSubmit}>
@@ -48,7 +71,7 @@ class Login extends Component {
 						type="email"
 						name="email"
 						placeholder=""
-						onChange={this.onEmailChange}
+						onChange={this.handleChange}
 						/>
 					</label>
 					<label htmlFor="password">
@@ -57,26 +80,27 @@ class Login extends Component {
 						type="password"
 						name="password"
 						placeholder=""
-						onChange={this.onPasswordChange}
+						onChange={this.handleChange}
 						/>
 					</label>
-					<div class="forgot-password">
-						<a href="url">I forgot my password</a>
+					<div className="forgot-password">
+						<Link to = '/resetpassword'>I forgot my password</Link>
 					</div>
-					<div class="btnContainer">
+					<div className="btnContainer">
 					    <button type="submit" disabled={!this.validateForm()}>Login</button>
 				  </div>
 					<p className = 'u-text-center'>No account? 
-						<Link className="nav-item" to='/signup' onClick={onSignUp}> SignUp </Link>
-						&ensp;Or sign up with:
+						<Link className="nav-item" to='/signup'> SignUp</Link>
+						&ensp;Or connect via:
 					</p>
-					<div class="btnContainer">
-							<div class="fb-login-button" 
+					<div className="btnContainer">
+							<div className="fb-login-button" 
 								data-size="large" 
-								data-button-type="continue_with" 
+								data-button-type="login_with" 
 								data-auto-logout-link="false" 
 								data-use-continue-as="false"
-								onlogin={checkLoginState}>
+								onClick={checkLoginState}
+								>
 							</div>
 					</div>
 				</Form>
