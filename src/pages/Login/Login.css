@@ -1,4 +1,4 @@
-@media all and (min-width: 360px) {
+@media all and (min-width: 480px) {
   .Login {
     padding: 60px 0;
   }
@@ -6,17 +6,12 @@
   .Login form {
     margin: 0 auto;
     max-width: 320px;
-    overflow-x: hidden;
   }
-
-  #newPassword {
-    margin-bottom: -1.5rem;
-    color: red;
-    font-size: 1rem;
-    line-height: 1;
+  .forgot-password {
+    display: flex;
+    justify-content: flex-end;
     transform: translateY(-1.5rem);
   }
-
   .u-text-center{
     text-align: center;
     white-space: nowrap;

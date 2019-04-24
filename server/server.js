@@ -1,49 +1,42 @@
-//Should be server.js but since we are not allowed to delete other people's code, a new file.
+const express=require('express');
+const cors=require('cors');
+const parser=require("body-parser")
+const actions=require("./database-actions.js");
 
-const express = require('express');
-const mongoose = require('mongoose');
-const passport = require('passport');
-const cors = require('cors');
-const session = require('express-session');
-const bodyParser = require('body-parser');
 
-const app = express();
+const INSERT="INSERT";
+const FIND_ALL="FIND_ALL";
+const FIND_ONE="FIND_ONE";
+const UPDATE="UPDATE";
+const DELETE="DELETE";
 
-// CORS
+
+
+const app=express();
 app.use(cors());
+app.use(parser.urlencoded({extended:false}));
+app.use(parser.json());
+//root endpoint
+app.get("/",(req,res)=>{
+	res.send("Reached root end point");
+})
+//login
+//register
+app.post("/register",(req,res)=>{
+	console.log(req.body)
+	const {username, fullname, email, coords, postcode} = req.body;
+	console.log({username,fullname,email,coords,postcode});
+	const newEntry={
+		username, fullname, email, coords, postcode
+	}
+	const result=actions.dbCall(INSERT, "users", newEntry, username);
+	console.log(result);
+	res.send(result);
+})
+//add/remove friend
+//request permission
 
-// Body parser    
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
 
-// Routes
-const index = require('./routes/index.js');
-const users = require('./routes/users.js');
 
-// While adding fb or any other auth, make changes to this file
-require('./config/passport')(passport);
 
-// DB config
-const db = require('./config/db').mongoURI;
-
-mongoose.connect( db, { useNewUrlParser: true })
-    .then(() => console.log('MongoDB Connected'))
-    .catch(err => console.log(err));
-
-app.use(
-    session({
-        secret: 'secret',
-        resave: true,
-        saveUninitialized: true
-    })
-);
-
-app.use('/', index);
-app.use('/users', users);
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-const PORT = process.env.PORT || 3001
-
-app.listen(PORT, console.log(`Server started on port ${PORT}`));
+app.listen(3001,()=>console.log("listening"));
