@@ -51,8 +51,7 @@ class App extends Component {
 	render() {
 		return (
 				<React.Fragment>
-					{/*<Navbar user={this.state.isUserLogged} onLogin={this.getFBLoginStatus}/>*/}
-					<Home />
+					<Navbar user={this.state.isUserLogged} onLogin={this.getFBLoginStatus}/>
 					<Layout>
 					<Main />
 					</Layout>	
