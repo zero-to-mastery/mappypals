@@ -1,48 +1,55 @@
-
-/* removing the original background and put a new image. trying to make it respionsive */
 section {
     display: flex;
     flex-direction: column;
-    
-    background-image: url('../../pics/adult-backlit-beach.jpg');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size:cover;
-    min-width: 1024px;
-    min-height: 100%;
-    width: 100%;
-    height: auto;
-    position: fixed;
-    top: 0;
-    left: 0;
+    height: 70vh;
     margin: auto;
     text-align: center;
     font-family: "Play", sans-serif;
-
+    width: 100%;
     margin-top:-4px;
+    color: white;
+}
+#root{
+    background-image: url('../../pics/adult-backlit-beach.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
+#signup{
+    color: white;
+}
 
+.local-icon{
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 30px;
+    width: 100%;
+    height: 100px;
+    margin-top: 50px;
+}
+
+h2{
+    margin-left: 40px;
+}
 
 #not-logged-in>div {
     justify-content: center;
     display: inline-flex;
 }
 
-.home-title {
+section h1 {
+    width: 100%;
     padding-top: 200px;
+    font-size: 4em;
+    margin: 0px;
+}
+
+section h3{
     font-size: 3em;
-    color: white;
-    margin: auto;
-    text-align: center;
+    width: 100%
 }
-
-.intro{
-    color: white;
-    font-size: 2em;
-}
-
-
 
 #not-logged-in div div {
     border-radius: 100%;
