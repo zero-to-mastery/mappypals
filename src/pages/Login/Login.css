@@ -6,7 +6,7 @@
   .Login form {
     margin: 0 auto;
     max-width: 320px;
-    overflow-x:"hidden";
+    overflow-x: hidden;
   }
 
   #newPassword {

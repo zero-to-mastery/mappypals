@@ -90,7 +90,6 @@ const Form = styled.form`
     padding: 0.4rem 2.4rem;
     cursor: pointer;
   }
-
   a {
     color: #6831DE;
     font-weight: normal;

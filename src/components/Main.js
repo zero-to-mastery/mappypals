@@ -21,6 +21,7 @@ const Main = () => (
       <Route path="/about" component={About}/> 
       <Route path="/contact" component={Contact} />
       <Route path="/resetpassword" component={ResetPassword} />
+
     </Switch>
   </main>
 )

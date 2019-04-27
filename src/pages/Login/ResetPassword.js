@@ -1,3 +1,4 @@
+
 /*
     Password doesn't match hidden is false.
 
@@ -75,4 +76,7 @@ class ResetPassword extends Component {
   }
 }
 
+
 export default ResetPassword;
+
+
