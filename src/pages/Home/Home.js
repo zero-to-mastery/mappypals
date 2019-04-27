@@ -13,29 +13,29 @@ const Home = (user) => {
 		(
 			<section id="not-logged-in">
 				<div className='local-icon'>
-					<img src={localIcon} alt='local icon' height="100px"/>
-					<h2>MappyPals</h2>
+					<img className='icon' src={localIcon} alt='local icon' height="100px"/>
+					<p>MappyPals</p>
 				</div>
-				<div>
-					<h1>MappyPals</h1>
+				<div className='title'>
+					<p>MappyPals</p>
 				</div>
-				<div>
-					<h3>Connect to your friends accross the world!</h3>
-				 {/* <div>
-					<div  aria="login">
-						<i className="fas fa-mouse-pointer user-pointer"></i>
-						<i className="fas fa-user-circle"></i>
-					</div>
-					<div aria="add friends">
-						<i className="fas fa-user-plus"></i>
-					</div>
-					<div aria="map your pals">
-						<i className="fas fa-map-marked-alt"></i>
-					</div>
+				<div className='intro'>
+					<p>Connect to your friends <br/> across the world!</p>
+						{/* <div>
+				<div  aria="login">
+					<i className="fas fa-mouse-pointer user-pointer"></i>
+					<i className="fas fa-user-circle"></i>
+				</div>
+				<div aria="add friends">
+					<i className="fas fa-user-plus"></i>
+				</div>
+				<div aria="map your pals">
+					<i className="fas fa-map-marked-alt"></i>
+				</div>
 				</div> */}
-				</div>
-				<div>
-					<p>Do not have and account yet?<Link to="/signup"><span id="signup"> Sign up </span> </Link></p>
+				</div>	
+				<div className='signup-btn'>
+					<Link to="/signup"><button className="signup"> Get Started </button> </Link>
 				</div>
 			</section>
 		):
