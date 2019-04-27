@@ -20,6 +20,18 @@ const UserSchema = new mongoose.Schema({
     date: {
         type: Date,
         default: Date.now
+    },
+    resetPassToken: {
+        type: String
+    },
+    resetPassExp: {
+        type: Date
+    },
+    lastLogin: {
+        type: Date
+    },
+    lastLogout: {
+        type: Date
     }
 });
 
