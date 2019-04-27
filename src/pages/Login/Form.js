@@ -88,6 +88,7 @@ const Form = styled.form`
     text-transform: uppercase;
     white-space: nowrap;
     padding: 0.4rem 2.4rem;
+    cursor: pointer;
   }
 
   a {
