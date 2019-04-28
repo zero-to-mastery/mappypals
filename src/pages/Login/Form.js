@@ -79,7 +79,7 @@ const Form = styled.form`
   button,
   input[type='submit'] {
     width: auto;
-    background: linear-gradient(to bottom right, #E03BFB, #6831DE);;
+    background: linear-gradient(to bottom right, #E03BFB, #6831DE);
     color: white;
     border: 0;
     border-radius: 10px;
