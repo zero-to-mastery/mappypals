@@ -80,6 +80,8 @@ router.post('/login', (req, res) => {
                 if (!isMatch) {
                     res.status(401).json({ error: 'Incorrect email or password' }) 
                 } else {
+                    user.lastLogin = Date.now()
+                    user.save();
                     res.status(200).json({ redirect: true })
                 }
             });
@@ -144,7 +146,6 @@ router.post("/reset", (req, res, next) => {
                         'http://' + req.headers.host + '/users/reset/' + token + '\n\n' +
                         'If you did not request this, please ignore this email and your password will remain unchanged.\n'
             });
-            console.log("Message sent: %s", info.messageId);
             console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
         }
     ]);
