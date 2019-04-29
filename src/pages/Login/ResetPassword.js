@@ -57,6 +57,7 @@ class ResetPassword extends Component {
                     type="password" 
                     name = "password"
                     onChange={this.handleChange} required 
+                    value = {this.state.password}
                     />
             </label>
             <label htmlFor="checkPassword">
@@ -65,6 +66,7 @@ class ResetPassword extends Component {
                     type="password" 
                     name = "checkPassword"
                     onChange={this.handleChange} required 
+                    value = {this.state.checkPassword}
                     />
             </label>
             <div className="btnContainer">
