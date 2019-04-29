@@ -1,11 +1,22 @@
 /*b3442e	636863	b49410	d1d1d1	568b98*/
 
+@media (max-width: 768px){
+	.hamburger-icon{
+		opacity: 100 !important;
+	}
+	.navbar{
+		display: none !important; 
+
+	}
+}
 header{
 	width: 100%;
 	font-family: 'Play', sans-serif;
 	
 }
-
+.navbar{
+	 display: block; 
+}
 .nav-wrapper{
 	/* For hambuger icon */
 	position: relative;
@@ -16,7 +27,10 @@ header{
 	text-align: center;
 	float: right;
 }
-
+.navbarToggle{
+	display: block !important;
+}
+/* 'navbar' */
 #logo-wrapper{
 	width: 160px;
 	position: absolute;
@@ -72,19 +86,22 @@ header .nav-item{
 
 /* Hamburger Icons */
 .hamburger-icon{
-	display: none;
+	opacity: 0;
 	width: 20px;
     height: 19px;
-    position: relative;
+	/* Problem:
+	1) In order to make hamburger icon near Navbar like in mockup:
+		1.1) Hamburger-icon position-relative so that it would be near navbar
+		1.2) Navbar instead of display none; add opacity 0. So that hamburger position relative would still be usefull
+	*/
+    /* position: relative; */
+	position: absolute;
     z-index: 10;
     top: 50px;
     right: 10px;
 	background-color: #ffffff;
 	cursor: pointer;
 
-	@media (min-width: 769px) {
-		display: block;
-	}
 }
 .hamburger-icon:before{
     content: "";
@@ -114,12 +131,3 @@ header .nav-item{
     height: 3px;
     background-color: #E03BFB;
 }
-
-/* @media (min-width 769px){
-	.hamburger-display{
-		display: block;		
-	}
-	.nav-wrapper{
-		display: none;
-	}
-} */
