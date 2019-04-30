@@ -16,19 +16,24 @@ header{
 }
 .navbar{
 	 display: block; 
+	 background-color: #ffffff;
 }
 .nav-wrapper{
 	/* For hambuger icon */
 	position: relative;
-	margin-right: 30px;
 	min-height: 100%;
 	width: 15rem;
 	font-size: 18px;
 	text-align: center;
 	float: right;
+	z-index: 10;
 }
 .navbarToggle{
 	display: block !important;
+	position: absolute;
+
+	/* Animations */
+	
 }
 /* 'navbar' */
 #logo-wrapper{
@@ -50,15 +55,11 @@ header .nav-item{
 	border-bottom: 2px solid grey;
 }
 .login {
-	height:70px;
-	width:200px;
 	text-align: center;
+	display: inline-block;
+	margin-bottom: 30px;
 }
-.signup > a {
-	background: #a537fd;
-	min-width:200px;
-	margin-top: 30px;
-}
+
 
 .button{
 	width: auto;
@@ -87,17 +88,11 @@ header .nav-item{
 /* Hamburger Icons */
 .hamburger-icon{
 	opacity: 0;
-	width: 20px;
+	width: 30px;
     height: 19px;
-	/* Problem:
-	1) In order to make hamburger icon near Navbar like in mockup:
-		1.1) Hamburger-icon position-relative so that it would be near navbar
-		1.2) Navbar instead of display none; add opacity 0. So that hamburger position relative would still be usefull
-	*/
-    /* position: relative; */
 	position: absolute;
-    z-index: 10;
-    top: 50px;
+    z-index: 100;
+	top: 30px;
     right: 10px;
 	background-color: #ffffff;
 	cursor: pointer;
