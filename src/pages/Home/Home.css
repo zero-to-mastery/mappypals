@@ -1,54 +1,122 @@
 section {
-    background: linear-gradient(to bottom, white 70%, #63686355);
+    display: flex;
+    flex-direction: column;
     height: 70vh;
     margin: auto;
     text-align: center;
     font-family: "Play", sans-serif;
-    display: flex;
-    flex-direction: column;
     width: 100%;
-    margin-top:-4px;
+    color: white;
+    font-weight: lighter;
+}
+#root{
+    background-image: url('../../pics/adult-backlit-beach.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
-#not-logged-in>div {
-    justify-content: center;
-    display: inline-flex;
+.title{
+    display: flex;
+    height: 100px;
+    width: 100%;
+    font-size: 4em;
+    margin: 0;
 }
+
+.title p {
+    margin: auto;
+ }
+
+.intro{
+    font-size: 3em;
+    margin-top: 0px;
+    width: 100%;
+    
+}
+
+.signup-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 60%;
+    margin-top: 200px;
+}
+
+.signup{
+    width: 250px;
+    height: 50px;
+    border: transparent;
+    border-radius: 10px;
+    background-image: linear-gradient(to right, #A731A5, #550554);
+    text-transform: uppercase;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: white;
+}
+
+.local-icon{
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 2em;
+    width: 100%;
+    height: 100px;
+    margin-top: 50px;
+}
+
+.icon{
+    margin-left: 30px;
+    margin-right: 50px;
+}
+
+
+
+/*#not-logged-in>div {*/
+/*    justify-content: center;*/
+/*    display: inline-flex;*/
+/*}*/
 
 section h1 {
-    padding-top: 200px;
-    font-size: 3em;
+    width: 100%;
+    font-size: 4em;
     margin: 0px;
 }
 
-#not-logged-in div div {
-    border-radius: 100%;
-    width: 150px;
-    height: 150px;
-    margin: 80px;
-    background-color: #f1f1ff;
-    transition: transform 0.2s ease-out, background-color 0.2s linear;
+section h3{
+    font-size: 3em;
+    width: 100%
 }
 
-#not-logged-in div div:hover {
-    background-color: #b3442edd;
-}
+/*#not-logged-in div div {*/
+/*    border-radius: 100%;*/
+/*    width: 150px;*/
+/*    height: 150px;*/
+/*    margin: 80px;*/
+/*    background-color: #f1f1ff;*/
+/*    transition: transform 0.2s ease-out, background-color 0.2s linear;*/
+/*}*/
 
-div[aria]:hover:after {
-    content: attr(aria);
-    display: block;
-    font-family: "Play", sans-serif;
-    font-size: 20px;
-}
+/*#not-logged-in div div:hover {*/
+/*    background-color: #b3442edd;*/
+/*}*/
 
-#not-logged-in div div:hover {
-    transform: scale(1.3);
-}
+/*div[aria]:hover:after {*/
+/*    content: attr(aria);*/
+/*    display: block;*/
+/*    font-family: "Play", sans-serif;*/
+/*    font-size: 20px;*/
+/*}*/
 
-section i {
-    font-size: 6em;
-    padding: 25px 15px;
-}
+/*#not-logged-in div div:hover {*/
+/*    transform: scale(1.3);*/
+/*}*/
+
+/*section i {*/
+/*    font-size: 6em;*/
+/*    padding: 25px 15px;*/
+/*}*/
 
 .user-pointer {
     position: absolute;
@@ -80,7 +148,6 @@ main section {
     width: 100vw;
     height: 90vh;
 }
-
 section canvas {
     position: relative !important;
     width: 100% !important;
@@ -96,6 +163,7 @@ section canvas {
     left: -8px;
     transition: transform 0.3s ease-in-out;
 }
+
 .mapboxgl-marker #me {
     color: blue;
     font-size: 45px;
@@ -126,6 +194,7 @@ section canvas {
     overflow: hidden;
     transition: height 0.6s ease-in-out;
 }
+
 
 #popup div{
     text-align: center;
