@@ -42,7 +42,7 @@ Our mission is to make it easier for people (travelers, students) to connect wit
 ## Release & Launch
 * [__ProductHunt__](https://www.producthunt.com/)
 * [__ZTM Discord__](https://zerotomastery.io/)
-* [__Grind Reel Discord](https://discordapp.com/invite/rka6rvg)
+* [__Grind Reel Discord__](https://discordapp.com/invite/rka6rvg)
 * [__Maker's Kitchen Slack__](https://makerskitchen.xyz/)
 * [__LinkedIn__](https://www.linkedin.com/)
 * [__Beta List__](https://betalist.com/)
