@@ -6,7 +6,7 @@
 */
 import React, { Component } from 'react'
 import Form from './Form';
-import './ResetPassword.css';
+import './ResetPasswordEmail.css';
 
 class ResetPassword extends Component {
     constructor(props){
