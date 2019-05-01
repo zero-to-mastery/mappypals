@@ -10,7 +10,8 @@ import axios from 'axios'
         super(props);
             this.state = {
                 email: '',
-                message: ''
+                message: '',
+                link: ''
             }
      }
 
@@ -36,7 +37,8 @@ import axios from 'axios'
             if (res.status === 200) {
                 //Write redirect logic here
                 this.setState({
-                    message: res.data.message
+                    message: res.data.message,
+                    link: res.data.link
                 })
                 console.log(JSON.stringify(this.state.message));
             }
@@ -60,7 +62,8 @@ import axios from 'axios'
             <p className = "text-center text-medium">Enter the email address from your account below and 
                 we will send your password reset link.
             </p>
-            <p className="text-center text-medium message">{this.state.message}</p>
+                <p className="text-center text-medium message">{this.state.message} </p>
+                <a className="message" href={this.state.link}>{this.state.link}</a>
             <div>
                 <label htmlFor="Email">Email
                     <input 
