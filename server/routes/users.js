@@ -175,7 +175,7 @@ router.post("/reset", (req, res, next) => {
             });
 
             console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-            res.status(200).json({ message: 'Check email for reset password link' })
+            res.status(200).json({ message: `Click on the link below`, link: nodemailer.getTestMessageUrl(info) })
 
         }
     ]);
