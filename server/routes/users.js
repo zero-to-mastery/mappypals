@@ -154,7 +154,7 @@ router.post("/reset", (req, res, next) => {
 
 //Deal with the reset token
 
-router.get('/reset/:token', (req, res) => {
+router.get('/resetpassword/:token', (req, res) => {
 
     User.findOne({ resetPassToken: req.params.token, resetPassExp: { $gt: Date.now() }}, (err, user) => {
         if(!user) {
@@ -164,17 +164,19 @@ router.get('/reset/:token', (req, res) => {
     });
 });
 
-router.post('/reset/:token', (req, res) => {
+router.post('/resetpassword/:token', (req, res) => {
 
     async.waterfall([
         (done) => {
+            const { password, checkPassword } = req.body;
+
             User.findOne({ resetPassToken: req.params.token, resetPassExp: { $gt: Date.now() }}, (err, user) => {
                 if(!user) {
                     res.send('Password Reset Token is invalid or expired.')
                 }
-                else if( req.query.pass === req.query.confirm) {
+                else if( password === checkPassword ) {
                     bcrypt.genSalt(5, (err, salt) => {
-                        bcrypt.hash(req.query.pass, salt, (err, hash) => {
+                        bcrypt.hash(password, salt, (err, hash) => {
                             if (err) {
                                 console.log(`Bcrypt error: ${err}`);
                             }

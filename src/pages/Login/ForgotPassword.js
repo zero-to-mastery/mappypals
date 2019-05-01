@@ -60,7 +60,7 @@ import axios from 'axios'
             <p className = "text-center text-medium">Enter the email address from your account below and 
                 we will send your password reset link.
             </p>
-            <p className="text-center text-medium">{this.state.message}</p>
+            <p className="text-center text-medium message">{this.state.message}</p>
             <div>
                 <label htmlFor="Email">Email
                     <input 

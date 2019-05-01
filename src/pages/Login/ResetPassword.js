@@ -18,6 +18,12 @@ class ResetPasswordEmail extends Component {
         };
     }
 
+    handleChange = event => {
+        this.setState({
+            [event.target.name]: event.target.value
+        });
+    }
+
     handleSubmit = event => {
         event.preventDefault();
 
@@ -27,18 +33,36 @@ class ResetPasswordEmail extends Component {
             this.setState({ passwordMatch: false });
         }
 
-        // Clear inputs. Inputs won't clear for some reason.
-        this.setState({ password: "" })
-        this.setState({ checkPassword: "" });
-        console.log(this.state.password);
-        console.log(this.state.checkPassword);
+        const token = window.location.pathname;
+        console.log(window.location.pathname);
+        const url = `http://localhost:3001/users${token}`;
 
-
-    }
-    handleChange = event => {
-        this.setState({
-            [event.target.name]: event.target.value
+        axios({
+            url: url,
+            method: 'POST',
+            data: JSON.stringify(this.state),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .then(res => {
+            if (res.status === 200) {
+                console.log("Successfully changed password");
+                this.setState({
+                  message: res.data.message
+                })
+                console.log(JSON.stringify(this.state.message));
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            console.log('Error logging in please try again');
         });
+
+
+        // Clear inputs. Inputs won't clear for some reason.
+        this.setState({ password: '', checkPassword: '' })
+
     }
 
     render() {
@@ -53,7 +77,7 @@ class ResetPasswordEmail extends Component {
                     <h5 className="title">Reset your password</h5>
                     <label htmlFor="password">
                         Password
-                <input
+                        <input
                             type="password"
                             name="password"
                             onChange={this.handleChange} required
