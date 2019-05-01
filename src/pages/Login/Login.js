@@ -84,7 +84,7 @@ class Login extends Component {
 						/>
 					</label>
 					<div className="forgot-password">
-						<Link to = '/resetpassword'>I forgot my password</Link>
+						<Link to = '/forgotpassword'>I forgot my password</Link>
 					</div>
 					<div className="btnContainer">
 					    <button type="submit" disabled={!this.validateForm()}>Login</button>
