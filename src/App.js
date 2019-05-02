@@ -5,6 +5,7 @@ import Main from './components/Main'
 import Layout  from './components/Layout'
 
 
+
 class App extends Component {
 	constructor(){
 		super()
@@ -38,11 +39,12 @@ class App extends Component {
 	}
 	componentWillMount(){
 		this.loadFB();
+		console.log("FB")
 	}
 	getFBLoginStatus=()=>{
-		window.FB.getLoginStatus(function(response) {
+		window.FB.getLoginStatus(response=> {
 			if(response.status==="connected"){
-				this.setState({isUserLogged: true, user: response.authReponse.userID})
+				this.setState({isUserLogged: true, user: response.authResponse.userID})
 			}
 		});
 	}
