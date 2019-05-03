@@ -5,10 +5,6 @@ import './Login.css';
 import axios from 'axios';
 
 class ResetPassword extends Component {
-    constructor(props) {
-        super(props);  
-    }
-
   // Submitted email
     handleSubmit = event => {
         event.preventDefault();
