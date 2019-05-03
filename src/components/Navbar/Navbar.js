@@ -15,10 +15,10 @@ const Navbar=({isUserLogged, onLogin})=>{
           </Link>
           </div>
           <div id="nav-wrapper">
-            <Link className="nav-item" to='/'> Home </Link>
-            <Link className="nav-item" to='/about'> About </Link>
-            <Link className="nav-item" to='/contact'> Contact us </Link>
-            <Link className="nav-item" to='/login'> <p onClick={onLogin}> Login </p> </Link>
+            <Link className="nav-item nonLogin" to='/'> <p>HOME</p> </Link>
+            <Link className="nav-item nonLogin" to='/about'> <p>ABOUT</p> </Link>
+            <Link className="nav-item nonLogin" to='/contact'> <p>CONTACT</p> </Link>
+            <Link className="nav-item login" to='/login'> <p onClick={onLogin}> SIGN IN </p> </Link>
           </div>
       </header>
     </React.Fragment>
