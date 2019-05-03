@@ -15,9 +15,9 @@ const Navbar=({isUserLogged, onLogin})=>{
           </Link>
           </div>
           <div id="nav-wrapper">
-            <Link className="nav-item nonLogin" to='/'> <p>HOME</p> </Link>
-            <Link className="nav-item nonLogin" to='/about'> <p>ABOUT</p> </Link>
-            <Link className="nav-item nonLogin" to='/contact'> <p>CONTACT</p> </Link>
+            <Link className="nav-item nonLogin" to='/'> HOME </Link>
+            <Link className="nav-item nonLogin" to='/about'> ABOUT </Link>
+            <Link className="nav-item nonLogin" to='/contact'> CONTACT </Link>
             <Link className="nav-item login" to='/login'> <p onClick={onLogin}> SIGN IN </p> </Link>
           </div>
       </header>
