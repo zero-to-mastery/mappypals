@@ -4,5 +4,23 @@ body, html{
 }
 #root{
 	position: absolute;
+	display: inline-flex;
 	height: 100%
+}
+
+
+/*this can be reused for all the buttons*/
+.main-btn{
+	display: block;
+	margin: 10px 30px;
+    height: 50px;
+    border: transparent;
+    border-radius: 10px;
+    background-image: linear-gradient(to right, #CF48FF,  #6831DE);
+    text-transform: uppercase;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    line-height: 50px
 }
