@@ -2,7 +2,7 @@
 
 header{
 	height: 120px;
-	background-color: #5F00B2;
+	background-color: #1AE26B;
 	display: inline-flex;
 	width: 100%;
 }
@@ -49,7 +49,7 @@ header{
 header .nav-item{
 	width: 100px;
 	margin: 0px 1px;
-	color: white;
+	color: #333;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -58,11 +58,12 @@ header .nav-item{
 }
 header .login{
 	padding: 0 20px;
+	color: white;
 	width: 100px;
 	height: 50px;
 	border-radius: 50px;
 	margin-right: 100px;
-	background-color: #F800DF;
+	background-color: #00BD4C;
 	align-self: center;
 }
 header .login:hover{
