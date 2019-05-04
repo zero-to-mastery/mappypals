@@ -1,59 +1,84 @@
 /*b3442e	636863	b49410	d1d1d1	568b98*/
 
- header{
- 	height: 75px;
- 	background-color: #5F00B2;
- 	display: inline-flex;
- 	width: 100%;
- }
- #logo-wrapper{
- 	display: flex;
- 	float: left;
- 	margin-left: 20px
- }
- #nav-wrapper{
- 	font-family: 'Play', sans-serif;
- 	width: 96%;
- 	height: 30px;
- 	display: flex;
- 	float: right;
- 	justify-content: flex-end;
- 	align-self: flex-end;
- 	font-size: 18px;
- 	padding-bottom: 1rem;
- }
- #logo-wrapper img{
- 	width: 160px;
- 	position: absolute;
- 	z-index: 1;
- 	top: 0px;
- }
- header .nav-item{
- 	width: 100px;
- 	margin: 0px 1px;
- 	color: white;
- 	display: flex;
- 	justify-content: center;
- 	align-items: flex-end;
- 	cursor: pointer;
- 	align-items: center;
- }
- header .login{
-     background-color: #F800DF;
-     border-radius: 20px;
-     margin: 0 30px;
-     height: 40px;
-     align-self: center;
-     font-size: 15px;
- }
- header .nonLogin:hover{
-     border-bottom: 5px solid white;
- }
- header p{ padding: 0px; margin: 0px; }
- header i{
- 	padding: 20px;
- 	font-size: 6em;
- 	color: black;
- 	opacity: 0.6;}
-
+header{
+	height: 120px;
+	background-color: #5F00B2;
+	display: inline-flex;
+	width: 100%;
+}
+#logo_title{
+	display: inline-flex;
+	width: 50%;
+	align-items: center;
+	height: 100%;
+}
+#logo-wrapper{
+	display: inherit;
+	float: left;
+	margin-left: 20px;
+}
+#nav-wrapper{
+	font-family: 'Segoe UI', sans-serif;
+	width: 50%;
+	height: 30px;
+	display: flex;
+	float: right;
+	margin-left: auto;
+	justify-content: flex-end;
+	align-self: center;
+	font-size: 20px;
+}
+#logo-wrapper img{
+	display: inherit;
+	width: 90px;
+	position: absolute;
+	z-index: 1;
+	top: 0px;
+	height: 120px;
+	align-self: center
+}
+#title{
+	display: inherit;
+	font-family: 'Segoe UI', sans-serif;
+	font-size: 45px;
+	color: white;
+	padding-left: 100px;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+header .nav-item{
+	width: 100px;
+	margin: 0px 1px;
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	padding-bottom: 3px
+}
+header .login{
+	padding: 0 20px;
+	width: 100px;
+	height: 50px;
+	border-radius: 50px;
+	margin-right: 100px;
+	background-color: #F800DF;
+	align-self: center;
+}
+header .login:hover{
+	transform: scale(1.1,1.1)
+}
+#nonLogin{
+	display: inherit;
+	padding-right: 30px;
+}
+header .underline-hover:hover{
+	border-bottom: solid white 5px;
+}
+header p{ padding: 0px; margin: 0px; }
+header i{
+	padding: 20px;
+	font-size: 6em;
+	color: black;
+	opacity: 0.6;}
 
