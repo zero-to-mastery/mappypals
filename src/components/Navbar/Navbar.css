@@ -32,9 +32,16 @@ hr{
 	text-align: center;
 	height: auto;
 }
-.item-wrapper:hover, .item-wrapper:active{
+.item-wrapper:hover, .item-wrapper:focus{
 	background-color: lightgrey;
-	color: #6831DE;
+	overflow: hidden;
+}
+.no-hover:hover{
+	background-color: white;
+	color: black;
+}
+.scale p:hover{
+	transform: scale(1.01);
 }
 .shadow{
 	box-shadow: 3px 6px 10px #1113
@@ -43,7 +50,8 @@ hr{
 	position: absolute;
 	z-index: 99;
 	display: flex;
-	right: 0px;
+	right: 10px;
+	top: 10px;
 	background-color: #fbfbfb;
 	width: 50px;
 	height: 30px;
@@ -59,4 +67,11 @@ hr{
 	position: relative;
 	transform: scale(1.5,0.8);
 	line-height: 30px
+}
+
+/*hover: none   - all touch screen devices*/
+@media (hover: none){
+	#nav-bar{
+		width: 200px;
+	}
 }
