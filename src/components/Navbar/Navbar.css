@@ -130,6 +130,7 @@ hr{
 		line-height: 35px
 	}
 	.nav-item svg{
-		width: 25%;
+		height: 100%;
+		width: auto;
 	}
 }
