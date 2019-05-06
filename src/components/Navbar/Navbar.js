@@ -23,21 +23,31 @@ class Navbar extends Component {
     }
   }
   componentDidMount(){
-    if(window.innerWidth<500) this.setState({hamburger: "block", navbar: "none"})
-    else this.setState({hamburger: "",navbar:""})
-    window.addEventListener("resize",()=>{
-      if(window.innerWidth<500 && !this.state.hamburger.length) this.setState({hamburger: "block", navbar: "none"})
-      else if(window.innerWidth>=500 && this.state.hamburger.length) this.setState({hamburger: "",navbar:""})
-    })
-  //get computed width of navbar (helps with resposive width change for navbar)
-    const node=this.navRef.current
+    let node=this.navRef.current
     let navWidth;
     if(node)navWidth=window.getComputedStyle(node).width.split("px")[0];
     if(node && navWidth!==this.state.navbarWidth)
       this.setState({navbarWidth: navWidth})
+
+    console.log(window.screen.orientation.angle)
+    if(window.innerWidth<500 || (window.screen.orientation.angle>0 && window.innerWidth<900)) this.setState({hamburger: "block", navbar: "none"})
+    else this.setState({hamburger: "",navbar:""})
+
+    window.addEventListener("resize",()=>{
+      if(((window.screen.orientation.angle==="90" && window.innerWidth<800) || window.innerWidth<500) && !this.state.hamburger.length) this.setState({hamburger: "block", navbar: "none"})
+      else if(window.innerWidth>=500 && this.state.hamburger.length) this.setState({hamburger: "",navbar:""})
+      console.log(this.navRef.current)
+      node=this.navRef.current
+      console.log({node})
+      if(node)navWidth=window.getComputedStyle(node).width.split("px")[0];
+      if(node && navWidth!==this.state.navbarWidth)
+        this.setState({navbarWidth: navWidth})
+    })
+  //get computed width of navbar (helps with resposive width change for navbar)
   }
   render(){
     const {onLogin}=this.props;
+    console.log({state: this.state})
     return(
     <React.Fragment>
         {(this.state.hamburger.length)?(<div className="hamburger" onClick={this.showNav} style={{right: this.state.navbarRight}}><span className="hamburger-icon">☰</span></div>):("")}

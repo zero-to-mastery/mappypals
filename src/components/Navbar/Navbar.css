@@ -5,6 +5,8 @@ hr{
 	background-color: lightgrey;
 	height: 5px;
 	width: 80%;
+	margin:0px auto;
+
 }
 #nav-bar{
 	justify-content: center;
@@ -21,17 +23,17 @@ hr{
 }
 .item-wrapper{
 	width: 100%;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
+	align-items: center;
 	text-align: center;
 
 }
 .nav-item{
-	margin: auto;
+	margin: 0px;
 	text-align: center;
 	height: auto;
 }
+
+
 .item-wrapper:hover, .item-wrapper:focus{
 	background-color: lightgrey;
 	overflow: hidden;
@@ -69,9 +71,65 @@ hr{
 	line-height: 30px
 }
 
-/*hover: none   - all touch screen devices*/
-@media (hover: none){
+@media screen and (max-width: 375px) and (orientation: portrait){
 	#nav-bar{
-		width: 200px;
+		width: 250px;
+	}
+
+	.nav-item *{
+		width: 100%;
+	}
+	.nav-item p{
+		margin: 5px auto;
+	}
+}
+@media screen and (max-width: 320px){
+	#nav-bar{
+		width: 80%;
+	}
+	.nav-item{
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.nav-item *{
+		width: 35%;
+	}
+	.nav-item p{
+		margin: 0px;
+		width: auto;
+		right: 0px;
+	}
+}
+@media screen and (orientation: landscape) and (max-width: 900px){
+	#nav-bar{
+		width: 80%;
+	}
+	.item-wrapper{
+		height:20%;
+	}
+	.nav-item{
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		height: 100%;
+	}
+	.no-hover{
+		display: inline-flex;
+		justify-content: space-around;
+		width: 100%;
+
+	}
+	.no-hover a{
+		width:40%;
+	}
+	.no-hover p{
+		margin: 0px;
+		height:35px ; 
+		width: 100%;
+		line-height: 35px
+	}
+	.nav-item svg{
+		width: 25%;
 	}
 }
