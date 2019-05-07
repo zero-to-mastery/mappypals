@@ -3,9 +3,12 @@ body, html{
 	margin: 0px;
 }
 #root{
-	position: absolute;
-	display: inline-flex;
-	height: 100%
+	display: grid;
+    grid-template-columns: auto 300px;
+    max-width: 100vw;
+	max-height: 100vh;
+    width: 100%;
+    height: 90vh;
 }
 
 
@@ -23,4 +26,9 @@ body, html{
     color: white;
     text-align: center;
     line-height: 50px
+}
+@media screen and (max-width: 900px){
+    #root{
+        display: inline-flex;
+    }
 }
