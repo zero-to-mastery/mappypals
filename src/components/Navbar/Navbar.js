@@ -17,6 +17,11 @@ class Navbar extends Component {
     }
   }
   showNav=()=>{
+    if(this.state.navbarWidth.includes("%")) {
+      const percent=this.state.navbarWidth.split("%")[0]/100;
+      const calc=window.innerWidth*percent;
+      this.setState({navbarWidth: calc})
+    }
     if(this.state.hamburger.length){
       if(this.state.navbar.length) this.setState({navbar:"", navbarRight:(this.state.navbarWidth*1+10)+"px"})
       else this.setState({navbar:"none", navbarRight:""})
@@ -29,18 +34,31 @@ class Navbar extends Component {
     if(node && navWidth!==this.state.navbarWidth)
       this.setState({navbarWidth: navWidth})
 
-    if(window.innerWidth<500 || (window.screen.orientation.angle>0 && window.innerWidth<900)) this.setState({hamburger: "block", navbar: "none"})
+    if(window.innerWidth<900 || (window.screen.orientation.angle>0 && window.innerWidth<900)) this.setState({hamburger: "block", navbar: "none"})
     else this.setState({hamburger: "",navbar:""})
 
     window.addEventListener("resize",()=>{
-      if(((window.screen.orientation.angle==="90" && window.innerWidth<800) || window.innerWidth<500) && !this.state.hamburger.length) this.setState({hamburger: "block", navbar: "none"})
-      else if(window.innerWidth>=500 && this.state.hamburger.length) this.setState({hamburger: "",navbar:""})
+      if(((window.screen.orientation.angle==="90" && window.innerWidth<900) || window.innerWidth<900) && !this.state.hamburger.length) this.setState({hamburger: "block", navbar: "none"})
+      else if(window.innerWidth>=900 && this.state.hamburger.length) this.setState({hamburger: "",navbar:""})
       node=this.navRef.current
       if(node)navWidth=window.getComputedStyle(node).width.split("px")[0];
       if(node && navWidth!==this.state.navbarWidth)
         this.setState({navbarWidth: navWidth})
+      this.showNav();
     })
-  //get computed width of navbar (helps with resposive width change for navbar)
+
+    window.addEventListener("orientationchange",()=>{
+      if(((window.screen.orientation.angle==="90" && window.innerWidth<900) || window.innerWidth<900) && !this.state.hamburger.length) this.setState({hamburger: "block", navbar: "none"})
+      else if(window.innerWidth>=900 && this.state.hamburger.length) this.setState({hamburger: "",navbar:""})
+      node=this.navRef.current
+      if(node)navWidth=window.getComputedStyle(node).width.split("px")[0];
+      console.log({navWidth})
+      if(node && navWidth!==this.state.navbarWidth)
+        this.setState({navbarWidth: navWidth})
+      
+      this.showNav();
+    })
+  
   }
   render(){
     const {onLogin}=this.props;

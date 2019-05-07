@@ -19,7 +19,6 @@ class Map extends Component {
          //temporary "database"
          friendsList: {},
          viewport: {
-            width: "100vw", height: "100vh",
             latitude: 37.7577, longitude: -122.4376,
             zoom: 11
          },
@@ -198,6 +197,9 @@ class Map extends Component {
           mapboxApiAccessToken={TOKEN}
           mapStyle="mapbox://styles/mapbox/streets-v11"
           onClick={this.newPin}
+          width={"auto"}
+          height={"100%"}
+          id="map"
         >
           {Object.keys(this.state.friendsList).length > 0 ? this.allPins() : ""}
           {this.state.newFriend.long !== null ? (
