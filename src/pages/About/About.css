@@ -1,9 +1,3 @@
-#root{
-  background-image: url('../../pics/mappyPals.svg');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
 div.user-photo {
   width: 100px;
   height: 100px;
