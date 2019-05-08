@@ -17,11 +17,7 @@
         "tachyons": "^4.11.1"
     },
     "scripts": {
-        "server": "cd server && npm start",
-        "serverinstall": "cd server && npm install && npm audit fix",
-        "postinstall": "npm audit fix && npm run serverinstall",
-        "frontend": "react-scripts start",
-        "start": "concurrently \"npm run frontend\" \"npm run server\"",
+        "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject"
