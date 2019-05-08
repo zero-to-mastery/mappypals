@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Form from './Form.js';
@@ -65,4 +66,3 @@ class ResetPassword extends Component {
 }
 
 export default ResetPassword;
-
