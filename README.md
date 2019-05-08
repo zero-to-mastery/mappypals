@@ -32,7 +32,7 @@ MappyPals is being built upon the MERN stack, with the intention of releasing an
 
 ## Tools
 - __Frontend__: React, CSS3
-- __Backend__: Node/Firebase
+- __Backend__: Node/MongoDB with mongoose
 - __Map Api__: MapBox/Google Maps
 
 ## Overview
