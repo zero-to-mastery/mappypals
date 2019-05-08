@@ -1,0 +1,53 @@
+/*b3442e	636863	b49410	d1d1d1	568b98*/
+
+header{
+	height: 75px;
+	background-color: #1f3a93;
+	display: inline-flex;
+	width: 100%;
+}
+#logo-wrapper{
+	display: flex;
+	float: left;
+	margin-left: 20px
+}
+#nav-wrapper{
+	font-family: 'Play', sans-serif;
+	width: 96%;
+	height: 30px;
+	display: flex;
+	float: right;
+	justify-content: flex-end;
+	align-self: flex-end;
+	font-size: 18px;
+}
+#logo-wrapper img{
+	width: 160px;
+	position: absolute;
+	z-index: 1;
+	top: 0px;
+}
+header .nav-item{
+	width: 100px;
+	margin: 0px 1px;
+	background-color: #00000044;
+	border-top-right-radius: 10px;
+	border-top-left-radius: 10px;
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+	transition: background-color 0.3s ease;
+	cursor: pointer;
+	padding-bottom: 3px
+}
+header .nav-item:hover{
+	background-color: #a537fd;
+}
+header p{ padding: 0px; margin: 0px; }
+header i{
+	padding: 20px;
+	font-size: 6em;
+	color: black;
+	opacity: 0.6;}
+

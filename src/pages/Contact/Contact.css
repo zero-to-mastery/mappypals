@@ -1,0 +1,24 @@
+@media all and (min-width: 480px) {
+  .Contact {
+    margin: 0 auto;
+    max-width: 320px;
+  }
+
+  .Contact form {
+    width: 100%;
+  }
+
+  .Contact fieldset {
+    border: 1px solid grey;
+  }
+
+  .Contact-item {
+    margin-top: 16px;
+  }
+  .Contact input, textarea {
+    width: 100%;
+    padding: 0.5rem 0;
+    border: 1px solid grey;
+  }
+
+} 

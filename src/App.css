@@ -1,0 +1,8 @@
+body, html{
+	padding: 0px;
+	margin: 0px;
+}
+#root{
+	position: absolute;
+	height: 100%
+}
