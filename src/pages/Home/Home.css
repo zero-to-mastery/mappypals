@@ -9,7 +9,7 @@ section {
     color: white;
     font-weight: lighter;
 }
-#root{
+body{
     background-image: url('../../pics/adult-backlit-beach.jpg');
     background-position: center;
     background-repeat: no-repeat;

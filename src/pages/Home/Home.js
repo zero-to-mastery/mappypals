@@ -28,7 +28,6 @@ const Home = (user) => {
 			</section>
 		):
 		(
-
 			<section>
 				<Map />
 			</section>

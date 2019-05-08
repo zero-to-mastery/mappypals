@@ -7,15 +7,15 @@ import styled from 'styled-components';
 const AboutPageLayout = styled.div`
   display: grid;
   grid-template-rows: auto auto;
-  margin-top: 5vh;
-`
+  justify-content: center;
+  margin: 5vh 0;
+` 
 
-const TeamCardGrid =  styled.div`
+const TeamCardGrid =  styled.div` 
   display: grid;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: auto auto auto;
   grid-column-gap: 20px;
-  margin-left: auto;
-  margin-right: auto;
+  grid-row-gap: 20px;
 `
 
 const WhoWeAre = styled.div`
@@ -35,8 +35,7 @@ const About = () => {
     <Layout>
       <AboutPageLayout>
         <WhoWeAre>
-          <h2>Who We Are</h2>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae accusantium exercitationem earum, accusamus magnam dignissimos vero suscipit fugit, ad ea impedit. Consequatur quasi veritatis modi eos quia dolorum ut distinctio?</p>
+          <h3>Who We Are</h3>
         </WhoWeAre>
         <TeamCardGrid>
           {team.map((data, id) => {
@@ -47,6 +46,8 @@ const About = () => {
                 role= {data.role}
                 location={data.location}
                 isEmployed={data.isEmployed}
+                portfolio={data.portfolio}
+                linkedin={data.linkedin}
               /> 
             )
             }
