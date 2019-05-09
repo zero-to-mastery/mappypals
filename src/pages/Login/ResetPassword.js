@@ -1,15 +1,40 @@
 
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import Form from './Form.js';
+import React, { Component } from 'react'
 import './Login.css';
-import axios from 'axios';
+import Form from './Form';
+import './ResetPassword.css';
+import axios from 'axios'
+
 
 class ResetPassword extends Component {
-  // Submitted email
+    constructor(props) {
+        super(props);
+        this.state = {
+            password: "",
+            checkPassword: "",
+            passwordMatch: false,
+        };
+    }
+
+    handleChange = event => {
+        this.setState({
+            [event.target.name]: event.target.value
+        });
+    }
+
     handleSubmit = event => {
         event.preventDefault();
-        const url = 'http://localhost:3001/users/reset'
+
+        if (this.state.password !== this.state.checkPassword) {
+            this.setState({ passwordMatch: true });
+        } else {
+            this.setState({ passwordMatch: false });
+        }
+
+        const token = window.location.pathname;
+        console.log(window.location.pathname);
+        const url = `http://localhost:3001/users${token}`;
+
         axios({
             url: url,
             method: 'POST',
@@ -18,51 +43,58 @@ class ResetPassword extends Component {
                 "Content-Type": "application/json"
             }
         })
-        .then(res => {
-            if (res.status === 200 || res.data.redirect) {
-                //Write redirect logic here
-                console.log("Redirect user to main page");
-            }
-        })
-        .catch(err => {
-            console.error(err);
-            console.log('Please check entry and try again, or go back to Login to sign up');
-        });
-        
-        // Clear inputs.
-        this.setState({email: ''});
+            .then(res => {
+                if (res.status === 200) {
+                    console.log("Successfully changed password");
+                    this.setState({
+                        message: res.data.message
+                    })
+                    console.log(JSON.stringify(this.state.message));
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                console.log('Error logging in please try again');
+            });
+            
+        this.setState({ password: '', checkPassword: '' })
+
     }
 
-  render() {
-    return (
-        <div className="Login">
-        <Form onSubmit={this.handleSubmit}>
-            <div className="text-center-wrap">
-                <div className="heavy">
-                    <p>Did you forget your password?</p>
-                </div>
-                <div className="light">
-                    <p>Enter your mappypals email address, we'll send you a password reset link.</p>
-                </div>
-            </div>
-            <label htmlFor="email" className="heavy">
-                Email
-                <input
-                type="email"
-                name="email"
-                onChange={this.handleChange} required
-                />
-            </label>
-            <div className="btnContainer">
-                <button type="submit">Reset Password</button>
-            </div>
-            <p className = 'u-text-center'> 
-                <Link className="nav-item" to='/login'> Back to Login </Link>
-            </p>
-        </Form>
-    </div>
-    )
-  }
-}
+    render() {
 
+        let passwordMatchError = ''
+        if (this.state.passwordMatch) {
+            passwordMatchError = <span className="errorMessage">Password doesn't match</span>;
+        }
+        return (
+            <div className="Login">
+                <Form onSubmit={this.handleSubmit}>
+                    <h5 className="title">Reset your password</h5>
+                    <label htmlFor="password">
+                        Password
+                        <input
+                            type="password"
+                            name="password"
+                            onChange={this.handleChange} required
+                            value={this.state.password}
+                        />
+                    </label>
+                    <label htmlFor="checkPassword">
+                        Check Password {passwordMatchError}
+                        <input
+                            type="password"
+                            name="checkPassword"
+                            onChange={this.handleChange} required
+                            value={this.state.checkPassword}
+                        />
+                    </label>
+                    <div className="btnContainer">
+                        <button type="submit">Reset Password</button>
+                    </div>
+                </Form>
+            </div>
+        )
+    }
+}
 export default ResetPassword;
