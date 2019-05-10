@@ -5,18 +5,49 @@ import Form from './Form.js';
 import axios from 'axios'
 
 class Login extends Component {
-	 constructor(props) {
-			super(props);
-
-	    this.state = {
-	      email: "",
-	      password: ""
+	constructor(props) {
+		super(props);
+		
+		this.state = {
+	    	email: "",
+			password: "",
+			message: ""
 	    };
-		}
+	}
+
+	confirmAccount() {
+
+		const token = window.location.pathname;
+		console.log(window.location.pathname);
+		const url = `http://localhost:3001/users${token}`;
+
+		axios({
+			url: url,
+			method: 'POST',
+			data: JSON.stringify(this.state),
+			headers: {
+				"Content-Type": "application/json"
+			}
+		})
+			.then(res => {
+				if (res.status === 200) {
+					console.log("Successfully confirmed account");
+					/*this.setState({
+						message: res.data.message
+					})*/
+					console.log(JSON.stringify(this.state.message));
+				}
+			})
+			.catch(err => {
+				console.error(err);
+				console.log('Error logging in please try again');
+			});
+	}
 
 	validateForm() {
 		return this.state.email.length > 0 && this.state.password.length > 0;
 	}
+
 	handleChange = event => {
 		this.setState({
 			[event.target.name]: event.target.value
@@ -53,6 +84,7 @@ class Login extends Component {
 		this.setState({password: ''});
 		
 	}
+
 	render() {
 		const { checkLoginState } = this.props;
 		return (
@@ -100,6 +132,11 @@ class Login extends Component {
 			</div>
 		);
 	}
-}
+
+	componentDidMount() {
+		this.confirmAccount();
+	}
+
+};
 
 export default Login;
