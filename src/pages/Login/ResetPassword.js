@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import './Login.css';
 import Form from './Form';
 import './ResetPassword.css';
-import axios from 'axios'
+import ky from 'ky';
 
 
 class ResetPassword extends Component {
@@ -31,32 +31,22 @@ class ResetPassword extends Component {
             this.setState({ passwordMatch: false });
         }
 
-        const token = window.location.pathname;
-        console.log(window.location.pathname);
-        const url = `http://localhost:3001/users${token}`;
+        (async () => {
+            const token = window.location.pathname;
+                const url = `http://localhost:3001/users${token}`;
+                await ky.post(
+                    url,
+                    { json: this.state }
 
-        axios({
-            url: url,
-            method: 'POST',
-            data: JSON.stringify(this.state),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-            .then(res => {
-                if (res.status === 200) {
-                    console.log("Successfully changed password");
-                    this.setState({
-                        message: res.data.message
+                )
+                    .then(res => {
+                        if (res.status === 200) {
+                            console.log("Redirect user to home page, successfull login");
+                        }
                     })
-                    console.log(JSON.stringify(this.state.message));
-                }
-            })
-            .catch(err => {
-                console.error(err);
-                console.log('Error logging in please try again');
-            });
-            
+            }
+        )();
+
         this.setState({ password: '', checkPassword: '' })
 
     }
