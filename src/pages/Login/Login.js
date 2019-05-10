@@ -33,7 +33,7 @@ class Login extends Component {
 							this.setState({
 								redirect: res.redirect
 							})
-							console.log("Redirect user to home page, successfull login");
+							console.log("Account successfully confirmed");
 						}
 					})
 			}

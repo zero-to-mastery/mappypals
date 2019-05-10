@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './Login.css';
 import Form from './Form';
 import './ForgotPassword.css';
-import ky from 'ky';
+import axios from 'axios'
 
 
  class ForgotPassword extends Component {
@@ -25,22 +25,28 @@ import ky from 'ky';
         event.preventDefault();
 
         const url = "http://localhost:3001/users/reset";
-        (async () => {
-            const url = 'http://localhost:3001/users/register'
-            await ky.post(
-                url,
-                { json: this.state }
-
-            )
-                .then(res => {
-                    if (res.status === 200) {
-                        this.setState({
-                            message: res.data.message,
-                            link: res.data.link
-                        })
-                    }
+        axios({
+            url: url,
+            method: 'POST',
+            data: JSON.stringify(this.state),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .then(res => {
+            if (res.status === 200) {
+                //Write redirect logic here
+                this.setState({
+                    message: res.data.message,
+                    link: res.data.link
                 })
-        })();
+                console.log(JSON.stringify(this.state.message));
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            console.log('Error logging in please try again');
+        });
 
         console.log(JSON.stringify(this.state));
 
