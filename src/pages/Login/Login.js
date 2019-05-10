@@ -20,7 +20,6 @@ class Login extends Component {
 		(async () => {
 			const token = window.location.pathname;
 			const length = (token.match(new RegExp("/", "g")).length);
-			console.log(length);
 
 			if(length > 1) {
 				const url = `http://localhost:3001/users${token}`;
