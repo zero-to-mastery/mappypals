@@ -6,6 +6,9 @@
 /.pnp
 .pnp.js
 
+# For front end
+/server
+
 # testing
 /coverage
 
