@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import './Login.css';
 import Form from './Form.js';
-import axios from 'axios'
+import ky from 'ky';
 
 class Login extends Component {
 	constructor(props) {
@@ -11,37 +11,39 @@ class Login extends Component {
 		this.state = {
 	    	email: "",
 			password: "",
-			message: ""
+			message: "",
+			redirect: false
 	    };
 	}
 
 	confirmAccount() {
+		(async () => {
+			const token = window.location.pathname;
+			const length = (token.match(new RegExp("/", "g")).length);
+			console.log(length);
 
-		const token = window.location.pathname;
-		console.log(window.location.pathname);
-		const url = `http://localhost:3001/users${token}`;
+			if(length > 1) {
+				const url = `http://localhost:3001/users${token}`;
+				await ky.post(
+					url,
+					{ json: this.state }
 
-		axios({
-			url: url,
-			method: 'POST',
-			data: JSON.stringify(this.state),
-			headers: {
-				"Content-Type": "application/json"
+				)
+					.then(res => {
+						if (res.status === 200) {
+							this.setState({
+								redirect: res.redirect
+							})
+							console.log("Redirect user to home page, successfull login");
+						}
+					})
 			}
-		})
-			.then(res => {
-				if (res.status === 200) {
-					console.log("Successfully confirmed account");
-					/*this.setState({
-						message: res.data.message
-					})*/
-					console.log(JSON.stringify(this.state.message));
-				}
-			})
-			.catch(err => {
-				console.error(err);
-				console.log('Error logging in please try again');
-			});
+			else{
+				console.log("Welcome back")
+			}
+			
+		})();
+		
 	}
 
 	validateForm() {
@@ -56,29 +58,26 @@ class Login extends Component {
 
 	// Submited values
 	handleSubmit = event => {
-		event.preventDefault();
+		event.preventDefault();	
 
-		const url = 'http://localhost:3001/users/login'
-		axios({
-			url: url,
-			method: 'POST',
-			data: JSON.stringify(this.state),
-			headers: {
-				"Content-Type": "application/json"
-			}
-		})
-			.then(res => {
-				if (res.status === 200 || res.data.redirect) {
-					//Write redirect logic here
-					console.log("Redirect user to main page");
-				}
-			})
-			.catch(err => {
-				console.error(err);
-				console.log('Error logging in please try again');
-			});
+		(async () => {
+			const url = 'http://localhost:3001/users/login'
 
-		
+			await ky.post(
+				url,
+				{ json: this.state }
+
+			)
+				.then(res => {
+					if (res.status === 200) {
+						this.setState({
+							redirect: res.redirect
+						})
+						console.log("Redirect user to home page, successfull login");
+					}
+				})
+		})();
+	
 		// Clear inputs.
 		this.setState({email: ''});
 		this.setState({password: ''});
