@@ -1,6 +1,11 @@
 @media all and (min-width: 360px) {
   .Login {
     padding: 60px 0;
+    background-image: url('../../pics/adult-backlit-beach.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
   }
 
   .Login form {

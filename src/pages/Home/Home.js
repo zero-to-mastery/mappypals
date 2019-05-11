@@ -9,7 +9,7 @@ import Map from "./Map";
 
 const Home = (user) => {
 	return(
-		(false)?
+		(true)?
 		(
 			<section id="not-logged-in">
 				<div className='local-icon'>
