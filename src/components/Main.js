@@ -5,8 +5,8 @@ import Home from '../pages/Home/Home';
 import Contact from '../pages/Contact/Contact';
 import About from '../pages/About/About';
 import Signup from '../pages/Login/Signup';
+import ForgotPassword from '../pages/Login/ForgotPassword';
 import ResetPassword from '../pages/Login/ResetPassword';
-import ResetPasswordEmail from '../pages/Login/ResetPasswordEmail';
 
 // The Main component renders one of the three provided
 // Routes (provided that one matches). Both the /roster
@@ -21,9 +21,8 @@ const Main = () => (
       <Route path="/signup" component={Signup}/>
       <Route path="/about" component={About}/> 
       <Route path="/contact" component={Contact} />
-      <Route path="/resetpassword" component = {ResetPassword} />
-      <Route path="/resetpasswordemail" component={ResetPasswordEmail} />
-
+      <Route path="/forgotpassword" component = {ForgotPassword} />
+      <Route path="/resetpassword" component={ResetPassword} />
     </Switch>
   </main>
 )

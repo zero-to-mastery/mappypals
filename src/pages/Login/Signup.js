@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import Form, { PasswordReqs } from './Form.js';
 import './Login.css';
-import axios from 'axios'
+import ky from 'ky';
 
 class Login extends Component {
 	 constructor(props) {
@@ -55,27 +55,19 @@ class Login extends Component {
 	handleSubmit = event => {
 		event.preventDefault();
 
-		const url = 'http://localhost:3001/users/register'
-		axios({
-			url: url,
-			method: 'POST',
-			data: JSON.stringify(this.state),
-			headers: {
-				"Content-Type": "application/json"
-			}
-		})
-			.then(res => {
-				if (res.status === 200 || res.data.redirect) {
-					//Write redirect logic here
-					console.log("Redirect user to login");
-				}
-			})
-			.catch(err => {
-				console.error(err);
-				console.log('Error logging in please try again');
-			});
-		
-		console.log(JSON.stringify(this.state));
+		(async () => {
+			const url = 'http://localhost:3001/users/register'
+			await ky.post(
+				url,
+				{ json: this.state }
+
+			)
+				.then(res => {
+					if (res.status === 200) {
+						console.log("Redirect user to home page, successfull login");
+					}
+				})
+		})();
 
 		// Clear inputs.
 		this.setState({name: '', email: '', number: '' , password: '', confirmPassword: ''});
