@@ -39,14 +39,16 @@ class App extends Component {
 	}
 	componentWillMount(){
 		this.loadFB();
+
 	}
 	getFBLoginStatus=()=>{
 		window.FB.getLoginStatus(response=> {
+
 			if(response.status==="connected"){
 				this.setState({isUserLogged: true, user: response.authResponse.userID})
 			}
 		});
-	}
+	
 	render() {
 		return (
 				<React.Fragment>
