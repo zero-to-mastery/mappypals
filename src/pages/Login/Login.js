@@ -87,6 +87,7 @@ class Login extends Component {
 		const { checkLoginState } = this.props;
 		return (
 			<div className="Login">
+			<fieldset>
 				<Form onSubmit={this.handleSubmit}>
 					<label htmlFor="email">
 					  Email
@@ -94,7 +95,7 @@ class Login extends Component {
 						type="email"
 						name="email"
 						placeholder=""
-						onChange={this.handleChange}
+						onChange={this.handleChange} required
 						/>
 					</label>
 					<label htmlFor="password">
@@ -103,7 +104,7 @@ class Login extends Component {
 						type="password"
 						name="password"
 						placeholder=""
-						onChange={this.handleChange}
+						onChange={this.handleChange} required
 						/>
 					</label>
 					<div className="forgot-password">
@@ -117,6 +118,7 @@ class Login extends Component {
 						&ensp;Or connect via:
 					</p>
 					<div className="btnContainer">
+					<label htmlFor="fb-login-button" className="visuallyHidden" className="visuallyHidden">Login with Facebook
 							<div className="fb-login-button" 
 								data-size="large" 
 								data-button-type="login_with" 
@@ -125,8 +127,10 @@ class Login extends Component {
 								onClick={checkLoginState}
 								>
 							</div>
+						</label>
 					</div>
 				</Form>
+			</fieldset>
 			</div>
 		);
 	}
