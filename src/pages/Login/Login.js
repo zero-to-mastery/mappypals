@@ -7,7 +7,13 @@ import ky from 'ky';
 class Login extends Component {
 	constructor(props) {
 		super(props);
-		
+		window.FB.init({
+			appId      : '298824577401793',
+			cookie     : true,
+			xfbml      : true,
+			version    : 'v3.2'
+			});
+			
 		this.state = {
 	    	email: "",
 			password: "",
@@ -46,7 +52,7 @@ class Login extends Component {
 	}
 
 	validateForm() {
-		return this.state.email.length > 0 && this.state.password.length > 0;
+		return this.state.email.length > 0 && this.state.password.length > 5;
 	}
 
 	handleChange = event => {
@@ -87,7 +93,6 @@ class Login extends Component {
 		const { checkLoginState } = this.props;
 		return (
 			<div className="Login">
-			<fieldset>
 				<Form onSubmit={this.handleSubmit}>
 					<label htmlFor="email">
 					  Email
@@ -118,7 +123,7 @@ class Login extends Component {
 						&ensp;Or connect via:
 					</p>
 					<div className="btnContainer">
-					<label htmlFor="fb-login-button" className="visuallyHidden" className="visuallyHidden">Login with Facebook
+					<label htmlFor="fb-login-button" aria-label="Login with Facebook">
 							<div className="fb-login-button" 
 								data-size="large" 
 								data-button-type="login_with" 
@@ -130,7 +135,6 @@ class Login extends Component {
 						</label>
 					</div>
 				</Form>
-			</fieldset>
 			</div>
 		);
 	}

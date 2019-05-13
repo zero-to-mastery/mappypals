@@ -45,7 +45,7 @@ class ResetPassword extends Component {
 
       let passwordMatchError = ''
       if(this.state.passwordMatch){
-          passwordMatchError = <span className = "errorMessage">Password doesn't match</span>;
+          passwordMatchError = <span className = "errorMessage" aria-live="polite">Password doesn't match</span>;
       }
     return (
     <div className="Login">

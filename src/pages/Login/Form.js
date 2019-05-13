@@ -29,10 +29,6 @@ const Form = styled.form`
     display: block;
     margin-bottom: 2.3rem;
   }
-  .visuallyHidden {
-    visibility:hidden;
-    margin-top: -1.3rem;
-  }
   input,
   textarea,
   select {
@@ -136,6 +132,10 @@ const Form = styled.form`
 
   button:hover {
     opacity: 0.8;
+  }
+
+  .errorMessage {
+    color: red;
   }
 `;
 

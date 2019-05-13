@@ -21,30 +21,23 @@ class Login extends Component {
 			number: "",
 			password: "",
 			confirmPassword:"",
+			passwordMatch: true,
 			isHidden: true,
 	    };
 	  }
 	  
-	toggleHidden () {
+	toggleHidden = () => {
 		const {isHidden}=this.state;
 		this.setState({
 			isHidden: !isHidden
 		})
 	}	
 
-  	verifiedEmail(){
-  		const {email}=this.state;
-  		if(!email.includes("@") )return false
-  		else if(!email.split("@")[1].includes(".")) return false
-  		return true
-  	}
-	validateForm() {
-		const {name, email, number, password, confirmPassword}= this.state;
-		if(name==="" || email==="" || number === ""|| password==="" || confirmPassword==="") return false
-		else if(password!==confirmPassword) return false
-		else if(!this.verifiedEmail) return false
-		return true;
-	}
+	passwordLengthError = () => {
+		if (this.state.password.length < 6) {
+			alert("Password is not at least 6 characters");
+		}
+    }
 
 	handleChange = event => {
 		this.setState({
@@ -53,8 +46,12 @@ class Login extends Component {
 	}
 
 	handleSubmit = event => {
+		const { password, confirmPassword} = this.state;
 		event.preventDefault();
-
+    if (password !== confirmPassword) {
+			this.setState({passwordMatch: false})
+			return
+		}
 		(async () => {
 			const url = 'http://localhost:3001/users/register'
 			await ky.post(
@@ -64,20 +61,25 @@ class Login extends Component {
 			)
 				.then(res => {
 					if (res.status === 200) {
-						console.log("Redirect user to home page, successfull login");
+						console.log("Redirect user to home page, successful login");
 					}
 				})
 		})();
 
 		// Clear inputs.
-		this.setState({name: '', email: '', number: '' , password: '', confirmPassword: ''});
+		this.setState({name: '', email: '', number: '' , password: '', confirmPassword: '' });
 	}
 
 	render() {
+		let passwordMatchError = '';
+      	if(!this.state.passwordMatch){
+          passwordMatchError = <span className = "errorMessage" aria-live="polite">Password doesn't match</span>;
+		  }
 		const { checkLoginState } = this.props;
 		return (
 			<div className="Login">
 				<Form onSubmit={this.handleSubmit}>
+				<fieldset>
 				  <div className="nameContainer">
 					<label className="item1" htmlFor="firstname">
 					Firstname
@@ -113,33 +115,39 @@ class Login extends Component {
 						<input
 							type="password"
 							name="password"
-							/*onClick={this.toggleHidden.bind(this)}*/
+							aria-describedby="newPassword"
+							value = {this.state.password}
+							onClick={this.toggleHidden}
 							onChange={this.handleChange} required
-							/*onBlur={this.toggleHidden.bind(this)}*/
+							onBlur={this.passwordLengthError}
 						/>
 					</label>
 					{!this.state.isHidden && <PasswordReqs />}
 					<label htmlFor="confirmPassword">
-					Please confirm password
+					Please confirm password {passwordMatchError}
 						<input 
 							type="password" 
 							name = "confirmPassword" 
+							value = {this.state.checkPassword}
 							onChange={this.handleChange} required 
 						/>
 					</label>
 					<div className="btnContainer">
 						<button type="submit">Create Account</button>
 					</div>
+					</fieldset>
 					<p className = 'u-text-center'>Or connect with: </p>
 					<div className="btnContainer">
-						<div className="fb-login-button" display="inline-block"
-							data-size="large" 
-							data-button-type="login_with" 
-							data-auto-logout-link="false" 
-							data-use-continue-as="false"
-							onClick={checkLoginState}
-							>
-						</div>
+						<label htmlFor="fb-login-button" aria-label="Login with Facebook">
+							<div className="fb-login-button" display="inline-block" 
+								data-size="large" 
+								data-button-type="login_with" 
+								data-auto-logout-link="false" 
+								data-use-continue-as="false"
+								onClick={checkLoginState}
+								>
+							</div>
+						</label>
 					</div>
 					<p className = 'u-text-center'>Already have an account? 
 						<Link className="nav-item" to='/login'> Login </Link>
