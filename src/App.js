@@ -39,7 +39,6 @@ class App extends Component {
 	}
 	componentWillMount(){
 		this.loadFB();
-		console.log("FB")
 	}
 	getFBLoginStatus=()=>{
 		window.FB.getLoginStatus(response=> {

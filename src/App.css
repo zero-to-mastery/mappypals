@@ -3,6 +3,31 @@ body, html{
 	margin: 0px;
 }
 #root{
-	position: absolute;
-	height: 100%
+	display: grid;
+    grid-template-columns: auto 300px;
+    max-width: 100vw;
+	max-height: 100vh;
+    width: 100%;
+    height: 90vh;
+}
+
+/*this can be reused for all the buttons*/
+.main-btn{
+	display: block;
+	margin: 10px 30px;
+    height: 50px;
+    border: transparent;
+    border-radius: 10px;
+    background-image: linear-gradient(to right, #CF48FF,  #6831DE);
+    text-transform: uppercase;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    line-height: 50px
+}
+@media screen and (max-width: 900px){
+    #root{
+        display: inline-flex;
+    }
 }
