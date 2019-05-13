@@ -96,11 +96,11 @@ class Navbar extends Component {
             </div>
 
             <div className="item-wrapper" onClick={this.showNav}>
-              <Link className="nav-item" to='/about' > <Team /> <p>TEAM</p> </Link>
+              <Link className="nav-item" to='/about' > <Team /> <p>ABOUT US</p> </Link>
             </div>
 
             <div className="item-wrapper" onClick={this.showNav}>
-             <Link className="nav-item" to='/contact'> <AboutUs /> <p>ABOUT</p> </Link>
+             <Link className="nav-item" to='/contact'> <AboutUs /> <p>CONTACT US</p> </Link>
             </div>
 
             <div className="item-wrapper no-hover scale">
@@ -110,7 +110,7 @@ class Navbar extends Component {
                 </React.Fragment>
             </div>
               <div className="item-wrapper no-hover">
-                <p className="nav-item">Copyright - Team Members - ZtM URL</p>
+                <p className="nav-item">Copyright - Team Members - <a href="https://www.udemy.com/the-complete-web-developer-zero-to-mastery/learn/v4/overview">ZeroToMastery</a></p>
               </div>
           </div>
           )}

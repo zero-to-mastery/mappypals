@@ -146,6 +146,7 @@ a {
 main section {
     width: 100%;
     height: 90vh;
+    overflow: hidden;
 }
 section canvas {
     position: relative !important;
@@ -277,6 +278,6 @@ section canvas {
 }
 @media (max-width: 900px){
     main{
-        width: 100vw;
+        width: 100%;
     }
 }
