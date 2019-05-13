@@ -3,6 +3,7 @@
     "version": "0.1.0",
     "homepage": "https://zero-to-mastery.github.io/mappypals/",
     "private": true,
+    "devserver": "live-server --browser=Chrome",
     "dependencies": {
         "axios": "^0.18.0",
         "concurrently": "^4.1.0",
@@ -13,7 +14,7 @@
         "react-map-gl": "^4.0.11",
         "react-mapbox-gl": "^4.2.0",
         "react-router-dom": "^4.3.1",
-        "react-scripts": "^2.1.8",
+        "react-scripts": "^3.0.0",
         "styled-components": "^4.1.3",
         "tachyons": "^4.11.1"
     },
