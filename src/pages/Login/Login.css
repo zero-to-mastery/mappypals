@@ -8,6 +8,7 @@
     max-width: 320px;
     overflow-x: hidden;
     background-color: white;
+    font-family: 'Poppins', sans-serif;
   }
 
   #newPassword {
@@ -16,6 +17,21 @@
     font-size: 1rem;
     line-height: 1;
     transform: translateY(-1.5rem);
+  }
+
+  .text-center-wrap {
+    text-align: center;
+    white-space: wrap;
+  }
+
+  .heavy {
+    font-weight: 600;
+    font-size: 1.2rem;
+  }
+  .light {
+    font-weight: 400;
+    font-size: 1.2rem;
+    margin-bottom: 2.3rem;
   }
 
   .u-text-center{
