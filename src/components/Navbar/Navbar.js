@@ -20,7 +20,8 @@ class Navbar extends Component {
     }
   }
   showNav=()=>{
-    if(this.state.navbarWidth.includes("%")) {
+    console.log(this.state.navbarWidth.length)
+    if(this.state.navbarWidth.length && this.state.navbarWidth.includes("%")) {
       const percent=this.state.navbarWidth.split("%")[0]/100;
       const calc=window.innerWidth*percent;
       this.setState({navbarWidth: calc})
@@ -64,47 +65,55 @@ class Navbar extends Component {
   
   }
   render(){
-    //const {onLogin}=this.props;
-
-   // const onLogin=true;
-    const onLogin=false;
+    const {onLogin}=this.props;
     return(
     <React.Fragment>
         {(this.state.hamburger.length)?(<div className="hamburger" onClick={this.showNav} style={{right: this.state.navbarRight}}><span className="hamburger-icon">☰</span></div>):("")}
-        <div id="nav-bar" ref={this.navRef} style={{display: this.state.navbar}}>
-          <div className="item-wrapper" onClick={this.showNav}>
-            <Link className="nav-item" to='/' > <Logo /> <p>MappyPals</p> </Link>
-          </div>
-
-          <div className="item-wrapper" onClick={this.showNav}>
-            {(!onLogin)?<Link className="nav-item" to='/about' > <Team /> <p>TEAM</p> </Link>:<Link className="nav-item" to='/friends' > <Friends /> <p>FRIENDS</p> </Link>}
-          </div>
-
-          <div className="item-wrapper" onClick={this.showNav}>
-            {(!onLogin)?<Link className="nav-item" to='/contact'> <AboutUs /> <p>ABOUT</p> </Link>:<Link className="nav-item" to='/invitefriends' > <Invite /> <p>INVITE FRIENDS</p> </Link>}
-          </div>
-
-          {(!onLogin)?(
-          <div className="item-wrapper no-hover scale">
-              <React.Fragment>
-                <Link to='/login'> <p className="main-btn shadow"  onClick={()=>{onLogin(); this.showNav()}}> LOGIN </p> </Link>
-                <Link to='/signup'> <p className="main-btn shadow" onClick={()=>{ this.showNav()}}> SIGN UP </p> </Link>
-              </React.Fragment>
-          </div>):(
-          <div className="item-wrapper" onClick={this.showNav}>
-            <Link className="nav-item" to='/settings' > <Settings /> <p>SETTINGS</p> </Link>
-          </div>)
-          }
-          {(!onLogin)?(
-            <div className="item-wrapper no-hover">
-              <p className="nav-item">Copyright - Team Members - ZtM URL</p>
+        {(/*logged*/false)?(
+          <div id="nav-bar" ref={this.navRef} style={{display: this.state.navbar}}>
+            <div className="item-wrapper" onClick={this.showNav}>
+              <Link className="nav-item" to='/' > <Logo height="50px"/> <p>MappyPals</p> </Link>
             </div>
+
+            <div className="item-wrapper" onClick={this.showNav}>
+              <Link className="nav-item" to='/friends' > <Friends /> <p>FRIENDS</p> </Link>
+            </div>
+
+            <div className="item-wrapper" onClick={this.showNav}>
+              <Link className="nav-item" to='/invitefriends' > <Invite /> <p>INVITE FRIENDS</p> </Link>
+            </div>
+            <div className="item-wrapper" onClick={this.showNav}>
+              <Link className="nav-item" to='/settings' > <Settings /> <p>SETTINGS</p> </Link>
+            </div>
+            <div className="item-wrapper no-hover scale">
+              <Link to='/logout'> <p className="main-btn shadow"  onClick={()=>{onLogin(); this.showNav()}}> LOGOUT </p> </Link>
+            </div>
+          </div>
           ):(
-          <div className="item-wrapper no-hover scale">
-            <Link to='/logout'> <p className="main-btn shadow"  onClick={()=>{onLogin(); this.showNav()}}> LOGOUT </p> </Link>
+          <div id="nav-bar" ref={this.navRef} style={{display: this.state.navbar}}>
+            <div className="item-wrapper" onClick={this.showNav}>
+              <Link className="nav-item" to='/' > <Logo /> <p>MappyPals</p> </Link>
+            </div>
+
+            <div className="item-wrapper" onClick={this.showNav}>
+              <Link className="nav-item" to='/about' > <Team /> <p>TEAM</p> </Link>
+            </div>
+
+            <div className="item-wrapper" onClick={this.showNav}>
+             <Link className="nav-item" to='/contact'> <AboutUs /> <p>ABOUT</p> </Link>
+            </div>
+
+            <div className="item-wrapper no-hover scale">
+                <React.Fragment>
+                  <Link to='/login'> <p className="main-btn shadow"  onClick={()=>{onLogin(); this.showNav()}}> LOGIN </p> </Link>
+                  <Link to='/signup'> <p className="main-btn shadow" onClick={()=>{ this.showNav()}}> SIGN UP </p> </Link>
+                </React.Fragment>
+            </div>
+              <div className="item-wrapper no-hover">
+                <p className="nav-item">Copyright - Team Members - ZtM URL</p>
+              </div>
           </div>
           )}
-        </div>
     </React.Fragment>
     ) 
   }

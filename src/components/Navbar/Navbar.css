@@ -15,7 +15,7 @@ hr{
 	right: 0px;
 	z-index: 99;
 	display: grid;
-	grid-template-rows: repeat(5,1fr);
+	grid-template-rows: repeat(5,20%);
 	grid-template-columns: 1fr;
 	width: 300px;
 	background-color: white;
@@ -25,6 +25,7 @@ hr{
 .item-wrapper{
 	display: flex;
 	width: 100%;
+	height: 100%;
 	justify-content: center;
 	align-items: center;
 	border-top: 5px solid lightgrey;
@@ -88,11 +89,22 @@ hr{
 	line-height: 30px
 }
 @media (max-width: 900px){
-	#nav-bar{
-		position: absolute;
+
+	#nav-bar svg{
+		height: 7rem;
+	}
+
+	.main-btn{
+		margin: 2px;
 	}
 }
-@media screen and (max-width: 375px) and (orientation: portrait){
+@media (max-width: 750px){
+	#nav-bar svg{
+		height: 4rem;
+	}
+
+}
+@media screen and (min-width: 375px) and (orientation: portrait){
 	#nav-bar{
 		width: 250px;
 	}
@@ -109,6 +121,7 @@ hr{
 		width: 80%;
 	}
 	.nav-item{
+		height: 100%;
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
@@ -121,29 +134,37 @@ hr{
 		width: auto;
 		right: 0px;
 	}
+	.main-btn{
+		margin: 2px;
+	}
 }
 @media screen and (orientation: landscape) and (max-width: 900px){
 	#nav-bar{
 		width: 80%;
+		align-items: center;
+		height: 100vh;
+
 	}
 	.item-wrapper{
-		height:20%;
+		height:auto
 	}
 	.nav-item{
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		height: 100%;
+		height: 50%;
 	}
 	.no-hover{
-		display: inline-flex;
-		justify-content: space-around;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
 		width: 100%;
+		height: 100%;
 
 	}
 	.no-hover a{
 		width:40%;
-	}
+		margin: 10px;	}
 	.no-hover p{
 		margin: 0px;
 		height:35px ; 
@@ -151,7 +172,6 @@ hr{
 		line-height: 35px
 	}
 	.nav-item svg{
-		height: 100%;
-		width: auto;
+		height: 50px;
 	}
 }
