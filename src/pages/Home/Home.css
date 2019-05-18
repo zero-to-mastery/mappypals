@@ -138,16 +138,12 @@ a {
     transform: scale(1.1);
 }
 
-main,
 main section {
     width: 100vw;
     height: 100%;
-
 }
 section canvas {
     position: relative !important;
-    width: 100% !important;
-    height: 100% !important;
 }
 
 .mapboxgl-marker i {
@@ -273,4 +269,9 @@ section canvas {
     border-top-right-radius: 0px;
     align-items: center;
     justify-content: center;
+}
+@media (max-width: 900px){
+    main{
+        width: 100%;
+    }
 }
