@@ -9,11 +9,14 @@ section {
     color: white;
     font-weight: lighter;
 }
-#root{
+
+
+#not-logged-in{
     background-image: url('../../pics/adult-backlit-beach.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    height: 100%;
 }
 
 .title{
@@ -54,6 +57,7 @@ section {
     font-size: 1.5em;
     font-weight: bold;
     color: white;
+    transition: transform 0.2s ease-out, color 0.2s linear;
 }
 
 .local-icon{
@@ -72,11 +76,6 @@ section {
 }
 
 
-
-/*#not-logged-in>div {*/
-/*    justify-content: center;*/
-/*    display: inline-flex;*/
-/*}*/
 
 section h1 {
     width: 100%;
@@ -132,21 +131,16 @@ a {
     color: #000;
 }
 
-#signup {
-    padding-left: 5px;
-    display: block;
-    transition: transform 0.2s ease-out, color 0.2s linear;
-}
 
-#signup:hover {
+
+.signup:hover {
     color: #b3442e;
     transform: scale(1.1);
 }
 
 main section {
-    width: 100%;
-    height: 90vh;
-    overflow: hidden;
+    width: 100vw;
+    height: 100%;
 }
 section canvas {
     position: relative !important;

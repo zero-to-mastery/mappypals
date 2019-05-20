@@ -1,7 +1,15 @@
 @media all and (min-width: 480px) {
+  .background{
+    background-image: url('../../pics/adult-backlit-beach.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+  }
   .Contact {
     margin: 0 auto;
     max-width: 320px;
+    background-color: white;
   }
 
   .Contact form {
