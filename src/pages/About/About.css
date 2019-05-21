@@ -38,10 +38,8 @@ div.user-photo img{
   font-size: 10px;
   padding: 0.5rem;
   border-radius: 7.5px;
+  color: white;
   background: rgb(224,59,251);
   background: linear-gradient(90deg, rgba(224,59,251,1) 0%, rgba(104,49,222,1) 100%);
   box-shadow: 0 3px 4px -2px grey;
-}
-a {
-  color: white;
 }
