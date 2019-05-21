@@ -4,14 +4,13 @@ section {
     height: 70vh;
     margin: auto;
     text-align: center;
-    font-family: "Play", sans-serif;
+    font-family: 'Play', sans-serif;
     width: 100%;
     color: white;
     font-weight: lighter;
 }
 
-
-#not-logged-in{
+#not-logged-in {
     background-image: url('../../pics/adult-backlit-beach.jpg');
     background-position: center;
     background-repeat: no-repeat;
@@ -19,7 +18,7 @@ section {
     height: 100%;
 }
 
-.title{
+.title {
     display: flex;
     height: 100px;
     width: 100%;
@@ -29,16 +28,15 @@ section {
 
 .title p {
     margin: auto;
- }
+}
 
-.intro{
+.intro {
     font-size: 3em;
     margin-top: 0px;
     width: 100%;
-    
 }
 
-.signup-btn{
+.signup-btn {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -47,12 +45,12 @@ section {
     margin-top: 200px;
 }
 
-.signup{
+.signup {
     width: 250px;
     height: 50px;
     border: transparent;
     border-radius: 10px;
-    background-image: linear-gradient(to right, #A731A5, #550554);
+    background-image: linear-gradient(to right, #a731a5, #550554);
     text-transform: uppercase;
     font-size: 1.5em;
     font-weight: bold;
@@ -60,7 +58,7 @@ section {
     transition: transform 0.2s ease-out, color 0.2s linear;
 }
 
-.local-icon{
+.local-icon {
     display: inline-flex;
     justify-content: flex-start;
     align-items: center;
@@ -70,12 +68,10 @@ section {
     margin-top: 50px;
 }
 
-.icon{
+.icon {
     margin-left: 30px;
     margin-right: 50px;
 }
-
-
 
 section h1 {
     width: 100%;
@@ -83,9 +79,9 @@ section h1 {
     margin: 0px;
 }
 
-section h3{
+section h3 {
     font-size: 3em;
-    width: 100%
+    width: 100%;
 }
 
 /*#not-logged-in div div {*/
@@ -131,8 +127,6 @@ a {
     color: #000;
 }
 
-
-
 .signup:hover {
     color: #b3442e;
     transform: scale(1.1);
@@ -161,7 +155,6 @@ section canvas {
     font-size: 45px;
     top: -40px;
     left: -18px;
-
 }
 
 .mapboxgl-marker i:hover {
@@ -187,8 +180,7 @@ section canvas {
     transition: height 0.6s ease-in-out;
 }
 
-
-#popup div{
+#popup div {
     text-align: center;
     width: 40%;
     height: 50px;
@@ -209,11 +201,11 @@ section canvas {
     border: none;
     color: white;
 }
-#popup div label{
+#popup div label {
     font-size: 10px;
     text-align: left;
 }
-#popup div input{
+#popup div input {
     height: 20px;
     font-size: 15px;
     text-align: center;
@@ -247,7 +239,7 @@ section canvas {
     text-align: center;
 }
 
-#add-new input[type="button"] {
+#add-new input[type='button'] {
     background-color: #1f3a93;
     color: white;
     font-weight: bold;
@@ -255,7 +247,7 @@ section canvas {
     height: 40px;
 }
 #close-btn {
-    display:flex;
+    display: flex;
     width: 40px;
     height: 40px;
     cursor: pointer;
@@ -270,8 +262,8 @@ section canvas {
     align-items: center;
     justify-content: center;
 }
-@media (max-width: 900px){
-    main{
+@media (max-width: 900px) {
+    main {
         width: 100%;
     }
 }
