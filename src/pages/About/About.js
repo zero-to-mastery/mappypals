@@ -3,7 +3,6 @@ import team from './team-data'
 import TeamCard from './TeamCard';
 import styled from 'styled-components';
 
-
 const TeamCardGrid =  styled.div` 
   display: grid;
   grid-template-columns: auto auto auto;
