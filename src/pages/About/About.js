@@ -3,12 +3,13 @@ import team from './team-data'
 import TeamCard from './TeamCard';
 import styled from 'styled-components';
 
+
 const TeamCardGrid =  styled.div` 
   display: grid;
   grid-template-columns: auto auto auto;
   grid-column-gap: 6em;
   grid-row-gap: 4em;
-  
+
   @media screen and (max-width: 600px) {
     grid-template-columns: auto auto;
     grid-column-gap: 1em;
