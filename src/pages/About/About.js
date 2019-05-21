@@ -1,8 +1,7 @@
-    
 import React from 'react'
 import team from './team-data'
 import TeamCard from './TeamCard';
-import styled from 'styled-components'; 
+import styled from 'styled-components';
 
 const TeamCardGrid =  styled.div` 
   display: grid;

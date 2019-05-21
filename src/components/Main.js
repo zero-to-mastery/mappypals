@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Login from '../pages/Login/Login'
+import Login from '../pages/Login/Login';
 import Home from '../pages/Home/Home';
 import Contact from '../pages/Contact/Contact';
 import About from '../pages/About/About';
@@ -14,17 +14,17 @@ import ResetPassword from '../pages/Login/ResetPassword';
 // with /roster or /schedule. The / route will only match
 // when the pathname is exactly the string "/"
 const Main = () => (
-  <main>
-    <Switch>
-      <Route exact path='/' component={Home}/>
-      <Route path='/login' component={Login}/>
-      <Route path="/signup" component={Signup}/>
-      <Route path="/about" component={About}/> 
-      <Route path="/contact" component={Contact} />
-      <Route path="/forgotpassword" component = {ForgotPassword} />
-      <Route path="/resetpassword" component={ResetPassword} />
-    </Switch>
-  </main>
-)
+    <main>
+        <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/login" component={Login} />
+            <Route path="/signup" component={Signup} />
+            <Route path="/about" component={About} />
+            <Route path="/contact" component={Contact} />
+            <Route path="/forgotpassword" component={ForgotPassword} />
+            <Route path="/resetpassword" component={ResetPassword} />
+        </Switch>
+    </main>
+);
 
-export default Main
+export default Main;

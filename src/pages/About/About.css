@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans:400,700&display=swap');
 body {
   font-family: 'Noto Sans', sans-serif;
@@ -43,3 +44,15 @@ div.user-photo img{
   background: linear-gradient(90deg, rgba(224,59,251,1) 0%, rgba(104,49,222,1) 100%);
   box-shadow: 0 3px 4px -2px grey;
 }
+=======
+div.user-photo {
+    width: 150px;
+    height: 150px;
+    margin: 1em auto;
+}
+div.user-photo img {
+    max-height: 100%;
+    border-radius: 50%;
+    background: #fff;
+}
+>>>>>>> upstream/dev
