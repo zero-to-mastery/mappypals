@@ -13,6 +13,15 @@ const Card = styled.div`
   border-color: lightgrey;
   border-radius: 7.5px;
   box-shadow: 2px 3px 4px -2px grey;
+
+  transition: all .2s ease-in-out;
+  &:hover { 
+    transform: scale(1.1); 
+  }
+
+  @media screen and (max-width: 600px) {
+    width: 10em;
+  }
 `
 
 const TeamCard = ({ id, name, role, location, portfolio, linkedin }) => (

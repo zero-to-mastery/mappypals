@@ -2,6 +2,11 @@
 body {
   font-family: 'Noto Sans', sans-serif;
 }
+.aboutpage {
+  display: flex;
+  justify-content: center;
+  padding: 3em 0;
+}
 div.user-photo img{
   max-height: 100%;
   border-radius: 50%;
