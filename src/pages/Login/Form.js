@@ -140,10 +140,18 @@ const Form = styled.form`
 `;
 
 const PasswordReqs = () => (
-  <div id="newPassword"><span aria-live="polite">At least 6 characters, a number or a symbol, at least 1 letter</span></div>
+    <div id="newPassword">
+        <span aria-live="polite">
+            At least 6 characters, a number or a symbol, at least 1 letter
+        </span>
+    </div>
 );
 const EmailNotFoundMsg = () => (
-  <div id="unknownUser"><span aria-live="polite">Email not found: Please check entry or go back to Login to sign up</span></div>
+    <div id="unknownUser">
+        <span aria-live="polite">
+            Email not found: Please check entry or go back to Login to sign up
+        </span>
+    </div>
 );
-export default Form
-export {PasswordReqs, EmailNotFoundMsg}
+export default Form;
+export { PasswordReqs, EmailNotFoundMsg };

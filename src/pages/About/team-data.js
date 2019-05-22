@@ -1,12 +1,13 @@
 const role = [
-  'Fontend',
+  'Frontend',
   'Backend',
   'Fullstack',
   'DevOps',
-  'Product',
+  'Team Lead',
   'UI/UX',
-  'Project',
-  'Marketing'
+  'Project Mgr.',
+  'Marketing',
+  'Product'
 ]
 
 const location = [
@@ -14,17 +15,24 @@ const location = [
   'UK',
   'US',
   'Australia',
-  'India', 
   'Russia',
-  'Ghana'
+  'Lithuania',
+  'India',
+  'Moroco'
 ]
 
 const team = [
-  { avatar: null, name: 'Mubarak Show', role: `${role[4] + ", " + role[5]}`, location: location[0], isEmployed: false },
-  { avatar: null, name: 'Marco Sciortino', role: role[2], location: location[1], isEmployed: false },
-  { avatar: null, name: 'Gouravjeet Singh', role: role[2]  , location: location[2], isEmployed: true },
-  { avatar: null, name: 'Pavel Isp', role: role[2]  , location: location[5], isEmployed: true },
-  { avatar: null, name: 'Devavrat Singh', role: role[2]  , location: location[4], isEmployed: true }
+  { avatar: null, name: 'Mubarak Show', role: `${role[4]+', '+role[8]}`, location: location[0], isEmployed: false, portfolio: "https://www.google.com/", linkedin: "https://www.linkedin.com/" },
+  { avatar: null, name: 'Marco Sciortino', role: role[2], location: location[1], isEmployed: false, portfolio: "https://www.google.com//", linkedin: "https://www.linkedin.com/" },
+  { avatar: null, name: 'Arnas Dičkus', role: role[6], location: location[5], isEmployed: false, portfolio: "https://www.google.com//", linkedin: "https://www.linkedin.com/" },
+  { avatar: null, name: 'Yash Puthran', role: role[1], location: location[6], isEmployed: true, portfolio: "https://www.google.com//", linkedin: "https://www.linkedin.com/" },
+  { avatar: null, name: 'Thijs Nijhof', role: `${role[5]}, ${role[0]}`  , location: location[1], isEmployed: false, portfolio: "https://www.google.com//", linkedin: "https://www.linkedin.com/" },
+  { avatar: null, name: 'Kristina', role: role[2], location: location[1], isEmployed: false, portfolio: "https://www.google.com//", linkedin: "https://www.linkedin.com/" },
+  { avatar: null, name: 'Melissendra', role: role[0], location: location[1], isEmployed: false, portfolio: "https://www.google.com//", linkedin: "https://www.linkedin.com/" },
+  { avatar: null, name: 'Matt Smith', role: role[3], location: location[1], isEmployed: false, portfolio: "https://www.google.com//", linkedin: "https://www.linkedin.com/" },
+  { avatar: null, name: 'Yassine Belkaid', role: role[1], location: location[7], isEmployed: false, portfolio: "https://www.google.com//", linkedin: "https://www.linkedin.com//" },
 ]
+
+
 
 export default team;
