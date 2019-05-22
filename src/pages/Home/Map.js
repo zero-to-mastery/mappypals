@@ -109,9 +109,9 @@ class Map extends Component {
   addFriendToList = () => {
     const resetNewFriend = {
       long: null, lat: null,
-      name: "", email: "",
+      nickname: "", name: "", email: "",
       phone: "", postcode: "",
-      country: "", nickname: ""
+      country: ""
     };
     this.setState({
       friendsList: {
@@ -135,6 +135,11 @@ class Map extends Component {
       this.setState({ newFriend: { long: null }, currentPin: {} });
       document.getElementById("add-new").style.height = "";
   }
+  onDragEnd = event => {
+    this.getLocation(event);
+    //this.showInviteForm(event);
+  }
+
   componentDidMount() {
     window.navigator.geolocation.getCurrentPosition(
       position => {
@@ -189,6 +194,7 @@ class Map extends Component {
   };
 
   render() {
+    const { newFriend } = this.state;
     return (
       <div style={{ height: "100vh" }}>
         <MapGL
@@ -203,9 +209,9 @@ class Map extends Component {
         >
           {Object.keys(this.state.friendsList).length > 0 ? this.allPins() : ""}
           {this.state.newFriend.long !== null ? (
-            <Marker
-              latitude={this.state.newFriend.lat}
-              longitude={this.state.newFriend.long}
+            <Marker draggable="true" onDragEnd={this.onDragEnd}
+              latitude={newFriend.lat}
+              longitude={newFriend.long}
             >
               <i id="new-pin" className="fas fa-map-marker-alt" />
             </Marker>
@@ -222,7 +228,7 @@ class Map extends Component {
             </Marker>:""
           }
         </MapGL>
-        {this.state.currentPin.nickname && !this.state.newFriend.long ? (
+        {/* {this.state.currentPin.nickname && !this.state.newFriend.long ? (
           <PopUp
             nickname={this.state.currentPin.nickname}
             name={this.state.currentPin.name}
@@ -232,7 +238,7 @@ class Map extends Component {
           />
         ) : (
           ""
-        )}
+        )} */}
         {/*this is for now fully visible still being implemented*/}
         <AddFriendForm onFriendLoaded={this.addFriendData} ref={this.addNewRef} closeForm={this.closeForm}/>
       </div>
