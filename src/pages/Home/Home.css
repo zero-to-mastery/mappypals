@@ -141,8 +141,11 @@ section canvas {
 }
 
 .mapboxgl-marker i {
-    color: #e27cdf;
-    font-size: 22px;
+    color: transparent;
+    background-image: url('../../pics/AddSmall.png');
+    background-size: center;
+    width: 36px;
+    height: 60px;
     padding: 0px;
     position: relative;
     top: -20px;
@@ -152,6 +155,7 @@ section canvas {
 
 .mapboxgl-marker #me {
     color: blue;
+    background-image: none;
     font-size: 45px;
     top: -40px;
     left: -18px;

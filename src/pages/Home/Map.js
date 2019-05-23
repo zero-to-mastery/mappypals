@@ -69,6 +69,11 @@ class Map extends Component {
         });
     };
 
+    onDragEnd = event => {
+      this.getLocation(event);
+      //this.showInviteForm(event);
+    }
+
     showPopup = event => {
         this.setState({ currentPin: this.state.friendsList[event.target.id] });
         setTimeout(() => {
@@ -233,7 +238,7 @@ class Map extends Component {
                         ? this.allPins()
                         : ''}
                     {this.state.newFriend.long !== null ? (
-                        <Marker
+                        <Marker draggable="true" onDragEnd={this.onDragEnd}
                             latitude={this.state.newFriend.lat}
                             longitude={this.state.newFriend.long}
                         >
