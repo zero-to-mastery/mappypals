@@ -22,9 +22,9 @@ class Map extends Component {
             formDisplay: false,
             // InvitationSendForm:
             InvitationForm: false,
+            // All stored pins
+            inviteFriendData: [],
 
-            //temporary "database" Should probably delete it.
-            friendsList: {},
             viewport: {
                 latitude: 37.7577,
                 longitude: -122.4376,
@@ -63,11 +63,14 @@ class Map extends Component {
         });
     }
     newPin = event => {
-        this.getLocation(event);
-        this.getPostcode();
+        // Allow to pin on the map only when invitation is hidden
+        if(!this.state.InvitationForm){
+            this.getLocation(event);
+            this.getPostcode();
 
-        // Menu by default is hidden. Clicking on map activates menu.
-        this.showFriendForm();
+            // Menu by default is hidden. Clicking on map activates menu.
+            this.showFriendForm();
+        }
     };
     getPostcode = () => {
         fetch(
@@ -113,6 +116,7 @@ class Map extends Component {
             function() {
                 // newFriend state here is immediatelly updated.
                 console.log(this.state.newFriend);
+                this.storePins();
             }
         );
         // Hide form after submit.
@@ -120,43 +124,21 @@ class Map extends Component {
         // Show Invitation form
         this.showInvitationForm();
     };
-
-    onDragEnd = event => {
-        this.getLocation(event);
-        console.log('onDragEnd');
-        //this.showInviteForm(event);
-    };
-    // htmlMarkersCollection does not return anything. TODO fix this function.
-    allPins = () => {
-        const htmlMarkersCollection = [];
-        const hashList = this.state.friendsList;
-        for (let friend in hashList) {
-            const { nickname, lat, long } = hashList[friend];
-            htmlMarkersCollection.push(
-                <Marker key={nickname} latitude={lat} longitude={long}>
-                    <i
-                        id={nickname}
-                        key={nickname + 'k'}
-                        onClick={() =>
-                            console.log('Here to edit friends details')
-                        }
-                        className="fas fa-map-marker-alt"
-                    />
-                </Marker>
-            );
-        }
-        return htmlMarkersCollection;
-    };
-
+    
     showFriendForm = () => this.setState({ formDisplay: true });
     hideFriendForm = () => this.setState({ formDisplay: false });
     showInvitationForm = () => this.setState({ InvitationForm: true });
     hideInvitationForm = () => this.setState({ InvitationForm: false });
+    // Allows to drag elements.
+    onDragEnd = event => this.getLocation(event);
+
+    // Stores this.state.newFriends values to inviteFriendData array
+    storePins = () => this.setState({ inviteFriendData: [...this.state.inviteFriendData, this.state.newFriend]});
 
     render() {
-        // renders only when form is visible.
+        // renders only when form is visible and invitation form is not showing.
         let displayForm = '';
-        if (this.state.formDisplay) {
+        if (this.state.formDisplay && !this.state.InvitationForm) {
             displayForm = (
                 <AddFriendForm
                     onFriendLoaded={this.addFriendData}
@@ -185,10 +167,18 @@ class Map extends Component {
                     width={'auto'}
                     height={'100%'}
                     id="map"
-                >
-                    {Object.keys(this.state.friendsList).length > 0
-                        ? this.allPins()
-                        : ''}
+                >                          
+                    {this.state.inviteFriendData.map((data, index) => {
+                        return <Marker
+                            latitude={data.lat}
+                            longitude={data.long}
+                            key = {index}
+                            >
+                            <i id="new-pin" className="fas fa-map-marker-alt" />
+                        </Marker>
+                    })}
+                    
+                    {this.state.inviteFriendData > 0 ? this.storePins() : ''}
                     {this.state.newFriend.long !== null ? (
                         <Marker
                             draggable="true"

@@ -153,7 +153,8 @@ section canvas {
 }
 
 .mapboxgl-marker #me {
-    background-image: none;
+    color: blue;
+    background-image: none; 
     font-size: 45px;
     top: -40px;
     left: -18px;

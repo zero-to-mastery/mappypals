@@ -34,7 +34,7 @@ class AddFriendForm extends React.Component {
         return (
             <div
                 id="add-new"
-                className="Login u-pb"
+                className="Login no-bg u-pb"
                 style={{ display: this.props.formDisplay ? 'block' : 'none' }}
             >
                 <Form onSubmit={this.handleSubmit}>
