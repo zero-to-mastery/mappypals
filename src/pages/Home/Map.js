@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import MapGL, { Marker } from 'react-map-gl';
-import AddFriendForm from "./AddFriendForm/AddFriendForm";
+import AddFriendForm from './AddFriendForm/AddFriendForm';
 import InvitationSent from './AddFriendForm/InvitationSent';
 import './Home.css';
 const TOKEN =
@@ -9,87 +9,87 @@ class Map extends Component {
     constructor() {
         super();
         this.state = {
-        //  Stored info when user submits AddFriendForm.js
-         newFriend: {
-           long: null, lat: null,
-           firstName: "", lastName: "",
-           email: "", country: '',
-         },
-        //  AddFriendForm visibility
-        formDisplay: false,
-        // InvitationSendForm:
-        InvitationForm: false,
+            //  Stored info when user submits AddFriendForm.js
+            newFriend: {
+                long: null,
+                lat: null,
+                firstName: '',
+                lastName: '',
+                email: '',
+                country: ''
+            },
+            //  AddFriendForm visibility
+            formDisplay: false,
+            // InvitationSendForm:
+            InvitationForm: false,
 
-         //temporary "database" Should probably delete it.
-         friendsList: {},
-         viewport: {
-            latitude: 37.7577, longitude: -122.4376,
-            zoom: 11
-         },
-             // User exact location
-         pinMe:{
-            latitude: "",
-            longitude: "",
-         }
-      };
+            //temporary "database" Should probably delete it.
+            friendsList: {},
+            viewport: {
+                latitude: 37.7577,
+                longitude: -122.4376,
+                zoom: 11
+            },
+            // User exact location
+            pinMe: {
+                latitude: '',
+                longitude: ''
+            }
+        };
     }
     componentDidMount() {
-    window.navigator.geolocation.getCurrentPosition(
-      position => {
-        if (position.coords.latitude)
-          this.setState({
-            viewport: {
-              ...this.state.viewport,
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude
-            },
-            pinMe:{
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude
-            }
-          });
-      }
-    );
-      window.addEventListener("resize", viewport => {
-      this.setState({
-        viewport: {
-          ...this.state.viewport,
-          width: viewport.target.innerWidth,
-          height: viewport.target.innerHeight
-        }
-      });
-    });
-  }
+        window.navigator.geolocation.getCurrentPosition(position => {
+            if (position.coords.latitude)
+                this.setState({
+                    viewport: {
+                        ...this.state.viewport,
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude
+                    },
+                    pinMe: {
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude
+                    }
+                });
+        });
+        window.addEventListener('resize', viewport => {
+            this.setState({
+                viewport: {
+                    ...this.state.viewport,
+                    width: viewport.target.innerWidth,
+                    height: viewport.target.innerHeight
+                }
+            });
+        });
+    }
     newPin = event => {
-    this.getLocation(event);
-    this.getPostcode();
+        this.getLocation(event);
+        this.getPostcode();
 
-    // Menu by default is hidden. Clicking on map activates menu.
-    this.showFriendForm();
-
-  };
+        // Menu by default is hidden. Clicking on map activates menu.
+        this.showFriendForm();
+    };
     getPostcode = () => {
-    fetch(
-      "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
-        this.state.newFriend.long +
-        "," +
-        this.state.newFriend.lat +
-        ".json?access_token=" +
-        TOKEN
-    )
-      .then(resp => resp.json())
-      .then(data =>{
-         if(data.features[1]){
-           this.setState({
-             newFriend: {
-               ...this.state.newFriend,
-               country: data.features[1].text
-             }
-           })
-         }
-      }
-      );
-  };
+        fetch(
+            'https://api.mapbox.com/geocoding/v5/mapbox.places/' +
+                this.state.newFriend.long +
+                ',' +
+                this.state.newFriend.lat +
+                '.json?access_token=' +
+                TOKEN
+        )
+            .then(resp => resp.json())
+            .then(data => {
+                if (data.features[1]) {
+                    this.setState({
+                        newFriend: {
+                            ...this.state.newFriend,
+                            country: data.features[1].text
+                        }
+                    });
+                }
+            });
+    };
     getLocation = event => {
         const lngLat = event.lngLat;
         this.setState({
@@ -101,72 +101,79 @@ class Map extends Component {
         });
     };
     addFriendData = friendState => {
-    this.setState({
-      newFriend: {
-        ...this.state.newFriend,
-        firstName: friendState.firstname,
-        lastName: friendState.lastname,
-        email: friendState.email,
-      }
-    }, function(){
-      // newFriend state here is immediatelly updated.
-      console.log(this.state.newFriend);
-    })
-    // Hide form after submit.
-    this.hideFriendForm();
-    // Show Invitation form
-    this.showInvitationForm();
-  };
+        this.setState(
+            {
+                newFriend: {
+                    ...this.state.newFriend,
+                    firstName: friendState.firstname,
+                    lastName: friendState.lastname,
+                    email: friendState.email
+                }
+            },
+            function() {
+                // newFriend state here is immediatelly updated.
+                console.log(this.state.newFriend);
+            }
+        );
+        // Hide form after submit.
+        this.hideFriendForm();
+        // Show Invitation form
+        this.showInvitationForm();
+    };
 
     onDragEnd = event => {
-      this.getLocation(event);
-      console.log('onDragEnd');
-      //this.showInviteForm(event);
-    }
+        this.getLocation(event);
+        console.log('onDragEnd');
+        //this.showInviteForm(event);
+    };
     // htmlMarkersCollection does not return anything. TODO fix this function.
     allPins = () => {
         const htmlMarkersCollection = [];
         const hashList = this.state.friendsList;
         for (let friend in hashList) {
-        const { nickname, lat, long } = hashList[friend];
-        htmlMarkersCollection.push(
-            <Marker key={nickname} latitude={lat} longitude={long}>
-            <i
-                id={nickname}
-                key={nickname + "k"}
-                onClick={() => console.log("Here to edit friends details")}
-                className="fas fa-map-marker-alt"
-            />
-            </Marker>
-        );
+            const { nickname, lat, long } = hashList[friend];
+            htmlMarkersCollection.push(
+                <Marker key={nickname} latitude={lat} longitude={long}>
+                    <i
+                        id={nickname}
+                        key={nickname + 'k'}
+                        onClick={() =>
+                            console.log('Here to edit friends details')
+                        }
+                        className="fas fa-map-marker-alt"
+                    />
+                </Marker>
+            );
         }
         return htmlMarkersCollection;
     };
 
-    showFriendForm = () => this.setState({formDisplay: true});
-    hideFriendForm = () => this.setState({formDisplay: false})
-    showInvitationForm = () => this.setState({InvitationForm: true});
-    hideInvitationForm = () => this.setState({InvitationForm: false});
+    showFriendForm = () => this.setState({ formDisplay: true });
+    hideFriendForm = () => this.setState({ formDisplay: false });
+    showInvitationForm = () => this.setState({ InvitationForm: true });
+    hideInvitationForm = () => this.setState({ InvitationForm: false });
 
     render() {
         // renders only when form is visible.
-    let displayForm = ''
-    if(this.state.formDisplay){
-      displayForm = 
-        <AddFriendForm 
-          onFriendLoaded={this.addFriendData} 
-          formDisplay = {this.state.formDisplay}
-          />
-      }
-      // renders only when InvitationSent is visible
-    let InvitationSentVar = '';
-      if(this.state.InvitationForm){
-        InvitationSentVar = 
-          <InvitationSent
-            InvitationForm = {this.state.InvitationForm}
-            hideInvitationForm = {this.hideInvitationForm}
-         />
-    }
+        let displayForm = '';
+        if (this.state.formDisplay) {
+            displayForm = (
+                <AddFriendForm
+                    onFriendLoaded={this.addFriendData}
+                    formDisplay={this.state.formDisplay}
+                />
+            );
+        }
+        // renders only when InvitationSent is visible
+        let InvitationSentVar = '';
+        if (this.state.InvitationForm) {
+            InvitationSentVar = (
+                <InvitationSent
+                    InvitationForm={this.state.InvitationForm}
+                    hideInvitationForm={this.hideInvitationForm}
+                />
+            );
+        }
         return (
             <div style={{ height: '100vh' }}>
                 <MapGL
@@ -183,7 +190,9 @@ class Map extends Component {
                         ? this.allPins()
                         : ''}
                     {this.state.newFriend.long !== null ? (
-                        <Marker draggable="true" onDragEnd={this.onDragEnd}
+                        <Marker
+                            draggable="true"
+                            onDragEnd={this.onDragEnd}
                             latitude={this.state.newFriend.lat}
                             longitude={this.state.newFriend.long}
                         >

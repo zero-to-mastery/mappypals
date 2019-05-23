@@ -1,22 +1,22 @@
-.main{
+.main {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: white;
 }
-.u-mr{
+.u-mr {
     margin-right: 10px;
 }
-.u-mb{
+.u-mb {
     margin-bottom: 10px;
 }
-.titleInvite{
+.titleInvite {
     font-weight: 300;
     font-size: 20px;
-    color: #6831DE;
+    color: #6831de;
 }
-.X-button{
+.X-button {
     position: absolute;
     top: 8px;
     right: 16px;

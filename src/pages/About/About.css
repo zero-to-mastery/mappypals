@@ -1,45 +1,49 @@
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans:400,700&display=swap');
 body {
-  font-family: 'Noto Sans', sans-serif;
+    font-family: 'Noto Sans', sans-serif;
 }
 .aboutpage {
-  display: flex;
-  justify-content: center;
-  padding: 3em 0;
+    display: flex;
+    justify-content: center;
+    padding: 3em 0;
 }
-div.user-photo img{
-  max-height: 100%;
-  border-radius: 50%;
-  background: lightgray;
+div.user-photo img {
+    max-height: 100%;
+    border-radius: 50%;
+    background: lightgray;
 }
 .dev-name {
-  color: #6831de;
-  font-weight: bold; 
+    color: #6831de;
+    font-weight: bold;
 }
 .dev-role {
-  line-height: 1.5%;
-  font-weight: 400;
-  font-style: italic;
-  font-size: 0.8rem;
+    line-height: 1.5%;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 0.8rem;
 }
 .dev-info {
-  margin-bottom: 3rem;
+    margin-bottom: 3rem;
 }
 .user-links {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  padding: 0 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 0 5px;
 }
 .portfolio {
-  font-weight: 100;
-  margin: 0 5px;
-  text-decoration: none;
-  font-size: 10px;
-  padding: 0.5rem;
-  border-radius: 7.5px;
-  color: white;
-  background: rgb(224,59,251);
-  background: linear-gradient(90deg, rgba(224,59,251,1) 0%, rgba(104,49,222,1) 100%);
-  box-shadow: 0 3px 4px -2px grey;
+    font-weight: 100;
+    margin: 0 5px;
+    text-decoration: none;
+    font-size: 10px;
+    padding: 0.5rem;
+    border-radius: 7.5px;
+    color: white;
+    background: rgb(224, 59, 251);
+    background: linear-gradient(
+        90deg,
+        rgba(224, 59, 251, 1) 0%,
+        rgba(104, 49, 222, 1) 100%
+    );
+    box-shadow: 0 3px 4px -2px grey;
 }
