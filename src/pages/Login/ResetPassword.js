@@ -1,18 +1,15 @@
-
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import './Login.css';
-import Form from './Form';
-import './ResetPassword.css';
+import Form, { PasswordReqs } from './Form';
 import ky from 'ky';
-
 
 class ResetPassword extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            password: "",
-            checkPassword: "",
-            passwordMatch: false,
+            password: '',
+            confirmPassword: '',
+            passwordMatch: true
         };
     }
 
@@ -20,63 +17,73 @@ class ResetPassword extends Component {
         this.setState({
             [event.target.name]: event.target.value
         });
-    }
+    };
+
+    passwordLengthError = () => {
+        if (this.state.password.length < 6) {
+            alert('Password is not at least 6 characters');
+        }
+    };
 
     handleSubmit = event => {
+        const { password, confirmPassword } = this.state;
         event.preventDefault();
 
-        if (this.state.password !== this.state.checkPassword) {
-            this.setState({ passwordMatch: true });
-        } else {
+        if (password !== confirmPassword) {
             this.setState({ passwordMatch: false });
+            return;
         }
 
         (async () => {
             const token = window.location.pathname;
-                const url = `http://localhost:3001/users${token}`;
-                await ky.post(
-                    url,
-                    { json: this.state }
+            const url = `http://localhost:3001/users${token}`;
+            await ky.post(url, { json: this.state }).then(res => {
+                if (res.status === 200) {
+                    console.log(
+                        'Redirect user to home page, successfull login'
+                    );
+                }
+            });
+        })();
 
-                )
-                    .then(res => {
-                        if (res.status === 200) {
-                            console.log("Redirect user to home page, successfull login");
-                        }
-                    })
-            }
-        )();
-
-        this.setState({ password: '', checkPassword: '' })
-
-    }
+        this.setState({ password: '', confirmPassword: '' });
+    };
 
     render() {
-
-        let passwordMatchError = ''
-        if (this.state.passwordMatch) {
-            passwordMatchError = <span className="errorMessage">Password doesn't match</span>;
+        let passwordMatchError = '';
+        if (!this.state.passwordMatch) {
+            passwordMatchError = (
+                <span className="errorMessage" aria-live="polite">
+                    Password doesn't match
+                </span>
+            );
         }
         return (
             <div className="Login">
                 <Form onSubmit={this.handleSubmit}>
-                    <h5 className="title">Reset your password</h5>
+                    <p className="heavy">Reset your password</p>
                     <label htmlFor="password">
                         Password
                         <input
                             type="password"
                             name="password"
-                            onChange={this.handleChange} required
+                            aria-describedby="newPassword"
                             value={this.state.password}
+                            onClick={this.toggleHidden}
+                            onChange={this.handleChange}
+                            required
+                            onBlur={this.passwordLengthError}
                         />
                     </label>
-                    <label htmlFor="checkPassword">
-                        Check Password {passwordMatchError}
+                    {!this.state.isHidden && <PasswordReqs />}
+                    <label htmlFor="confirmPassword">
+                        Please confirm password {passwordMatchError}
                         <input
                             type="password"
-                            name="checkPassword"
-                            onChange={this.handleChange} required
+                            name="confirmPassword"
                             value={this.state.checkPassword}
+                            onChange={this.handleChange}
+                            required
                         />
                     </label>
                     <div className="btnContainer">
@@ -84,7 +91,7 @@ class ResetPassword extends Component {
                     </div>
                 </Form>
             </div>
-        )
+        );
     }
 }
 export default ResetPassword;
