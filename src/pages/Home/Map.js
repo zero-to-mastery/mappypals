@@ -64,7 +64,7 @@ class Map extends Component {
     }
     newPin = event => {
         // Allow to pin on the map only when invitation is hidden
-        if(!this.state.InvitationForm){
+        if (!this.state.InvitationForm) {
             this.getLocation(event);
             this.getPostcode();
 
@@ -124,7 +124,7 @@ class Map extends Component {
         // Show Invitation form
         this.showInvitationForm();
     };
-    
+
     showFriendForm = () => this.setState({ formDisplay: true });
     hideFriendForm = () => this.setState({ formDisplay: false });
     showInvitationForm = () => this.setState({ InvitationForm: true });
@@ -133,7 +133,13 @@ class Map extends Component {
     onDragEnd = event => this.getLocation(event);
 
     // Stores this.state.newFriends values to inviteFriendData array
-    storePins = () => this.setState({ inviteFriendData: [...this.state.inviteFriendData, this.state.newFriend]});
+    storePins = () =>
+        this.setState({
+            inviteFriendData: [
+                ...this.state.inviteFriendData,
+                this.state.newFriend
+            ]
+        });
 
     render() {
         // renders only when form is visible and invitation form is not showing.
@@ -167,17 +173,22 @@ class Map extends Component {
                     width={'auto'}
                     height={'100%'}
                     id="map"
-                >                          
+                >
                     {this.state.inviteFriendData.map((data, index) => {
-                        return <Marker
-                            latitude={data.lat}
-                            longitude={data.long}
-                            key = {index}
+                        return (
+                            <Marker
+                                latitude={data.lat}
+                                longitude={data.long}
+                                key={index}
                             >
-                            <i id="new-pin" className="fas fa-map-marker-alt" />
-                        </Marker>
+                                <i
+                                    id="new-pin"
+                                    className="fas fa-map-marker-alt"
+                                />
+                            </Marker>
+                        );
                     })}
-                    
+
                     {this.state.inviteFriendData > 0 ? this.storePins() : ''}
                     {this.state.newFriend.long !== null ? (
                         <Marker

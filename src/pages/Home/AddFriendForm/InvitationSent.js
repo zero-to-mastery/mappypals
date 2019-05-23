@@ -3,12 +3,11 @@ import './InvitationSent.css';
 import Form from '../../Login/Form';
 
 const InvitationSent = ({ InvitationForm, hideInvitationForm }) => {
-
-    const hideForm = (event) => {
-        event.preventDefault()
+    const hideForm = event => {
+        event.preventDefault();
         hideInvitationForm();
-    }
-    
+    };
+
     return (
         <div style={{ display: InvitationForm ? 'block' : 'none' }}>
             <Form className="main">
