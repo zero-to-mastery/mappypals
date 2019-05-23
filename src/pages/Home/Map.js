@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import MapGL, { Marker } from 'react-map-gl';
-import PopUp from './PopUp.js';
-import AddFriendForm from './AddFriendForm.js';
+import AddFriendForm from "./AddFriendForm/AddFriendForm";
+import InvitationSent from './AddFriendForm/InvitationSent';
 import './Home.css';
 const TOKEN =
     'pk.eyJ1Ijoic2Npb3J0aW5vbXJjIiwiYSI6ImNqc2RocmRzYTB2OGUzeWxuZDNmdDhrcDgifQ.txLXHEJPl4lYa8an6fcjuA';
@@ -9,55 +9,87 @@ class Map extends Component {
     constructor() {
         super();
         this.state = {
-            currentPin: {},
-            newFriend: {
-                long: null,
-                lat: null,
-                name: '',
-                email: '',
-                phone: '',
-                postcode: '',
-                country: '',
-                nickname: ''
-            },
-            //temporary "database"
-            friendsList: {},
-            viewport: {
-                latitude: 37.7577,
-                longitude: -122.4376,
-                zoom: 11
-            },
-            //user pin
-            pinMe: {
-                latitude: '',
-                longitude: ''
-            }
-        };
-        this.addNewRef = React.createRef();
-        this.popUpRef = React.createRef();
+        //  Stored info when user submits AddFriendForm.js
+         newFriend: {
+           long: null, lat: null,
+           firstName: "", lastName: "",
+           email: "", country: '',
+         },
+        //  AddFriendForm visibility
+        formDisplay: false,
+        // InvitationSendForm:
+        InvitationForm: false,
+
+         //temporary "database" Should probably delete it.
+         friendsList: {},
+         viewport: {
+            latitude: 37.7577, longitude: -122.4376,
+            zoom: 11
+         },
+             // User exact location
+         pinMe:{
+            latitude: "",
+            longitude: "",
+         }
+      };
     }
+    componentDidMount() {
+    window.navigator.geolocation.getCurrentPosition(
+      position => {
+        if (position.coords.latitude)
+          this.setState({
+            viewport: {
+              ...this.state.viewport,
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude
+            },
+            pinMe:{
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude
+            }
+          });
+      }
+    );
+      window.addEventListener("resize", viewport => {
+      this.setState({
+        viewport: {
+          ...this.state.viewport,
+          width: viewport.target.innerWidth,
+          height: viewport.target.innerHeight
+        }
+      });
+    });
+  }
+    newPin = event => {
+    this.getLocation(event);
+    this.getPostcode();
+
+    // Menu by default is hidden. Clicking on map activates menu.
+    this.showFriendForm();
+
+  };
     getPostcode = () => {
-        fetch(
-            'https://api.mapbox.com/geocoding/v5/mapbox.places/' +
-                this.state.newFriend.long +
-                ',' +
-                this.state.newFriend.lat +
-                '.json?access_token=' +
-                TOKEN
-        )
-            .then(resp => resp.json())
-            .then(data => {
-                if (data && data.features[1] && data.features[6]) {
-                    this.setState({
-                        newFriend: {
-                            ...this.state.newFriend,
-                            postcode: data.features[1].text,
-                            country: data.features[6].text
-                        }
-                    });
-                }
-            });
-    };
+    fetch(
+      "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
+        this.state.newFriend.long +
+        "," +
+        this.state.newFriend.lat +
+        ".json?access_token=" +
+        TOKEN
+    )
+      .then(resp => resp.json())
+      .then(data =>{
+         if(data.features[1]){
+           this.setState({
+             newFriend: {
+               ...this.state.newFriend,
+               country: data.features[1].text
+             }
+           })
+         }
+      }
+      );
+  };
     getLocation = event => {
         const lngLat = event.lngLat;
         this.setState({
@@ -68,160 +100,73 @@ class Map extends Component {
             }
         });
     };
+    addFriendData = friendState => {
+    this.setState({
+      newFriend: {
+        ...this.state.newFriend,
+        firstName: friendState.firstname,
+        lastName: friendState.lastname,
+        email: friendState.email,
+      }
+    }, function(){
+      // newFriend state here is immediatelly updated.
+      console.log(this.state.newFriend);
+    })
+    // Hide form after submit.
+    this.hideFriendForm();
+    // Show Invitation form
+    this.showInvitationForm();
+  };
 
     onDragEnd = event => {
       this.getLocation(event);
+      console.log('onDragEnd');
       //this.showInviteForm(event);
     }
-
-    showPopup = event => {
-        this.setState({ currentPin: this.state.friendsList[event.target.id] });
-        setTimeout(() => {
-            const popup = document.getElementById('popup');
-            if (popup) popup.style.height = '180px';
-        }, 500);
-    };
-    hidePopup = event => {
-        const popup = document.getElementById('popup');
-        if (this.state.currentPin.long) popup.style.height = '0px';
-        this.setState({ currentPin: {} });
-    };
-    //temporary "database insert"
-    nicknameExists = (nickname, email) => {
-        const hashListKeys = Object.keys(this.state.friendsList);
-        let flag = false;
-        console.log({ nickname, email });
-        if (!nickname || !nickname.length || hashListKeys.includes(nickname)) {
-            this.addNewRef.current._reactInternalFiber.child.alternate.stateNode.children[0].style.border =
-                '2px solid red';
-            flag = true;
-        } else
-            this.addNewRef.current._reactInternalFiber.child.alternate.stateNode.children[0].style.border =
-                '';
-        if (!email || !email.length) {
-            this.addNewRef.current._reactInternalFiber.child.alternate.stateNode.children[1].style.border =
-                '2px solid red';
-            flag = true;
-        } else
-            this.addNewRef.current._reactInternalFiber.child.alternate.stateNode.children[1].style.border =
-                '';
-        if (Object.keys(this.state.friendsList) > 0) {
-            for (let friend of this.state.friendsList) {
-                if (this.state.friendsList[friend].email) {
-                    this.addNewRef.current._reactInternalFiber.child.alternate.stateNode.children[1].style.border =
-                        '2px solid red';
-                    flag = true;
-                } else
-                    this.addNewRef.current._reactInternalFiber.child.alternate.stateNode.children[1].style.border =
-                        '';
-            }
-        }
-        return flag;
-    };
-    addFriendData = friendState => {
-        const { nickname, name, email, phone } = friendState.data;
-        if (this.nicknameExists(nickname, email)) return;
-        const newFriend = {
-            ...this.state.newFriend,
-            nickname,
-            name,
-            email,
-            phone
-        };
-        this.setState({ newFriend });
-        setTimeout(() => this.addFriendToList(), 1000);
-    };
-    //temporary add friend - restful api call with db insert while implementing Backend
-    addFriendToList = () => {
-        const resetNewFriend = {
-            long: null,
-            lat: null,
-            name: '',
-            email: '',
-            phone: '',
-            postcode: '',
-            country: '',
-            nickname: ''
-        };
-        this.setState({
-            friendsList: {
-                ...this.state.friendsList,
-                [this.state.newFriend.nickname]: this.state.newFriend
-            },
-            newFriend: resetNewFriend
-        });
-        this.addNewRef.current._reactInternalFiber.child.alternate.stateNode.style.height =
-            '0px';
-        for (let child of this.addNewRef.current._reactInternalFiber.child
-            .alternate.stateNode.children) {
-            child.value = '';
-        }
-    };
-
-    newPin = event => {
-        this.getLocation(event);
-        this.getPostcode();
-        this.addNewRef.current._reactInternalFiber.child.alternate.stateNode.style.height =
-            '180px';
-    };
-    closeForm = () => {
-        this.setState({ newFriend: { long: null }, currentPin: {} });
-        document.getElementById('add-new').style.height = '';
-    };
-    componentDidMount() {
-        window.navigator.geolocation.getCurrentPosition(position => {
-            if (position.coords.latitude)
-                this.setState({
-                    viewport: {
-                        ...this.state.viewport,
-                        latitude: position.coords.latitude,
-                        longitude: position.coords.longitude
-                    },
-                    pinMe: {
-                        latitude: position.coords.latitude,
-                        longitude: position.coords.longitude
-                    }
-                });
-        });
-        window.addEventListener('resize', viewport => {
-            this.setState({
-                viewport: {
-                    ...this.state.viewport,
-                    width: viewport.target.innerWidth,
-                    height: viewport.target.innerHeight
-                }
-            });
-        });
-        window.addEventListener('keydown', event => {
-            if (event.key === 'Escape') {
-                this.closeForm();
-            }
-        });
-    }
+    // htmlMarkersCollection does not return anything. TODO fix this function.
     allPins = () => {
         const htmlMarkersCollection = [];
         const hashList = this.state.friendsList;
         for (let friend in hashList) {
-            const { nickname, lat, long } = hashList[friend];
-            htmlMarkersCollection.push(
-                <Marker key={nickname} latitude={lat} longitude={long}>
-                    <i
-                        id={nickname}
-                        key={nickname + 'k'}
-                        onClick={() =>
-                            console.log('Here to edit friends details')
-                        }
-                        onMouseOver={e => this.showPopup(e)}
-                        onMouseLeave={e => this.hidePopup(e)}
-                        className="fas fa-map-marker-alt"
-                    />
-                </Marker>
-            );
+        const { nickname, lat, long } = hashList[friend];
+        htmlMarkersCollection.push(
+            <Marker key={nickname} latitude={lat} longitude={long}>
+            <i
+                id={nickname}
+                key={nickname + "k"}
+                onClick={() => console.log("Here to edit friends details")}
+                className="fas fa-map-marker-alt"
+            />
+            </Marker>
+        );
         }
         return htmlMarkersCollection;
     };
 
+    showFriendForm = () => this.setState({formDisplay: true});
+    hideFriendForm = () => this.setState({formDisplay: false})
+    showInvitationForm = () => this.setState({InvitationForm: true});
+    hideInvitationForm = () => this.setState({InvitationForm: false});
+
     render() {
+        // renders only when form is visible.
+    let displayForm = ''
+    if(this.state.formDisplay){
+      displayForm = 
+        <AddFriendForm 
+          onFriendLoaded={this.addFriendData} 
+          formDisplay = {this.state.formDisplay}
+          />
+      }
+      // renders only when InvitationSent is visible
+    let InvitationSentVar = '';
+      if(this.state.InvitationForm){
+        InvitationSentVar = 
+          <InvitationSent
+            InvitationForm = {this.state.InvitationForm}
+            hideInvitationForm = {this.hideInvitationForm}
+         />
+    }
         return (
             <div style={{ height: '100vh' }}>
                 <MapGL
@@ -263,24 +208,8 @@ class Map extends Component {
                         ''
                     )}
                 </MapGL>
-                {this.state.currentPin.nickname &&
-                !this.state.newFriend.long ? (
-                    <PopUp
-                        nickname={this.state.currentPin.nickname}
-                        name={this.state.currentPin.name}
-                        email={this.state.currentPin.email}
-                        phone={this.state.currentPin.phone}
-                        postcode={this.state.currentPin.postcode}
-                    />
-                ) : (
-                    ''
-                )}
-                {/*this is for now fully visible still being implemented*/}
-                <AddFriendForm
-                    onFriendLoaded={this.addFriendData}
-                    ref={this.addNewRef}
-                    closeForm={this.closeForm}
-                />
+                {displayForm}
+                {InvitationSentVar}
             </div>
         );
     }
