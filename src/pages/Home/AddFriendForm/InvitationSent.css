@@ -1,0 +1,27 @@
+.main {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+}
+.u-mr {
+    margin-right: 10px;
+}
+.u-mb {
+    margin-bottom: 10px;
+}
+.titleInvite {
+    font-weight: 300;
+    font-size: 20px;
+    color: #6831de;
+}
+.X-button {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    color: #595959 !important;
+    background: none !important;
+    padding: 0 !important;
+    font-size: 25px !important;
+}

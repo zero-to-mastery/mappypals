@@ -8,6 +8,8 @@ section {
     width: 100%;
     color: white;
     font-weight: lighter;
+    /* Allows to position AddFriendForm.js, in center relative to map */
+    position: relative;
 }
 
 #not-logged-in {
@@ -133,7 +135,6 @@ a {
 }
 
 main section {
-    width: 100vw;
     height: 100%;
 }
 section canvas {
@@ -149,8 +150,6 @@ section canvas {
     padding: 0px;
     position: relative;
     top: -20px;
-    left: -8px;
-    transition: transform 0.3s ease-in-out;
 }
 
 .mapboxgl-marker #me {
@@ -216,56 +215,6 @@ section canvas {
     outline: none;
 }
 
-#add-new {
-    position: absolute;
-    width: 50vw;
-    height: 0px;
-    bottom: 0px;
-    border-radius: 20px;
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
-    left: 25%;
-    background-color: #1f3a9388;
-    color: black;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    justify-content: center;
-    overflow: hidden;
-    transition: height 0.4s ease-in-out;
-}
-
-#add-new input {
-    height: 30px;
-    width: 50%;
-    margin: 5px auto;
-    border-radius: 15px;
-    text-align: center;
-}
-
-#add-new input[type='button'] {
-    background-color: #1f3a93;
-    color: white;
-    font-weight: bold;
-    border: none;
-    height: 40px;
-}
-#close-btn {
-    display: flex;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    color: white;
-    background-color: #0000ff66;
-    border-radius: 50%;
-    border-bottom-left-radius: 0px;
-    border-top-right-radius: 0px;
-    align-items: center;
-    justify-content: center;
-}
 @media (max-width: 900px) {
     main {
         width: 100%;

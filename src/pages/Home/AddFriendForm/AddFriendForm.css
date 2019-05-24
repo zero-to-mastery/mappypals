@@ -1,0 +1,38 @@
+#add-new {
+    display: none;
+    position: absolute;
+    bottom: 8px;
+    right: 16px;
+    color: black;
+}
+.AddFriendsTitle {
+    color: #6831de;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 400;
+}
+.u-pb {
+    padding-bottom: 10px;
+}
+.no-bg {
+    background-image: none !important;
+    height: auto !important;
+}
+.X-buttonAddFriend {
+    position: absolute;
+    right: 16px;
+    color: #595959 !important;
+    background: none !important;
+    padding: 0 !important;
+    font-size: 25px !important;
+}
+
+@media screen and (max-width: 700px) {
+    .u-pb {
+        padding-bottom: 0;
+    }
+    #add-new {
+        bottom: 0;
+        right: 0;
+    }
+}
