@@ -4,7 +4,12 @@ class SettingsEmailPassword extends Component {
     state = {}
 
     render() {
-        return <div />
+        return (
+            <div>
+                <form>
+                </form>
+            </div>
+        )
     }
 }
 
