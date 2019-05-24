@@ -69,7 +69,7 @@ class Navbar extends Component {
     return(
     <React.Fragment>
         {(this.state.hamburger.length)?(<div className="hamburger" onClick={this.showNav} style={{right: this.state.navbarRight}}><span className="hamburger-icon">☰</span></div>):("")}
-        {(/*logged*/false)?(
+        {(/*logged*/true)?(
           <div id="nav-bar" ref={this.navRef} style={{display: this.state.navbar}}>
             <div className="item-wrapper" onClick={this.showNav}>
               <Link className="nav-item" to='/' > <Logo height="50px"/> <p>MappyPals</p> </Link>

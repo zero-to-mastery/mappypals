@@ -1,5 +1,5 @@
 import React from 'react';
-import SettingsBtn from '../SettingsBtn/SettingsBtn'
+import SettingsBtn from '../SettingsBtn'
 
 const EmailForm = props => {
     const { onSubmit, onChange, value } = props;

@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
+import EmailForm from './EmailForm';
 
 class SettingsEmailPassword extends Component {
-    state = {}
+    state = {
+        email: 'test_email'
+    }
 
     render() {
+        const { email } = this.state;
         return (
             <div>
-                <form>
-                </form>
+                <EmailForm value={ email } />
             </div>
         )
     }
