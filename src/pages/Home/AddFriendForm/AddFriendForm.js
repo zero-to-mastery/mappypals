@@ -38,6 +38,12 @@ class AddFriendForm extends React.Component {
                 style={{ display: this.props.formDisplay ? 'block' : 'none' }}
             >
                 <Form onSubmit={this.handleSubmit}>
+                    <button
+                        className="X-buttonAddFriend"
+                        onClick={this.props.InviteFormX}
+                    >
+                        X
+                    </button>
                     <h5 className="AddFriendsTitle">
                         Add a friend by sending an invite
                     </h5>
@@ -76,7 +82,12 @@ class AddFriendForm extends React.Component {
                         />
                     </label>
                     <div className="btnContainer">
-                        <button type="submit">Send Invite</button>
+                        <button
+                            type="submit"
+                            onClick={this.props.removeDraggablePin}
+                        >
+                            Send Invite
+                        </button>
                     </div>
                 </Form>
             </div>

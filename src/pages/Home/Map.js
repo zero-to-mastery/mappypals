@@ -18,12 +18,15 @@ class Map extends Component {
                 email: '',
                 country: ''
             },
+            // To avoid warning, about using strings.
+            draggable: true,
             //  AddFriendForm visibility
             formDisplay: false,
             // InvitationSendForm:
             InvitationForm: false,
             // All stored pins
             inviteFriendData: [],
+            DisplayDraggablePin: true,
 
             viewport: {
                 latitude: 37.7577,
@@ -70,6 +73,7 @@ class Map extends Component {
 
             // Menu by default is hidden. Clicking on map activates menu.
             this.showFriendForm();
+            this.DisplayDraggablePin();
         }
     };
     getPostcode = () => {
@@ -124,14 +128,6 @@ class Map extends Component {
         // Show Invitation form
         this.showInvitationForm();
     };
-
-    showFriendForm = () => this.setState({ formDisplay: true });
-    hideFriendForm = () => this.setState({ formDisplay: false });
-    showInvitationForm = () => this.setState({ InvitationForm: true });
-    hideInvitationForm = () => this.setState({ InvitationForm: false });
-    // Allows to drag elements.
-    onDragEnd = event => this.getLocation(event);
-
     // Stores this.state.newFriends values to inviteFriendData array
     storePins = () =>
         this.setState({
@@ -140,6 +136,24 @@ class Map extends Component {
                 this.state.newFriend
             ]
         });
+    displaySelectedPinData = data => {
+        console.log(data);
+    };
+    // Hides invitation Form and draggable pin
+    InviteFormX = () => {
+        this.hideFriendForm();
+        this.removeDraggablePin();
+    };
+
+    showFriendForm = () => this.setState({ formDisplay: true });
+    hideFriendForm = () => this.setState({ formDisplay: false });
+    showInvitationForm = () => this.setState({ InvitationForm: true });
+    hideInvitationForm = () => this.setState({ InvitationForm: false });
+    // Allows to drag elements.
+    onDragEnd = event => this.getLocation(event);
+
+    DisplayDraggablePin = () => this.setState({ DisplayDraggablePin: true });
+    removeDraggablePin = () => this.setState({ DisplayDraggablePin: false });
 
     render() {
         // renders only when form is visible and invitation form is not showing.
@@ -149,6 +163,8 @@ class Map extends Component {
                 <AddFriendForm
                     onFriendLoaded={this.addFriendData}
                     formDisplay={this.state.formDisplay}
+                    InviteFormX={this.InviteFormX}
+                    removeDraggablePin={this.removeDraggablePin}
                 />
             );
         }
@@ -162,6 +178,7 @@ class Map extends Component {
                 />
             );
         }
+
         return (
             <div style={{ height: '100vh' }}>
                 <MapGL
@@ -184,6 +201,9 @@ class Map extends Component {
                                 <i
                                     id="new-pin"
                                     className="fas fa-map-marker-alt"
+                                    onClick={() =>
+                                        this.displaySelectedPinData(data)
+                                    }
                                 />
                             </Marker>
                         );
@@ -192,12 +212,19 @@ class Map extends Component {
                     {this.state.inviteFriendData > 0 ? this.storePins() : ''}
                     {this.state.newFriend.long !== null ? (
                         <Marker
-                            draggable="true"
+                            draggable={this.state.draggable}
                             onDragEnd={this.onDragEnd}
                             latitude={this.state.newFriend.lat}
                             longitude={this.state.newFriend.long}
                         >
-                            <i id="new-pin" className="fas fa-map-marker-alt" />
+                            <i
+                                id="new-pin"
+                                className={`${
+                                    this.state.DisplayDraggablePin
+                                        ? 'fas fa-map-marker-alt'
+                                        : ' '
+                                }`}
+                            />
                         </Marker>
                     ) : (
                         ''
