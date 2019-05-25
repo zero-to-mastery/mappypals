@@ -2,10 +2,14 @@ import React from 'react';
 import SettingsBtn from '../SettingsBtn';
 
 const EmailForm = props => {
-    const { onSubmit, onChange, value } = props;
+    const { onSubmit, onChange, value, successMessage, errorMessage } = props;
+    let success = successMessage ? <div>{successMessage}</div> : null;
+    let error = errorMessage ? <div>{errorMessage}</div> : null;
+
     return (
         <form onSubmit={onSubmit}>
             <div>
+                <label>Change Email</label>
                 <input
                     type="text"
                     onChange={onChange}
@@ -13,6 +17,8 @@ const EmailForm = props => {
                     name="email"
                     required
                 />
+                {success}
+                {error}
             </div>
             <SettingsBtn
                 text={'change email'}

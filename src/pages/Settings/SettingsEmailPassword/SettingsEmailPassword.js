@@ -7,8 +7,8 @@ class SettingsEmailPassword extends Component {
         email: 'test_email', // needs to be derived from user token
         newPassword: '',
         confirmPassword: '',
-        errorMessage: null,
-        successMessage: null
+        errorMessage: null, // recieved from backend upon error/failure
+        successMessage: null // recieved from backed upon success
     };
 
     onChange = event => {
@@ -32,16 +32,16 @@ class SettingsEmailPassword extends Component {
                         value={email}
                         onChange={this.onChange}
                         onSubmit={this.onEmailSubmit}
-                        success={successMessage}
-                        error={errorMessage}
+                        successMessage={successMessage}
+                        errorMessage={errorMessage}
                     />
                 </div>
                 <div>
                     <PasswordForm
                         onChange={this.onChange}
                         onSubmit={this.onPasswordSubmit}
-                        success={successMessage}
-                        error={errorMessage}
+                        successMessage={successMessage}
+                        errorMessage={errorMessage}
                     />
                 </div>
             </div>
