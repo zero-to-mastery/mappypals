@@ -6,26 +6,47 @@ class SettingsEmailPassword extends Component {
     state = {
         email: 'test_email', // needs to be derived from user token
         newPassword: '',
-        confirmPassword: ''
-    }
+        confirmPassword: '',
+        errorMessage: null,
+        successMessage: null
+    };
 
     onChange = event => {
-        this.setState({ [event.target.name]: event.target.value})
-    }
+        this.setState({ [event.target.name]: event.target.value });
+    };
+
+    onEmailSubmit = event => {
+        event.preventDefault();
+    };
+
+    onPasswordSubmit = event => {
+        event.preventDefault();
+    };
 
     render() {
-        const { email } = this.state;
+        const { email, successMessage, errorMessage } = this.state;
         return (
-            <div>
+            <div style={{ background: 'white' }}>
                 <div>
-                    <EmailForm value={ email } onChange={ this.onChange }/>
+                    <EmailForm
+                        value={email}
+                        onChange={this.onChange}
+                        onSubmit={this.onEmailSubmit}
+                        success={successMessage}
+                        error={errorMessage}
+                    />
                 </div>
                 <div>
-                    <PasswordForm onChange={ this.onChange } />
+                    <PasswordForm
+                        onChange={this.onChange}
+                        onSubmit={this.onPasswordSubmit}
+                        success={successMessage}
+                        error={errorMessage}
+                    />
                 </div>
             </div>
-        )
+        );
     }
 }
 
-export default SettingsEmailPassword
+export default SettingsEmailPassword;
