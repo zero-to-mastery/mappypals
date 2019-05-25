@@ -7,8 +7,8 @@ const EmailForm = props => {
         <form onSubmit={ onSubmit }>
             <div>
                 <input type="text" 
-                onChange={onChange}
-                value={value}
+                onChange= {onChange }
+                value={ value }
                 name="email"
                 required 
                 />
