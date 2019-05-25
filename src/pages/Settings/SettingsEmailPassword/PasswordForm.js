@@ -1,17 +1,16 @@
 import React from 'react';
 import SettingsBtn from '../SettingsBtn';
+import { SuccessMessage, ErrorMessage } from '../Messages';
 
 const PasswordForm = props => {
-    const { onChange, successMessage, errorMessage } = props;
-    let success = successMessage ? <div>{successMessage}</div> : null;
-    let error = errorMessage ? <div>{errorMessage}</div> : null;
+    const { onChange, success, error, passwordMatch } = props;
     return (
         <form>
             <div>
                 <label>Current Password</label>
                 <input type="password" name="password" required />
-                {success}
-                {error}
+                {success ? <SuccessMessage message={success} /> : null}
+                {error ? <ErrorMessage message={error} /> : null}
             </div>
             <div>
                 <label>New Password</label>
@@ -30,6 +29,9 @@ const PasswordForm = props => {
                     onChange={onChange}
                     required
                 />
+                {!passwordMatch ? (
+                    <ErrorMessage message={'passwords must match'} />
+                ) : null}
             </div>
             <SettingsBtn
                 text={'change password'}

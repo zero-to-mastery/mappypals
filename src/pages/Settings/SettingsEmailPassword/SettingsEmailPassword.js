@@ -3,6 +3,9 @@ import EmailForm from './EmailForm';
 import PasswordForm from './PasswordForm';
 
 class SettingsEmailPassword extends Component {
+    // right now assuming that the response
+    // will contain object with message about success or failure
+    // of PUT/PATCH request
     state = {
         email: 'test_email', // needs to be derived from user token
         newPassword: '',
@@ -10,7 +13,7 @@ class SettingsEmailPassword extends Component {
         emailError: false,
         emailSuccess: false,
         passwordSuccess: false,
-        passwordError: true
+        passwordError: false
     };
 
     onChange = event => {
@@ -19,10 +22,16 @@ class SettingsEmailPassword extends Component {
 
     onEmailSubmit = event => {
         event.preventDefault();
+        // fetch call to server
+        // on success setState({ emailSuccess })
+        // on failure/error setState({ emailError })
     };
 
     onPasswordSubmit = event => {
         event.preventDefault();
+        // fetch call to server
+        // on success setState({ passwordSuccess })
+        // on failure setState({ passwordError })
     };
 
     render() {
@@ -31,32 +40,32 @@ class SettingsEmailPassword extends Component {
             emailError,
             emailSuccess,
             passwordError,
-            passwordSuccess
+            passwordSuccess,
+            newPassword,
+            confirmPassword
         } = this.state;
-        let emailErrorMessage = emailError ? emailError.message : null;
-        let passwordErrorMessage = passwordError ? passwordError.message : null;
-        let emailSuccessMessage = emailSuccess ? emailSuccess.message : null;
-        let passwordSuccessMessage = passwordSuccess
-            ? passwordSuccess.message
-            : null;
+        let passwordMatch = newPassword !== confirmPassword ? true : false;
         return (
-            // TODO: REMOVE INLINE STYLINGE
+            // TODO: REMOVE INLINE STYLING
+            // #root has background image that remains on all pages
+            // needs to be addressed or need to find work-around
             <div style={{ background: 'white' }}>
                 <div>
                     <EmailForm
                         value={email}
                         onChange={this.onChange}
                         onSubmit={this.onEmailSubmit}
-                        successMessage={emailSuccessMessage}
-                        errorMessage={emailErrorMessage}
+                        success={emailSuccess}
+                        error={emailError}
                     />
                 </div>
                 <div>
                     <PasswordForm
                         onChange={this.onChange}
                         onSubmit={this.onPasswordSubmit}
-                        successMessage={passwordSuccessMessage}
-                        errorMessage={passwordErrorMessage}
+                        success={passwordSuccess}
+                        error={passwordError}
+                        passwordMatch={passwordMatch}
                     />
                 </div>
             </div>

@@ -1,10 +1,14 @@
 import React from 'react';
 import SettingsBtn from '../SettingsBtn';
+import { SuccessMessage, ErrorMessage } from '../Messages';
 
 const EmailForm = props => {
-    const { onSubmit, onChange, value, successMessage, errorMessage } = props;
-    let success = successMessage ? <div>{successMessage}</div> : null;
-    let error = errorMessage ? <div>{errorMessage}</div> : null;
+    const { onSubmit, onChange, value, error, success } = props;
+    // w/out message components structure will be similar to below code
+    // for displaying the messages
+
+    // let success = successMessage ? <div>{successMessage}</div> : null;
+    // let error = errorMessage ? <div>{errorMessage}</div> : null;
 
     return (
         <form onSubmit={onSubmit}>
@@ -17,8 +21,8 @@ const EmailForm = props => {
                     name="email"
                     required
                 />
-                {success}
-                {error}
+                {error ? <ErrorMessage message={error} /> : null}
+                {success ? <SuccessMessage message={success} /> : null}
             </div>
             <SettingsBtn
                 text={'change email'}
