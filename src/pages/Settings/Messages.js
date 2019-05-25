@@ -6,12 +6,12 @@ import React from 'react';
 // this logic can be written in individual components
 // just here for now for clarity can remain or not
 
-export const errorMessage = props => {
-    const message = { props };
+export const ErrorMessage = props => {
+    const { message } = props;
     return <div>{message}</div>;
 };
 
-export const successMessage = props => {
-    const message = { props };
+export const SuccessMessage = props => {
+    const { message } = props;
     return <div>{message}</div>;
 };

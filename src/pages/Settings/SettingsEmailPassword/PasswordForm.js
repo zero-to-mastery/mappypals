@@ -3,9 +3,9 @@ import SettingsBtn from '../SettingsBtn';
 import { SuccessMessage, ErrorMessage } from '../Messages';
 
 const PasswordForm = props => {
-    const { onChange, success, error, passwordMatch } = props;
+    const { onSubmit, onChange, success, error, passwordMatch } = props;
     return (
-        <form>
+        <form onSubmit={onSubmit}>
             <div>
                 <label>Current Password</label>
                 <input type="password" name="password" required />
@@ -37,6 +37,7 @@ const PasswordForm = props => {
                 text={'change password'}
                 containerClass={'SForm-btn--container'}
                 buttonClass={'SForm-btn'}
+                disabled={!passwordMatch}
             />
         </form>
     );

@@ -3,7 +3,7 @@ import SettingsBtn from '../SettingsBtn';
 import { SuccessMessage, ErrorMessage } from '../Messages';
 
 const EmailForm = props => {
-    const { onSubmit, onChange, value, error, success } = props;
+    const { onSubmit, onChange, value, error, success, disabled } = props;
     // w/out message components structure will be similar to below code
     // for displaying the messages
 

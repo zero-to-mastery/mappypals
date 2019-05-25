@@ -22,17 +22,33 @@ class SettingsEmailPassword extends Component {
 
     onEmailSubmit = event => {
         event.preventDefault();
-        // fetch call to server
-        // on success setState({ emailSuccess })
-        // on failure/error setState({ emailError })
+        // if ( email is not valid)
+        // then setState({ emailError: 'please enter valid email'})
+        // if ( email === jsonToke email)
+        // the setState({ emailError: 'email already up-to-date'})
+        // else
+        // fetch PUT/PATCH call w/ email
+        // normalize response
+        // res.json()
+        // setState({ emailSuccess})
+        // .catch( error => setState({emailError: error}))
     };
 
     onPasswordSubmit = event => {
         event.preventDefault();
-        // fetch call to server
-        // on success setState({ passwordSuccess })
-        // on failure setState({ passwordError })
+        // if (newPassword !== confirmPassword)
+        // then passwordMatch = false && button disabled
+        // setState({ passwordError })
+        // else
+        // fetch PUT/PATCH call w/ password && newPassword
+        // normalize response
+        // res.json()
+        // setState({ passwordSuccess })
+        // .catch ( error => setState({ passwordError: error }))
     };
+
+    // need email validator
+    // need password validators
 
     render() {
         const {
@@ -44,7 +60,10 @@ class SettingsEmailPassword extends Component {
             newPassword,
             confirmPassword
         } = this.state;
-        let passwordMatch = newPassword !== confirmPassword ? true : false;
+        let passwordMatch =
+            newPassword === confirmPassword && newPassword.length >= 1
+                ? true
+                : false;
         return (
             // TODO: REMOVE INLINE STYLING
             // #root has background image that remains on all pages
