@@ -7,8 +7,10 @@ class SettingsEmailPassword extends Component {
         email: 'test_email', // needs to be derived from user token
         newPassword: '',
         confirmPassword: '',
-        errorMessage: null, // recieved from backend upon error/failure
-        successMessage: null // recieved from backed upon success
+        emailError: false,
+        emailSuccess: false,
+        passwordSuccess: false,
+        passwordError: true
     };
 
     onChange = event => {
@@ -24,24 +26,37 @@ class SettingsEmailPassword extends Component {
     };
 
     render() {
-        const { email, successMessage, errorMessage } = this.state;
+        const {
+            email,
+            emailError,
+            emailSuccess,
+            passwordError,
+            passwordSuccess
+        } = this.state;
+        let emailErrorMessage = emailError ? emailError.message : null;
+        let passwordErrorMessage = passwordError ? passwordError.message : null;
+        let emailSuccessMessage = emailSuccess ? emailSuccess.message : null;
+        let passwordSuccessMessage = passwordSuccess
+            ? passwordSuccess.message
+            : null;
         return (
+            // TODO: REMOVE INLINE STYLINGE
             <div style={{ background: 'white' }}>
                 <div>
                     <EmailForm
                         value={email}
                         onChange={this.onChange}
                         onSubmit={this.onEmailSubmit}
-                        successMessage={successMessage}
-                        errorMessage={errorMessage}
+                        successMessage={emailSuccessMessage}
+                        errorMessage={emailErrorMessage}
                     />
                 </div>
                 <div>
                     <PasswordForm
                         onChange={this.onChange}
                         onSubmit={this.onPasswordSubmit}
-                        successMessage={successMessage}
-                        errorMessage={errorMessage}
+                        successMessage={passwordSuccessMessage}
+                        errorMessage={passwordErrorMessage}
                     />
                 </div>
             </div>
