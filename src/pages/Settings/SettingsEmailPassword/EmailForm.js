@@ -1,26 +1,19 @@
 import React, { Component } from 'react';
-import SettingsBtn from '../SettingsBtn';
 import { SuccessMessage, ErrorMessage } from '../Messages';
+import './SettingsEmailPassword.css';
 
 class EmailForm extends Component {
     state = {
-        email: 'test@email.com', // needs to be derived from props or jsonToken
-        success: false,
-        error: false
+        // if user sees current email in input box then
+        // needs to be derived from web token or props
+        email: 'testemail@gmail.com',
+        success: null,
+        error: null
     };
 
     onSubmit = event => {
         event.preventDefault();
-        // if ( email is not valid)
-        // then setState({ emailError: 'please enter valid email'})
-        // if ( email === jsonToke email)
-        // the setState({ emailError: 'email already up-to-date'})
-        // else
-        // fetch PUT/PATCH call w/ email
-        // normalize response
-        // res.json()
-        // setState({ emailSuccess, emailError: null})
-        // .catch( error => setState({emailError: error}))
+        // fetch made here
     };
 
     onChange = event => {
@@ -30,10 +23,13 @@ class EmailForm extends Component {
     render() {
         const { email, error, success } = this.state;
         return (
-            <form onSubmit={this.onSubmit}>
-                <div>
-                    <label>Change Email</label>
+            <form onSubmit={this.onSubmit} className="form form--settings">
+                <div className="form__section">
+                    <label className="form__label form__label--settings">
+                        Email
+                    </label>
                     <input
+                        className="form__input form__input--settings"
                         type="text"
                         onChange={this.onChange}
                         value={email}
@@ -43,11 +39,14 @@ class EmailForm extends Component {
                     {error ? <ErrorMessage message={error} /> : null}
                     {success ? <SuccessMessage message={success} /> : null}
                 </div>
-                <SettingsBtn
-                    text={'change email'}
-                    containerClass={'SForm-btn--container'}
-                    buttonClass={'SForm-btn'}
-                />
+                <div>
+                    <button
+                        type="submit"
+                        className="btn btn--settings btn--purple"
+                    >
+                        Change Email
+                    </button>
+                </div>
             </form>
         );
     }

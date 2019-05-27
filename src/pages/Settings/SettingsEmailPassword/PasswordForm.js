@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import SettingsBtn from '../SettingsBtn';
 import { SuccessMessage, ErrorMessage } from '../Messages';
 
 class PasswordForm extends Component {
@@ -13,14 +12,7 @@ class PasswordForm extends Component {
 
     onSubmit = event => {
         event.preventDefault();
-        // if (newPassword !== confirmPassword)
-        // setState({ passwordError })
-        // else
-        // fetch PUT/PATCH call w/ password && newPassword
-        // normalize response
-        // res.json()
-        // setState({ passwordSuccess, passwordError: null }) --> could be better of with redux
-        // .catch ( error => setState({ passwordError: error }))
+        // fetch made here
     };
 
     onChange = event => {
@@ -35,12 +27,17 @@ class PasswordForm extends Component {
             error,
             success
         } = this.state;
+
         const passwordMatch = newPassword === confirmPassword ? true : false;
+
         return (
-            <form onSubmit={this.onSubmit}>
-                <div>
-                    <label>Current Password</label>
+            <form onSubmit={this.onSubmit} className="form form--settings">
+                <div className="form__section">
+                    <label className="form__label form__label--settings">
+                        Current Password
+                    </label>
                     <input
+                        className="form__input form__input--settings"
                         type="password"
                         name="password"
                         onChange={this.onChange}
@@ -50,9 +47,12 @@ class PasswordForm extends Component {
                     {success ? <SuccessMessage message={success} /> : null}
                     {error ? <ErrorMessage message={error} /> : null}
                 </div>
-                <div>
-                    <label>New Password</label>
+                <div className="form__section">
+                    <label className="form__label form__label--settings">
+                        New Password
+                    </label>
                     <input
+                        className="form__input form__input--settings"
                         type="password"
                         name="newPassword"
                         onChange={this.onChange}
@@ -60,9 +60,12 @@ class PasswordForm extends Component {
                         required
                     />
                 </div>
-                <div>
-                    <label>Confirm New Password</label>
+                <div className="form__section">
+                    <label className="form__label form__label--settings">
+                        Confirm New Password
+                    </label>
                     <input
+                        className="form__input form__input--settings"
                         type="password"
                         name="confirmPassword"
                         onChange={this.onChange}
@@ -73,12 +76,15 @@ class PasswordForm extends Component {
                         <ErrorMessage message={'passwords must match'} />
                     ) : null}
                 </div>
-                <SettingsBtn
-                    text={'change password'}
-                    containerClass={'SForm-btn--container'}
-                    buttonClass={'SForm-btn'}
-                    disabled={!passwordMatch}
-                />
+                <div>
+                    <button
+                        className="btn btn--settings btn--purple"
+                        type="submit"
+                        disabled={!passwordMatch || newPassword.length < 1}
+                    >
+                        Change Password
+                    </button>
+                </div>
             </form>
         );
     }

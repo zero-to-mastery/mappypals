@@ -7,11 +7,11 @@ const SettingsEmailPassword = () => {
         // TODO: REMOVE INLINE STYLING
         // #root has background image that remains on all pages
         // needs to be addressed or need to find work-around
-        <div style={{ background: 'white' }}>
-            <div>
+        <div className="container--white">
+            <div className="settings-wrapper settings-wrapper--top-pad">
                 <EmailForm />
             </div>
-            <div>
+            <div className="settings-wrapper">
                 <PasswordForm />
             </div>
         </div>
