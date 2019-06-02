@@ -44,7 +44,6 @@ hr {
 .item-wrapper:hover,
 .item-wrapper:hover a {
     background-color: lightgrey;
-    overflow: hidden;
     color: #e03bfb;
 }
 .no-hover:hover,
@@ -87,6 +86,30 @@ hr {
     position: relative;
     transform: scale(1.5, 0.8);
     line-height: 30px;
+}
+.setting-item {
+    font-weight: bold;
+    cursor: pointer;
+}
+.settings-navbar {
+    position: absolute;
+    right: 300px;
+    background-color: #ffffff;
+}
+.setting-navbar-item {
+    width: 140px;
+    padding: 33px 0;
+    font-weight: 400;
+    margin: 0;
+    cursor: pointer;
+    color: #000;
+}
+.setting-navbar-item:hover {
+    background-color: #d3d3d3;
+    color: #e03bfb;
+}
+.u-border-bottom {
+    border-bottom: 2px solid #c4c4c4;
 }
 @media (max-width: 900px) {
     #nav-bar svg {

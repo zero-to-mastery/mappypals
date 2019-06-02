@@ -12,11 +12,13 @@ class Navbar extends Component {
     constructor(props) {
         super(props);
         this.navRef = React.createRef();
+
         this.state = {
             hamburger: '',
             navbar: '',
             navbarRight: '',
-            navbarWidth: ''
+            navbarWidth: '',
+            settingsDropdown: false
         };
     }
     showNav = () => {
@@ -90,8 +92,35 @@ class Navbar extends Component {
             this.showNav();
         });
     }
+    toggleSettingsNavbar = () => {
+        this.setState(
+            { settingsDropdown: !this.state.settingsDropdown },
+            function() {
+                console.log(this.state.settingsDropdown);
+            }
+        );
+    };
+
     render() {
         const { onLogin } = this.props;
+
+        let settingsNavbar = '';
+        if (this.state.settingsDropdown) {
+            settingsNavbar = (
+                <div className="nav-item settings-navbar">
+                    <Link to="/profilesettings">
+                        <p className="setting-navbar-item  u-border-bottom">
+                            Profile Settings
+                        </p>
+                    </Link>
+                    <Link to="/passwordandemail">
+                        <p className="setting-navbar-item">
+                            Password and Email
+                        </p>
+                    </Link>
+                </div>
+            );
+        }
         return (
             <React.Fragment>
                 {this.state.hamburger.length ? (
@@ -105,7 +134,7 @@ class Navbar extends Component {
                 ) : (
                     ''
                 )}
-                {/*logged*/ false ? (
+                {/*logged*/ true ? (
                     <div
                         id="nav-bar"
                         ref={this.navRef}
@@ -132,10 +161,14 @@ class Navbar extends Component {
                             </Link>
                         </div>
                         <div className="item-wrapper" onClick={this.showNav}>
-                            <Link className="nav-item" to="/settings">
+                            <div
+                                className="nav-item setting-item"
+                                onClick={this.toggleSettingsNavbar}
+                            >
                                 {' '}
-                                <Settings /> <p>SETTINGS</p>{' '}
-                            </Link>
+                                <Settings /> <p>SETTINGS</p>
+                            </div>
+                            {settingsNavbar}
                         </div>
                         <div className="item-wrapper no-hover scale">
                             <Link to="/logout">
