@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import './Login.css';
-import Form, { PasswordReqs } from './Form';
+import Form from './Form';
 import ky from 'ky';
+import {
+    PasswordNoMatch,
+    PasswordRequirements
+} from '../../components/ErrorMessages/ErrorMessages';
 
 class ResetPassword extends Component {
     constructor(props) {
@@ -17,12 +21,6 @@ class ResetPassword extends Component {
         this.setState({
             [event.target.name]: event.target.value
         });
-    };
-
-    passwordLengthError = () => {
-        if (this.state.password.length < 6) {
-            alert('Password is not at least 6 characters');
-        }
     };
 
     handleSubmit = event => {
@@ -52,18 +50,14 @@ class ResetPassword extends Component {
     render() {
         let passwordMatchError = '';
         if (!this.state.passwordMatch) {
-            passwordMatchError = (
-                <span className="errorMessage" aria-live="polite">
-                    Password doesn't match
-                </span>
-            );
+            passwordMatchError = <PasswordNoMatch />;
         }
         return (
             <div className="Login">
                 <Form onSubmit={this.handleSubmit}>
                     <p className="heavy">Reset your password</p>
                     <label htmlFor="password">
-                        Password
+                        Password <PasswordRequirements />
                         <input
                             type="password"
                             name="password"
@@ -72,12 +66,11 @@ class ResetPassword extends Component {
                             onClick={this.toggleHidden}
                             onChange={this.handleChange}
                             required
-                            onBlur={this.passwordLengthError}
                         />
                     </label>
-                    {!this.state.isHidden && <PasswordReqs />}
+                    {!this.state.isHidden}
                     <label htmlFor="confirmPassword">
-                        Please confirm password {passwordMatchError}
+                        Confirm password {passwordMatchError}
                         <input
                             type="password"
                             name="confirmPassword"

@@ -134,9 +134,7 @@ const Form = styled.form`
     opacity: 0.8;
   }
 
-  .errorMessage {
-    color: red;
-  }
+
 `;
 
 const PasswordReqs = () => (
