@@ -34,8 +34,6 @@ class ResetPassword extends Component {
             confirmPassword
         );
         let isPasswordValidVar = IsPasswordValid(password);
-        console.log(IsPasswordIdenticalVar);
-        console.log(isPasswordValidVar);
 
         if (!IsPasswordIdenticalVar) {
             this.displayPasswordMatchError();
