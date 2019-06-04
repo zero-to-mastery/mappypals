@@ -3,7 +3,7 @@ import MapGL, { Marker } from 'react-map-gl';
 import AddFriendForm from './AddFriendForm/AddFriendForm';
 import InvitationSent from './AddFriendForm/InvitationSent';
 import './Home.css';
-//import DeckGL, { GeoJsonLayer } from 'deck.gl';
+import { GeoJsonLayer } from 'deck.gl';
 import Geocoder from 'react-map-gl-geocoder';
 import './mapbox-gl-geocoder.css';
 import FriendSearch from '../../components/Search'
