@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { SuccessMessage, ErrorMessage } from '../Messages';
 import './SettingsEmailPassword.css';
 
 class EmailForm extends Component {
@@ -21,7 +20,7 @@ class EmailForm extends Component {
     };
 
     render() {
-        const { email, error, success } = this.state;
+        const { email } = this.state;
         return (
             <form onSubmit={this.onSubmit} className="form form--settings">
                 <div className="form__section">
@@ -36,8 +35,6 @@ class EmailForm extends Component {
                         name="email"
                         required
                     />
-                    {error ? <ErrorMessage message={error} /> : null}
-                    {success ? <SuccessMessage message={success} /> : null}
                 </div>
                 <div>
                     <button

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { SuccessMessage, ErrorMessage } from '../Messages';
 
 class PasswordForm extends Component {
     state = {
@@ -20,13 +19,7 @@ class PasswordForm extends Component {
     };
 
     render() {
-        const {
-            password,
-            newPassword,
-            confirmPassword,
-            error,
-            success
-        } = this.state;
+        const { password, newPassword, confirmPassword } = this.state;
 
         const passwordMatch = newPassword === confirmPassword ? true : false;
 
@@ -44,8 +37,6 @@ class PasswordForm extends Component {
                         value={password}
                         required
                     />
-                    {success ? <SuccessMessage message={success} /> : null}
-                    {error ? <ErrorMessage message={error} /> : null}
                 </div>
                 <div className="form__section">
                     <label className="form__label form__label--settings">
@@ -72,9 +63,6 @@ class PasswordForm extends Component {
                         value={confirmPassword}
                         required
                     />
-                    {!passwordMatch ? (
-                        <ErrorMessage message={'passwords must match'} />
-                    ) : null}
                 </div>
                 <div>
                     <button
