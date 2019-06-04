@@ -3,6 +3,11 @@ import MapGL, { Marker } from 'react-map-gl';
 import AddFriendForm from './AddFriendForm/AddFriendForm';
 import InvitationSent from './AddFriendForm/InvitationSent';
 import './Home.css';
+import DeckGL, { GeoJsonLayer } from 'deck.gl';
+import Geocoder from 'react-map-gl-geocoder';
+import './mapbox-gl-geocoder.css';
+import FriendSearch from '../../components/Search'
+
 const TOKEN =
     'pk.eyJ1Ijoic2Npb3J0aW5vbXJjIiwiYSI6ImNqc2RocmRzYTB2OGUzeWxuZDNmdDhrcDgifQ.txLXHEJPl4lYa8an6fcjuA';
 class Map extends Component {
@@ -37,9 +42,13 @@ class Map extends Component {
             pinMe: {
                 latitude: '',
                 longitude: ''
-            }
+            },
+            searchResultLayer: null,
         };
     }
+    /* for the search process - GeoCoder */
+    mapRef = React.createRef();
+    
     componentDidMount() {
         window.navigator.geolocation.getCurrentPosition(position => {
             if (position.coords.latitude)
@@ -155,6 +164,38 @@ class Map extends Component {
     DisplayDraggablePin = () => this.setState({ DisplayDraggablePin: true });
     removeDraggablePin = () => this.setState({ DisplayDraggablePin: false });
 
+    /* Search functions BEGIN */
+    handleViewportChange = viewport => {
+        this.setState({
+          viewport: { ...this.state.viewport, ...viewport }
+        });
+      };
+    
+      // if you are happy with Geocoder default settings, you can just use handleViewportChange directly
+    handleGeocoderViewportChange = viewport => {
+    const geocoderDefaultOverrides = { transitionDuration: 1000 };
+
+    return this.handleViewportChange({
+        ...viewport,
+        ...geocoderDefaultOverrides
+    });
+    };
+    
+    handleOnResult = event => {
+        console.log(event.result);
+        this.setState({
+            searchResultLayer: new GeoJsonLayer({
+            id: "search-result",
+            data: event.result.geometry,
+            getFillColor: [255, 0, 0, 128],
+            getRadius: 1000,
+            pointRadiusMinPixels: 10,
+            pointRadiusMaxPixels: 10
+            })
+        });
+    };
+    /* Search functions END */
+
     render() {
         // renders only when form is visible and invitation form is not showing.
         let displayForm = '';
@@ -182,6 +223,7 @@ class Map extends Component {
         return (
             <div style={{ height: '100vh' }}>
                 <MapGL
+                    ref={this.mapRef}
                     {...this.state.viewport}
                     onViewportChange={viewport => this.setState({ viewport })}
                     mapboxApiAccessToken={TOKEN}
@@ -244,6 +286,24 @@ class Map extends Component {
                     ) : (
                         ''
                     )}
+                    <Geocoder
+                        mapRef={this.mapRef}
+                        onResult={this.handleOnResult}
+                        onViewportChange={this.handleGeocoderViewportChange}
+                        mapboxApiAccessToken={TOKEN}
+                        position="top-left"
+                    />
+                    {/* <DeckGL {...this.state.viewport} layers={[this.state.searchResultLayer]} /> */}
+                    <FriendSearch containerComponent={this.props.containerComponent} 
+                        //temp database
+                        friends={[
+                            {id: 0, firstname: 'Apple', lastname: 'Pear', country: 'Nigeria', interests: 'breathing, climbing, clicking heels'},
+                            {id: 1, firstname: 'Pear', lastname: 'Banana', country: 'USA', interests: 'singing, bars, beers'},
+                            {id: 2, firstname: 'Banana', lastname: 'Orange', country: 'Slovakia', interests: 'learning, youtube, hiking'},
+                            {id: 3, firstname: 'Orange', lastname: 'Kiwi', country: 'Nepal', interests: 'startups, birds, flyfishing'},
+                            {id: 4, firstname: 'Kiwi', lastname: 'Grape', country: 'France', interests: 'yoga, holistic health, climbing'},
+                        ]}
+                    />
                 </MapGL>
                 {displayForm}
                 {InvitationSentVar}
