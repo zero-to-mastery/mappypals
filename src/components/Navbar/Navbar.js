@@ -22,7 +22,6 @@ class Navbar extends Component {
         };
     }
     showNav = () => {
-        console.log(this.state.navbarWidth.length);
         if (
             this.state.navbarWidth.length &&
             this.state.navbarWidth.includes('%')
@@ -41,35 +40,51 @@ class Navbar extends Component {
         }
     };
     componentDidMount() {
+        // node = id="nav-bar"
         let node = this.navRef.current;
         let navWidth;
-        if (node) navWidth = window.getComputedStyle(node).width.split('px')[0];
-        if (node && navWidth !== this.state.navbarWidth)
+
+        // If id="nav-bar" exist  navWidth = navbar width.
+        if (node) {
+            navWidth = window.getComputedStyle(node).width.split('px')[0];
+        }
+
+        // if id = "nav-bar exist and navWidth is not equal to this.state.navbarWidth"
+        // Possiblly error for not updating in time.
+        if (node && navWidth !== this.state.navbarWidth) {
             this.setState({ navbarWidth: navWidth });
+        }
 
         if (
-            window.innerWidth < 900 ||
+            window.innerWidth <= 900 ||
             (window.screen.orientation.angle > 0 && window.innerWidth < 900)
-        )
+        ) {
             this.setState({ hamburger: 'block', navbar: 'none' });
-        else this.setState({ hamburger: '', navbar: '' });
-
+        } else {
+            this.setState({ hamburger: '', navbar: '' });
+        }
         window.addEventListener('resize', () => {
             if (
                 ((window.screen.orientation.angle === '90' &&
                     window.innerWidth < 900) ||
                     window.innerWidth < 900) &&
                 !this.state.hamburger.length
-            )
+            ) {
                 this.setState({ hamburger: 'block', navbar: 'none' });
-            else if (window.innerWidth >= 900 && this.state.hamburger.length)
+            } else if (
+                window.innerWidth >= 900 &&
+                this.state.hamburger.length
+            ) {
                 this.setState({ hamburger: '', navbar: '' });
-            node = this.navRef.current;
-            if (node)
+                node = this.navRef.current;
+            }
+            if (node) {
                 navWidth = window.getComputedStyle(node).width.split('px')[0];
-            if (node && navWidth !== this.state.navbarWidth)
+            }
+            if (node && navWidth !== this.state.navbarWidth) {
                 this.setState({ navbarWidth: navWidth });
-            this.showNav();
+                this.showNav();
+            }
         });
 
         window.addEventListener('orientationchange', () => {
@@ -85,11 +100,10 @@ class Navbar extends Component {
             node = this.navRef.current;
             if (node)
                 navWidth = window.getComputedStyle(node).width.split('px')[0];
-            console.log({ navWidth });
-            if (node && navWidth !== this.state.navbarWidth)
+            if (node && navWidth !== this.state.navbarWidth) {
                 this.setState({ navbarWidth: navWidth });
-
-            this.showNav();
+                this.showNav();
+            }
         });
     }
     toggleSettingsNavbar = () => {
