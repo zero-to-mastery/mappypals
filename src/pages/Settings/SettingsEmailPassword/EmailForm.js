@@ -20,10 +20,31 @@ class EmailForm extends Component {
     };
 
     render() {
-        const { email } = this.state;
+        const { email, success, error } = this.state;
+        let errorMessage;
+        let successMessage;
+        if (error) {
+            errorMessage = (
+                <span className="form__msg form__msg--err" aria-live="polite">
+                    {error}
+                </span>
+            );
+        }
+        if (success) {
+            successMessage = (
+                <span
+                    className="form__msg form__msg--success"
+                    aria-live="polite"
+                >
+                    {success}
+                </span>
+            );
+        }
         return (
             <form onSubmit={this.onSubmit} className="form form--settings">
                 <div className="form__section">
+                    {errorMessage}
+                    {successMessage}
                     <label className="form__label form__label--settings">
                         Email
                     </label>

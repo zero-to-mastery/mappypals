@@ -36,7 +36,7 @@ class PasswordForm extends Component {
         let successMessage;
         if (error) {
             errorMessage = (
-                <span className="form--msg form--msg__err" aria-live="polite">
+                <span className="form__msg form__msg--err" aria-live="polite">
                     {error}
                 </span>
             );
@@ -44,7 +44,7 @@ class PasswordForm extends Component {
         if (success) {
             successMessage = (
                 <span
-                    className="form--msg form--msg__success"
+                    className="form__msg form__msg--success"
                     aria-live="polite"
                 >
                     {success}
