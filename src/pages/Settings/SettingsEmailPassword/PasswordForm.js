@@ -11,7 +11,12 @@ class PasswordForm extends Component {
 
     onSubmit = event => {
         event.preventDefault();
-        // fetch made here
+        const { newPassword, confirmPassword } = this.state;
+        if (newPassword !== confirmPassword) {
+            this.setState({
+                error: 'Passwords must match'
+            });
+        }
     };
 
     onChange = event => {
@@ -19,15 +24,40 @@ class PasswordForm extends Component {
     };
 
     render() {
-        const { password, newPassword, confirmPassword } = this.state;
-
+        const {
+            password,
+            newPassword,
+            confirmPassword,
+            error,
+            success
+        } = this.state;
         const passwordMatch = newPassword === confirmPassword ? true : false;
-
+        let errorMessage;
+        let successMessage;
+        if (error) {
+            errorMessage = (
+                <span className="form--msg form--msg__err" aria-live="polite">
+                    {error}
+                </span>
+            );
+        }
+        if (success) {
+            successMessage = (
+                <span
+                    className="form--msg form--msg__success"
+                    aria-live="polite"
+                >
+                    {success}
+                </span>
+            );
+        }
         return (
             <form onSubmit={this.onSubmit} className="form form--settings">
                 <div className="form__section">
                     <label className="form__label form__label--settings">
                         Current Password
+                        {errorMessage}
+                        {successMessage}
                     </label>
                     <input
                         className="form__input form__input--settings"
@@ -53,7 +83,7 @@ class PasswordForm extends Component {
                 </div>
                 <div className="form__section">
                     <label className="form__label form__label--settings">
-                        Confirm New Password
+                        Confirm New Passw ord
                     </label>
                     <input
                         className="form__input form__input--settings"
