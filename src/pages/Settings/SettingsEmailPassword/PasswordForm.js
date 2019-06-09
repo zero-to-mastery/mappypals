@@ -31,7 +31,6 @@ class PasswordForm extends Component {
             error,
             success
         } = this.state;
-        const passwordMatch = newPassword === confirmPassword ? true : false;
         let errorMessage;
         let successMessage;
         if (error) {
@@ -97,8 +96,10 @@ class PasswordForm extends Component {
                 <div>
                     <button
                         className="btn btn--settings btn--purple"
+                        id="changePasswordBtn"
                         type="submit"
-                        disabled={!passwordMatch || newPassword.length < 1}
+                        disabled={newPassword.length < 1}
+                        onClick={this.onClick}
                     >
                         Change Password
                     </button>
