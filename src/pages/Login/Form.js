@@ -15,13 +15,16 @@ const Form = styled.form`
     line-height: 1.25;
   }
   @media (min-width: 411px) {
-    padding-top: 35px;
+    padding-top: 30px;
     padding-right: 70px;
-    padding-bottom: 35px;
+    padding-bottom: 30px;
     padding-left: 70px;
     font-size: 1.2rem;
     line-height: 1.75;
   }
+  fieldset {
+    border: #ffffff;
+    }
   label {
     display: block;
     margin-bottom: 2.3rem;
@@ -130,13 +133,25 @@ const Form = styled.form`
   button:hover {
     opacity: 0.8;
   }
+
+  .errorMessage {
+    color: red;
+  }
 `;
 
 const PasswordReqs = () => (
-  <div id="newPassword">At least 6 characters, a number or a symbol, at least 1 letter</div>
+    <div id="newPassword">
+        <span aria-live="polite">
+            At least 6 characters, a number or a symbol, at least 1 letter
+        </span>
+    </div>
 );
 const EmailNotFoundMsg = () => (
-  <div id="unknownUser">Email not found: Please check entry or go back to Login to sign up</div>
+    <div id="unknownUser">
+        <span aria-live="polite">
+            Email not found: Please check entry or go back to Login to sign up
+        </span>
+    </div>
 );
-export default Form
-export {PasswordReqs, EmailNotFoundMsg}
+export default Form;
+export { PasswordReqs, EmailNotFoundMsg };
