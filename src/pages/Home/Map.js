@@ -300,8 +300,8 @@ class Map extends Component {
                         friends={[
                             {
                                 id: 0,
-                                firstname: 'Apple',
-                                lastname: 'Pear',
+                                firstname: 'AppleVeryLongName',
+                                lastname: 'Pearily Along',
                                 country: 'Nigeria',
                                 interests: 'breathing, climbing, clicking heels'
                             },
@@ -329,6 +329,13 @@ class Map extends Component {
                             {
                                 id: 4,
                                 firstname: 'Kiwi',
+                                lastname: 'Grape',
+                                country: 'France',
+                                interests: 'yoga, holistic health, climbing'
+                            },
+                            {
+                                id: 5,
+                                firstname: 'Julie',
                                 lastname: 'Grape',
                                 country: 'France',
                                 interests: 'yoga, holistic health, climbing'

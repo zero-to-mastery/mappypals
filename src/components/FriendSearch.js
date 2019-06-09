@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { DropDown, SearchStyles } from './SearchBar';
+import { DropDown, SearchStyles, LineBlock } from './SearchBar';
 
 /* This is a modification of https://alligator.io/react/react-autocomplete/ */
 /* Downshift via the defaultContainer did not seem to work*/
@@ -42,7 +42,11 @@ class FriendSearch extends Component {
     onChange = e => {
         const { friends } = this.props;
         const { filteredFriends, filterType } = this.state;
-        const userInput = e.currentTarget.value;
+        // local var userinput, state is "userInput"
+        const userinput = e.currentTarget.value;
+        //reset array
+        filteredFriends.length = 0;
+        
         // Filter our Friends that don't contain the user's input
         switch (filterType) {
             case 'country':
@@ -51,7 +55,7 @@ class FriendSearch extends Component {
                         friend =>
                             friend.country
                                 .toLowerCase()
-                                .indexOf(userInput.toLowerCase()) > -1
+                                .indexOf(userinput.toLowerCase()) > -1
                     )
                 );
                 break;
@@ -62,7 +66,7 @@ class FriendSearch extends Component {
                         friend =>
                             friend.interests
                                 .toLowerCase()
-                                .indexOf(userInput.toLowerCase()) > -1
+                                .indexOf(userinput.toLowerCase()) > -1
                     )
                 );
                 break;
@@ -94,7 +98,6 @@ class FriendSearch extends Component {
     // Event fired when the user presses a key down
     onKeyDown = e => {
         const { activeFriend, filteredFriends } = this.state;
-
         // User pressed the enter key, update the input and close the
         // Friends
         switch (e.keyCode) {
@@ -114,7 +117,7 @@ class FriendSearch extends Component {
                 break;
             // User pressed the down arrow, increment the index
             case 40:
-                if (activeFriend - 1 === filteredFriends.length) {
+                if (activeFriend - 2 === filteredFriends.length) {
                     return;
                 }
                 this.setState({ activeFriend: activeFriend + 1 });
@@ -133,37 +136,40 @@ class FriendSearch extends Component {
             state: { activeFriend, filteredFriends, showFriends, userInput }
         } = this;
 
-        let FriendsListComponent;
-
+        let FriendsListComponent='';
+        let className='friend-active'; 
+        let friend={};
+        let first='';
         if (showFriends && userInput) {
             if (filteredFriends[0].length > 1) {
+                console.log(filteredFriends[0]);
                 FriendsListComponent = (
                     <ul className="friends">
-                        {filteredFriends.map((friend, index) => {
-                            let className;
-                            let first = String(friend[index].firstname);
+                        {Object.keys(filteredFriends[0]).map(function(key, index) {
+                            friend = filteredFriends[0][key];
+                            first = friend.firstname;
                             // Flag the active Friend with a class
                             if (index === activeFriend) {
                                 className = 'friend-active';
                             } else {
                                 className = 'friend';
                             }
-                            return (
+                            return ( 
                                 <li
                                     className={className}
-                                    key={friend[index].id}
+                                    key={friend.id}
                                     onClick={onClick}
                                 >
                                     <img
                                         width="50"
-                                        src={`https://robohash.org/${index}?size=50x50`}
+                                        src={`https://robohash.org/${friend.id}?size=50x50`}
                                         alt={
                                             first.substr(-1) === 's'
                                                 ? `${first}' photo`
                                                 : `${first}'s photo`
                                         }
                                     />
-                                    {`${first} ${friend[index].lastname}`}
+                                    {`${first} ${friend.lastname}`}
                                 </li>
                             );
                         })}
@@ -171,31 +177,33 @@ class FriendSearch extends Component {
                 );
             } else if (filteredFriends[0].length === 1) {
                 let friend = filteredFriends[0];
+                console.log(filteredFriends);
                 FriendsListComponent = (
                     <ul className="friends">
                         <li
                             className={'friend-active'}
-                            key={friend.id}
+                            key={friend[0].id}
                             onClick={onClick}
                         >
                             <img
                                 width="50"
                                 src={`https://robohash.org/${
-                                    friend.id
+                                    friend[0].id
                                 }?size=50x50`}
                                 alt={
-                                    friend.firstname.substr(-1) === 's'
-                                        ? `${friend.firstname}' photo`
-                                        : `${friend.firstname}'s photo`
+                                    friend[0].firstname.substr(-1) === 's'
+                                        ? `${friend[0].firstname}' photo`
+                                        : `${friend[0].firstname}'s photo`
                                 }
                             />
 
-                            {`${friend.firstname} ${friend.lastname}`}
+                            {`${friend[0].firstname} ${friend[0].lastname}`}
                         </li>
                     </ul>
                 );
             } else {
                 //link invite form
+                console.log(filteredFriends);
                 FriendsListComponent = (
                     <div className="no-friends">
                         <em>No Friends, you're on your own! Send an invite</em>
@@ -224,8 +232,9 @@ class FriendSearch extends Component {
                                 onKeyDown={onKeyDown}
                                 value={userInput}
                             />
-
+                            <LineBlock>
                             {FriendsListComponent}
+                            </LineBlock>
                         </DropDown>
                     </Fragment>
                 </SearchStyles>
