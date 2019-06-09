@@ -55,35 +55,35 @@ const DropDown = styled.form`
 `;
 
 const SearchStyles = styled.div`
-  z-index: 99;
-  display: inline-flex;
-  flex-direction: row;
-  justify-content: center;
-  height: 50px;
-  select {
-    width: 160px;
+    z-index: 99;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
     height: 50px;
-    font-size: 1.2rem;
-    text-indent: 55px;
-    background-image: url(${SearchIcon});
-    background-size: 50px 50px;
-    background-repeat: no-repeat;
-    border: none;
-    border-radius: 25px 0px 0px 25px;
-  }
-  input {
-    width: 270px;
-    height: 30px;
-    padding: 10px;
-    font-size: 1.2rem;
-    text-indent: 17px;
-    border: none;
-    border-radius: 0px 25px 25px 0px;
-  }
-  input:focus {
-    border-style:none;
-    outline: none;
-  }
+    select {
+        width: 160px;
+        height: 50px;
+        font-size: 1.2rem;
+        text-indent: 55px;
+        background-image: url(${SearchIcon});
+        background-size: 50px 50px;
+        background-repeat: no-repeat;
+        border: none;
+        border-radius: 25px 0px 0px 25px;
+    }
+    input {
+        width: 270px;
+        height: 30px;
+        padding: 10px;
+        font-size: 1.2rem;
+        text-indent: 17px;
+        border: none;
+        border-radius: 0px 25px 25px 0px;
+    }
+    input:focus {
+        border-style: none;
+        outline: none;
+    }
 `;
 
 export { DropDown, SearchStyles };
