@@ -124,12 +124,18 @@ class Navbar extends Component {
             settingsNavbar = (
                 <div className="nav-item settings-navbar">
                     <Link to="/profilesettings">
-                        <p className="setting-navbar-item  u-border-bottom">
+                        <p
+                            className="setting-navbar-item  u-border-bottom"
+                            onClick={this.toggleSettingsNavbar}
+                        >
                             Profile Settings
                         </p>
                     </Link>
                     <Link to="/passwordandemail">
-                        <p className="setting-navbar-item">
+                        <p
+                            className="setting-navbar-item"
+                            onClick={this.toggleSettingsNavbar}
+                        >
                             Password and Email
                         </p>
                     </Link>
