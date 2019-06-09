@@ -23,8 +23,6 @@ class ProfileSettings extends Component {
         }
     };
     fileSelectedHandler = event => {
-        /*TODO Check if this is an image. Need another check on server side.
-       Also need to add better way to test it.*/
         const string = 'image';
         let svg = event.target.files[0].type.includes('image/svg+xml');
         let gif = event.target.files[0].type.includes('image/gif');
@@ -40,7 +38,6 @@ class ProfileSettings extends Component {
         } else {
             this.displayUploadError();
         }
-        console.log(event.target.files[0]);
     };
     // Get submitted value.
     handleSubmit = event => {
@@ -179,7 +176,10 @@ class ProfileSettings extends Component {
                                 <input
                                     type="text"
                                     name="FirstName"
-                                    className={classes.input}
+                                    className={[
+                                        classes.input,
+                                        classes.u_width_80
+                                    ].join(' ')}
                                     onChange={this.handleChangeObject}
                                 />
                             </div>
@@ -189,7 +189,10 @@ class ProfileSettings extends Component {
                                 <input
                                     type="text"
                                     name="Lastname"
-                                    className={classes.input}
+                                    className={[
+                                        classes.input,
+                                        classes.u_width_80
+                                    ].join(' ')}
                                     onChange={this.handleChangeObject}
                                 />
                             </div>
@@ -238,14 +241,6 @@ class ProfileSettings extends Component {
                             </div>
                         </div>
                         <div className={classes.submitContainer}>
-                            <button
-                                className={[
-                                    classes.button,
-                                    classes.buttonCancel
-                                ].join(' ')}
-                            >
-                                Cancel
-                            </button>
                             <button type="submit" className={classes.button}>
                                 Save Changes
                             </button>

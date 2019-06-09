@@ -24,7 +24,8 @@
     text-align: center;
 }
 .nameContainer {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 
 .button {
@@ -63,15 +64,9 @@
 .submitContainer {
     margin-top: 20px;
 }
-.buttonCancel {
-    color: #000000;
-    background: #bdbdbd;
-    margin-right: 20px;
-}
-
 .form {
     margin-top: 100px;
-    margin-right: 150px;
+    margin-right: 300px;
     text-align: left;
 }
 .displayInterests {
@@ -94,5 +89,8 @@
     }
     .displayInterests {
         justify-content: center;
+    }
+    .u_width_80 {
+        width: 80%;
     }
 }
