@@ -110,15 +110,6 @@ class Navbar extends Component {
 
     render() {
         const { onLogin } = this.props;
-        /*
-        By default settings = 
-        <Link to="/profilesettings">
-            <p className="setting-navbar-item  u-border-bottom">
-                Profile Settings
-            </p>
-        </Link>
-        
-         */
         let settingsNavbar = '';
         if (this.state.settingsDropdown & (window.innerWidth > 900)) {
             settingsNavbar = (
