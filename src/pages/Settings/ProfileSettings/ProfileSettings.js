@@ -26,7 +26,10 @@ class ProfileSettings extends Component {
         /*TODO Check if this is an image. Need another check on server side.
        Also need to add better way to test it.*/
         const string = 'image';
-        if (event.target.files[0].type.includes(string)) {
+        let svg = event.target.files[0].type.includes('image/svg+xml');
+        let gif = event.target.files[0].type.includes('image/gif');
+        if (event.target.files[0].type.includes(string) && !svg && !gif) {
+            console.log('file selected');
             this.hideUploadError();
             this.setState({
                 changedProfileData: {
