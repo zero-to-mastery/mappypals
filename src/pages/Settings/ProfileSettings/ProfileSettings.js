@@ -12,8 +12,6 @@ class ProfileSettings extends Component {
         // User inputed interest
         Interests: '',
         storeInterests: [],
-        // If Profile settings selected
-        profileSelected: true,
         changedProfileData: {
             FirstName: '',
             Lastname: '',
@@ -143,7 +141,7 @@ class ProfileSettings extends Component {
 
         return (
             <React.Fragment>
-                <SettingsNavbar profileSelected={this.state.profileSelected} />
+                <SettingsNavbar />
                 <form
                     onSubmit={this.handleSubmit}
                     className={classes.container}

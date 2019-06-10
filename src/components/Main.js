@@ -25,7 +25,10 @@ const Main = () => (
             <Route path="/contact" component={Contact} />
             <Route path="/forgotpassword" component={ForgotPassword} />
             <Route path="/resetpassword" component={ResetPassword} />
-            <Route path="/profilesettings" component={ProfileSettings} />
+            <Route
+                path="/settings/profilesettings"
+                component={ProfileSettings}
+            />
             <Route
                 path="/settings/email_&_password"
                 component={SettingsEmailPassword}
