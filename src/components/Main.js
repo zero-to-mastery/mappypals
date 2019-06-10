@@ -8,6 +8,7 @@ import Signup from '../pages/Login/Signup';
 import ForgotPassword from '../pages/Login/ForgotPassword';
 import ResetPassword from '../pages/Login/ResetPassword';
 import ProfileSettings from '../pages/Settings/ProfileSettings/ProfileSettings';
+import SettingsEmailPassword from '../pages/Settings/SettingsEmailPassword/SettingsEmailPassword';
 
 // The Main component renders one of the three provided
 // Routes (provided that one matches). Both the /roster
@@ -25,6 +26,10 @@ const Main = () => (
             <Route path="/forgotpassword" component={ForgotPassword} />
             <Route path="/resetpassword" component={ResetPassword} />
             <Route path="/profilesettings" component={ProfileSettings} />
+            <Route
+                path="/settings/email_&_password"
+                component={SettingsEmailPassword}
+            />
         </Switch>
     </main>
 );

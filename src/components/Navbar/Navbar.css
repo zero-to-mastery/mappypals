@@ -103,10 +103,6 @@ hr {
     }
 }
 @media screen and (min-width: 375px) and (orientation: portrait) {
-    #nav-bar {
-        width: 250px;
-    }
-
     .nav-item * {
         width: 100%;
     }
@@ -137,11 +133,6 @@ hr {
     }
 }
 @media screen and (orientation: landscape) and (max-width: 900px) {
-    #nav-bar {
-        width: 80%;
-        align-items: center;
-        height: 100vh;
-    }
     .item-wrapper {
         height: auto;
     }
