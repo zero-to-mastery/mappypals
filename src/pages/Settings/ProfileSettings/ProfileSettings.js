@@ -26,7 +26,6 @@ class ProfileSettings extends Component {
         let svg = event.target.files[0].type.includes('image/svg+xml');
         let gif = event.target.files[0].type.includes('image/gif');
         if (event.target.files[0].type.includes(string) && !svg && !gif) {
-            console.log('file selected');
             this.hideUploadError();
             this.setState({
                 changedProfileData: {

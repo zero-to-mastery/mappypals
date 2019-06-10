@@ -82,7 +82,7 @@ class PasswordForm extends Component {
                 </div>
                 <div className="form__section">
                     <label className="form__label form__label--settings">
-                        Confirm New Passw ord
+                        Confirm New Password
                     </label>
                     <input
                         className="form__input form__input--settings"
