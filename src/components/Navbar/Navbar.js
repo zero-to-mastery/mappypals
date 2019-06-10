@@ -12,11 +12,13 @@ class Navbar extends Component {
     constructor(props) {
         super(props);
         this.navRef = React.createRef();
+
         this.state = {
             hamburger: '',
             navbar: '',
             navbarRight: '',
-            navbarWidth: ''
+            navbarWidth: '',
+            settingsDropdown: false
         };
     }
     showNav = () => {
@@ -48,7 +50,6 @@ class Navbar extends Component {
         }
 
         // if id = "nav-bar exist and navWidth is not equal to this.state.navbarWidth"
-        // Possiblly error for not updating in time.
         if (node && navWidth !== this.state.navbarWidth) {
             this.setState({ navbarWidth: navWidth });
         }
@@ -104,8 +105,53 @@ class Navbar extends Component {
             }
         });
     }
+    toggleSettingsNavbar = () =>
+        this.setState({ settingsDropdown: !this.state.settingsDropdown });
+
     render() {
         const { onLogin } = this.props;
+        let settingsNavbar = '';
+        if (this.state.settingsDropdown & (window.innerWidth > 900)) {
+            settingsNavbar = (
+                <div className="nav-item settings-navbar">
+                    <Link to="/profilesettings">
+                        <p
+                            className="setting-navbar-item  u-border-bottom"
+                            onClick={this.toggleSettingsNavbar}
+                        >
+                            Profile Settings
+                        </p>
+                    </Link>
+                    <Link to="/passwordandemail">
+                        <p
+                            className="setting-navbar-item"
+                            onClick={this.toggleSettingsNavbar}
+                        >
+                            Password and Email
+                        </p>
+                    </Link>
+                </div>
+            );
+        }
+        let settings = (
+            <div
+                className="nav-item setting-item"
+                onClick={this.toggleSettingsNavbar}
+            >
+                {' '}
+                <Settings /> <p>SETTINGS</p>
+            </div>
+        );
+        if (window.innerWidth < 900) {
+            settings = (
+                <div className="nav-item setting-item">
+                    <Link to="/profilesettings">
+                        {' '}
+                        <Settings /> <p>SETTINGS</p>
+                    </Link>
+                </div>
+            );
+        }
         return (
             <React.Fragment>
                 {this.state.hamburger.length ? (
@@ -119,7 +165,7 @@ class Navbar extends Component {
                 ) : (
                     ''
                 )}
-                {/*logged*/ false ? (
+                {/*logged*/ true ? (
                     <div
                         id="nav-bar"
                         ref={this.navRef}
@@ -146,10 +192,8 @@ class Navbar extends Component {
                             </Link>
                         </div>
                         <div className="item-wrapper" onClick={this.showNav}>
-                            <Link className="nav-item" to="/settings">
-                                {' '}
-                                <Settings /> <p>SETTINGS</p>{' '}
-                            </Link>
+                            {settings}
+                            {settingsNavbar}:
                         </div>
                         <div className="item-wrapper no-hover scale">
                             <Link to="/logout">
