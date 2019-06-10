@@ -46,8 +46,8 @@ const team = [
         role: role[6],
         location: location[5],
         isEmployed: false,
-        portfolio: 'https://www.google.com//',
-        linkedin: 'https://www.linkedin.com/'
+        portfolio: 'https://www.arnasdickus.lt/',
+        linkedin: 'https://www.linkedin.com/in/arnas-di%C4%8Dkus-a77b15162/'
     },
     {
         avatar: null,

@@ -7,6 +7,7 @@ import About from '../pages/About/About';
 import Signup from '../pages/Login/Signup';
 import ForgotPassword from '../pages/Login/ForgotPassword';
 import ResetPassword from '../pages/Login/ResetPassword';
+import ProfileSettings from '../pages/Settings/ProfileSettings/ProfileSettings';
 import SettingsEmailPassword from '../pages/Settings/SettingsEmailPassword/SettingsEmailPassword';
 
 // The Main component renders one of the three provided
@@ -24,6 +25,10 @@ const Main = () => (
             <Route path="/contact" component={Contact} />
             <Route path="/forgotpassword" component={ForgotPassword} />
             <Route path="/resetpassword" component={ResetPassword} />
+            <Route
+                path="/settings/profilesettings"
+                component={ProfileSettings}
+            />
             <Route
                 path="/settings/email_&_password"
                 component={SettingsEmailPassword}
