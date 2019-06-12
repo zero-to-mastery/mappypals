@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import ky from 'ky';
 import './Login.css';
 import Form from './Form.js';
-import ky from 'ky';
+import { getLocalData, setLocalData } from '../../utils/localStorage';
 
 class Login extends Component {
     constructor(props) {
@@ -23,24 +24,12 @@ class Login extends Component {
     }
 
     confirmAccount() {
-        (async () => {
-            const token = window.location.pathname;
-            const length = token.match(new RegExp('/', 'g')).length;
+        const localData = getLocalData();
 
-            if (length > 1) {
-                const url = `http://localhost:3001/users${token}`;
-                await ky.post(url, { json: this.state }).then(res => {
-                    if (res.status === 200) {
-                        this.setState({
-                            redirect: res.redirect
-                        });
-                        console.log('Account successfully confirmed');
-                    }
-                });
-            } else {
-                console.log('Welcome back');
-            }
-        })();
+        // redirect user to homepage if he's already logged in
+        if (localData.token && localData.userId) {
+            return this.props.history.push('/');
+        }
     }
     handleChange = event => {
         this.setState({
@@ -53,18 +42,25 @@ class Login extends Component {
         event.preventDefault();
 
         (async () => {
-            const url = 'http://localhost:3001/users/login';
+            try {
+                const url = 'http://localhost:3001/users/login';
 
-            await ky.post(url, { json: this.state }).then(res => {
-                if (res.status === 200) {
-                    this.setState({
-                        redirect: res.redirect
-                    });
-                    console.log(
-                        'Redirect user to home page, successfull login'
-                    );
+                const response = await ky.post(url, { json: this.state });
+                const data = await response.json();
+
+                if (data.token && data.userId) {
+                    setLocalData(data.token, data.userId);
+
+                    this.setState({ redirect: true });
+
+                    this.props.history.push('/');
+                } else {
+                    // error message here
+                    console.log(data);
                 }
-            });
+            } catch (err) {
+                console.log(err);
+            }
         })();
 
         // Clear inputs.
