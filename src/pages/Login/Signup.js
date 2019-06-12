@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Form from './Form.js';
-import {
-    PasswordRequirements,
-    PasswordNoMatch
-} from '../../components/ErrorMessages/ErrorMessages';
+import ErrorMessage from '../../components/ErrorMessages/ErrorMessages';
 import { IsPasswordValid, IsPasswordIdentical } from '../../components/helper';
 import './Login.css';
 import ky from 'ky';
@@ -86,11 +83,15 @@ class Login extends Component {
     render() {
         let passwordMatchError = '';
         if (this.state.passwordMatchError) {
-            passwordMatchError = <PasswordNoMatch />;
+            passwordMatchError = (
+                <ErrorMessage content="Password doesn't match" />
+            );
         }
         let PasswordValidError = '';
         if (this.state.passwordValidError) {
-            PasswordValidError = <PasswordRequirements />;
+            PasswordValidError = (
+                <ErrorMessage content="At least 6 characters, a number or a symbol, at least 1 letter" />
+            );
         }
 
         const { checkLoginState } = this.props;

@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import './Login.css';
 import Form from './Form';
 import ky from 'ky';
-import {
-    PasswordNoMatch,
-    PasswordRequirements
-} from '../../components/ErrorMessages/ErrorMessages';
+import ErrorMessage from '../../components/ErrorMessages/ErrorMessages';
 import { IsPasswordValid, IsPasswordIdentical } from '../../components/helper';
 
 class ResetPassword extends Component {
@@ -69,11 +66,15 @@ class ResetPassword extends Component {
     render() {
         let passwordMatchErrorVar = '';
         if (this.state.passwordMatchError) {
-            passwordMatchErrorVar = <PasswordNoMatch />;
+            passwordMatchErrorVar = (
+                <ErrorMessage content=" Password doesn't match" />
+            );
         }
         let passwordValidErrorVar = '';
         if (this.state.PasswordValidError) {
-            passwordValidErrorVar = <PasswordRequirements />;
+            passwordValidErrorVar = (
+                <ErrorMessage content="At least 6 characters, a number or a symbol, at least 1 letter" />
+            );
         }
         return (
             <div className="Login">
