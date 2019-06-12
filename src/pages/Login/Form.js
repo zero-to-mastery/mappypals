@@ -6,7 +6,7 @@ const Form = styled.form`
   border-radius: 30px;
   font-family: 'Poppins', sans-serif;
   font-weight: 400;
-  @media (max-width: 360px) {
+  @media (max-width: 410px) {
     padding-top: 10px;
     padding-right: 25px;
     padding-bottom: 10px;
