@@ -1,0 +1,16 @@
+.form {
+    margin: 0 auto;
+    max-width: 320px;
+    overflow-x: hidden;
+    background-color: white;
+    font-family: 'Poppins', sans-serif;
+}
+
+.title {
+    font-weight: 400;
+    font-size: 20px;
+    color: #e03bfb;
+}
+.container {
+    height: 100%;
+}
