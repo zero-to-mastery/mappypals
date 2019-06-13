@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Form, { PasswordReqs } from './Form.js';
+import Form from './Form.js';
+import ErrorMessage from '../../components/ErrorMessages/ErrorMessages';
+import { IsPasswordValid, IsPasswordIdentical } from '../../components/helper';
 import './Login.css';
 import ky from 'ky';
 
@@ -21,23 +23,10 @@ class Login extends Component {
             number: '',
             password: '',
             confirmPassword: '',
-            passwordMatch: true,
-            isHidden: true
+            passwordMatchError: false,
+            passwordValidError: false
         };
     }
-
-    toggleHidden = () => {
-        const { isHidden } = this.state;
-        this.setState({
-            isHidden: !isHidden
-        });
-    };
-
-    passwordLengthError = () => {
-        if (this.state.password.length < 6) {
-            alert('Password is not at least 6 characters');
-        }
-    };
 
     handleChange = event => {
         this.setState({
@@ -48,18 +37,31 @@ class Login extends Component {
     handleSubmit = event => {
         const { password, confirmPassword } = this.state;
         event.preventDefault();
-        if (password !== confirmPassword) {
-            this.setState({ passwordMatch: false });
-            return;
+        const isPasswordValidVar = IsPasswordValid(password);
+        const IsPasswordIdenticalVar = IsPasswordIdentical(
+            password,
+            confirmPassword
+        );
+
+        if (!IsPasswordIdenticalVar) {
+            this.displayPasswordMatchError();
+        } else if (!isPasswordValidVar) {
+            this.hidePasswordMatchError();
+            this.displayPasswordValidError();
+        } else {
+            this.hidePasswordMatchError();
+            this.hidePasswordValidError();
+            (async () => {
+                const url = 'http://localhost:3001/users/register';
+                await ky.post(url, { json: this.state }).then(res => {
+                    if (res.status === 200) {
+                        console.log(
+                            'Redirect user to home page, successful login'
+                        );
+                    }
+                });
+            })();
         }
-        (async () => {
-            const url = 'http://localhost:3001/users/register';
-            await ky.post(url, { json: this.state }).then(res => {
-                if (res.status === 200) {
-                    console.log('Redirect user to home page, successful login');
-                }
-            });
-        })();
 
         // Clear inputs.
         this.setState({
@@ -70,16 +72,28 @@ class Login extends Component {
             confirmPassword: ''
         });
     };
+    displayPasswordMatchError = () =>
+        this.setState({ passwordMatchError: true });
+    hidePasswordMatchError = () => this.setState({ passwordMatchError: false });
+
+    displayPasswordValidError = () =>
+        this.setState({ passwordValidError: true });
+    hidePasswordValidError = () => this.setState({ passwordValidError: false });
 
     render() {
         let passwordMatchError = '';
-        if (!this.state.passwordMatch) {
+        if (this.state.passwordMatchError) {
             passwordMatchError = (
-                <span className="errorMessage" aria-live="polite">
-                    Password doesn't match
-                </span>
+                <ErrorMessage content="Password doesn't match" />
             );
         }
+        let PasswordValidError = '';
+        if (this.state.passwordValidError) {
+            PasswordValidError = (
+                <ErrorMessage content="At least 6 characters, a number or a symbol, at least 1 letter" />
+            );
+        }
+
         const { checkLoginState } = this.props;
         return (
             <div className="Login">
@@ -119,7 +133,7 @@ class Login extends Component {
                             />
                         </label>
                         <label htmlFor="password">
-                            Password
+                            Password {PasswordValidError}
                             <input
                                 type="password"
                                 name="password"
@@ -128,12 +142,10 @@ class Login extends Component {
                                 onClick={this.toggleHidden}
                                 onChange={this.handleChange}
                                 required
-                                onBlur={this.passwordLengthError}
                             />
                         </label>
-                        {!this.state.isHidden && <PasswordReqs />}
                         <label htmlFor="confirmPassword">
-                            Please confirm password {passwordMatchError}
+                            Confirm password {passwordMatchError}
                             <input
                                 type="password"
                                 name="confirmPassword"
