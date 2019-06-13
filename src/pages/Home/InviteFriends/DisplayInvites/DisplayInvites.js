@@ -6,7 +6,12 @@ const DisplayInvites = props => {
         <React.Fragment>
             <div className={classes.element}>
                 <span>{props.data}</span>
-                <button className={classes.buttonX}>X</button>
+                <button
+                    className={classes.buttonX}
+                    onClick={props.removeInvite}
+                >
+                    X
+                </button>
             </div>
         </React.Fragment>
     );

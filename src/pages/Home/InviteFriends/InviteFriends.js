@@ -42,6 +42,13 @@ class InviteFriends extends Component {
             );
         }
     };
+    removeInvite = data => {
+        const { Invites } = this.state;
+        const InvitesToKeep = Invites.filter(invite => invite !== data);
+        if (InvitesToKeep.length < Invites.length) {
+            this.setState({ Invites: InvitesToKeep });
+        }
+    };
     resetEmail = () => this.setState({ email: '' });
     displayErrorEmptyInput = () => this.setState({ ErrorEmptyInput: true });
     hideErrorEmptyInput = () => this.setState({ ErrorEmptyInput: false });
@@ -67,7 +74,13 @@ class InviteFriends extends Component {
                     />
                     <button className={classes.submit}>Send Invites</button>
                     {this.state.Invites.map((data, index) => {
-                        return <DisplayInvites key={index} data={data} />;
+                        return (
+                            <DisplayInvites
+                                key={index}
+                                data={data}
+                                removeInvite={() => this.removeInvite(data)}
+                            />
+                        );
                     })}
                 </Form>
             </div>
