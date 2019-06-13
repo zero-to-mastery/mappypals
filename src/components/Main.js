@@ -9,6 +9,7 @@ import ForgotPassword from '../pages/Login/ForgotPassword';
 import ResetPassword from '../pages/Login/ResetPassword';
 import ProfileSettings from '../pages/Settings/ProfileSettings/ProfileSettings';
 import SettingsEmailPassword from '../pages/Settings/SettingsEmailPassword/SettingsEmailPassword';
+import InviteFriends from '../pages/Home/InviteFriends/InviteFriends';
 
 // The Main component renders one of the three provided
 // Routes (provided that one matches). Both the /roster
@@ -33,6 +34,7 @@ const Main = () => (
                 path="/settings/email_&_password"
                 component={SettingsEmailPassword}
             />
+            <Route path="/invitefriends" component={InviteFriends} />
         </Switch>
     </main>
 );
