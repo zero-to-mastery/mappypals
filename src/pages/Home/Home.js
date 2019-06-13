@@ -14,7 +14,6 @@ const Home = user => {
                     alt="local icon"
                     height="100px"
                 />
-                <p>MappyPals</p>
             </div>
             <div className="title">
                 <p>MappyPals</p>
