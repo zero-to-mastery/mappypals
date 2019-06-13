@@ -186,7 +186,7 @@ class Navbar extends Component {
                         </div>
 
                         <div className="item-wrapper" onClick={this.showNav}>
-                            <Link className="nav-item" to="/invitefriends">
+                            <Link className="nav-item" to="/">
                                 {' '}
                                 <Invite /> <p>INVITE FRIENDS</p>{' '}
                             </Link>

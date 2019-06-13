@@ -1,16 +1,27 @@
 .form {
     margin: 0 auto;
-    max-width: 320px;
     overflow-x: hidden;
     background-color: white;
     font-family: 'Poppins', sans-serif;
+    max-width: 500px;
 }
 
 .title {
     font-weight: 400;
     font-size: 20px;
     color: #e03bfb;
+    margin-bottom: 0;
 }
 .container {
-    height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.submit {
+    margin: 10px;
+}
+
+.input {
+    width: auto !important;
 }

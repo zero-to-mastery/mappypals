@@ -8,6 +8,7 @@ import { GeoJsonLayer } from 'deck.gl';
 import Geocoder from 'react-map-gl-geocoder';
 import './mapbox-gl-geocoder.css';
 import FriendSearch from '../../components/FriendSearch';
+import InviteFriends from './InviteFriends/InviteFriends';
 
 const TOKEN =
     'pk.eyJ1Ijoic2Npb3J0aW5vbXJjIiwiYSI6ImNqc2RocmRzYTB2OGUzeWxuZDNmdDhrcDgifQ.txLXHEJPl4lYa8an6fcjuA';
@@ -33,6 +34,7 @@ class Map extends Component {
             // All stored pins
             inviteFriendData: [],
             DisplayDraggablePin: true,
+            displayInviteFriends: true,
 
             viewport: {
                 latitude: 37.7577,
@@ -220,6 +222,11 @@ class Map extends Component {
             );
         }
 
+        let InviteFriendsVar = '';
+        if (this.state.displayInviteFriends) {
+            InviteFriendsVar = <InviteFriends />;
+        }
+
         return (
             <div style={{ height: '100vh' }}>
                 <MapGL
@@ -345,6 +352,7 @@ class Map extends Component {
                 </MapGL>
                 {displayForm}
                 {InvitationSentVar}
+                {InviteFriendsVar}
             </div>
         );
     }

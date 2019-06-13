@@ -1,0 +1,18 @@
+.element {
+    text-align: left;
+    color: #000000;
+    background-color: lightgrey;
+    padding: 5px;
+    position: relative;
+}
+
+.buttonX {
+    background: none !important;
+    border: none;
+    position: absolute;
+    right: 2px;
+    top: 2px;
+    font-size: 20px;
+    color: #6831de !important;
+    cursor: pointer;
+}
