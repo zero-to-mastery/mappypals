@@ -1,11 +1,11 @@
 import React from 'react';
 import classes from './DisplayInvites.module.css';
 
-const DisplayInvites = () => {
+const DisplayInvites = props => {
     return (
         <React.Fragment>
             <div className={classes.element}>
-                <span>Display Invites</span>
+                <span>{props.data}</span>
                 <button className={classes.buttonX}>X</button>
             </div>
         </React.Fragment>

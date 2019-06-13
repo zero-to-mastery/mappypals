@@ -1,15 +1,20 @@
 .element {
-    text-align: left;
+    display: inline-block;
     color: #000000;
     background-color: lightgrey;
-    padding: 5px;
+    border-radius: 5px;
+    padding: 10px;
+    margin-right: 10px;
+    margin-top: 30px;
     position: relative;
+    font-size: 16px;
 }
 
 .buttonX {
     background: none !important;
     border: none;
     position: absolute;
+    padding: 0 !important;
     right: 2px;
     top: 2px;
     font-size: 20px;

@@ -67,7 +67,7 @@ class InviteFriends extends Component {
                     />
                     <button className={classes.submit}>Send Invites</button>
                     {this.state.Invites.map((data, index) => {
-                        return <DisplayInvites key={index} />;
+                        return <DisplayInvites key={index} data={data} />;
                     })}
                 </Form>
             </div>
