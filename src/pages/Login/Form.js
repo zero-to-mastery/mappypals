@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 
 const Form = styled.form`
@@ -6,7 +5,7 @@ const Form = styled.form`
   border-radius: 30px;
   font-family: 'Poppins', sans-serif;
   font-weight: 400;
-  @media (max-width: 360px) {
+  @media (max-width: 410px) {
     padding-top: 10px;
     padding-right: 25px;
     padding-bottom: 10px;
@@ -133,24 +132,7 @@ const Form = styled.form`
     opacity: 0.8;
   }
 
-  .errorMessage {
-    color: red;
-  }
+
 `;
 
-const PasswordReqs = () => (
-    <div id="newPassword">
-        <span aria-live="polite">
-            At least 6 characters, a number or a symbol, at least 1 letter
-        </span>
-    </div>
-);
-const EmailNotFoundMsg = () => (
-    <div id="unknownUser">
-        <span aria-live="polite">
-            Email not found: Please check entry or go back to Login to sign up
-        </span>
-    </div>
-);
 export default Form;
-export { PasswordReqs, EmailNotFoundMsg };

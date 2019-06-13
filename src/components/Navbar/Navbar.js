@@ -114,7 +114,7 @@ class Navbar extends Component {
         if (this.state.settingsDropdown & (window.innerWidth > 900)) {
             settingsNavbar = (
                 <div className="nav-item settings-navbar">
-                    <Link to="settings/profilesettings">
+                    <Link to="/settings/profilesettings">
                         <p
                             className="setting-navbar-item  u-border-bottom"
                             onClick={this.toggleSettingsNavbar}
@@ -122,7 +122,8 @@ class Navbar extends Component {
                             Profile Settings
                         </p>
                     </Link>
-                    <Link to="settings/email_&_password">
+
+                    <Link to="/settings/email_&_password">
                         <p
                             className="setting-navbar-item"
                             onClick={this.toggleSettingsNavbar}
@@ -145,7 +146,7 @@ class Navbar extends Component {
         if (window.innerWidth < 900) {
             settings = (
                 <div className="nav-item setting-item">
-                    <Link to="/profilesettings">
+                    <Link to="/settings/profilesettings">
                         {' '}
                         <Settings /> <p>SETTINGS</p>
                     </Link>

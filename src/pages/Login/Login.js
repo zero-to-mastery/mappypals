@@ -31,11 +31,6 @@ class Login extends Component {
             return this.props.history.push('/');
         }
     }
-
-    validateForm() {
-        return this.state.email.length > 0 && this.state.password.length > 5;
-    }
-
     handleChange = event => {
         this.setState({
             [event.target.name]: event.target.value
@@ -102,7 +97,6 @@ class Login extends Component {
                         <Link to="/forgotpassword">I forgot my password</Link>
                     </div>
                     <div className="btnContainer">
-                        {/* <button type="submit" disabled={!this.validateForm()}> */}
                         <button type="submit">Login</button>
                     </div>
                     <p className="u-text-center">
