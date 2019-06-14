@@ -11,7 +11,8 @@ class InviteFriends extends Component {
         this.state = {
             Invites: [],
             email: '',
-            ErrorEmptyInput: false
+            ErrorEmptyInput: false,
+            DisplayErrorDublicate: false
         };
     }
     handleChange = event => {
@@ -30,16 +31,18 @@ class InviteFriends extends Component {
 
         if (this.state.email === '') {
             this.displayErrorEmptyInput();
+            this.hideErrorEmptyInput();
             return false;
-        } else if (!dublicateEmail) {
-            this.setState(
-                {
-                    Invites: [...this.state.Invites, this.state.email]
-                },
-                function() {
-                    console.log(this.state.Invites);
-                }
-            );
+        } else if (dublicateEmail) {
+            this.displayErrorDublicate();
+            this.hideErrorEmptyInput();
+            return false;
+        } else {
+            this.hideErrorEmptyInput();
+            this.hideErrorDublicate();
+            this.setState({
+                Invites: [...this.state.Invites, this.state.email]
+            });
         }
     };
     removeInvite = data => {
@@ -52,19 +55,32 @@ class InviteFriends extends Component {
     resetEmail = () => this.setState({ email: '' });
     displayErrorEmptyInput = () => this.setState({ ErrorEmptyInput: true });
     hideErrorEmptyInput = () => this.setState({ ErrorEmptyInput: false });
+
+    displayErrorDublicate = () =>
+        this.setState({ DisplayErrorDublicate: true });
+    hideErrorDublicate = () => this.setState({ DisplayErrorDublicate: false });
+
     render() {
+        const { ErrorEmptyInput, DisplayErrorDublicate } = this.state;
         let ErrorMessageVar = '';
-        if (this.state.ErrorEmptyInput) {
+        if (ErrorEmptyInput) {
             ErrorMessageVar = <ErrorMessages content="Input is empty" />;
+        }
+        let ErrorDublicate = '';
+        if (DisplayErrorDublicate) {
+            ErrorDublicate = <ErrorMessages content="Dublicate email" />;
         }
 
         return (
             <div className={classes.container}>
                 <Form onSubmit={this.handleSubmit} className={classes.form}>
                     <h2 className={classes.title}>
-                        Send an invite to multiple friends {ErrorMessageVar}
+                        Send an invite to multiple friends {ErrorMessageVar}{' '}
+                        {ErrorDublicate}
                     </h2>
-                    <label htmlFor="email">Email</label>
+                    <label htmlFor="email" className={classes.label}>
+                        Email
+                    </label>
                     <input
                         name="email"
                         value={this.state.email}

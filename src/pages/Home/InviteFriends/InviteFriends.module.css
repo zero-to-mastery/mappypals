@@ -25,3 +25,8 @@
 .input {
     width: auto !important;
 }
+.label {
+    text-align: left;
+    margin-bottom: 0 !important;
+    color: #000000;
+}
