@@ -84,7 +84,6 @@ class Contact extends Component {
       subject: '',
       message: ''
     };
-    this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
@@ -94,9 +93,8 @@ class Contact extends Component {
     });
   };
 
-  handleSubmit(event) {
+  handleSubmit = event => {
     event.preventDefault();
-    console.log(this.state);
     this.refs.form.reset();
   }
 
