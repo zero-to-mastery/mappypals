@@ -1,8 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './Contact.css';
 import styled from 'styled-components'
-
-// add some content here
 
 const Form = styled.form`
   box-shadow: 2px 3px 4px -2px grey;
@@ -76,54 +74,87 @@ const Form = styled.form`
   }
 `
 
-const Contact = () => (
-    <div className="contactForm">
-        <Form>
-            <div className="header">
-                <h2>Contact Us</h2>
-                <p>If you have any enquiries please contact us by filling the form below:</p>
-            </div>
-            <label htmlFor="name">
-                First Name 
-                <input
-                    type="text"
-                    name="firstname"
-                    placeholder="Arnas"
-                    required
-                />
-            </label>
-            <label htmlFor="email">
-                Email
-                <input
-                    type="email"
-                    name="email"
-                    placeholder=""
-                    required
-                />
-            </label>
-            <label htmlFor="subject">
-                Subject 
-                <input
-                    type="text"
-                    name="subject"
-                    placeholder="Bug on homepage"
-                    required
-                />
-            </label>
-            <label htmlFor="message">
-                Your Message
-                <textarea 
-                    name="" 
-                    id="" 
-                    cols="30" 
-                    rows="10">
-                </textarea>
-            </label>
-            <div className="btnContainer">
-                <button type="submit">Send</button>
-            </div>
-        </Form>
-    </div>
-);
+
+class Contact extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { 
+      firstname: '',
+      email: '',
+      subject: '',
+      message: ''
+    };
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  handleChange = event => {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  };
+
+  handleSubmit(event) {
+    event.preventDefault();
+    console.log(this.state);
+    this.refs.form.reset();
+  }
+
+  render() {
+    return (
+      <div className="contactForm">
+          <Form onSubmit={this.handleSubmit} ref='form'>
+              <div className="header">
+                  <h2>Contact Us</h2>
+                  <p>If you have any enquiries please contact us by filling the form below:</p>
+              </div>
+              <label htmlFor="name">
+                  First Name 
+                  <input
+                      type="text"
+                      name="firstname"
+                      placeholder="John"
+                      onChange={this.handleChange}
+                      required
+                  />
+              </label>
+              <label htmlFor="email">
+                  Email
+                  <input
+                      type="email"
+                      name="email"
+                      placeholder="john@doe.com"
+                      onChange={this.handleChange}
+                      required
+                  />
+              </label>
+              <label htmlFor="subject">
+                  Subject 
+                  <input
+                      type="text"
+                      name="subject"
+                      placeholder="Bug on homepage"
+                      onChange={this.handleChange}
+                      required
+                  />
+              </label>
+              <label htmlFor="message">
+                  Your Message
+                  <textarea 
+                      name='message'
+                      onChange={this.handleChange}
+                      id="" 
+                      cols="30" 
+                      rows="10">
+                  </textarea>
+              </label>
+              <div className="btnContainer">
+                  <button type="submit">Send</button>
+              </div>
+          </Form>
+      </div>
+    )
+  }
+}
 
 export default Contact;
