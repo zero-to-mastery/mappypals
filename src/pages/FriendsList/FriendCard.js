@@ -32,6 +32,10 @@ const Button = styled.button`
   border: none;
   padding: 0.25em 1em;
   border-radius: 7px;
+  &:hover {
+    cursor: pointer; 
+    background-image: linear-gradient(to top left, #CF48FF 30%, #6831DE);
+  }
 `;
 
 const FriendCard = ({ name }) => (<React.Fragment>
