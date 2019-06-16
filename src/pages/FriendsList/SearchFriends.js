@@ -22,7 +22,7 @@ const Input = styled.input`
         return (
           <React.Fragment>
         <div className='friends-search'>
-           <img src={searchIcon} /><Input onChange={this.props.onChange} placeholder='...filter friends' type='text'/>
+           <img src={searchIcon} alt='' /><Input onChange={this.props.onChange} placeholder='...filter friends' type='text'/>
         </div>
     </React.Fragment>
         )
