@@ -12,6 +12,6 @@ const friends = [
     { avatar: null, name: 'Abu al-Faraj al-Isfahani' },
     { avatar: null, name: 'Sun Tzu' },
     { avatar: null, name: 'Dino Dvornik' }
-  ]
-  
-  export default friends;
+];
+
+export default friends;
