@@ -5,7 +5,7 @@ import localIcon from '../../pics/LogoInverted.svg';
 import Map from './Map';
 
 const Home = user => {
-    return false ? (
+    return true ? (
         <section id="not-logged-in">
             <div className="local-icon">
                 <img
@@ -14,7 +14,6 @@ const Home = user => {
                     alt="local icon"
                     height="100px"
                 />
-                <p>MappyPals</p>
             </div>
             <div className="title">
                 <p>MappyPals</p>
