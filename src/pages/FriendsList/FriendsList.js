@@ -38,12 +38,10 @@ class FriendsList extends React.Component {
     this.state = {
       friends: friends
     };
-
-    this.handleChange = this.handleChange.bind(this);
 }
 
 
-handleChange(e) {
+handleChange = e => {
   // Variable to hold the original version of the list
 let currentList = friends;
   // Variable to hold the filtered list before putting into state
