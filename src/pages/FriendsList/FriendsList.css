@@ -9,24 +9,23 @@ div.friend-photo {
     background:#cccccc;
   }
 
-h1 {
-  color: #6831DE;
+ .friendsText {
   font-family: 'Noto Sans', sans-serif;
   font-weight: lighter;
+ } 
+
+h1.friendsText {
+  color: #6831DE;
 }
 
-h3 {
-  font-family: 'Noto Sans', sans-serif;
+h3.friendsText {
   font-size: 1em;
-  font-weight: lighter;
   height: 15%;
 }
 
- p {
-   font-family: 'Noto Sans', sans-serif;
+ p.friendsText{
    color: #fbfbfbd9;
    text-align: center;
-   font-weight: lighter;
    font-size: 0.9em;
    margin: 0 auto;
  }

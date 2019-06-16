@@ -39,12 +39,12 @@ const FriendCard = ({ name }) => (<React.Fragment>
         <div className="friend-photo">
             <img src={`https://robohash.org/${name}?size=200x200`} alt="Friend Avatars" />
         </div>
-        <h3>{name}</h3>
+        <h3 className='friendsText'>{name}</h3>
         <Button>
-         <i className="far fa-user"></i><p>Profile</p>
+         <i className="far fa-user"></i><p className='friendsText'>Profile</p>
         </Button>
         <Button>
-         <i className="far fa-comment-dots"></i><p>Message</p>
+         <i className="far fa-comment-dots"></i><p className='friendsText'>Message</p>
         </Button>
     </Card>
 </React.Fragment>)

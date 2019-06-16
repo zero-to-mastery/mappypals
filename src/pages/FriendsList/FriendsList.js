@@ -83,7 +83,7 @@ friends: newList
     return(
     <FriendsLayout>
       <FriendsTopBar>
-          <h1>Friends</h1>
+          <h1 className='friendsText'>Friends</h1>
           <SearchFriends onChange={this.handleChange}></SearchFriends>
         </FriendsTopBar>
       <FriendsPageList>
