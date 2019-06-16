@@ -29,7 +29,6 @@ const Form = styled.form`
     margin-bottom: 2.3rem;
   }
   input,
-  textarea,
   select {
     width: 100%;
     box-sizing: border-box;

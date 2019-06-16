@@ -122,6 +122,7 @@ class Navbar extends Component {
                             Profile Settings
                         </p>
                     </Link>
+
                     <Link to="/settings/email_&_password">
                         <p
                             className="setting-navbar-item"

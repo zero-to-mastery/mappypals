@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import ky from 'ky';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 import './Login.css';
 import Form from './Form.js';
-import { getLocalData, setLocalData } from '../../utils/localStorage';
+import { getLocalData } from '../../utils/localStorage';
+import { authLogin } from '../../store/actions';
+import ErrorMessage from '../../components/ErrorMessages/ErrorMessages';
 
 class Login extends Component {
     constructor(props) {
@@ -17,20 +21,27 @@ class Login extends Component {
 
         this.state = {
             email: '',
-            password: '',
-            message: '',
-            redirect: false
+            password: ''
         };
+    }
+
+    componentDidMount() {
+        this.confirmAccount();
+    }
+
+    componentDidUpdate() {
+        this.confirmAccount();
     }
 
     confirmAccount() {
         const localData = getLocalData();
 
         // redirect user to homepage if he's already logged in
-        if (localData.token && localData.userId) {
+        if ((localData.token && localData.userId) || this.props.redirect) {
             return this.props.history.push('/');
         }
     }
+
     handleChange = event => {
         this.setState({
             [event.target.name]: event.target.value
@@ -41,27 +52,9 @@ class Login extends Component {
     handleSubmit = event => {
         event.preventDefault();
 
-        (async () => {
-            try {
-                const url = 'http://localhost:3001/users/login';
+        const { email, password } = this.state;
 
-                const response = await ky.post(url, { json: this.state });
-                const data = await response.json();
-
-                if (data.token && data.userId) {
-                    setLocalData(data.token, data.userId);
-
-                    this.setState({ redirect: true });
-
-                    this.props.history.push('/');
-                } else {
-                    // error message here
-                    console.log(data);
-                }
-            } catch (err) {
-                console.log(err);
-            }
-        })();
+        this.props.authLogin(email, password);
 
         // Clear inputs.
         this.setState({ email: '' });
@@ -69,7 +62,9 @@ class Login extends Component {
     };
 
     render() {
-        const { checkLoginState } = this.props;
+        // const { checkLoginState } = this.props;
+        const { error, loading } = this.props;
+
         return (
             <div className="Login">
                 <Form onSubmit={this.handleSubmit}>
@@ -99,6 +94,12 @@ class Login extends Component {
                     <div className="btnContainer">
                         <button type="submit">Login</button>
                     </div>
+                    {loading && <div className="u-text-center">Loading...</div>}
+                    {error && (
+                        <div className="u-text-center">
+                            <ErrorMessage content={error} />
+                        </div>
+                    )}
                     <p className="u-text-center">
                         No account?
                         <Link className="nav-item" to="/signup">
@@ -118,7 +119,7 @@ class Login extends Component {
                                 data-button-type="login_with"
                                 data-auto-logout-link="false"
                                 data-use-continue-as="false"
-                                onClick={checkLoginState}
+                                onClick={() => ({})}
                             />
                         </label>
                     </div>
@@ -126,10 +127,18 @@ class Login extends Component {
             </div>
         );
     }
-
-    componentDidMount() {
-        this.confirmAccount();
-    }
 }
 
-export default Login;
+const mapStateToProps = state => {
+    const { loading, error, redirect } = state.auth;
+
+    return { loading, error, redirect };
+};
+
+const mapDispatchToProps = dispatch =>
+    bindActionCreators({ authLogin }, dispatch);
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Login);
