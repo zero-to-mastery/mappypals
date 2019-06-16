@@ -13,6 +13,7 @@ const Input = styled.input`
   border: 1px solid #6831DE;
   border-radius: 30px;
   margin-left: -60px;
+  box-shadow: 0 1px 1px 1px #bebebe;
 `
 
 
