@@ -17,6 +17,9 @@ const Card = styled.div`
   &:hover {
     transform: scale(1.03); 
   }
+  @media (max-width: 493px) {
+    width: 110px;
+  }
 `
 
 const Button = styled.button`

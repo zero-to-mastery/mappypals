@@ -31,9 +31,9 @@ h3.friendsText {
  }
 
  div.friends-search {
-   width: 400px;
+   width: 350px;
    height: 80px;
-   margin-left: 200px;
+   margin: auto;
    display: flex;
    justify-content: center;
    align-items: center;

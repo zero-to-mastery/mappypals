@@ -7,6 +7,9 @@ import styled from 'styled-components';
 const FriendsLayout = styled.div`
   width: calc(100vw - 300px);
   background: #fff;
+  @media (max-width: 774px) {
+    width: 100%;
+  }
 `
 
 const FriendsPageList = styled.div`
@@ -15,10 +18,17 @@ const FriendsPageList = styled.div`
   grid-template-rows: auto auto;
 `
 const FriendsTopBar = styled.div`
-  width: 100%;
+  width: 95%;
+  margin: auto;
   height: 10vh;
   display: flex;
   justify-content: space-around;
+  @media (max-width: 774px) {
+    height: 20vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 `
 
 const FriendCardGrid =  styled.div`
@@ -28,6 +38,9 @@ const FriendCardGrid =  styled.div`
   justify-content: flex-start;
   align-items: center;
   margin: auto;
+  @media (max-width: 493px) {
+    width: 100%;
+  }
 `
 
 
