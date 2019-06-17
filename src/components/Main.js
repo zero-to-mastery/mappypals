@@ -9,6 +9,7 @@ import ForgotPassword from '../pages/Login/ForgotPassword';
 import ResetPassword from '../pages/Login/ResetPassword';
 import ProfileSettings from '../pages/Settings/ProfileSettings/ProfileSettings';
 import SettingsEmailPassword from '../pages/Settings/SettingsEmailPassword/SettingsEmailPassword';
+import FriendsList from '../pages/FriendsList/FriendsList';
 
 // The Main component renders one of the three provided
 // Routes (provided that one matches). Both the /roster
@@ -24,6 +25,7 @@ const Main = () => (
             <Route path="/about" component={About} />
             <Route path="/contact" component={Contact} />
             <Route path="/forgotpassword" component={ForgotPassword} />
+            <Route path="/friendslist" component={FriendsList} />
             <Route path="/resetpassword" component={ResetPassword} />
             <Route
                 path="/settings/profilesettings"
