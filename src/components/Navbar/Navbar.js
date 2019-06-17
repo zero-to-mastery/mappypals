@@ -7,6 +7,7 @@ import { ReactComponent as Team } from '../../pics/Team.svg';
 import { ReactComponent as Friends } from '../../pics/FriendsIcon.svg';
 import { ReactComponent as Invite } from '../../pics/InviteFriends.svg';
 import { ReactComponent as Settings } from '../../pics/MySettingsIcon.svg';
+import { connect } from 'react-redux';
 
 class Navbar extends Component {
     constructor(props) {
@@ -282,5 +283,8 @@ class Navbar extends Component {
         );
     }
 }
+const mapStateToProps = state => {
+    return {};
+};
 
-export default Navbar;
+export default connect()(Navbar);
