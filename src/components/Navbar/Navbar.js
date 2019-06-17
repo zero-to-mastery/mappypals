@@ -181,7 +181,7 @@ class Navbar extends Component {
                         </div>
 
                         <div className="item-wrapper" onClick={this.showNav}>
-                            <Link className="nav-item" to="/friends">
+                            <Link className="nav-item" to="/friendslist">
                                 {' '}
                                 <Friends /> <p>FRIENDS</p>{' '}
                             </Link>
