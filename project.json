@@ -1,0 +1,36 @@
+{
+        "repoName": "mappypals",
+        "tagline": "Keeping track of your travelling buddies!",
+        "color": "#e8c123",
+        "logo": "https://cdn.discordapp.com/attachments/568453633436418049/575615439539929089/logo-mappypals.PNG",
+        "channelName": "mappypals",
+        "desc": [
+            "MappyPals is a collaboration project managed by a small group of dedicated fellow students. Building an application to provide users a platform to keep track of which countries their friends and family are in, to make meeting up an easier task.",
+            "MappyPals is being built upon the MERN stack, with the intention of releasing and maintaining the project in the real world based upon user suggestions and feedback. Therefor providing an awesome opportunity not only the ability to expand on and learn new skills, but also a project you can include on your resume and show off to friends, family and potential employers.",
+            "Whilst working on any number of features that you would typically find in a social platform such as this, you will gain valuable experience in collaborating in a fairly large group and working with version control and source code management (Github), which are extremely valuable skills."
+        ],
+        "team": [
+            ["mubarakshow", "Project Lead"],
+            ["Arnas Dičkus", "Project Manager"],
+            ["Thijs", "Design/Frontend Lead"],
+            ["masci4", "Backend Lead"]
+        ],
+        "links": [
+            ["Frontend Repo", "https://github.com/zero-to-mastery/mappypals"],
+            ["Backend Repo", "https://github.com/zero-to-mastery/mappypals_backend"],
+            ["Contributing", "https://github.com/zero-to-mastery/mappypals/blob/master/CONTRIBUTING.md"],
+            ["Mockups", "https://www.figma.com/file/MWIsRxJQP2pPMXINVX5UNqDr/MappyPals-Mockups?node-id=0%3A1&redirected=1"],
+            ["Github", "https://github.com/zero-to-mastery/mappypals/blob/master/pr-guide.pdf"]
+        ],
+        "poi": [
+            ["Readme", "https://github.com/zero-to-mastery/mappypals/blob/master/README.md"],
+            ["Frontend Repo", "https://github.com/zero-to-mastery/mappypals"],
+            ["Backend Repo", "https://github.com/zero-to-mastery/mappypals_backend"],
+            ["PR Guide", "https://github.com/zero-to-mastery/mappypals_backend/blob/master/pr-guide.pdf"]
+        ],
+        "tasks": {
+            "title": "Trello Tasks",
+            "desc": "We use Trello to manage the tasks within this project, [here](https://trello.com/invite/mappypals/570aff1966dc01d4b1e212ef8bbb9a08) is your invitation. Further information on how to use use Trello to sign up to a task can be found in the [CONTRIBUTING.MD](https://github.com/zero-to-mastery/mappypals/blob/master/CONTRIBUTING.md) file on Github"
+        }
+                
+    }
