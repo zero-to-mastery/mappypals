@@ -55,22 +55,11 @@ class Login extends Component {
                 const url = 'http://localhost:3001/users/register';
                 await ky.post(url, { json: this.state }).then(res => {
                     if (res.status === 200) {
-                        console.log(
-                            'Redirect user to home page, successful login'
-                        );
+                        this.props.history.push('/login');
                     }
                 });
             })();
         }
-
-        // Clear inputs.
-        this.setState({
-            name: '',
-            email: '',
-            number: '',
-            password: '',
-            confirmPassword: ''
-        });
     };
     displayPasswordMatchError = () =>
         this.setState({ passwordMatchError: true });
