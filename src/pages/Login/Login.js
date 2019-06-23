@@ -62,7 +62,6 @@ class Login extends Component {
     };
 
     render() {
-        // const { checkLoginState } = this.props;
         const { error, loading } = this.props;
 
         return (
