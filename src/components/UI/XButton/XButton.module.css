@@ -3,19 +3,18 @@
     border: none;
     background: none;
     cursor: pointer;
+    padding: 0;
 }
 
 .AddFriendForm {
     position: absolute;
     right: 16px;
-    padding: 0;
     font-size: 25px;
 }
 
 .InvitationSent {
     position: absolute;
     right: 16px;
-    padding: 0;
     top: 10px;
     font-size: 25px;
 }

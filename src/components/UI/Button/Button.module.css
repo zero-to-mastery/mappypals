@@ -2,7 +2,7 @@
     width: auto;
     background: linear-gradient(to bottom right, #e03bfb, #6831de);
     color: #ffffff;
-    border: 0;
+    border: none;
     border-radius: 10px;
     font-size: 1.2rem;
     font-weight: 600;
@@ -26,12 +26,11 @@
     height: 25px;
     margin: 0.4em auto;
     padding: 0.25em 1em;
-    border-radius: 7px;
 }
 
 .YouSendAnInvite {
-    padding: 0;
-    font-size: 25px;
+    text-transform: uppercase;
+    padding: 0.4rem 2.4rem;
     margin-bottom: 10px;
     margin-right: 10px;
 }
