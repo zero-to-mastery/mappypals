@@ -1,20 +1,5 @@
 import styled from 'styled-components';
-/*Removed button
-  button,
-  input[type='submit'] {
-    width: auto;
-    background: linear-gradient(to bottom right, #E03BFB, #6831DE);;
-    color: white;
-    border: 0;
-    border-radius: 10px;
-    font-size: 1.2rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    white-space: nowrap;
-    padding: 0.4rem 2.4rem;
-    cursor: pointer;
-  }
-*/
+
 const Form = styled.form`
   box-shadow: 5px 10px 18px rgba(0, 0, 0, 0.05);
   border-radius: 30px;

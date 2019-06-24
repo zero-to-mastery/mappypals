@@ -28,20 +28,6 @@
     grid-template-columns: 1fr 1fr;
 }
 
-.button {
-    width: auto;
-    background: linear-gradient(to bottom right, #e03bfb, #6831de);
-    color: white;
-    border: 0;
-    border-radius: 10px;
-    font-size: 1.2rem;
-    white-space: nowrap;
-    padding: 10px 10px;
-    cursor: pointer;
-}
-.u_mr {
-    margin-left: 20px;
-}
 /* Inputs copied from form.js */
 .input {
     box-sizing: border-box;

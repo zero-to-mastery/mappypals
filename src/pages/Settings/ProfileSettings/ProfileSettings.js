@@ -3,6 +3,7 @@ import classes from './ProfileSettings.module.css';
 import defaultProfilePicture from '../../../pics/default-profile-pic.jpg';
 import DisplayInterestsImport from './displayInterests/displayInterests';
 import SettingsNavbar from '../SettingsNavbar/SettingsNavbar';
+import Button from '../../../components/UI/Button/Button';
 
 class ProfileSettings extends Component {
     state = {
@@ -212,14 +213,12 @@ class ProfileSettings extends Component {
                                 className={classes.input}
                                 onChange={this.handleChange}
                             />
-                            <button
+                            <Button
+                                btnType="ProfileSettingsInterests"
                                 onClick={this.addInterest}
-                                className={[classes.button, classes.u_mr].join(
-                                    ' '
-                                )}
                             >
                                 Add
-                            </button>
+                            </Button>
                             {dublicateError}
                             {emptyInterest}
                             <div className={classes.displayInterests}>
@@ -239,9 +238,12 @@ class ProfileSettings extends Component {
                             </div>
                         </div>
                         <div className={classes.submitContainer}>
-                            <button type="submit" className={classes.button}>
+                            <Button
+                                btnType="ProfileSettingsInterests"
+                                type="submit"
+                            >
                                 Save Changes
-                            </button>
+                            </Button>
                         </div>
                     </div>
                 </form>

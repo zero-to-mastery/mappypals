@@ -48,6 +48,11 @@
     font-size: 1rem;
 }
 
+.ProfileSettingsInterests {
+    padding: 10px 10px;
+    margin-left: 20px;
+}
+
 @media all and (min-width: 630px) {
     .ButtonReset {
         font-size: 25px;
