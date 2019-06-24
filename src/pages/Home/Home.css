@@ -45,18 +45,6 @@ section {
     margin-top: auto;
 }
 
-.signup {
-    padding: 10px 30px;
-    border: transparent;
-    border-radius: 10px;
-    background-image: linear-gradient(to right, #a731a5, #550554);
-    text-transform: uppercase;
-    font-size: 1.2em;
-    font-weight: bold;
-    color: white;
-    transition: transform 0.2s ease-out, color 0.2s linear;
-}
-
 .local-icon {
     display: inline-flex;
     justify-content: flex-start;
@@ -225,6 +213,6 @@ section canvas {
         margin-bottom: 6em;
     }
     .icon {
-        height: 50px
+        height: 50px;
     }
 }

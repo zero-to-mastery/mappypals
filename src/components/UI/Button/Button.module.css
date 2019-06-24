@@ -34,3 +34,11 @@
     margin-bottom: 10px;
     margin-right: 10px;
 }
+.GetStarted {
+    padding: 10px 30px;
+    border-radius: 10px;
+    background-image: linear-gradient(to right, #a731a5, #550554);
+    text-transform: uppercase;
+    font-size: 1.2em;
+    font-weight: bold;
+}
