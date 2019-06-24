@@ -13,19 +13,17 @@ const InvitationSent = ({ InvitationForm, hideInvitationForm }) => {
     return (
         <div style={{ display: InvitationForm ? 'block' : 'none' }}>
             <Form className="main">
-                <XButton btnType="AddFriendForm" onClick={hideForm}>
+                <XButton btnType="InvitationSent" onClick={hideForm}>
                     X
                 </XButton>
                 <h5 className="titleInvite">Great! You've send an invite</h5>
                 <div className="btnContainer">
-                    <Button
-                        btnType="YouSendAnInvite"
-                        className="u-mr u-mb"
-                        onClick={hideForm}
-                    >
+                    <Button btnType="YouSendAnInvite" onClick={hideForm}>
                         GO BACK
                     </Button>
-                    <Button onClick={hideForm}>SEND MORE</Button>
+                    <Button btnType="YouSendAnInvite" onClick={hideForm}>
+                        SEND MORE
+                    </Button>
                 </div>
             </Form>
         </div>

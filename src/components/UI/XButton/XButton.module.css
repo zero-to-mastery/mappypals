@@ -12,14 +12,10 @@
     font-size: 25px;
 }
 
-.YouSendAnInvite {
+.InvitationSent {
     position: absolute;
-    top: 8px;
     right: 16px;
-    color: #595959;
-    background: none;
     padding: 0;
+    top: 10px;
     font-size: 25px;
-    margin-bottom: 10px;
-    margin-right: 10px;
 }
