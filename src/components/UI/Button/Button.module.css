@@ -10,7 +10,8 @@
     cursor: pointer;
 }
 
-.Button:hover {
+.Button:hover,
+.Button:focus {
     opacity: 0.8;
 }
 .Submit {
@@ -56,5 +57,21 @@
 @media all and (min-width: 630px) {
     .ButtonReset {
         font-size: 25px;
+    }
+}
+
+.SettingsEmailPassword {
+    padding: 10px 15px;
+    height: 30px;
+    line-height: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    box-shadow: 3px 6px 10px #1113;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .SettingsEmailPassword {
+        font-size: 1.35rem;
+        height: 45px;
     }
 }

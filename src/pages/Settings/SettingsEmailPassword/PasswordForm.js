@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Button from '../../../components/UI/Button/Button';
 
 class PasswordForm extends Component {
     state = {
@@ -94,15 +95,15 @@ class PasswordForm extends Component {
                     />
                 </div>
                 <div>
-                    <button
-                        className="btn btn--settings btn--purple"
+                    <Button
+                        btnType="SettingsEmailPassword"
                         id="changePasswordBtn"
                         type="submit"
                         disabled={newPassword.length < 1}
                         onClick={this.onClick}
                     >
                         Change Password
-                    </button>
+                    </Button>
                 </div>
             </form>
         );
