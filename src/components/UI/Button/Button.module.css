@@ -1,12 +1,11 @@
 .Button {
     width: auto;
     background: linear-gradient(to bottom right, #e03bfb, #6831de);
-    color: white;
+    color: #ffffff;
     border: 0;
     border-radius: 10px;
     font-size: 1.2rem;
     font-weight: 600;
-    text-transform: uppercase;
     white-space: nowrap;
     padding: 0.4rem 2.4rem;
     cursor: pointer;
@@ -17,21 +16,17 @@
 }
 .Submit {
     padding: 0.4rem 2.4rem;
+    text-transform: uppercase;
 }
 
-.PortfolioButton {
-    font-weight: 100;
-    margin: 0 5px;
-    text-decoration: none;
-    font-size: 10px;
-    padding: 0.5rem;
-    border-radius: 7.5px;
-    color: white;
-    background: rgb(224, 59, 251);
-    background: linear-gradient(
-        90deg,
-        rgba(224, 59, 251, 1) 0%,
-        rgba(104, 49, 222, 1) 100%
-    );
-    box-shadow: 0 3px 4px -2px grey;
+.FriendList {
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    width: 80%;
+    height: 25px;
+    margin: 0.4em auto;
+    border: none;
+    padding: 0.25em 1em;
+    border-radius: 7px;
 }
