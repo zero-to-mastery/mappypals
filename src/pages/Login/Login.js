@@ -8,6 +8,7 @@ import Form from './Form.js';
 import { getLocalData } from '../../utils/localStorage';
 import { authLogin } from '../../store/actions';
 import ErrorMessage from '../../components/ErrorMessages/ErrorMessages';
+import Button from '../../components/UI/Button/Button';
 
 class Login extends Component {
     constructor(props) {
@@ -91,7 +92,9 @@ class Login extends Component {
                         <Link to="/forgotpassword">I forgot my password</Link>
                     </div>
                     <div className="btnContainer">
-                        <button type="submit">Login</button>
+                        <Button btnType="Submit" type="submit">
+                            Login
+                        </Button>
                     </div>
                     {loading && <div className="u-text-center">Loading...</div>}
                     {error && (
