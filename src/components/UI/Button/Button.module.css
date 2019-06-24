@@ -16,4 +16,22 @@
     opacity: 0.8;
 }
 .Submit {
+    padding: 0.4rem 2.4rem;
+}
+
+.PortfolioButton {
+    font-weight: 100;
+    margin: 0 5px;
+    text-decoration: none;
+    font-size: 10px;
+    padding: 0.5rem;
+    border-radius: 7.5px;
+    color: white;
+    background: rgb(224, 59, 251);
+    background: linear-gradient(
+        90deg,
+        rgba(224, 59, 251, 1) 0%,
+        rgba(104, 49, 222, 1) 100%
+    );
+    box-shadow: 0 3px 4px -2px grey;
 }
