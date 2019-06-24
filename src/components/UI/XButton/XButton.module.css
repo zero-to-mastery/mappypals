@@ -1,0 +1,25 @@
+.XButton {
+    color: #595959;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.AddFriendForm {
+    position: absolute;
+    right: 16px;
+    padding: 0;
+    font-size: 25px;
+}
+
+.YouSendAnInvite {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    color: #595959;
+    background: none;
+    padding: 0;
+    font-size: 25px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}

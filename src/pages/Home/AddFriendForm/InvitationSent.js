@@ -1,6 +1,8 @@
 import React from 'react';
 import './InvitationSent.css';
 import Form from '../../Login/Form';
+import XButton from '../../../components/UI/XButton/XButton';
+import Button from '../../../components/UI/Button/Button';
 
 const InvitationSent = ({ InvitationForm, hideInvitationForm }) => {
     const hideForm = event => {
@@ -11,15 +13,19 @@ const InvitationSent = ({ InvitationForm, hideInvitationForm }) => {
     return (
         <div style={{ display: InvitationForm ? 'block' : 'none' }}>
             <Form className="main">
-                <button className="X-button" onClick={hideForm}>
+                <XButton btnType="AddFriendForm" onClick={hideForm}>
                     X
-                </button>
+                </XButton>
                 <h5 className="titleInvite">Great! You've send an invite</h5>
                 <div className="btnContainer">
-                    <button className="u-mr u-mb" onClick={hideForm}>
+                    <Button
+                        btnType="YouSendAnInvite"
+                        className="u-mr u-mb"
+                        onClick={hideForm}
+                    >
                         GO BACK
-                    </button>
-                    <button onClick={hideForm}>SEND MORE</button>
+                    </Button>
+                    <Button onClick={hideForm}>SEND MORE</Button>
                 </div>
             </Form>
         </div>

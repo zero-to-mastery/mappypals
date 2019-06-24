@@ -5,17 +5,20 @@
     transform: translate(-50%, -50%);
     background-color: white;
 }
+/*
 .u-mr {
     margin-right: 10px;
 }
 .u-mb {
     margin-bottom: 10px;
 }
+*/
 .titleInvite {
     font-weight: 300;
     font-size: 20px;
     color: #6831de;
 }
+/*
 .X-button {
     position: absolute;
     top: 8px;
@@ -25,3 +28,4 @@
     padding: 0 !important;
     font-size: 25px !important;
 }
+*/

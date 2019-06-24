@@ -3,6 +3,8 @@ import '../Home.css';
 import '../../Login/Login.css';
 import Form from '../../Login/Form';
 import './AddFriendForm.css';
+import Button from '../../../components/UI/Button/Button';
+import XButton from '../../../components/UI/XButton/XButton';
 
 class AddFriendForm extends React.Component {
     constructor(props) {
@@ -38,12 +40,12 @@ class AddFriendForm extends React.Component {
                 style={{ display: this.props.formDisplay ? 'block' : 'none' }}
             >
                 <Form onSubmit={this.handleSubmit}>
-                    <button
-                        className="X-buttonAddFriend"
+                    <XButton
+                        btnType="AddFriendForm"
                         onClick={this.props.InviteFormX}
                     >
                         X
-                    </button>
+                    </XButton>
                     <h5 className="AddFriendsTitle">
                         Add a friend by sending an invite
                     </h5>
@@ -82,12 +84,13 @@ class AddFriendForm extends React.Component {
                         />
                     </label>
                     <div className="btnContainer">
-                        <button
+                        <Button
+                            btnType="Submit"
                             type="submit"
                             onClick={this.props.removeDraggablePin}
                         >
                             Send Invite
-                        </button>
+                        </Button>
                     </div>
                 </Form>
             </div>
