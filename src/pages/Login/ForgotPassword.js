@@ -86,7 +86,7 @@ class ForgotPassword extends Component {
                         </label>
                     </div>
                     <div className="btnContainer">
-                        <Button btnType="ButtonReset" type="submit">
+                        <Button btnType="ForgotPassword" type="submit">
                             RESET PASSWORD
                         </Button>
                     </div>
