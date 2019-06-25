@@ -75,3 +75,33 @@
         height: 45px;
     }
 }
+
+.Navbar {
+    width: 100%;
+    max-width: 15rem;
+    margin: 10px 1.875rem;
+    background-image: linear-gradient(to right, #cf48ff, #6831de);
+    font-size: 1.5em;
+    line-height: 3.125rem;
+    transition: transform 0.3s ease-in;
+    box-shadow: 3px 6px 10px #1113;
+}
+
+.Navbar:hover {
+    /* Opacity 1 to overide default button opacity  */
+    opacity: 1;
+    transition: transform 0.3s ease-in;
+    transform: scale(1.05);
+}
+
+@media (max-width: 900px) {
+    .Navbar {
+        margin: 2px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .Navbar {
+        margin: 2px;
+    }
+}
