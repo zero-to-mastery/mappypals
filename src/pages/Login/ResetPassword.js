@@ -4,6 +4,7 @@ import Form from './Form';
 import ky from 'ky';
 import ErrorMessage from '../../components/ErrorMessages/ErrorMessages';
 import { IsPasswordValid, IsPasswordIdentical } from '../../components/helper';
+import Button from '../../components/UI/Button/Button';
 
 class ResetPassword extends Component {
     constructor(props) {
@@ -103,7 +104,9 @@ class ResetPassword extends Component {
                         />
                     </label>
                     <div className="btnContainer">
-                        <button type="submit">Reset Password</button>
+                        <Button btnType="Submit" type="submit">
+                            Reset Password
+                        </Button>
                     </div>
                 </Form>
             </div>

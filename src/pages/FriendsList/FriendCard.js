@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import './FriendsList.css';
+import Button from '../../components/UI/Button/Button';
 
 const Card = styled.div`
     background-color: white;
@@ -22,26 +23,6 @@ const Card = styled.div`
         margin: 1em auto;
     }
 `;
-
-const Button = styled.button`
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    background-image: linear-gradient(to bottom right, #cf48ff 30%, #6831de);
-    color: white;
-    width: 80%;
-    height: 25px;
-    margin: 0.4em auto;
-    border: none;
-    padding: 0.25em 1em;
-    border-radius: 7px;
-    &:hover {
-        cursor: pointer;
-        background-image: linear-gradient(to top left, #cf48ff 30%, #6831de);
-    }
-`;
-
 const FriendCard = ({ name }) => (
     <React.Fragment>
         <Card>
@@ -52,11 +33,12 @@ const FriendCard = ({ name }) => (
                 />
             </div>
             <h3 className="friendsText">{name}</h3>
-            <Button>
+
+            <Button btnType="FriendList">
                 <i className="far fa-user" />
                 <p className="friendsText">Profile</p>
             </Button>
-            <Button>
+            <Button btnType="FriendList">
                 <i className="far fa-comment-dots" />
                 <p className="friendsText">Message</p>
             </Button>

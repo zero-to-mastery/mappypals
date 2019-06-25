@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import './About.css';
-
+import ALink from '../../components/UI/LinkTag/LinkTag';
 const Card = styled.div`
     background-color: white;
     text-align: center;
@@ -38,22 +38,23 @@ const TeamCard = ({ id, name, role, location, portfolio, linkedin }) => (
                 <p className="dev-role">{role}</p>
             </div>
             <div className="user-links">
-                <a
-                    className="portfolio"
+                <ALink
+                    ALinkType="About"
                     href={portfolio}
                     target="_blank"
                     rel="noopener noreferrer"
                 >
                     Portfolio
-                </a>
-                <a
-                    className="portfolio"
+                </ALink>
+
+                <ALink
+                    ALinkType="About"
                     href={linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
                 >
                     LinkedIn
-                </a>
+                </ALink>
             </div>
         </Card>
     </React.Fragment>

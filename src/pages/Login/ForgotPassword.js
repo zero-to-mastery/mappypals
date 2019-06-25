@@ -3,6 +3,7 @@ import './Login.css';
 import Form from './Form';
 import './ForgotPassword.css';
 import axios from 'axios';
+import Button from '../../components/UI/Button/Button';
 
 class ForgotPassword extends Component {
     constructor(props) {
@@ -67,6 +68,8 @@ class ForgotPassword extends Component {
                     <p className="text-center text-medium message">
                         {this.state.message}{' '}
                     </p>
+                    {/* This message supposed to be deleted in Reset Password task
+                     https://trello.com/c/01lN84sF/163-reset-password-resetpasswordjs-forgotpasswordjs-waiting-for-separation-of-concerns */}
                     <a className="message" href={this.state.link}>
                         {this.state.link}
                     </a>
@@ -83,9 +86,9 @@ class ForgotPassword extends Component {
                         </label>
                     </div>
                     <div className="btnContainer">
-                        <button className="buttonReset" type="submit">
+                        <Button btnType="ForgotPassword" type="submit">
                             RESET PASSWORD
-                        </button>
+                        </Button>
                     </div>
                 </Form>
             </div>

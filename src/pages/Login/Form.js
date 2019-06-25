@@ -77,21 +77,8 @@ const Form = styled.form`
     grid-area: d;
     align-self: end;
   }
+  
 
-  button,
-  input[type='submit'] {
-    width: auto;
-    background: linear-gradient(to bottom right, #E03BFB, #6831DE);;
-    color: white;
-    border: 0;
-    border-radius: 10px;
-    font-size: 1.2rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    white-space: nowrap;
-    padding: 0.4rem 2.4rem;
-    cursor: pointer;
-  }
   a {
     color: #6831DE;
     font-weight: normal;

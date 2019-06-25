@@ -3,6 +3,7 @@ import './Home.css';
 import { Link } from 'react-router-dom';
 import localIcon from '../../pics/LogoInverted.svg';
 import Map from './Map';
+import Button from '../../components/UI/Button/Button';
 
 const Home = user => {
     return true ? (
@@ -25,7 +26,7 @@ const Home = user => {
             </div>
             <div className="signup-btn">
                 <Link to="/signup">
-                    <button className="signup"> Get Started </button>{' '}
+                    <Button btnType="GetStarted"> Get Started </Button>{' '}
                 </Link>
             </div>
         </section>

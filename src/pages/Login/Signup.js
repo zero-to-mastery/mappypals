@@ -5,6 +5,7 @@ import ErrorMessage from '../../components/ErrorMessages/ErrorMessages';
 import { IsPasswordValid, IsPasswordIdentical } from '../../components/helper';
 import './Login.css';
 import ky from 'ky';
+import Button from '../../components/UI/Button/Button';
 
 class Login extends Component {
     constructor(props) {
@@ -144,7 +145,9 @@ class Login extends Component {
                             />
                         </label>
                         <div className="btnContainer">
-                            <button type="submit">Create Account</button>
+                            <Button btnType="Submit" type="submit">
+                                Create Account
+                            </Button>
                         </div>
                     </fieldset>
                     <p className="u-text-center">Or connect with: </p>

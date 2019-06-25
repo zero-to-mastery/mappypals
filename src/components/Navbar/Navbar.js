@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
+import Button from '../UI/Button/Button';
 import { ReactComponent as AboutUs } from '../../pics/AboutUs.svg';
 import { ReactComponent as Logo } from '../../pics/Logo.svg';
 import { ReactComponent as Team } from '../../pics/Team.svg';
@@ -199,8 +200,8 @@ class Navbar extends Component {
                         <div className="item-wrapper no-hover scale">
                             <Link to="/logout">
                                 {' '}
-                                <p
-                                    className="main-btn shadow"
+                                <Button
+                                    btnType="Navbar"
                                     onClick={() => {
                                         onLogin();
                                         this.showNav();
@@ -208,7 +209,7 @@ class Navbar extends Component {
                                 >
                                     {' '}
                                     LOGOUT{' '}
-                                </p>{' '}
+                                </Button>{' '}
                             </Link>
                         </div>
                     </div>
@@ -243,8 +244,8 @@ class Navbar extends Component {
                             <React.Fragment>
                                 <Link to="/login">
                                     {' '}
-                                    <p
-                                        className="main-btn shadow"
+                                    <Button
+                                        btnType="Navbar"
                                         onClick={() => {
                                             onLogin();
                                             this.showNav();
@@ -252,19 +253,19 @@ class Navbar extends Component {
                                     >
                                         {' '}
                                         LOGIN{' '}
-                                    </p>{' '}
+                                    </Button>{' '}
                                 </Link>
                                 <Link to="/signup">
                                     {' '}
-                                    <p
-                                        className="main-btn shadow"
+                                    <Button
+                                        btnType="Navbar"
                                         onClick={() => {
                                             this.showNav();
                                         }}
                                     >
                                         {' '}
                                         SIGN UP{' '}
-                                    </p>{' '}
+                                    </Button>{' '}
                                 </Link>
                             </React.Fragment>
                         </div>

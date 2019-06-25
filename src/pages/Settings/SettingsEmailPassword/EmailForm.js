@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './SettingsEmailPassword.css';
-
+import Button from '../../../components/UI/Button/Button';
 class EmailForm extends Component {
     state = {
         // if user sees current email in input box then
@@ -58,12 +58,9 @@ class EmailForm extends Component {
                     />
                 </div>
                 <div>
-                    <button
-                        type="submit"
-                        className="btn btn--settings btn--purple"
-                    >
+                    <Button btnType="SettingsEmailPassword" type="submit">
                         Change Email
-                    </button>
+                    </Button>
                 </div>
             </form>
         );
