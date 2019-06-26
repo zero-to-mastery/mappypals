@@ -19,10 +19,11 @@ import FriendsList from '../pages/FriendsList/FriendsList';
 const Main = () => (
     <main>
         <Switch>
-            {/* Used Render instead of component 
+            {/* https://stackoverflow.com/questions/53007905/react-router-with-react-16-6-suspense-invalid-prop-component-of-type-object/53019873 
+            Used Render instead of component 
             to counter warning if redux connect used on file.  */}
             <Route exact path="/" component={Home} />
-            <Route path="/login" render={() => <Login />} />
+            <Route path="/login" render={props => <Login {...props} />} />
             <Route path="/signup" component={Signup} />
             <Route path="/about" component={About} />
             <Route path="/contact" component={Contact} />
