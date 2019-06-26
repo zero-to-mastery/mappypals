@@ -1,0 +1,46 @@
+div.friend-photo {
+    width: 80px;
+    height: 80px;
+    margin: 1em auto;
+}
+div.friend-photo img {
+    max-height: 100%;
+    border-radius: 50%;
+    background: #cccccc;
+}
+
+.friendsText {
+    font-family: 'Noto Sans', sans-serif;
+    font-weight: lighter;
+}
+
+h1.friendsText {
+    color: #6831de;
+}
+
+h3.friendsText {
+    font-size: 1em;
+    height: 15%;
+}
+
+p.friendsText {
+    color: #fbfbfbd9;
+    text-align: center;
+    font-size: 0.9em;
+    margin: 0 auto;
+}
+
+div.friends-search {
+    width: 350px;
+    height: 80px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.friends-search img {
+    width: 60px;
+    height: auto;
+    z-index: 10;
+}

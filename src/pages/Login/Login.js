@@ -1,140 +1,146 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 import './Login.css';
 import Form from './Form.js';
-import ky from 'ky';
+import { getLocalData } from '../../utils/localStorage';
+import { authLogin } from '../../store/actions';
+import ErrorMessage from '../../components/ErrorMessages/ErrorMessages';
+import Button from '../../components/UI/Button/Button';
 
 class Login extends Component {
-	constructor(props) {
-		super(props);
-		
-		this.state = {
-	    	email: "",
-			password: "",
-			message: "",
-			redirect: false
-	    };
-	}
+    constructor(props) {
+        super(props);
+        window.FB.init({
+            appId: '298824577401793',
+            cookie: true,
+            xfbml: true,
+            version: 'v3.2'
+        });
 
-	confirmAccount() {
-		(async () => {
-			const token = window.location.pathname;
-			const length = (token.match(new RegExp("/", "g")).length);
+        this.state = {
+            email: '',
+            password: ''
+        };
+    }
 
-			if(length > 1) {
-				const url = `http://localhost:3001/users${token}`;
-				await ky.post(
-					url,
-					{ json: this.state }
+    componentDidMount() {
+        this.confirmAccount();
+    }
 
-				)
-					.then(res => {
-						if (res.status === 200) {
-							this.setState({
-								redirect: res.redirect
-							})
-							console.log("Account successfully confirmed");
-						}
-					})
-			}
-			else{
-				console.log("Welcome back")
-			}
-			
-		})();
-		
-	}
+    componentDidUpdate() {
+        this.confirmAccount();
+    }
 
-	validateForm() {
-		return this.state.email.length > 0 && this.state.password.length > 0;
-	}
+    confirmAccount() {
+        const localData = getLocalData();
 
-	handleChange = event => {
-		this.setState({
-			[event.target.name]: event.target.value
-		});
-	}
+        // redirect user to homepage if he's already logged in
+        if ((localData.token && localData.userId) || this.props.redirect) {
+            return this.props.history.push('/');
+        }
+    }
 
-	// Submited values
-	handleSubmit = event => {
-		event.preventDefault();	
+    handleChange = event => {
+        this.setState({
+            [event.target.name]: event.target.value
+        });
+    };
 
-		(async () => {
-			const url = 'http://localhost:3001/users/login'
+    // Submited values
+    handleSubmit = event => {
+        event.preventDefault();
 
-			await ky.post(
-				url,
-				{ json: this.state }
+        const { email, password } = this.state;
 
-			)
-				.then(res => {
-					if (res.status === 200) {
-						this.setState({
-							redirect: res.redirect
-						})
-						console.log("Redirect user to home page, successfull login");
-					}
-				})
-		})();
-	
-		// Clear inputs.
-		this.setState({email: ''});
-		this.setState({password: ''});
-		
-	}
+        this.props.authLogin(email, password);
 
-	render() {
-		const { checkLoginState } = this.props;
-		return (
-			<div className="Login">
-				<Form onSubmit={this.handleSubmit}>
-					<label htmlFor="email">
-					  Email
-						<input
-						type="email"
-						name="email"
-						placeholder=""
-						onChange={this.handleChange}
-						/>
-					</label>
-					<label htmlFor="password">
-					  Password
-						<input
-						type="password"
-						name="password"
-						placeholder=""
-						onChange={this.handleChange}
-						/>
-					</label>
-					<div className="forgot-password">
-						<Link to = '/forgotpassword'>I forgot my password</Link>
-					</div>
-					<div className="btnContainer">
-					    <button type="submit" disabled={!this.validateForm()}>Login</button>
-				  </div>
-					<p className = 'u-text-center'>No account? 
-						<Link className="nav-item" to='/signup'> SignUp</Link>
-						&ensp;Or connect via:
-					</p>
-					<div className="btnContainer">
-							<div className="fb-login-button" 
-								data-size="large" 
-								data-button-type="login_with" 
-								data-auto-logout-link="false" 
-								data-use-continue-as="false"
-								onClick={checkLoginState}
-								>
-							</div>
-					</div>
-				</Form>
-			</div>
-		);
-	}
+        // Clear inputs.
+        this.setState({ email: '' });
+        this.setState({ password: '' });
+    };
 
-	componentDidMount() {
-		this.confirmAccount();
-	}
+    render() {
+        const { error, loading } = this.props;
 
+        return (
+            <div className="Login">
+                <Form onSubmit={this.handleSubmit}>
+                    <label htmlFor="email">
+                        Email
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder=""
+                            onChange={this.handleChange}
+                            required
+                        />
+                    </label>
+                    <label htmlFor="password">
+                        Password
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder=""
+                            onChange={this.handleChange}
+                            required
+                        />
+                    </label>
+                    <div className="forgot-password">
+                        <Link to="/forgotpassword">I forgot my password</Link>
+                    </div>
+                    <div className="btnContainer">
+                        <Button btnType="Submit" type="submit">
+                            Login
+                        </Button>
+                    </div>
+                    {loading && <div className="u-text-center">Loading...</div>}
+                    {error && (
+                        <div className="u-text-center">
+                            <ErrorMessage content={error} />
+                        </div>
+                    )}
+                    <p className="u-text-center">
+                        No account?
+                        <Link className="nav-item" to="/signup">
+                            {' '}
+                            SignUp
+                        </Link>
+                        &ensp;Or connect via:
+                    </p>
+                    <div className="btnContainer">
+                        <label
+                            htmlFor="fb-login-button"
+                            aria-label="Login with Facebook"
+                        >
+                            <div
+                                className="fb-login-button"
+                                data-size="large"
+                                data-button-type="login_with"
+                                data-auto-logout-link="false"
+                                data-use-continue-as="false"
+                                onClick={() => ({})}
+                            />
+                        </label>
+                    </div>
+                </Form>
+            </div>
+        );
+    }
+}
+
+const mapStateToProps = state => {
+    const { loading, error, redirect } = state.auth;
+
+    return { loading, error, redirect };
 };
 
-export default Login;
+const mapDispatchToProps = dispatch =>
+    bindActionCreators({ authLogin }, dispatch);
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Login);

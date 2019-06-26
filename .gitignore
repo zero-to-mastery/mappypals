@@ -5,6 +5,7 @@
 /server/node_modules
 /.pnp
 .pnp.js
+.vscode/
 
 # For front end
 /server

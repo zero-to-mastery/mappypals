@@ -1,10 +1,33 @@
-div.user-photo {
-        width: 150px;
-        height: 150px;
-        margin: 1em auto;
-      }
-      div.user-photo img{
-        max-height: 100%;
-        border-radius: 50%;
-        background:#fff;
-      }
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans:400,700&display=swap');
+body {
+    font-family: 'Noto Sans', sans-serif;
+}
+.aboutpage {
+    display: flex;
+    justify-content: center;
+    padding: 3em 0;
+}
+div.user-photo img {
+    max-height: 100%;
+    border-radius: 50%;
+    background: lightgray;
+}
+.dev-name {
+    color: #6831de;
+    font-weight: bold;
+}
+.dev-role {
+    line-height: 1.5%;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 0.8rem;
+}
+.dev-info {
+    margin-bottom: 3rem;
+}
+.user-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 0 5px;
+}
