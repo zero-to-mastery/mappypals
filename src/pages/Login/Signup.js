@@ -55,8 +55,8 @@ class Signup extends Component {
             (async () => {
                 const url = 'http://localhost:3001/users/register';
                 await ky.post(url, { json: this.state }).then(res => {
+                    console.log(res);
                     if (res.status === 200) {
-                        console.log(res);
                         this.props.history.push('/login');
                     }
                 });

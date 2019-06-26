@@ -19,8 +19,10 @@ import FriendsList from '../pages/FriendsList/FriendsList';
 const Main = () => (
     <main>
         <Switch>
+            {/* Used Render instead of component 
+            to counter warning if redux connect used on file.  */}
             <Route exact path="/" component={Home} />
-            <Route path="/login" component={Login} />
+            <Route path="/login" render={() => <Login />} />
             <Route path="/signup" component={Signup} />
             <Route path="/about" component={About} />
             <Route path="/contact" component={Contact} />
