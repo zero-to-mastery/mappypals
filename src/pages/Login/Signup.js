@@ -7,7 +7,7 @@ import './Login.css';
 import ky from 'ky';
 import Button from '../../components/UI/Button/Button';
 
-class Login extends Component {
+class Signup extends Component {
     constructor(props) {
         super(props);
         window.FB.init({
@@ -56,6 +56,7 @@ class Login extends Component {
                 const url = 'http://localhost:3001/users/register';
                 await ky.post(url, { json: this.state }).then(res => {
                     if (res.status === 200) {
+                        console.log(res);
                         this.props.history.push('/login');
                     }
                 });
@@ -180,4 +181,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default Signup;
