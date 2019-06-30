@@ -33,7 +33,8 @@ class Map extends Component {
             // All stored pins
             inviteFriendData: [],
             DisplayDraggablePin: true,
-            showPopup: true,
+            // Popup visibility
+            showPopup: false,
 
             viewport: {
                 latitude: 37.7577,
@@ -47,6 +48,8 @@ class Map extends Component {
             },
             searchResultLayer: null
         };
+        // Create Unique id.
+        this.keyCount = 0;
     }
     /* for the search process - GeoCoder */
     mapRef = React.createRef();
@@ -76,6 +79,10 @@ class Map extends Component {
             });
         });
     }
+    // Create Unique id.
+    getKey = () => {
+        return this.keyCount++;
+    };
     newPin = event => {
         // Allow to pin on the map only when invitation is hidden
         if (!this.state.InvitationForm) {
@@ -166,6 +173,9 @@ class Map extends Component {
     DisplayDraggablePin = () => this.setState({ DisplayDraggablePin: true });
     removeDraggablePin = () => this.setState({ DisplayDraggablePin: false });
 
+    // Display popup
+    showPopup = () => this.setState({ showPopup: true });
+    hidePopup = () => this.setState({ showPopup: false });
     /* Search functions BEGIN */
     handleViewportChange = viewport => {
         this.setState({
@@ -236,33 +246,36 @@ class Map extends Component {
                     height={'100%'}
                     id="map"
                 >
-                    {showPopup && (
-                        <Popup
-                            latitude={54.968794922720214}
-                            longitude={23.670133662546302}
-                            closeButton={true}
-                            closeOnClick={false}
-                            onClose={() => this.setState({ showPopup: false })}
-                            anchor="top"
-                        >
-                            <div>You are here</div>
-                        </Popup>
-                    )}
                     {this.state.inviteFriendData.map((data, index) => {
                         return (
-                            <Marker
-                                latitude={data.lat}
-                                longitude={data.long}
-                                key={index}
-                            >
-                                <i
-                                    id="new-pin"
-                                    className="fas fa-map-marker-alt"
-                                    onClick={() =>
-                                        this.displaySelectedPinData(data)
-                                    }
-                                />
-                            </Marker>
+                            <React.Fragment>
+                                <Marker
+                                    latitude={data.lat}
+                                    longitude={data.long}
+                                    key={'MarkerPermenant ' + this.getKey()}
+                                >
+                                    <i
+                                        id="new-pin"
+                                        className="fas fa-map-marker-alt"
+                                        onClick={() => this.showPopup()}
+                                    />
+                                </Marker>
+                                {showPopup && (
+                                    <Popup
+                                        key={'Popup ' + this.getKey()}
+                                        latitude={data.lat}
+                                        longitude={data.long}
+                                        closeButton={true}
+                                        closeOnClick={false}
+                                        onClose={() =>
+                                            this.setState({ showPopup: false })
+                                        }
+                                        anchor="top"
+                                    >
+                                        <div>You are here</div>
+                                    </Popup>
+                                )}
+                            </React.Fragment>
                         );
                     })}
 
