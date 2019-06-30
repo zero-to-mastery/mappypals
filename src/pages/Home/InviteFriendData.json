@@ -1,0 +1,23 @@
+[
+    {
+        "long": "23.75407607584573",
+        "lat": "54.98426232960101",
+        "firstName": "Peter",
+        "lastName": "Johnson",
+        "email": "PeterJohnson@mail.com"
+    },
+    {
+        "long": "50.75407607584573",
+        "lat": "80.98426232960101",
+        "firstName": "Mister",
+        "lastName": "Joe",
+        "email": "Joe@mail.com"
+    },
+    {
+        "long": "90.75407607584573",
+        "lat": "100.98426232960101",
+        "firstName": "Joe",
+        "lastName": "Bargins",
+        "email": "JoeBargins@mail.com"
+    }
+]
