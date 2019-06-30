@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MapGL, { Marker } from 'react-map-gl';
+import MapGL, { Marker, Popup } from 'react-map-gl';
 import AddFriendForm from './AddFriendForm/AddFriendForm';
 import InvitationSent from './AddFriendForm/InvitationSent';
 import './Home.css';
@@ -33,6 +33,7 @@ class Map extends Component {
             // All stored pins
             inviteFriendData: [],
             DisplayDraggablePin: true,
+            showPopup: true,
 
             viewport: {
                 latitude: 37.7577,
@@ -219,6 +220,8 @@ class Map extends Component {
                 />
             );
         }
+        // Allows to write showPopup instead of this.state.showPopup.
+        const { showPopup } = this.state;
 
         return (
             <div style={{ height: '100vh' }}>
@@ -233,6 +236,18 @@ class Map extends Component {
                     height={'100%'}
                     id="map"
                 >
+                    {showPopup && (
+                        <Popup
+                            latitude={54.968794922720214}
+                            longitude={23.670133662546302}
+                            closeButton={true}
+                            closeOnClick={false}
+                            onClose={() => this.setState({ showPopup: false })}
+                            anchor="top"
+                        >
+                            <div>You are here</div>
+                        </Popup>
+                    )}
                     {this.state.inviteFriendData.map((data, index) => {
                         return (
                             <Marker
