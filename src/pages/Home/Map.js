@@ -7,7 +7,9 @@ import './Home.css';
 import { GeoJsonLayer } from 'deck.gl';
 import Geocoder from 'react-map-gl-geocoder';
 import './mapbox-gl-geocoder.css';
+
 import FriendSearch from '../../components/FriendSearch';
+import PopupComponent from './Popup/Popup';
 
 const TOKEN =
     'pk.eyJ1Ijoic2Npb3J0aW5vbXJjIiwiYSI6ImNqc2RocmRzYTB2OGUzeWxuZDNmdDhrcDgifQ.txLXHEJPl4lYa8an6fcjuA';
@@ -34,7 +36,7 @@ class Map extends Component {
             inviteFriendData: [],
             DisplayDraggablePin: true,
             // Popup visibility
-            showPopup: false,
+            popupInfo: null,
 
             viewport: {
                 latitude: 37.7577,
@@ -162,7 +164,25 @@ class Map extends Component {
         this.hideFriendForm();
         this.removeDraggablePin();
     };
-
+    // Used documentation for this https://github.com/uber/react-map-gl/blob/5.0-release/examples/controls/src/app.js
+    // Live version https://uber.github.io/react-map-gl/#/Examples/markers-popups
+    _renderPopup = () => {
+        const { popupInfo } = this.state;
+        return (
+            popupInfo && (
+                <Popup
+                    tipSize={5}
+                    anchor="top"
+                    longitude={popupInfo.long}
+                    latitude={popupInfo.lat}
+                    closeOnClick={false}
+                    onClose={() => this.setState({ popupInfo: null })}
+                >
+                    <PopupComponent info={popupInfo} />
+                </Popup>
+            )
+        );
+    };
     showFriendForm = () => this.setState({ formDisplay: true });
     hideFriendForm = () => this.setState({ formDisplay: false });
     showInvitationForm = () => this.setState({ InvitationForm: true });
@@ -173,9 +193,6 @@ class Map extends Component {
     DisplayDraggablePin = () => this.setState({ DisplayDraggablePin: true });
     removeDraggablePin = () => this.setState({ DisplayDraggablePin: false });
 
-    // Display popup
-    showPopup = () => this.setState({ showPopup: true });
-    hidePopup = () => this.setState({ showPopup: false });
     /* Search functions BEGIN */
     handleViewportChange = viewport => {
         this.setState({
@@ -230,9 +247,6 @@ class Map extends Component {
                 />
             );
         }
-        // Allows to write showPopup instead of this.state.showPopup.
-        const { showPopup } = this.state;
-
         return (
             <div style={{ height: '100vh' }}>
                 <MapGL
@@ -246,6 +260,7 @@ class Map extends Component {
                     height={'100%'}
                     id="map"
                 >
+                    {this._renderPopup()}
                     {this.state.inviteFriendData.map((data, index) => {
                         return (
                             <React.Fragment>
@@ -257,24 +272,12 @@ class Map extends Component {
                                     <i
                                         id="new-pin"
                                         className="fas fa-map-marker-alt"
-                                        onClick={() => this.showPopup()}
+                                        // Popup info get's specific item data.
+                                        onClick={() =>
+                                            this.setState({ popupInfo: data })
+                                        }
                                     />
                                 </Marker>
-                                {showPopup && (
-                                    <Popup
-                                        key={'Popup ' + this.getKey()}
-                                        latitude={data.lat}
-                                        longitude={data.long}
-                                        closeButton={true}
-                                        closeOnClick={false}
-                                        onClose={() =>
-                                            this.setState({ showPopup: false })
-                                        }
-                                        anchor="top"
-                                    >
-                                        <div>You are here</div>
-                                    </Popup>
-                                )}
                             </React.Fragment>
                         );
                     })}
