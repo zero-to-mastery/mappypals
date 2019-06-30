@@ -2,3 +2,34 @@
     /* background-color: red; */
     color: #000000;
 }
+.img {
+    background-size: cover;
+    border-radius: 50% 50% 50% 50%;
+    width: 50px;
+}
+.fullName {
+    color: #6831de;
+}
+.container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.button {
+    width: 100%;
+    background-color: #ffffff;
+    border: 2px solid #6831de;
+    color: #6831de;
+    border-radius: 10px;
+    padding: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+.button:hover {
+    opacity: 0.8;
+}
+
+.description {
+    color: #000000;
+}

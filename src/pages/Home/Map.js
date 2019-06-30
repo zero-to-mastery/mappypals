@@ -173,8 +173,8 @@ class Map extends Component {
                 <Popup
                     tipSize={5}
                     anchor="top"
-                    longitude={popupInfo.long}
-                    latitude={popupInfo.lat}
+                    longitude={popupInfo.long + 0.05}
+                    latitude={popupInfo.lat + 0.05}
                     closeOnClick={false}
                     onClose={() => this.setState({ popupInfo: null })}
                 >
