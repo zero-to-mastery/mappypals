@@ -87,7 +87,7 @@ class Map extends Component {
     };
     newPin = event => {
         // Allow to pin on the map only when invitation is hidden
-        if (!this.state.InvitationForm) {
+        if (!this.state.InvitationForm && this.state.popupInfo === null) {
             this.getLocation(event);
             this.getPostcode();
 
@@ -172,7 +172,6 @@ class Map extends Component {
             popupInfo && (
                 <Popup
                     tipSize={5}
-                    anchor="top"
                     longitude={popupInfo.long + 0.05}
                     latitude={popupInfo.lat + 0.05}
                     closeOnClick={false}
@@ -227,7 +226,11 @@ class Map extends Component {
     render() {
         // renders only when form is visible and invitation form is not showing.
         let displayForm = '';
-        if (this.state.formDisplay && !this.state.InvitationForm) {
+        if (
+            this.state.formDisplay &&
+            !this.state.InvitationForm &&
+            this.state.popupInfo === null
+        ) {
             displayForm = (
                 <AddFriendForm
                     onFriendLoaded={this.addFriendData}
