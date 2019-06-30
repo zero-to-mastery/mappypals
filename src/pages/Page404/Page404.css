@@ -4,7 +4,8 @@
     }
 
     .p404-container {
-        padding: 6rem;
+        margin: 7rem auto;
+        max-width: 400px;
         color: #6831de;
     }
 
@@ -19,7 +20,7 @@
     }
 
     .p404-text {
-        margin: 2rem;
+        margin: 2rem 0 2rem;
         font-weight: 400;
     }
 }
