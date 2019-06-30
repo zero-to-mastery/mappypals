@@ -1,0 +1,25 @@
+@media all and (min-width: 360px) {
+  .t-c {
+    text-align: center;
+  }
+  
+  .p404-container {
+    padding: 6rem;
+    color: #6831DE;
+  }
+  
+  .p404-header {
+    font-size: 2rem;
+    font-weight: 400;
+  }
+  
+  .p404-emoji {
+    width: 10rem;
+    height: 10rem;
+  }
+  
+  .p404-text {
+    margin: 2rem;
+    font-weight: 400;
+  }
+}
