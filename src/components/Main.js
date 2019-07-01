@@ -10,6 +10,7 @@ import ResetPassword from '../pages/Login/ResetPassword';
 import ProfileSettings from '../pages/Settings/ProfileSettings/ProfileSettings';
 import SettingsEmailPassword from '../pages/Settings/SettingsEmailPassword/SettingsEmailPassword';
 import FriendsList from '../pages/FriendsList/FriendsList';
+import Page404 from '../pages/Page404/Page404';
 
 // The Main component renders one of the three provided
 // Routes (provided that one matches). Both the /roster
@@ -19,14 +20,17 @@ import FriendsList from '../pages/FriendsList/FriendsList';
 const Main = () => (
     <main>
         <Switch>
+            {/* https://stackoverflow.com/questions/53007905/react-router-with-react-16-6-suspense-invalid-prop-component-of-type-object/53019873 
+            Used Render instead of component 
+            to counter warning if redux connect used on file.  */}
             <Route exact path="/" component={Home} />
-            <Route path="/login" component={Login} />
+            <Route path="/login" render={props => <Login {...props} />} />
             <Route path="/signup" component={Signup} />
             <Route path="/about" component={About} />
             <Route path="/contact" component={Contact} />
             <Route path="/forgotpassword" component={ForgotPassword} />
             <Route path="/friendslist" component={FriendsList} />
-            <Route path="/resetpassword" component={ResetPassword} />
+            <Route path="/resetpassword" component={ResetPassword} /> *
             <Route
                 path="/settings/profilesettings"
                 component={ProfileSettings}
@@ -35,6 +39,7 @@ const Main = () => (
                 path="/settings/email_&_password"
                 component={SettingsEmailPassword}
             />
+            <Route component={Page404} />
         </Switch>
     </main>
 );
