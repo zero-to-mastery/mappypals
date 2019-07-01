@@ -276,14 +276,11 @@ class Map extends Component {
                                         }
                                         onMouseLeave={() => {
                                             // After mouse leave hide popup.
-                                            setTimeout(
-                                                function() {
-                                                    this.setState({
-                                                        popupInfo: null
-                                                    });
-                                                }.bind(this),
-                                                10000
-                                            );
+                                            setTimeout(() => {
+                                                this.setState({
+                                                    popupInfo: null
+                                                });
+                                            }, 10000);
                                         }}
                                         onClick={() =>
                                             this.setState({ popupInfo: data })
