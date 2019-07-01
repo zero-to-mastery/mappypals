@@ -271,6 +271,20 @@ class Map extends Component {
                                         id="new-pin"
                                         className="fas fa-map-marker-alt"
                                         // Popup info get's specific item data.
+                                        onMouseEnter={() =>
+                                            this.setState({ popupInfo: data })
+                                        }
+                                        onMouseLeave={() => {
+                                            // After mouse leave hide popup.
+                                            setTimeout(
+                                                function() {
+                                                    this.setState({
+                                                        popupInfo: null
+                                                    });
+                                                }.bind(this),
+                                                10000
+                                            );
+                                        }}
                                         onClick={() =>
                                             this.setState({ popupInfo: data })
                                         }
