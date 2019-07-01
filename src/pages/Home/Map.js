@@ -50,8 +50,6 @@ class Map extends Component {
             },
             searchResultLayer: null
         };
-        // Create Unique id.
-        this.keyCount = 0;
     }
     /* for the search process - GeoCoder */
     mapRef = React.createRef();
@@ -81,10 +79,7 @@ class Map extends Component {
             });
         });
     }
-    // Create Unique id.
-    getKey = () => {
-        return this.keyCount++;
-    };
+
     newPin = event => {
         // Allow to pin on the map only when invitation is hidden
         if (!this.state.InvitationForm && this.state.popupInfo === null) {
@@ -156,9 +151,6 @@ class Map extends Component {
                 this.state.newFriend
             ]
         });
-    displaySelectedPinData = data => {
-        console.log(data);
-    };
     // Hides invitation Form and draggable pin
     InviteFormX = () => {
         this.hideFriendForm();
@@ -273,7 +265,7 @@ class Map extends Component {
                                 <Marker
                                     latitude={data.lat}
                                     longitude={data.long}
-                                    key={'MarkerPermenant ' + this.getKey()}
+                                    key={index}
                                 >
                                     <i
                                         id="new-pin"
