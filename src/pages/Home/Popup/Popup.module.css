@@ -1,11 +1,7 @@
-.red {
-    /* background-color: red; */
-    color: #000000;
-}
 .img {
     background-size: cover;
     border-radius: 50% 50% 50% 50%;
-    width: 50px;
+    width: 75px;
 }
 .fullName {
     color: #6831de;
@@ -31,5 +27,7 @@
 }
 
 .description {
+    margin-top: 0;
+    margin-bottom: 0;
     color: #000000;
 }
