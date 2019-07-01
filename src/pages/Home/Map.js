@@ -171,7 +171,7 @@ class Map extends Component {
         return (
             popupInfo && (
                 <Popup
-                    tipSize={5}
+                    tipSize={1}
                     longitude={popupInfo.long}
                     latitude={popupInfo.lat}
                     // Changing latitude displays correctly in mockup. But becomes trouble dragging on the map.
