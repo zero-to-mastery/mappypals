@@ -238,3 +238,9 @@
         text-align: center;
     }
 }
+
+/* Popup adjustments */
+.mapboxgl-popup-close-button {
+    font-size: 1.875rem;
+    color: #6831de;
+}
