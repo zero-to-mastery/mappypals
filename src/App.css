@@ -1,8 +1,19 @@
-body, html{
-	padding: 0px;
-	margin: 0px;
+body,
+html {
+    padding: 0px;
+    margin: 0px;
 }
-#root{
-	position: absolute;
-	height: 100%
+#root {
+    display: grid;
+    grid-template-columns: auto 300px;
+    max-width: 100vw;
+    max-height: 100vh;
+    width: 100%;
+    height: 90vh;
+}
+
+@media screen and (max-width: 900px) {
+    #root {
+        display: inline-flex;
+    }
 }

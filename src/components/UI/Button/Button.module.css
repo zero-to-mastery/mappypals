@@ -1,0 +1,105 @@
+.Button {
+    width: auto;
+    background: linear-gradient(to bottom right, #e03bfb, #6831de);
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.Button:hover,
+.Button:focus {
+    opacity: 0.8;
+}
+.Submit {
+    padding: 0.4rem 2.4rem;
+    text-transform: uppercase;
+}
+
+.FriendList {
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    width: 80%;
+    height: 25px;
+    margin: 0.4em auto;
+    padding: 0.25em 1em;
+}
+
+.YouSendAnInvite {
+    padding: 0.4rem 2.4rem;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+.GetStarted {
+    padding: 10px 30px;
+    background-image: linear-gradient(to right, #a731a5, #550554);
+    text-transform: uppercase;
+}
+.ForgotPassword {
+    padding: 20px;
+    width: 100%;
+    font-size: 1rem;
+}
+
+.ProfileSettingsInterests {
+    padding: 10px 10px;
+    margin-left: 20px;
+}
+
+@media all and (min-width: 630px) {
+    .ForgotPassword {
+        font-size: 25px;
+    }
+}
+
+.SettingsEmailPassword {
+    padding: 10px 15px;
+    height: 30px;
+    line-height: 12px;
+    font-size: 1rem;
+}
+
+.Page404 {
+    padding: 0.5rem 3rem;
+    font-size: 1rem;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .SettingsEmailPassword {
+        font-size: 1.35rem;
+        height: 45px;
+    }
+}
+
+.Navbar {
+    width: 100%;
+    max-width: 15rem;
+    margin: 10px 1.875rem;
+    background-image: linear-gradient(to right, #cf48ff, #6831de);
+    font-size: 1.5em;
+    line-height: 3.125rem;
+    transition: transform 0.3s ease-in;
+}
+
+.Navbar:hover {
+    /* Opacity 1 to overide default button opacity  */
+    opacity: 1;
+    transition: transform 0.3s ease-in;
+    transform: scale(1.05);
+}
+
+@media (max-width: 900px) {
+    .Navbar {
+        margin: 2px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .Navbar {
+        margin: 2px;
+    }
+}

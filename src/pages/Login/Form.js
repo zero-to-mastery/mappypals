@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 
 const Form = styled.form`
@@ -6,7 +5,7 @@ const Form = styled.form`
   border-radius: 30px;
   font-family: 'Poppins', sans-serif;
   font-weight: 400;
-  @media (max-width: 360px) {
+  @media (max-width: 410px) {
     padding-top: 10px;
     padding-right: 25px;
     padding-bottom: 10px;
@@ -15,23 +14,26 @@ const Form = styled.form`
     line-height: 1.25;
   }
   @media (min-width: 411px) {
-    padding-top: 35px;
+    padding-top: 30px;
     padding-right: 70px;
-    padding-bottom: 35px;
+    padding-bottom: 30px;
     padding-left: 70px;
     font-size: 1.2rem;
     line-height: 1.75;
   }
+  fieldset {
+    border: #ffffff;
+    }
   label {
     display: block;
     margin-bottom: 2.3rem;
   }
   input,
-  textarea,
   select {
     width: 100%;
     box-sizing: border-box;
     padding: 0.5rem;
+    font-size: 1.2rem;
     border: none;
     border-bottom: 2px solid grey;
     &:hover {
@@ -75,21 +77,8 @@ const Form = styled.form`
     grid-area: d;
     align-self: end;
   }
+  
 
-  button,
-  input[type='submit'] {
-    width: auto;
-    background: linear-gradient(to bottom right, #E03BFB, #6831DE);;
-    color: white;
-    border: 0;
-    border-radius: 10px;
-    font-size: 1.2rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    white-space: nowrap;
-    padding: 0.4rem 2.4rem;
-    cursor: pointer;
-  }
   a {
     color: #6831DE;
     font-weight: normal;
@@ -129,10 +118,8 @@ const Form = styled.form`
   button:hover {
     opacity: 0.8;
   }
+
+
 `;
 
-const PasswordReqs = () => (
-  <div id="newPassword">At least 6 characters, a number or a symbol, at least 1 letter</div>
-);
-export default Form
-export {PasswordReqs}
+export default Form;

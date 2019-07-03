@@ -1,161 +1,184 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Form, { PasswordReqs } from './Form.js';
+import Form from './Form.js';
+import ErrorMessage from '../../components/ErrorMessages/ErrorMessages';
+import { IsPasswordValid, IsPasswordIdentical } from '../../components/helper';
 import './Login.css';
-import axios from 'axios'
+import ky from 'ky';
+import Button from '../../components/UI/Button/Button';
 
-class Login extends Component {
-	 constructor(props) {
-		super(props);
-		window.FB.init({
-			appId      : '298824577401793',
-			cookie     : true,
-			xfbml      : true,
-			version    : 'v3.2'
-		  });
+class Signup extends Component {
+    constructor(props) {
+        super(props);
+        window.FB.init({
+            appId: '298824577401793',
+            cookie: true,
+            xfbml: true,
+            version: 'v3.2'
+        });
 
-	    this.state = {
-			name:"",
-			lastname:"",
-			email: "",
-			number: "",
-			password: "",
-			confirmPassword:"",
-			isHidden: true,
-	    };
-	  }
-	  
-	toggleHidden () {
-		const {isHidden}=this.state;
-		this.setState({
-			isHidden: !isHidden
-		})
-	}	
+        this.state = {
+            name: '',
+            lastname: '',
+            email: '',
+            number: '',
+            password: '',
+            confirmPassword: '',
+            passwordMatchError: false,
+            passwordValidError: false
+        };
+    }
 
-  	verifiedEmail(){
-  		const {email}=this.state;
-  		if(!email.includes("@") )return false
-  		else if(!email.split("@")[1].includes(".")) return false
-  		return true
-  	}
-	validateForm() {
-		const {name, email, number, password, confirmPassword}= this.state;
-		if(name==="" || email==="" || number === ""|| password==="" || confirmPassword==="") return false
-		else if(password!==confirmPassword) return false
-		else if(!this.verifiedEmail) return false
-		return true;
-	}
+    handleChange = event => {
+        this.setState({
+            [event.target.name]: event.target.value
+        });
+    };
 
-	handleChange = event => {
-		this.setState({
-	  		[event.target.name]: event.target.value
-		});
-	}
+    handleSubmit = event => {
+        const { password, confirmPassword } = this.state;
+        event.preventDefault();
+        const isPasswordValidVar = IsPasswordValid(password);
+        const IsPasswordIdenticalVar = IsPasswordIdentical(
+            password,
+            confirmPassword
+        );
 
-	handleSubmit = event => {
-		event.preventDefault();
+        if (!IsPasswordIdenticalVar) {
+            this.displayPasswordMatchError();
+        } else if (!isPasswordValidVar) {
+            this.hidePasswordMatchError();
+            this.displayPasswordValidError();
+        } else {
+            this.hidePasswordMatchError();
+            this.hidePasswordValidError();
+            (async () => {
+                const url = 'http://localhost:3001/users/register';
+                await ky.post(url, { json: this.state }).then(res => {
+                    console.log(res);
+                    if (res.status === 200) {
+                        this.props.history.push('/login');
+                    }
+                });
+            })();
+        }
+    };
+    displayPasswordMatchError = () =>
+        this.setState({ passwordMatchError: true });
+    hidePasswordMatchError = () => this.setState({ passwordMatchError: false });
 
-		const url = 'http://localhost:3001/users/register'
-		axios({
-			url: url,
-			method: 'POST',
-			data: JSON.stringify(this.state),
-			headers: {
-				"Content-Type": "application/json"
-			}
-		})
-			.then(res => {
-				if (res.status === 200 || res.data.redirect) {
-					//Write redirect logic here
-					console.log("Redirect user to login");
-				}
-			})
-			.catch(err => {
-				console.error(err);
-				console.log('Error logging in please try again');
-			});
-		
-		console.log(JSON.stringify(this.state));
+    displayPasswordValidError = () =>
+        this.setState({ passwordValidError: true });
+    hidePasswordValidError = () => this.setState({ passwordValidError: false });
 
-		// Clear inputs.
-		this.setState({name: '', email: '', number: '' , password: '', confirmPassword: ''});
-	}
+    render() {
+        let passwordMatchError = '';
+        if (this.state.passwordMatchError) {
+            passwordMatchError = (
+                <ErrorMessage content="Password doesn't match" />
+            );
+        }
+        let PasswordValidError = '';
+        if (this.state.passwordValidError) {
+            PasswordValidError = (
+                <ErrorMessage content="At least 6 characters, a number or a symbol, at least 1 letter" />
+            );
+        }
 
-	render() {
-		const { checkLoginState } = this.props;
-		return (
-			<div className="Login">
-				<Form onSubmit={this.handleSubmit}>
-				  <div className="nameContainer">
-					<label className="item1" htmlFor="firstname">
-					Firstname
-						<input 
-							type="text" 
-							id="firstname"
-							className="item2"
-							name = "name"
-							onChange={this.handleChange} required 
-							/>
-					</label>
-					<label className="item3" htmlFor="lastname">
-					Lastname
-						<input 
-							type="text" 
-							id="lastname"
-							className="item4"
-							name = "lastname"
-							onChange={this.handleChange} required 
-							/>
-					</label>
-				  </div>
-					<label htmlFor="email">
-					Email
-						<input
-							type="email"
-							name="email"
-							onChange={this.handleChange} required 
-							/>
-					</label>
-					<label htmlFor="password">
-					Password
-						<input
-							type="password"
-							name="password"
-							/*onClick={this.toggleHidden.bind(this)}*/
-							onChange={this.handleChange} required
-							/*onBlur={this.toggleHidden.bind(this)}*/
-						/>
-					</label>
-					{!this.state.isHidden && <PasswordReqs />}
-					<label htmlFor="confirmPassword">
-					Please confirm password
-						<input 
-							type="password" 
-							name = "confirmPassword" 
-							onChange={this.handleChange} required 
-						/>
-					</label>
-					<div className="btnContainer">
-						<button type="submit">Create Account</button>
-					</div>
-					<p className = 'u-text-center'>Or connect with: </p>
-					<div className="btnContainer">
-						<div className="fb-login-button" display="inline-block"
-							data-size="large" 
-							data-button-type="login_with" 
-							data-auto-logout-link="false" 
-							data-use-continue-as="false"
-							onClick={checkLoginState}
-							>
-						</div>
-					</div>
-					<p className = 'u-text-center'>Already have an account? 
-						<Link className="nav-item" to='/login'> Login </Link>
-					</p>
-				</Form>
-			</div>
-		);
-	}
+        const { checkLoginState } = this.props;
+        return (
+            <div className="Login">
+                <Form onSubmit={this.handleSubmit}>
+                    <fieldset>
+                        <div className="nameContainer">
+                            <label className="item1" htmlFor="firstname">
+                                Firstname
+                                <input
+                                    type="text"
+                                    id="firstname"
+                                    className="item2"
+                                    name="name"
+                                    onChange={this.handleChange}
+                                    required
+                                />
+                            </label>
+                            <label className="item3" htmlFor="lastname">
+                                Lastname
+                                <input
+                                    type="text"
+                                    id="lastname"
+                                    className="item4"
+                                    name="lastname"
+                                    onChange={this.handleChange}
+                                    required
+                                />
+                            </label>
+                        </div>
+                        <label htmlFor="email">
+                            Email
+                            <input
+                                type="email"
+                                name="email"
+                                onChange={this.handleChange}
+                                required
+                            />
+                        </label>
+                        <label htmlFor="password">
+                            Password {PasswordValidError}
+                            <input
+                                type="password"
+                                name="password"
+                                aria-describedby="newPassword"
+                                value={this.state.password}
+                                onClick={this.toggleHidden}
+                                onChange={this.handleChange}
+                                required
+                            />
+                        </label>
+                        <label htmlFor="confirmPassword">
+                            Confirm password {passwordMatchError}
+                            <input
+                                type="password"
+                                name="confirmPassword"
+                                value={this.state.checkPassword}
+                                onChange={this.handleChange}
+                                required
+                            />
+                        </label>
+                        <div className="btnContainer">
+                            <Button btnType="Submit" type="submit">
+                                Create Account
+                            </Button>
+                        </div>
+                    </fieldset>
+                    <p className="u-text-center">Or connect with: </p>
+                    <div className="btnContainer">
+                        <label
+                            htmlFor="fb-login-button"
+                            aria-label="Login with Facebook"
+                        >
+                            <div
+                                className="fb-login-button"
+                                display="inline-block"
+                                data-size="large"
+                                data-button-type="login_with"
+                                data-auto-logout-link="false"
+                                data-use-continue-as="false"
+                                onClick={checkLoginState}
+                            />
+                        </label>
+                    </div>
+                    <p className="u-text-center">
+                        Already have an account?
+                        <Link className="nav-item" to="/login">
+                            {' '}
+                            Login{' '}
+                        </Link>
+                    </p>
+                </Form>
+            </div>
+        );
+    }
 }
 
-export default Login;
+export default Signup;
