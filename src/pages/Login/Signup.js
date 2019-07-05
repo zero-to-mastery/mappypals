@@ -7,7 +7,7 @@ import './Login.css';
 import ky from 'ky';
 import Button from '../../components/UI/Button/Button';
 
-class Login extends Component {
+class Signup extends Component {
     constructor(props) {
         super(props);
         window.FB.init({
@@ -68,7 +68,6 @@ class Login extends Component {
                 })();
             }    
     }
-
     displayPasswordMatchError = () =>
         this.setState({ passwordMatchError: true });
     hidePasswordMatchError = () => this.setState({ passwordMatchError: false });
@@ -217,4 +216,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default Signup;

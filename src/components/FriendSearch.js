@@ -46,7 +46,7 @@ class FriendSearch extends Component {
         const userinput = e.currentTarget.value;
         //reset array
         filteredFriends.length = 0;
-        
+
         // Filter our Friends that don't contain the user's input
         switch (filterType) {
             case 'country':
@@ -136,16 +136,19 @@ class FriendSearch extends Component {
             state: { activeFriend, filteredFriends, showFriends, userInput }
         } = this;
 
-        let FriendsListComponent='';
-        let className='friend-active'; 
-        let friend={};
-        let first='';
+        let FriendsListComponent = '';
+        let className = 'friend-active';
+        let friend = {};
+        let first = '';
         if (showFriends && userInput) {
             if (filteredFriends[0].length > 1) {
                 console.log(filteredFriends[0]);
                 FriendsListComponent = (
                     <ul className="friends">
-                        {Object.keys(filteredFriends[0]).map(function(key, index) {
+                        {Object.keys(filteredFriends[0]).map(function(
+                            key,
+                            index
+                        ) {
                             friend = filteredFriends[0][key];
                             first = friend.firstname;
                             // Flag the active Friend with a class
@@ -154,7 +157,7 @@ class FriendSearch extends Component {
                             } else {
                                 className = 'friend';
                             }
-                            return ( 
+                            return (
                                 <li
                                     className={className}
                                     key={friend.id}
@@ -162,7 +165,9 @@ class FriendSearch extends Component {
                                 >
                                     <img
                                         width="50"
-                                        src={`https://robohash.org/${friend.id}?size=50x50`}
+                                        src={`https://robohash.org/${
+                                            friend.id
+                                        }?size=50x50`}
                                         alt={
                                             first.substr(-1) === 's'
                                                 ? `${first}' photo`
@@ -232,9 +237,7 @@ class FriendSearch extends Component {
                                 onKeyDown={onKeyDown}
                                 value={userInput}
                             />
-                            <LineBlock>
-                            {FriendsListComponent}
-                            </LineBlock>
+                            <LineBlock>{FriendsListComponent}</LineBlock>
                         </DropDown>
                     </Fragment>
                 </SearchStyles>
