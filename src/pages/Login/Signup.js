@@ -65,6 +65,7 @@ class Login extends Component {
                             this.props.history.push('/login');
                         }
                     })
+                    .catch(err => alert('Server Error: Unable to register. Please try again.'))
                 })();
             }    
     }
