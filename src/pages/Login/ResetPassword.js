@@ -74,7 +74,7 @@ class ResetPassword extends Component {
         let passwordValidErrorVar = '';
         if (this.state.PasswordValidError) {
             passwordValidErrorVar = (
-                <ErrorMessage content="At least 6 characters, a number or a symbol, at least 1 letter" />
+                <ErrorMessage content="Your password must be at least 6 characters long, contain at least one number and have a mixture of uppercase and lowercase letters. " />
             );
         }
         return (
