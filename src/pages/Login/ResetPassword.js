@@ -5,6 +5,7 @@ import ky from 'ky';
 import ErrorMessage from '../../components/ErrorMessages/ErrorMessages';
 import { IsPasswordValid, IsPasswordIdentical } from '../../components/helper';
 import Button from '../../components/UI/Button/Button';
+import PasswordMessage from '../../components/ErrorMessages/PasswordMessage/PasswordMessage';
 
 class ResetPassword extends Component {
     constructor(props) {
@@ -53,8 +54,6 @@ class ResetPassword extends Component {
                 });
             })();
         }
-
-        this.setState({ password: '', confirmPassword: '' });
     };
     displayPasswordMatchError = () =>
         this.setState({ passwordMatchError: true });
@@ -74,7 +73,7 @@ class ResetPassword extends Component {
         let passwordValidErrorVar = '';
         if (this.state.PasswordValidError) {
             passwordValidErrorVar = (
-                <ErrorMessage content="Your password must be at least 6 characters long, contain at least one number and have a mixture of uppercase and lowercase letters. " />
+                <PasswordMessage password={this.state.password} />
             );
         }
         return (
@@ -82,7 +81,7 @@ class ResetPassword extends Component {
                 <Form onSubmit={this.handleSubmit}>
                     <p className="heavy">Reset your password</p>
                     <label htmlFor="password">
-                        Password {passwordValidErrorVar}
+                        Password
                         <input
                             type="password"
                             name="password"
@@ -108,6 +107,7 @@ class ResetPassword extends Component {
                             Reset Password
                         </Button>
                     </div>
+                    {passwordValidErrorVar}
                 </Form>
             </div>
         );
