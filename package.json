@@ -23,13 +23,6 @@
         "tachyons": "^4.11.1",
         "ky": "^0.10.0"
     },
-    "//": {
-        "server": "cd server && npm start",
-        "serverinstall": "cd server && npm install && npm audit fix",
-        "postinstall": "npm audit fix && npm run serverinstall",
-        "frontend": "react-scripts start",
-        "start": "concurrently \"npm run frontend\" \"npm run server\""
-    },
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",

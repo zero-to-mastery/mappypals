@@ -7,6 +7,10 @@ import Button from '../../components/UI/Button/Button';
 
 const Home = user => {
     return true ? (
+        <section>
+            <Map />
+        </section>
+    ) : (
         <section id="not-logged-in">
             <div className="local-icon">
                 <img
@@ -29,10 +33,6 @@ const Home = user => {
                     <Button btnType="GetStarted"> Get Started </Button>{' '}
                 </Link>
             </div>
-        </section>
-    ) : (
-        <section>
-            <Map />
         </section>
     );
 };

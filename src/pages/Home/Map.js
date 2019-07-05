@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MapGL, { Marker } from 'react-map-gl';
+import MapGL, { Marker, Popup } from 'react-map-gl';
 import AddFriendForm from './AddFriendForm/AddFriendForm';
 import InvitationSent from './AddFriendForm/InvitationSent';
 import './Home.css';
@@ -7,7 +7,9 @@ import './Home.css';
 import { GeoJsonLayer } from 'deck.gl';
 import Geocoder from 'react-map-gl-geocoder';
 import './mapbox-gl-geocoder.css';
+
 import FriendSearch from '../../components/FriendSearch';
+import PopupComponent from './Popup/Popup';
 
 const TOKEN =
     'pk.eyJ1Ijoic2Npb3J0aW5vbXJjIiwiYSI6ImNqc2RocmRzYTB2OGUzeWxuZDNmdDhrcDgifQ.txLXHEJPl4lYa8an6fcjuA';
@@ -33,6 +35,8 @@ class Map extends Component {
             // All stored pins
             inviteFriendData: [],
             DisplayDraggablePin: true,
+            // Popup visibility
+            popupInfo: null,
 
             viewport: {
                 latitude: 37.7577,
@@ -75,9 +79,10 @@ class Map extends Component {
             });
         });
     }
+
     newPin = event => {
         // Allow to pin on the map only when invitation is hidden
-        if (!this.state.InvitationForm) {
+        if (!this.state.InvitationForm && this.state.popupInfo === null) {
             this.getLocation(event);
             this.getPostcode();
 
@@ -146,15 +151,32 @@ class Map extends Component {
                 this.state.newFriend
             ]
         });
-    displaySelectedPinData = data => {
-        console.log(data);
-    };
     // Hides invitation Form and draggable pin
     InviteFormX = () => {
         this.hideFriendForm();
         this.removeDraggablePin();
     };
-
+    // Used documentation for this https://github.com/uber/react-map-gl/blob/5.0-release/examples/controls/src/app.js
+    // Live version https://uber.github.io/react-map-gl/#/Examples/markers-popups
+    _renderPopup = () => {
+        const { popupInfo } = this.state;
+        return (
+            popupInfo && (
+                <Popup
+                    tipSize={1}
+                    longitude={popupInfo.long}
+                    latitude={popupInfo.lat}
+                    // Changing latitude displays correctly in mockup. But becomes trouble dragging on the map.
+                    // longitude={popupInfo.long + 0.05}
+                    // latitude={popupInfo.lat + 0.05}
+                    closeOnClick={false}
+                    onClose={() => this.setState({ popupInfo: null })}
+                >
+                    <PopupComponent info={popupInfo} />
+                </Popup>
+            )
+        );
+    };
     showFriendForm = () => this.setState({ formDisplay: true });
     hideFriendForm = () => this.setState({ formDisplay: false });
     showInvitationForm = () => this.setState({ InvitationForm: true });
@@ -199,7 +221,11 @@ class Map extends Component {
     render() {
         // renders only when form is visible and invitation form is not showing.
         let displayForm = '';
-        if (this.state.formDisplay && !this.state.InvitationForm) {
+        if (
+            this.state.formDisplay &&
+            !this.state.InvitationForm &&
+            this.state.popupInfo === null
+        ) {
             displayForm = (
                 <AddFriendForm
                     onFriendLoaded={this.addFriendData}
@@ -219,7 +245,6 @@ class Map extends Component {
                 />
             );
         }
-
         return (
             <div style={{ height: '100vh' }}>
                 <MapGL
@@ -233,21 +258,36 @@ class Map extends Component {
                     height={'100%'}
                     id="map"
                 >
+                    {this._renderPopup()}
                     {this.state.inviteFriendData.map((data, index) => {
                         return (
-                            <Marker
-                                latitude={data.lat}
-                                longitude={data.long}
-                                key={index}
-                            >
-                                <i
-                                    id="new-pin"
-                                    className="fas fa-map-marker-alt"
-                                    onClick={() =>
-                                        this.displaySelectedPinData(data)
-                                    }
-                                />
-                            </Marker>
+                            <React.Fragment>
+                                <Marker
+                                    latitude={data.lat}
+                                    longitude={data.long}
+                                    key={index}
+                                >
+                                    <i
+                                        id="new-pin"
+                                        className="fas fa-map-marker-alt"
+                                        // Popup info get's specific item data.
+                                        onMouseEnter={() =>
+                                            this.setState({ popupInfo: data })
+                                        }
+                                        onMouseLeave={() => {
+                                            // After mouse leave hide popup.
+                                            setTimeout(() => {
+                                                this.setState({
+                                                    popupInfo: null
+                                                });
+                                            }, 10000);
+                                        }}
+                                        onClick={() =>
+                                            this.setState({ popupInfo: data })
+                                        }
+                                    />
+                                </Marker>
+                            </React.Fragment>
                         );
                     })}
 

@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import SearchIcon from '../pics/SearchIcon.svg';
 
-
 const LineBlock = styled.div`
     z-index: 999;
     display: flex;
