@@ -80,7 +80,7 @@ class Login extends Component {
     // check if email already exists
     // in the background, after user leaves the email input field
     checkEmail = () => {
-        fetch('http://localhost:3001/validate-email', {
+        fetch('http://localhost:3001/users/validate-email', {
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json'
@@ -115,13 +115,13 @@ class Login extends Component {
         let EmailValidError = '';
         if(this.state.emailAlreadyExists) {
             EmailValidError =  (
-                <ErrorMessage content="This email already exists" />
+                <ErrorMessage content="This email is already in use." />
             );
         }
 
         const { checkLoginState } = this.props;
         return (
-            <div className="Login">
+            <div className="Login" style={{minHeight: `87.8vh`}}>
                 <Form onSubmit={this.handleSubmit}>
                     <fieldset>
                         <div className="nameContainer">
@@ -160,7 +160,7 @@ class Login extends Component {
                             {EmailValidError}
                         </label>
                         <label htmlFor="password">
-                            Password {PasswordValidError}
+                            Password 
                             <input
                                 type="password"
                                 name="password"
@@ -170,9 +170,10 @@ class Login extends Component {
                                 onChange={this.handleChange}
                                 required
                             />
+                            {PasswordValidError}
                         </label>
                         <label htmlFor="confirmPassword">
-                            Confirm password {passwordMatchError}
+                            Confirm password 
                             <input
                                 type="password"
                                 name="confirmPassword"
@@ -180,6 +181,7 @@ class Login extends Component {
                                 onChange={this.handleChange}
                                 required
                             />
+                            {passwordMatchError}
                         </label>
                         <div className="btnContainer">
                             <Button btnType="Submit" type="submit">
