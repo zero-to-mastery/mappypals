@@ -26,7 +26,7 @@ class Signup extends Component {
             confirmPassword: '',
             passwordMatchError: false,
             passwordValidError: false,
-            emailAlreadyExists: false,
+            emailAlreadyExists: false
         };
     }
 
@@ -51,24 +51,28 @@ class Signup extends Component {
             this.hidePasswordMatchError();
             this.displayPasswordValidError();
         } else {
-                this.hidePasswordMatchError();
-                this.hidePasswordValidError();
-                (async () => {
-                    const url = 'http://localhost:3001/users/register';
-                    await ky.post(url, { json: this.state })
+            this.hidePasswordMatchError();
+            this.hidePasswordValidError();
+            (async () => {
+                const url = 'http://localhost:3001/users/register';
+                await ky
+                    .post(url, { json: this.state })
                     .then(res => {
                         if (res.status === 401) {
-                            // email already exists 
-                            this.setState({ emailAlreadyExists: true })
-                        }
-                        else {
+                            // email already exists
+                            this.setState({ emailAlreadyExists: true });
+                        } else {
                             this.props.history.push('/login');
                         }
                     })
-                    .catch(err => alert('Server Error: Unable to register. Please try again.'))
-                })();
-            }    
-    }
+                    .catch(err =>
+                        alert(
+                            'Server Error: Unable to register. Please try again.'
+                        )
+                    );
+            })();
+        }
+    };
     displayPasswordMatchError = () =>
         this.setState({ passwordMatchError: true });
     hidePasswordMatchError = () => this.setState({ passwordMatchError: false });
@@ -81,22 +85,21 @@ class Signup extends Component {
     // in the background, after user leaves the email input field
     checkEmail = () => {
         fetch('http://localhost:3001/users/validate-email', {
-                method: 'post',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ email: this.state.email })
-            })
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email: this.state.email })
+        })
             .then(res => {
-                if(res.status === 200) {
-                    return this.setState({ emailAlreadyExists: false })
-                }
-                else {
-                   return this.setState({ emailAlreadyExists: true })
+                if (res.status === 200) {
+                    return this.setState({ emailAlreadyExists: false });
+                } else {
+                    return this.setState({ emailAlreadyExists: true });
                 }
             })
-            .catch(err => console.log)
-    }
+            .catch(err => console.log);
+    };
 
     render() {
         let passwordMatchError = '';
@@ -113,15 +116,15 @@ class Signup extends Component {
         }
 
         let EmailValidError = '';
-        if(this.state.emailAlreadyExists) {
-            EmailValidError =  (
+        if (this.state.emailAlreadyExists) {
+            EmailValidError = (
                 <ErrorMessage content="This email is already in use." />
             );
         }
 
         const { checkLoginState } = this.props;
         return (
-            <div className="Login" style={{minHeight: `87.8vh`}}>
+            <div className="Login" style={{ minHeight: `87.8vh` }}>
                 <Form onSubmit={this.handleSubmit}>
                     <fieldset>
                         <div className="nameContainer">
@@ -160,7 +163,7 @@ class Signup extends Component {
                             {EmailValidError}
                         </label>
                         <label htmlFor="password">
-                            Password 
+                            Password
                             <input
                                 type="password"
                                 name="password"
@@ -173,7 +176,7 @@ class Signup extends Component {
                             {PasswordValidError}
                         </label>
                         <label htmlFor="confirmPassword">
-                            Confirm password 
+                            Confirm password
                             <input
                                 type="password"
                                 name="confirmPassword"
