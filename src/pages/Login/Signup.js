@@ -25,7 +25,8 @@ class Login extends Component {
             password: '',
             confirmPassword: '',
             passwordMatchError: false,
-            passwordValidError: false
+            passwordValidError: false,
+            emailAlreadyExists: false,
         };
     }
 
@@ -50,18 +51,24 @@ class Login extends Component {
             this.hidePasswordMatchError();
             this.displayPasswordValidError();
         } else {
-            this.hidePasswordMatchError();
-            this.hidePasswordValidError();
-            (async () => {
-                const url = 'http://localhost:3001/users/register';
-                await ky.post(url, { json: this.state }).then(res => {
-                    if (res.status === 200) {
-                        this.props.history.push('/login');
-                    }
-                });
-            })();
-        }
-    };
+                this.hidePasswordMatchError();
+                this.hidePasswordValidError();
+                (async () => {
+                    const url = 'http://localhost:3001/users/register';
+                    await ky.post(url, { json: this.state })
+                    .then(res => {
+                        if (res.status === 401) {
+                            // email already exists 
+                            this.setState({ emailAlreadyExists: true })
+                        }
+                        else {
+                            this.props.history.push('/login');
+                        }
+                    })
+                })();
+            }    
+    }
+
     displayPasswordMatchError = () =>
         this.setState({ passwordMatchError: true });
     hidePasswordMatchError = () => this.setState({ passwordMatchError: false });
@@ -69,6 +76,27 @@ class Login extends Component {
     displayPasswordValidError = () =>
         this.setState({ passwordValidError: true });
     hidePasswordValidError = () => this.setState({ passwordValidError: false });
+
+    // check if email already exists
+    // in the background, after user leaves the email input field
+    checkEmail = () => {
+        fetch('http://localhost:3001/validate-email', {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email: this.state.email })
+            })
+            .then(res => {
+                if(res.status === 200) {
+                    return this.setState({ emailAlreadyExists: false })
+                }
+                else {
+                   return this.setState({ emailAlreadyExists: true })
+                }
+            })
+            .catch(err => console.log)
+    }
 
     render() {
         let passwordMatchError = '';
@@ -81,6 +109,13 @@ class Login extends Component {
         if (this.state.passwordValidError) {
             PasswordValidError = (
                 <ErrorMessage content="At least 6 characters, a number or a symbol, at least 1 letter" />
+            );
+        }
+
+        let EmailValidError = '';
+        if(this.state.emailAlreadyExists) {
+            EmailValidError =  (
+                <ErrorMessage content="This email already exists" />
             );
         }
 
@@ -119,8 +154,10 @@ class Login extends Component {
                                 type="email"
                                 name="email"
                                 onChange={this.handleChange}
+                                onBlur={this.checkEmail}
                                 required
                             />
+                            {EmailValidError}
                         </label>
                         <label htmlFor="password">
                             Password {PasswordValidError}
