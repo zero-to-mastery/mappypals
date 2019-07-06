@@ -31,15 +31,7 @@ class ResetPassword extends Component {
             confirmPassword
         );
         let isPasswordValidVar = IsPasswordValid(password);
-
-        if (!IsPasswordIdenticalVar) {
-            this.displayPasswordMatchError();
-        } else if (!isPasswordValidVar) {
-            this.hidePasswordMatchError();
-            this.displayPasswordValidError();
-        } else {
-            this.hidePasswordMatchError();
-            this.hidePasswordValidError();
+        if (IsPasswordIdenticalVar && isPasswordValidVar) {
             (async () => {
                 const token = window.location.pathname;
                 const url = `http://localhost:3001/users${token}`;
@@ -53,9 +45,6 @@ class ResetPassword extends Component {
             })();
         }
     };
-    displayPasswordValidError = () =>
-        this.setState({ PasswordValidError: true });
-    hidePasswordValidError = () => this.setState({ PasswordValidError: false });
     validatePassword = () => this.setState({ PasswordValidError: true });
 
     render() {
