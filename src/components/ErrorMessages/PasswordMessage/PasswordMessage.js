@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import classes from './PasswordMessage.module.css';
-
 class PasswordMessage extends Component {
     constructor(props) {
         super(props);
@@ -30,8 +29,8 @@ class PasswordMessage extends Component {
             );
         }
     }
+    // Can't reuse helper.js validation here. So it become double logic.
     passwordValidation = (password, confirmPassword) => {
-        console.log('Password validation');
         // Validation: https://stackoverflow.com/questions/18367258/validation-for-password-is-at-least-6-characters
         if (password.length >= 6) {
             this.setState({ passwordLength: true });

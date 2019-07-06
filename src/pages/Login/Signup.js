@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Form from './Form.js';
-import ErrorMessage from '../../components/ErrorMessages/ErrorMessages';
 import { IsPasswordValid, IsPasswordIdentical } from '../../components/helper';
+import PasswordMessage from '../../components/ErrorMessages/PasswordMessage/PasswordMessage';
 import './Login.css';
 import ky from 'ky';
 import Button from '../../components/UI/Button/Button';
@@ -24,7 +24,6 @@ class Signup extends Component {
             number: '',
             password: '',
             confirmPassword: '',
-            passwordMatchError: false,
             passwordValidError: false
         };
     }
@@ -44,14 +43,7 @@ class Signup extends Component {
             confirmPassword
         );
 
-        if (!IsPasswordIdenticalVar) {
-            this.displayPasswordMatchError();
-        } else if (!isPasswordValidVar) {
-            this.hidePasswordMatchError();
-            this.displayPasswordValidError();
-        } else {
-            this.hidePasswordMatchError();
-            this.hidePasswordValidError();
+        if (IsPasswordIdenticalVar && isPasswordValidVar) {
             (async () => {
                 const url = 'http://localhost:3001/users/register';
                 await ky.post(url, { json: this.state }).then(res => {
@@ -63,25 +55,16 @@ class Signup extends Component {
             })();
         }
     };
-    displayPasswordMatchError = () =>
-        this.setState({ passwordMatchError: true });
-    hidePasswordMatchError = () => this.setState({ passwordMatchError: false });
-
-    displayPasswordValidError = () =>
-        this.setState({ passwordValidError: true });
-    hidePasswordValidError = () => this.setState({ passwordValidError: false });
+    validatePassword = () => this.setState({ passwordValidError: true });
 
     render() {
-        let passwordMatchError = '';
-        if (this.state.passwordMatchError) {
-            passwordMatchError = (
-                <ErrorMessage content="Password doesn't match" />
-            );
-        }
         let PasswordValidError = '';
         if (this.state.passwordValidError) {
             PasswordValidError = (
-                <ErrorMessage content="At least 6 characters, a number or a symbol, at least 1 letter" />
+                <PasswordMessage
+                    password={this.state.password}
+                    confirmPassword={this.state.confirmPassword}
+                />
             );
         }
 
@@ -124,27 +107,29 @@ class Signup extends Component {
                             />
                         </label>
                         <label htmlFor="password">
-                            Password {PasswordValidError}
+                            Password
                             <input
                                 type="password"
                                 name="password"
                                 aria-describedby="newPassword"
                                 value={this.state.password}
-                                onClick={this.toggleHidden}
+                                onBlur={this.validatePassword}
                                 onChange={this.handleChange}
                                 required
                             />
                         </label>
                         <label htmlFor="confirmPassword">
-                            Confirm password {passwordMatchError}
+                            Confirm password
                             <input
                                 type="password"
                                 name="confirmPassword"
                                 value={this.state.checkPassword}
+                                onBlur={this.validatePassword}
                                 onChange={this.handleChange}
                                 required
                             />
                         </label>
+                        {PasswordValidError}
                         <div className="btnContainer">
                             <Button btnType="Submit" type="submit">
                                 Create Account
