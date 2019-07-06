@@ -25,7 +25,7 @@ class Signup extends Component {
             password: '',
             confirmPassword: '',
             passwordMatchError: false,
-            passwordValidError: false
+            passwordValidError: false,
         };
     }
 
@@ -36,9 +36,9 @@ class Signup extends Component {
     };
 
     handleSubmit = event => {
-        const { password, confirmPassword } = this.state;
+        const { password, confirmPassword, msg } = this.state;
         event.preventDefault();
-        const isPasswordValidVar = IsPasswordValid(password);
+        const isPasswordValidVar = IsPasswordValid(password, msg);
         const IsPasswordIdenticalVar = IsPasswordIdentical(
             password,
             confirmPassword
@@ -81,8 +81,7 @@ class Signup extends Component {
         let PasswordValidError = '';
         if (this.state.passwordValidError) {
             PasswordValidError = (
-                <ErrorMessage content="At least 6 characters, a number or a symbol, at least 1 letter" />
-            );
+                <ErrorMessage content="Minumum 6 characters must include: capital, lowercase, number and symbol./>            );
         }
 
         const { checkLoginState } = this.props;
