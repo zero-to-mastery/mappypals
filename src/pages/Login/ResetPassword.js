@@ -7,6 +7,10 @@ import { IsPasswordValid, IsPasswordIdentical } from '../../components/helper';
 import Button from '../../components/UI/Button/Button';
 import PasswordMessage from '../../components/ErrorMessages/PasswordMessage/PasswordMessage';
 
+/*
+Check onBlur
+1) 
+*/
 class ResetPassword extends Component {
     constructor(props) {
         super(props);
@@ -22,6 +26,11 @@ class ResetPassword extends Component {
         this.setState({
             [event.target.name]: event.target.value
         });
+    };
+    validatePassword = () => {
+        console.log('validate password');
+
+        this.setState({ PasswordValidError: true });
     };
 
     handleSubmit = event => {
@@ -87,7 +96,7 @@ class ResetPassword extends Component {
                             name="password"
                             aria-describedby="newPassword"
                             value={this.state.password}
-                            onClick={this.toggleHidden}
+                            onBlur={this.validatePassword}
                             onChange={this.handleChange}
                             required
                         />

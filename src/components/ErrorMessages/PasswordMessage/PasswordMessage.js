@@ -11,13 +11,16 @@ class PasswordMessage extends Component {
             capitalLetter: false
         };
     }
-    componentDidMount() {
-        this.passwordValidation(this.props.password);
+    componentDidUpdate(oldProps) {
+        const newProps = this.props;
+        if (oldProps.password !== newProps.password) {
+            this.resetCheck();
+            this.passwordValidation(this.props.password);
+        }
     }
-
     passwordValidation = password => {
         // Validation: https://stackoverflow.com/questions/18367258/validation-for-password-is-at-least-6-characters
-        if (password.value >= 6) {
+        if (password.length >= 6) {
             this.setState({ passwordLength: true });
         }
         // check for a number
@@ -64,7 +67,6 @@ class PasswordMessage extends Component {
         );
 
         if (passwordLength) {
-            console.log('password is 6 letter long');
             passwordLengthVar = (
                 <ul className={classes.correctIcon}>
                     <li className={classes.correct}>
@@ -74,8 +76,6 @@ class PasswordMessage extends Component {
             );
         }
         if (numberLength) {
-            console.log('password has number');
-
             numberLengthVar = (
                 <ul className={classes.correctIcon}>
                     <li className={classes.correct}>
@@ -85,7 +85,6 @@ class PasswordMessage extends Component {
             );
         }
         if (capitalLetter) {
-            console.log('password uses capital and lower case letters');
             capitalLetterVar = (
                 <ul className={classes.correctIcon}>
                     <li className={classes.correct}>
