@@ -8,17 +8,30 @@ class PasswordMessage extends Component {
         this.state = {
             passwordLength: false,
             numberLength: false,
-            capitalLetter: false
+            capitalLetter: false,
+            passwordIdentical: false
         };
     }
     componentDidUpdate(oldProps) {
+        // Update every time new values are added.
         const newProps = this.props;
         if (oldProps.password !== newProps.password) {
             this.resetCheck();
-            this.passwordValidation(this.props.password);
+            this.passwordValidation(
+                this.props.password,
+                this.props.confirmPassword
+            );
+        }
+        if (oldProps.confirmPassword !== newProps.confirmPassword) {
+            this.resetCheck();
+            this.passwordValidation(
+                this.props.password,
+                this.props.confirmPassword
+            );
         }
     }
-    passwordValidation = password => {
+    passwordValidation = (password, confirmPassword) => {
+        console.log('Password validaion');
         // Validation: https://stackoverflow.com/questions/18367258/validation-for-password-is-at-least-6-characters
         if (password.length >= 6) {
             this.setState({ passwordLength: true });
@@ -34,16 +47,26 @@ class PasswordMessage extends Component {
         ) {
             this.setState({ capitalLetter: true });
         }
+        // Check if passwords are identical
+        if (confirmPassword.length > 0) {
+            this.setState({ passwordIdentical: true });
+        }
     };
     resetCheck = () => {
         this.setState({
             passwordLength: false,
             numberLength: false,
-            capitalLetter: false
+            capitalLetter: false,
+            passwordIdentical: false
         });
     };
     render() {
-        const { passwordLength, numberLength, capitalLetter } = this.state;
+        const {
+            passwordLength,
+            numberLength,
+            capitalLetter,
+            passwordIdentical
+        } = this.state;
         let passwordLengthVar = (
             <ul className={classes.incorrectIcon}>
                 <li className={classes.incorrect}>
@@ -65,6 +88,7 @@ class PasswordMessage extends Component {
                 </li>
             </ul>
         );
+        let passwordIdenticalVar = '';
 
         if (passwordLength) {
             passwordLengthVar = (
@@ -93,6 +117,26 @@ class PasswordMessage extends Component {
                 </ul>
             );
         }
+        if (
+            passwordIdentical &&
+            this.props.password === this.props.confirmPassword
+        ) {
+            passwordIdenticalVar = (
+                <ul className={classes.correctIcon}>
+                    <li className={classes.correct}>Password match</li>
+                </ul>
+            );
+        }
+        if (
+            passwordIdentical &&
+            this.props.password !== this.props.confirmPassword
+        ) {
+            passwordIdenticalVar = (
+                <ul className={classes.incorrectIcon}>
+                    <li className={classes.incorrect}>Password match</li>
+                </ul>
+            );
+        }
         return (
             <div className={classes.container}>
                 <p className={classes.title}>
@@ -102,6 +146,7 @@ class PasswordMessage extends Component {
                 {capitalLetterVar}
                 {numberLengthVar}
                 {passwordLengthVar}
+                {passwordIdenticalVar}
             </div>
         );
     }

@@ -7,10 +7,6 @@ import { IsPasswordValid, IsPasswordIdentical } from '../../components/helper';
 import Button from '../../components/UI/Button/Button';
 import PasswordMessage from '../../components/ErrorMessages/PasswordMessage/PasswordMessage';
 
-/*
-Check onBlur
-1) 
-*/
 class ResetPassword extends Component {
     constructor(props) {
         super(props);
@@ -28,8 +24,6 @@ class ResetPassword extends Component {
         });
     };
     validatePassword = () => {
-        console.log('validate password');
-
         this.setState({ PasswordValidError: true });
     };
 
@@ -82,7 +76,10 @@ class ResetPassword extends Component {
         let passwordValidErrorVar = '';
         if (this.state.PasswordValidError) {
             passwordValidErrorVar = (
-                <PasswordMessage password={this.state.password} />
+                <PasswordMessage
+                    password={this.state.password}
+                    confirmPassword={this.state.confirmPassword}
+                />
             );
         }
         return (
@@ -107,6 +104,7 @@ class ResetPassword extends Component {
                             type="password"
                             name="confirmPassword"
                             value={this.state.checkPassword}
+                            onBlur={this.validatePassword}
                             onChange={this.handleChange}
                             required
                         />
