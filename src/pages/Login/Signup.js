@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Form from './Form.js';
 import { IsPasswordValid, IsPasswordIdentical } from '../../components/helper';
+import ErrorMessage from '../../components/ErrorMessages/ErrorMessages';
 import PasswordMessage from '../../components/ErrorMessages/PasswordMessage/PasswordMessage';
 import './Login.css';
 import ky from 'ky';
@@ -24,7 +25,8 @@ class Signup extends Component {
             number: '',
             password: '',
             confirmPassword: '',
-            passwordValidError: false
+            passwordValidError: false,
+            emailAlreadyExists: false
         };
     }
 
@@ -46,16 +48,45 @@ class Signup extends Component {
         if (IsPasswordIdenticalVar && isPasswordValidVar) {
             (async () => {
                 const url = 'http://localhost:3001/users/register';
-                await ky.post(url, { json: this.state }).then(res => {
-                    console.log(res);
-                    if (res.status === 200) {
-                        this.props.history.push('/login');
-                    }
-                });
+                await ky
+                    .post(url, { json: this.state })
+                    .then(res => {
+                        if (res.status === 401) {
+                            // email already exists
+                            this.setState({ emailAlreadyExists: true });
+                        } else {
+                            this.props.history.push('/login');
+                        }
+                    })
+                    .catch(err =>
+                        alert(
+                            'Server Error: Unable to register. Please try again.'
+                        )
+                    );
             })();
         }
     };
     validatePassword = () => this.setState({ passwordValidError: true });
+
+    // check if email already exists
+    // in the background, after user leaves the email input field
+    checkEmail = () => {
+        fetch('http://localhost:3001/users/validate-email', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email: this.state.email })
+        })
+            .then(res => {
+                if (res.status === 200) {
+                    return this.setState({ emailAlreadyExists: false });
+                } else {
+                    return this.setState({ emailAlreadyExists: true });
+                }
+            })
+            .catch(err => console.log);
+    };
 
     render() {
         let PasswordValidError = '';
@@ -68,9 +99,16 @@ class Signup extends Component {
             );
         }
 
+        let EmailValidError = '';
+        if (this.state.emailAlreadyExists) {
+            EmailValidError = (
+                <ErrorMessage content="This email is already in use." />
+            );
+        }
+
         const { checkLoginState } = this.props;
         return (
-            <div className="Login">
+            <div className="Login" style={{ minHeight: `87.8vh` }}>
                 <Form onSubmit={this.handleSubmit}>
                     <fieldset>
                         <div className="nameContainer">
@@ -103,8 +141,10 @@ class Signup extends Component {
                                 type="email"
                                 name="email"
                                 onChange={this.handleChange}
+                                onBlur={this.checkEmail}
                                 required
                             />
+                            {EmailValidError}
                         </label>
                         <label htmlFor="password">
                             Password
