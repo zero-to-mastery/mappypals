@@ -31,7 +31,7 @@ class PasswordMessage extends Component {
         }
     }
     passwordValidation = (password, confirmPassword) => {
-        console.log('Password validaion');
+        console.log('Password validation');
         // Validation: https://stackoverflow.com/questions/18367258/validation-for-password-is-at-least-6-characters
         if (password.length >= 6) {
             this.setState({ passwordLength: true });
@@ -47,7 +47,7 @@ class PasswordMessage extends Component {
         ) {
             this.setState({ capitalLetter: true });
         }
-        // Check if passwords are identical
+        // Check appears only if
         if (confirmPassword.length > 0) {
             this.setState({ passwordIdentical: true });
         }
@@ -88,6 +88,7 @@ class PasswordMessage extends Component {
                 </li>
             </ul>
         );
+        // By default be hidden.
         let passwordIdenticalVar = '';
 
         if (passwordLength) {

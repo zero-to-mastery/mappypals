@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './Login.css';
 import Form from './Form';
 import ky from 'ky';
-import ErrorMessage from '../../components/ErrorMessages/ErrorMessages';
 import { IsPasswordValid, IsPasswordIdentical } from '../../components/helper';
 import Button from '../../components/UI/Button/Button';
 import PasswordMessage from '../../components/ErrorMessages/PasswordMessage/PasswordMessage';
@@ -13,7 +12,6 @@ class ResetPassword extends Component {
         this.state = {
             password: '',
             confirmPassword: '',
-            passwordMatchError: false,
             PasswordValidError: false
         };
     }
@@ -22,9 +20,6 @@ class ResetPassword extends Component {
         this.setState({
             [event.target.name]: event.target.value
         });
-    };
-    validatePassword = () => {
-        this.setState({ PasswordValidError: true });
     };
 
     handleSubmit = event => {
@@ -58,21 +53,12 @@ class ResetPassword extends Component {
             })();
         }
     };
-    displayPasswordMatchError = () =>
-        this.setState({ passwordMatchError: true });
-    hidePasswordMatchError = () => this.setState({ passwordMatchError: false });
-
     displayPasswordValidError = () =>
         this.setState({ PasswordValidError: true });
     hidePasswordValidError = () => this.setState({ PasswordValidError: false });
+    validatePassword = () => this.setState({ PasswordValidError: true });
 
     render() {
-        let passwordMatchErrorVar = '';
-        if (this.state.passwordMatchError) {
-            passwordMatchErrorVar = (
-                <ErrorMessage content=" Password doesn't match" />
-            );
-        }
         let passwordValidErrorVar = '';
         if (this.state.PasswordValidError) {
             passwordValidErrorVar = (
@@ -99,7 +85,7 @@ class ResetPassword extends Component {
                         />
                     </label>
                     <label htmlFor="confirmPassword">
-                        Confirm password {passwordMatchErrorVar}
+                        Confirm password
                         <input
                             type="password"
                             name="confirmPassword"
