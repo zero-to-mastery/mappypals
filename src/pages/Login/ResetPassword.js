@@ -37,9 +37,7 @@ class ResetPassword extends Component {
                 const url = `http://localhost:3001/users${token}`;
                 await ky.post(url, { json: this.state }).then(res => {
                     if (res.status === 200) {
-                        console.log(
-                            'Redirect user to home page, successfull login'
-                        );
+                        this.props.history.push('/login');
                     }
                 });
             })();
