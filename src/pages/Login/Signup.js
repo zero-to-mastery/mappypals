@@ -81,7 +81,7 @@ class Signup extends Component {
         let PasswordValidError = '';
         if (this.state.passwordValidError) {
             PasswordValidError = (
-                <ErrorMessage content="Minumum 6 characters must include: capital, lowercase, number and symbol./>            );
+                <ErrorMessage content="Minumum 6 characters must include: capital, lowercase, number and symbol."/>            );
         }
 
         const { checkLoginState } = this.props;
