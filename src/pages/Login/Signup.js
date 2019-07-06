@@ -25,7 +25,8 @@ class Signup extends Component {
             password: '',
             confirmPassword: '',
             passwordMatchError: false,
-            passwordValidError: false
+            passwordValidError: false,
+            emailAlreadyExists: false
         };
     }
 
@@ -54,12 +55,21 @@ class Signup extends Component {
             this.hidePasswordValidError();
             (async () => {
                 const url = 'http://localhost:3001/users/register';
-                await ky.post(url, { json: this.state }).then(res => {
-                    console.log(res);
-                    if (res.status === 200) {
-                        this.props.history.push('/login');
-                    }
-                });
+                await ky
+                    .post(url, { json: this.state })
+                    .then(res => {
+                        if (res.status === 401) {
+                            // email already exists
+                            this.setState({ emailAlreadyExists: true });
+                        } else {
+                            this.props.history.push('/login');
+                        }
+                    })
+                    .catch(err =>
+                        alert(
+                            'Server Error: Unable to register. Please try again.'
+                        )
+                    );
             })();
         }
     };
@@ -70,6 +80,26 @@ class Signup extends Component {
     displayPasswordValidError = () =>
         this.setState({ passwordValidError: true });
     hidePasswordValidError = () => this.setState({ passwordValidError: false });
+
+    // check if email already exists
+    // in the background, after user leaves the email input field
+    checkEmail = () => {
+        fetch('http://localhost:3001/users/validate-email', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email: this.state.email })
+        })
+            .then(res => {
+                if (res.status === 200) {
+                    return this.setState({ emailAlreadyExists: false });
+                } else {
+                    return this.setState({ emailAlreadyExists: true });
+                }
+            })
+            .catch(err => console.log);
+    };
 
     render() {
         let passwordMatchError = '';
@@ -85,9 +115,16 @@ class Signup extends Component {
             );
         }
 
+        let EmailValidError = '';
+        if (this.state.emailAlreadyExists) {
+            EmailValidError = (
+                <ErrorMessage content="This email is already in use." />
+            );
+        }
+
         const { checkLoginState } = this.props;
         return (
-            <div className="Login">
+            <div className="Login" style={{ minHeight: `87.8vh` }}>
                 <Form onSubmit={this.handleSubmit}>
                     <fieldset>
                         <div className="nameContainer">
@@ -120,11 +157,13 @@ class Signup extends Component {
                                 type="email"
                                 name="email"
                                 onChange={this.handleChange}
+                                onBlur={this.checkEmail}
                                 required
                             />
+                            {EmailValidError}
                         </label>
                         <label htmlFor="password">
-                            Password {PasswordValidError}
+                            Password
                             <input
                                 type="password"
                                 name="password"
@@ -134,9 +173,10 @@ class Signup extends Component {
                                 onChange={this.handleChange}
                                 required
                             />
+                            {PasswordValidError}
                         </label>
                         <label htmlFor="confirmPassword">
-                            Confirm password {passwordMatchError}
+                            Confirm password
                             <input
                                 type="password"
                                 name="confirmPassword"
@@ -144,6 +184,7 @@ class Signup extends Component {
                                 onChange={this.handleChange}
                                 required
                             />
+                            {passwordMatchError}
                         </label>
                         <div className="btnContainer">
                             <Button btnType="Submit" type="submit">
