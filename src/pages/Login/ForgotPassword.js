@@ -65,14 +65,6 @@ class ForgotPassword extends Component {
                         Enter the email address from your account below and we
                         will send your password reset link.
                     </p>
-                    <p className="text-center text-medium message">
-                        {this.state.message}{' '}
-                    </p>
-                    {/* This message supposed to be deleted in Reset Password task
-                     https://trello.com/c/01lN84sF/163-reset-password-resetpasswordjs-forgotpasswordjs-waiting-for-separation-of-concerns */}
-                    <a className="message" href={this.state.link}>
-                        {this.state.link}
-                    </a>
                     <div>
                         <label htmlFor="Email">
                             Email
