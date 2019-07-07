@@ -24,9 +24,9 @@ class Signup extends Component {
             number: '',
             password: '',
             confirmPassword: '',
+            errMsg: '',
             passwordMatchError: false,
             passwordValidError: false,
-            emailAlreadyExists: false
         };
     }
 
@@ -56,20 +56,20 @@ class Signup extends Component {
             (async () => {
                 const url = 'http://localhost:3001/users/register';
                 await ky
-                    .post(url, { json: this.state })
-                    .then(res => {
+                    .post(url, { json: this.state }).json()
+                    .then((res, err) => {
+                        //if error msg is one that we catch
                         if (res.status === 401) {
-                            // email already exists
-                            this.setState({ emailAlreadyExists: true });
-                        } else {
+                            this.setState({ errMsg: String(err.statusText) });
+                        } else if (res.status === 200) {
                             this.props.history.push('/login');
+                        } else {
+                            this.setState({ errMsg: `Server Error: Unable to register. Please try again.` })
                         }
                     })
                     .catch(err =>
-                        alert(
-                            'Server Error: Unable to register. Please try again.'
-                        )
-                    );
+                        alert(`Uncaught Error: ${err.statusText}`)
+                    )
             })();
         }
     };
@@ -80,26 +80,6 @@ class Signup extends Component {
     displayPasswordValidError = () =>
         this.setState({ passwordValidError: true });
     hidePasswordValidError = () => this.setState({ passwordValidError: false });
-
-    // check if email already exists
-    // in the background, after user leaves the email input field
-    checkEmail = () => {
-        fetch('http://localhost:3001/users/validate-email', {
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email: this.state.email })
-        })
-            .then(res => {
-                if (res.status === 200) {
-                    return this.setState({ emailAlreadyExists: false });
-                } else {
-                    return this.setState({ emailAlreadyExists: true });
-                }
-            })
-            .catch(err => console.log);
-    };
 
     render() {
         let passwordMatchError = '';
@@ -114,14 +94,7 @@ class Signup extends Component {
                 <ErrorMessage content="Minumum 6 characters must include: capital, lowercase, number and symbol."/>            );
         }
 
-        let EmailValidError = '';
-        if (this.state.emailAlreadyExists) {
-            EmailValidError = (
-                <ErrorMessage content="This email is already in use." />
-            );
-        }
-
-        const { checkLoginState } = this.props;
+        const { checkLoginState, error, loading } = this.props;
         return (
             <div className="Login" style={{ minHeight: `87.8vh` }}>
                 <Form onSubmit={this.handleSubmit}>
@@ -159,7 +132,6 @@ class Signup extends Component {
                                 onBlur={this.checkEmail}
                                 required
                             />
-                            {EmailValidError}
                         </label>
                         <label htmlFor="password">
                             Password
@@ -190,6 +162,12 @@ class Signup extends Component {
                                 Create Account
                             </Button>
                         </div>
+                        {loading && <div className="u-text-center">Loading...</div>}
+                        {error && (
+                            <div className="u-text-center">
+                                <ErrorMessage content={error} />
+                            </div>
+                        )}
                     </fieldset>
                     <p className="u-text-center">Or connect with: </p>
                     <div className="btnContainer">
