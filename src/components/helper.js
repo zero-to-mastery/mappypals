@@ -15,10 +15,6 @@ const IsPasswordValid = password => {
     if (/[a-z]/.test(password) === false) {
         return false;
     }
-    // check for punctuation mark
-    if (/[@#$&*^%!+=\\[\]|?.,<>)(;:'"~`]/.test(password) === false) {
-        return false;
-    }
     // all requirements have been satisfied
     return true;
 };
