@@ -153,7 +153,7 @@ class ResetPassword extends Component {
                 <ErrorMessage content=" Password doesn't match" />
             );
         }
-      
+
         let passwordValidErrorVar = '';
         if (this.state.PasswordValidError) {
             passwordValidErrorVar = (
