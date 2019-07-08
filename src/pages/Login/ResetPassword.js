@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import axios from 'axios';
 
@@ -190,7 +190,7 @@ class ResetPassword extends Component {
             return (
                 <div className="Login loading">
                     <div className="container">
-                        <img src={spinner} />
+                        <img alt="loading-spinner" src={spinner} />
                     </div>
                 </div>
             );
