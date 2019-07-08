@@ -52,11 +52,11 @@ class Signup extends Component {
                     .then((res, err) => {
                         //if error msg is one that we catch
                         if (res.status === 401) {
-                            this.setState({ errMsg: String(err.statusText) });
+                            this.setState({ error: String(err.statusText) });
                         } else if (res.status === 200) {
                             this.props.history.push('/login');
                         } else {
-                            this.setState({ errMsg: `Server Error: Unable to register. Please try again.` })
+                            this.setState({error: `Server Error: Unable to register. Please try again.` })
                         }
                     })
                     .catch(err =>
@@ -77,13 +77,14 @@ class Signup extends Component {
                 />
             );
         }
-
-        let EmailValidError = '';
-        if (this.state.emailAlreadyExists) {
-            EmailValidError = (
-                <ErrorMessage content="This email is already in use." />
-            );
-        }
+//This message will come from the back end - along with any other possible errors, the catch
+//is displayed below the button.
+        // let EmailValidError = '';
+        // if (this.state.emailAlreadyExists) {
+        //     EmailValidError = (
+        //         <ErrorMessage content="This email is already in use." />
+        //     );
+        // }
 
         const { checkLoginState, error, loading } = this.props;
         return (
