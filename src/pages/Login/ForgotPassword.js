@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import './Login.css';
-import Form from './Form';
-import './ForgotPassword.css';
 import axios from 'axios';
+
+import Form from './Form';
 import Button from '../../components/UI/Button/Button';
+
+import './Login.css';
+import './ForgotPassword.styles.scss';
 
 class ForgotPassword extends Component {
     constructor(props) {
@@ -11,7 +13,7 @@ class ForgotPassword extends Component {
         this.state = {
             email: '',
             message: '',
-            link: ''
+            hasEmailSent: false
         };
     }
 
@@ -35,17 +37,18 @@ class ForgotPassword extends Component {
         })
             .then(res => {
                 if (res.status === 200) {
-                    //Write redirect logic here
                     this.setState({
-                        message: res.data.message,
-                        link: res.data.link
+                        message:
+                            'We have emailed your password reset link. Check your inbox',
+                        hasEmailSent: true
                     });
-                    console.log(JSON.stringify(this.state.message));
                 }
             })
             .catch(err => {
-                console.error(err);
-                console.log('Error logging in please try again');
+                alert(
+                    'Ooops. Something went wrong. Please check if your email is correct'
+                );
+                return console.log(err);
             });
 
         console.log(JSON.stringify(this.state));
@@ -55,33 +58,37 @@ class ForgotPassword extends Component {
     };
 
     render() {
+        const { email, message, hasEmailSent } = this.state;
+
         return (
             <div className="Login">
-                <Form onSubmit={this.handleSubmit} className="max-width600">
-                    <p className="text-center text-large">
-                        Did you forget your password?
-                    </p>
-                    <p className="text-center text-medium">
+                <Form onSubmit={this.handleSubmit} className="container">
+                    <p className="headline">Did you forget your password?</p>
+                    <p className="sub-headline">
                         Enter the email address from your account below and we
                         will send your password reset link.
                     </p>
-                    <div>
-                        <label htmlFor="Email">
+                    <div className="group">
+                        <label className="form-input-label" htmlFor="Email">
                             Email
-                            <input
-                                type="email"
-                                name="email"
-                                placeholder=""
-                                onChange={this.handleChange}
-                                required
-                            />
                         </label>
+                        <input
+                            className="form-input"
+                            type="email"
+                            name="email"
+                            value={email}
+                            placeholder="Your email address"
+                            onChange={this.handleChange}
+                            required
+                        />
                     </div>
-                    <div className="btnContainer">
-                        <Button btnType="ForgotPassword" type="submit">
-                            RESET PASSWORD
-                        </Button>
-                    </div>
+
+                    <Button btnType="ForgotPassword" type="submit">
+                        RESET PASSWORD
+                    </Button>
+                    {hasEmailSent && (
+                        <div className="success-alert">{message}</div>
+                    )}
                 </Form>
             </div>
         );
