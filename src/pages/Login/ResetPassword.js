@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+
 import { Link, Redirect } from 'react-router-dom';
 
 import axios from 'axios';
 
 import Button from '../../components/UI/Button/Button';
 import ErrorMessage from '../../components/ErrorMessages/ErrorMessages';
+import PasswordMessage from '../../components/ErrorMessages/PasswordMessage/PasswordMessage';
 import { IsPasswordValid, IsPasswordIdentical } from '../../components/helper';
 import Form from './Form';
 
@@ -151,11 +153,14 @@ class ResetPassword extends Component {
                 <ErrorMessage content=" Password doesn't match" />
             );
         }
-
+      
         let passwordValidErrorVar = '';
         if (this.state.PasswordValidError) {
             passwordValidErrorVar = (
-                <ErrorMessage content="At least 6 characters, a number or a symbol, at least 1 letter" />
+                <PasswordMessage
+                    password={this.state.password}
+                    confirmPassword={this.state.confirmPassword}
+                />
             );
         }
 
