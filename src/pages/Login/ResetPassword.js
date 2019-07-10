@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import Button from '../../components/UI/Button/Button';
-import ErrorMessage from '../../components/ErrorMessages/ErrorMessages';
 import PasswordMessage from '../../components/ErrorMessages/PasswordMessage/PasswordMessage';
 import { IsPasswordValid, IsPasswordIdentical } from '../../components/helper';
 import Form from './Form';
@@ -22,8 +21,7 @@ class ResetPassword extends Component {
         this.state = {
             password: '',
             confirmPassword: '',
-            passwordMatchError: false,
-            PasswordValidError: false,
+            passwordValidError: false,
             email: '',
             updated: false,
             isLoading: true,
@@ -34,9 +32,9 @@ class ResetPassword extends Component {
     }
 
     async componentDidMount() {
-        const url = 'http://localhost:3001/users/resetpassword';
+        const url = process.env.URL || 'http://localhost:3001/';
         await axios
-            .get(url, {
+            .get(`${url}users/resetpassword`, {
                 params: {
                     resetPasswordToken: this.props.match.params.token
                 }
@@ -98,15 +96,7 @@ class ResetPassword extends Component {
         );
         let isPasswordValidVar = IsPasswordValid(password);
 
-        if (!IsPasswordIdenticalVar) {
-            this.displayPasswordMatchError();
-        } else if (!isPasswordValidVar) {
-            this.hidePasswordMatchError();
-            this.displayPasswordValidError();
-        } else {
-            this.hidePasswordMatchError();
-            this.hidePasswordValidError();
-
+        if (IsPasswordIdenticalVar && isPasswordValidVar) {
             const url = 'http://localhost:3001/users/updatePasswordViaEmail';
             axios
                 .put(url, {
@@ -130,13 +120,15 @@ class ResetPassword extends Component {
         }
     };
 
-    displayPasswordMatchError = () =>
-        this.setState({ passwordMatchError: true });
-    hidePasswordMatchError = () => this.setState({ passwordMatchError: false });
+    // displayPasswordMatchError = () =>
+    //     this.setState({ passwordMatchError: true });
+    // hidePasswordMatchError = () => this.setState({ passwordMatchError: false });
 
-    displayPasswordValidError = () =>
-        this.setState({ PasswordValidError: true });
-    hidePasswordValidError = () => this.setState({ PasswordValidError: false });
+    // displayPasswordValidError = () =>
+    //     this.setState({ PasswordValidError: true });
+    // hidePasswordValidError = () => this.setState({ PasswordValidError: false });
+
+    validatePassword = () => this.setState({ passwordValidError: true });
 
     render() {
         const {
@@ -147,15 +139,15 @@ class ResetPassword extends Component {
             updated
         } = this.state;
 
-        let passwordMatchErrorVar = '';
-        if (this.state.passwordMatchError) {
-            passwordMatchErrorVar = (
-                <ErrorMessage content=" Password doesn't match" />
-            );
-        }
+        // let passwordMatchErrorVar = '';
+        // if (this.state.passwordMatchError) {
+        //     passwordMatchErrorVar = (
+        //         <ErrorMessage content=" Password doesn't match" />
+        //     );
+        // }
 
         let passwordValidErrorVar = '';
-        if (this.state.PasswordValidError) {
+        if (this.state.passwordValidError) {
             passwordValidErrorVar = (
                 <PasswordMessage
                     password={this.state.password}
@@ -200,26 +192,31 @@ class ResetPassword extends Component {
                     <Form onSubmit={this.handleSubmit}>
                         <p className="heavy">Reset your password</p>
                         <label htmlFor="password">
-                            Password {passwordValidErrorVar}
+                            Password
                             <input
                                 type="password"
                                 name="password"
                                 aria-describedby="newPassword"
                                 value={password}
                                 onChange={this.handleChange}
+                                onBlur={this.validatePassword}
                                 required
                             />
                         </label>
                         <label htmlFor="confirmPassword">
-                            Confirm password {passwordMatchErrorVar}
+                            Confirm password
                             <input
                                 type="password"
                                 name="confirmPassword"
                                 value={confirmPassword}
                                 onChange={this.handleChange}
+                                onBlur={this.validatePassword}
                                 required
                             />
                         </label>
+
+                        {!updated ? passwordValidErrorVar : null}
+
                         <div className="btnContainer">
                             <Button btnType="Submit" type="submit">
                                 Reset Password

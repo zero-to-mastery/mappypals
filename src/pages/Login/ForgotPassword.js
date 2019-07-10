@@ -25,10 +25,9 @@ class ForgotPassword extends Component {
 
     handleSubmit = event => {
         event.preventDefault();
-
-        const url = 'http://localhost:3001/users/reset';
+        const url = process.env.URL || 'http://localhost:3001/';
         axios({
-            url: url,
+            url: `${url}users/reset`,
             method: 'POST',
             data: JSON.stringify(this.state),
             headers: {
@@ -48,7 +47,6 @@ class ForgotPassword extends Component {
                 alert(
                     'Ooops. Something went wrong. Please check if your email is correct'
                 );
-                return console.log(err);
             });
 
         console.log(JSON.stringify(this.state));
