@@ -37,7 +37,7 @@ class AddFriendForm extends React.Component {
             <div
                 id="add-new"
                 className="Login no-bg u-pb"
-                style={{ display: this.props.formDisplay ? 'flex' : 'none' }}
+                style={{ display: this.props.formDisplay ? 'block' : 'none' }}
             >
                 <Form onSubmit={this.handleSubmit}>
                     <XButton
