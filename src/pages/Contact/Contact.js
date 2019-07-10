@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
+import ky from 'ky';
 import './Contact.css';
 import styled from 'styled-components';
 import Button from '../../components/UI/Button/Button';
+import ErrorMessage from '../../components/ErrorMessages/ErrorMessages';
+
 const Form = styled.form`
   box-shadow: 2px 3px 4px -2px grey;
-  width: 30rem;
-  margin 30px 0;
+  margin: 30px 0;
   border-style: solid;
   border-width: 0.5px;
   border-color: lightgrey;
-  border-radius: 10px;
+  border-radius: 30px;
   font-family: 'Poppins', sans-serif;
   font-weight: 400;
   @media (max-width: 360px) {
@@ -18,8 +20,8 @@ const Form = styled.form`
     line-height: 1.25;
   }
   @media (min-width: 411px) {
-    padding: 20px 150px;
-    font-size: 0.999rem;
+    padding: 20px 70px;
+    font-size: 1.2rem;
     line-height: 1.75;
   }
   fieldset {
@@ -34,7 +36,7 @@ const Form = styled.form`
     width: 100%;
     box-sizing: border-box;
     padding: 0.5rem;
-    font-size: 1rem;
+    font-size: 1.2rem;
     border: none;
     border-bottom: 2px solid grey;
     &:hover {
@@ -51,6 +53,9 @@ const Form = styled.form`
       width: 100%;
       border-style: solid;
       border-width: 1px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 400;
+      font-size: 1.2rem;
   }
 
   .btnContainer {
@@ -79,13 +84,32 @@ class Contact extends Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        this.refs.form.reset();
+        (async () => {
+          const url = 'http://localhost:3001/users/contact';
+          await ky
+            .post(url, { json: this.state }).json()
+            .then((res) => {
+                //if error msg is one that we catch
+                if (res.includes('Success')){
+                  this.props.history.push('/contact');
+                  this.refs.form.reset();
+                } else {
+                  this.setState({error: `Server Error: Unable to send. Please try again.` })
+                }
+            })
+            .catch(err =>
+                alert(`Uncaught Error: Please try sending again.`)
+            )
+        })();
+
     };
 
     render() {
+      const { error, loading } = this.props;
         return (
             <div className="contactForm">
                 <Form onSubmit={this.handleSubmit} ref="form">
+                  <fieldset>
                     <div className="header">
                         <h2>Contact Us</h2>
                         <p>
@@ -98,7 +122,7 @@ class Contact extends Component {
                         <input
                             type="text"
                             name="firstname"
-                            placeholder="John"
+                            placeholder="The name you want us to call you by"
                             onChange={this.handleChange}
                             required
                         />
@@ -108,7 +132,7 @@ class Contact extends Component {
                         <input
                             type="email"
                             name="email"
-                            placeholder="john@doe.com"
+                            placeholder="Email address"
                             onChange={this.handleChange}
                             required
                         />
@@ -118,7 +142,7 @@ class Contact extends Component {
                         <input
                             type="text"
                             name="subject"
-                            placeholder="Bug on homepage"
+                            placeholder="Email subject line, 'I have a bug!'"
                             onChange={this.handleChange}
                             required
                         />
@@ -129,15 +153,21 @@ class Contact extends Component {
                             name="message"
                             onChange={this.handleChange}
                             id=""
-                            cols="30"
-                            rows="10"
+                            rows="8"
                         />
                     </label>
+                    {loading && <div className="u-text-center">Loading...</div>}
+                    {error && (
+                        <div className="u-text-center">
+                            <ErrorMessage content={error} />
+                        </div>
+                    )}
                     <div className="btnContainer">
                         <Button btnType="Submit" type="submit">
                             Send
                         </Button>
                     </div>
+                  </fieldset>
                 </Form>
             </div>
         );
