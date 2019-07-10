@@ -120,14 +120,6 @@ class ResetPassword extends Component {
         }
     };
 
-    // displayPasswordMatchError = () =>
-    //     this.setState({ passwordMatchError: true });
-    // hidePasswordMatchError = () => this.setState({ passwordMatchError: false });
-
-    // displayPasswordValidError = () =>
-    //     this.setState({ PasswordValidError: true });
-    // hidePasswordValidError = () => this.setState({ PasswordValidError: false });
-
     validatePassword = () => this.setState({ passwordValidError: true });
 
     render() {
@@ -138,13 +130,6 @@ class ResetPassword extends Component {
             isLoading,
             updated
         } = this.state;
-
-        // let passwordMatchErrorVar = '';
-        // if (this.state.passwordMatchError) {
-        //     passwordMatchErrorVar = (
-        //         <ErrorMessage content=" Password doesn't match" />
-        //     );
-        // }
 
         let passwordValidErrorVar = '';
         if (this.state.passwordValidError) {
