@@ -1,5 +1,5 @@
 #add-new {
-    display: none;
+    justify-content: flex-end;
     position: absolute;
     bottom: 8px;
     right: 16px;
