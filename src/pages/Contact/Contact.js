@@ -106,7 +106,7 @@ class Contact extends Component {
             parsed = parsed.slice(12, parsed.length-2)
             this.setState({error: `${parsed}`});
             this.forceUpdate();
-          } else if (response.indexOf('S') === 2) {
+          } else if (parsed.indexOf('S') === 2) {
               //will show briefly on page before form reset
               this.setState({error: `Successfully sent to Mappypals!`});
               this.props.history.push('/contact');
