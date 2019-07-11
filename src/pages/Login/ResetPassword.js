@@ -97,7 +97,8 @@ class ResetPassword extends Component {
         let isPasswordValidVar = IsPasswordValid(password);
 
         if (IsPasswordIdenticalVar && isPasswordValidVar) {
-            const url = 'https://mappypals-api.herokuapp.com/users/updatePasswordViaEmail';
+            const url =
+                'https://mappypals-api.herokuapp.com/users/updatePasswordViaEmail';
             axios
                 .put(url, {
                     email,

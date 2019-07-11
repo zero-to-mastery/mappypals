@@ -47,7 +47,8 @@ class Signup extends Component {
 
         if (IsPasswordIdenticalVar && isPasswordValidVar) {
             (async () => {
-                const url = 'https://mappypals-api.herokuapp.com/users/register';
+                const url =
+                    'https://mappypals-api.herokuapp.com/users/register';
                 await ky
                     .post(url, { json: this.state })
                     .then(res => {
