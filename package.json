@@ -30,7 +30,9 @@
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
-        "format": "prettier --write \"**/*.{js,css,md}\""
+        "format": "prettier --write \"**/*.{js,css,md}\"",
+        "prestart:api": "node src/server/createMockDB.js",
+        "start:api": "node src/server/server.js"
     },
     "eslintConfig": {
         "extends": "react-app"
@@ -42,6 +44,8 @@
         "not op_mini all"
     ],
     "devDependencies": {
+        "json-server": "^0.15.0",
+        "faker": "^4.1.0",
         "prettier": "1.17.1"
     }
 }
