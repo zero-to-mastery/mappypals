@@ -48,7 +48,8 @@ class Signup extends Component {
         if (IsPasswordIdenticalVar && isPasswordValidVar) {
             (async () => {
                 const url =
-                    'https://mappypals-api.herokuapp.com/users/register';
+                    (process.env.URL || 'http://localhost:3001/') +
+                    'users/register';
                 await ky
                     .post(url, { json: this.state })
                     .then(res => {
@@ -72,13 +73,17 @@ class Signup extends Component {
     // check if email already exists
     // in the background, after user leaves the email input field
     checkEmail = () => {
-        fetch('https://mappypals-api.herokuapp.com/users/validate-email', {
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email: this.state.email })
-        })
+        fetch(
+            (process.env.URL || 'http://localhost:3001/') +
+                'users/validate-email',
+            {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email: this.state.email })
+            }
+        )
             .then(res => {
                 if (res.status === 200) {
                     return this.setState({ emailAlreadyExists: false });

@@ -27,7 +27,8 @@ export const authLogin = (email, password) => {
         dispatch(authLoginStart());
 
         try {
-            const url = 'https://mappypals-api.herokuapp.com/users/login';
+            const url =
+                (process.env.URL || 'http://localhost:3001/') + 'users/login';
             const response = await ky.post(url, { json: { email, password } });
             const data = await response.json();
 

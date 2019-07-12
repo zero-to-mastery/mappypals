@@ -25,7 +25,7 @@ class ForgotPassword extends Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        const url = process.env.URL || 'https://mappypals-api.herokuapp.com/';
+        const url = process.env.URL || 'http://localhost:3001/';
         axios({
             url: `${url}users/reset`,
             method: 'POST',

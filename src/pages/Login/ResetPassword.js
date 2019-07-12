@@ -32,7 +32,7 @@ class ResetPassword extends Component {
     }
 
     async componentDidMount() {
-        const url = process.env.URL || 'https://mappypals-api.herokuapp.com/';
+        const url = process.env.URL || 'http://localhost:3001/';
         await axios
             .get(`${url}users/resetpassword`, {
                 params: {
@@ -98,7 +98,8 @@ class ResetPassword extends Component {
 
         if (IsPasswordIdenticalVar && isPasswordValidVar) {
             const url =
-                'https://mappypals-api.herokuapp.com/users/updatePasswordViaEmail';
+                (process.env.URL || 'http://localhost:3001/') +
+                'users/updatePasswordViaEmail';
             axios
                 .put(url, {
                     email,
