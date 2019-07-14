@@ -32,7 +32,8 @@ server.listen(port, () =>
 );
 
 // Create a friendly URL slug. This could be moved to another file
-// also we can create son validation functions for post requests
+// also we can create some validation functions for post requests
+// We can omit this for now, but it could come handy later
 const friendlySlug = value =>
     value
         .replace(/[^a-z0-9_]+/gi, '-')

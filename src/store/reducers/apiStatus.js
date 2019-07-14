@@ -4,12 +4,17 @@ import initialState from './initialState';
 const actionTypeEndsInSuccess = type => {
     return type.substring(type.length - 8) === '_SUCCESS';
 };
-
+// Every time an api call is made, add it to the  global state
+// and when it fail or succeed remove it from the global state
+// Use the apiCallsInProgress to render spinners while the data is being fetched
+// Also this approach simplifies redux actions
+// (no need to create XXX_START, XXX_FAIL, XXX_SUCCESS for each action)
 const apiStatus = (state = initialState.apiCallsInProgress, action) => {
     if (action.type === BEGIN_API_CALL) {
-        return [...state, action.call];
+        return [...state, action.caller];
     } else if (
-        // api call failed
+        // if api call failed or succeeded, remove it from the
+        // global state holding api calls in progress
         action.type === API_CALL_ERROR ||
         actionTypeEndsInSuccess(action.type)
     ) {

@@ -71,7 +71,7 @@ class FriendsList extends React.Component {
             friends: newList
         });
     };
-    // Load user's friends one the component is mounted
+    // Load user's friends once the component is mounted
     async componentDidMount() {
         const { friends, getUserFriends } = this.props;
         if (friends.length === 0) {
@@ -79,7 +79,9 @@ class FriendsList extends React.Component {
                 await getUserFriends();
                 this.setState({ friends: this.props.friends });
             } catch (error) {
-                alert('Loading friends list failed ' + error);
+                const errorMessage = `Loading friends list failed ${error}`;
+                console.log(errorMessage);
+                alert(errorMessage);
             }
         }
     }

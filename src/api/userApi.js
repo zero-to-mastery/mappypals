@@ -1,6 +1,6 @@
 import { handleError, handleResponse } from './apiHelpers';
 
-// we should use .env variables for this
+// we should use .env variables for constants and keys
 const url = 'http://localhost:3002/friends/';
 
 export const getFriends = async () => {
@@ -12,4 +12,4 @@ export const getFriends = async () => {
     }
 };
 
-// export default getFriends;
+export default getFriends;

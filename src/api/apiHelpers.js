@@ -3,6 +3,7 @@ const handleResponse = async response => {
     // server side validation error
     if (response.status === 400) {
         const error = await response.text();
+        console.log(error);
         throw new Error(error);
     }
     // network error
