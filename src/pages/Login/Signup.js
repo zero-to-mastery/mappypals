@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Form from './Form.js';
-import ErrorMessage from '../../components/ErrorMessages/ErrorMessages';
 import { IsPasswordValid, IsPasswordIdentical } from '../../components/helper';
+import ErrorMessage from '../../components/ErrorMessages/ErrorMessages';
+import PasswordMessage from '../../components/ErrorMessages/PasswordMessage/PasswordMessage';
 import './Login.css';
 import ky from 'ky';
 import Button from '../../components/UI/Button/Button';
@@ -24,7 +25,6 @@ class Signup extends Component {
             number: '',
             password: '',
             confirmPassword: '',
-            passwordMatchError: false,
             passwordValidError: false,
             emailAlreadyExists: false
         };
@@ -45,14 +45,7 @@ class Signup extends Component {
             confirmPassword
         );
 
-        if (!IsPasswordIdenticalVar) {
-            this.displayPasswordMatchError();
-        } else if (!isPasswordValidVar) {
-            this.hidePasswordMatchError();
-            this.displayPasswordValidError();
-        } else {
-            this.hidePasswordMatchError();
-            this.hidePasswordValidError();
+        if (IsPasswordIdenticalVar && isPasswordValidVar) {
             (async () => {
                 const url = 'http://localhost:3001/users/register';
                 await ky
@@ -73,13 +66,7 @@ class Signup extends Component {
             })();
         }
     };
-    displayPasswordMatchError = () =>
-        this.setState({ passwordMatchError: true });
-    hidePasswordMatchError = () => this.setState({ passwordMatchError: false });
-
-    displayPasswordValidError = () =>
-        this.setState({ passwordValidError: true });
-    hidePasswordValidError = () => this.setState({ passwordValidError: false });
+    validatePassword = () => this.setState({ passwordValidError: true });
 
     // check if email already exists
     // in the background, after user leaves the email input field
@@ -102,16 +89,14 @@ class Signup extends Component {
     };
 
     render() {
-        let passwordMatchError = '';
-        if (this.state.passwordMatchError) {
-            passwordMatchError = (
-                <ErrorMessage content="Password doesn't match" />
-            );
-        }
         let PasswordValidError = '';
         if (this.state.passwordValidError) {
             PasswordValidError = (
-                <ErrorMessage content="Minumum 6 characters must include: capital, lowercase, number and symbol."/>            );
+                <PasswordMessage
+                    password={this.state.password}
+                    confirmPassword={this.state.confirmPassword}
+                />
+            );
         }
 
         let EmailValidError = '';
@@ -168,11 +153,10 @@ class Signup extends Component {
                                 name="password"
                                 aria-describedby="newPassword"
                                 value={this.state.password}
-                                onClick={this.toggleHidden}
+                                onBlur={this.validatePassword}
                                 onChange={this.handleChange}
                                 required
                             />
-                            {PasswordValidError}
                         </label>
                         <label htmlFor="confirmPassword">
                             Confirm password
@@ -180,11 +164,12 @@ class Signup extends Component {
                                 type="password"
                                 name="confirmPassword"
                                 value={this.state.checkPassword}
+                                onBlur={this.validatePassword}
                                 onChange={this.handleChange}
                                 required
                             />
-                            {passwordMatchError}
                         </label>
+                        {PasswordValidError}
                         <div className="btnContainer">
                             <Button btnType="Submit" type="submit">
                                 Create Account
