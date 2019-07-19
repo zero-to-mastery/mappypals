@@ -34,7 +34,7 @@ class Navbar extends Component {
             this.setState({ navbarWidth: calc });
         }
         if (this.state.hamburger.length) {
-            if (this.state.navbar.length)
+            if (this.state.navbar === VISIBILITY.hidden)
                 this.setState({
                     navbar: VISIBILITY.visible,
                     navbarRight: this.state.navbarWidth * 1 + 10 + 'px'
@@ -80,7 +80,7 @@ class Navbar extends Component {
                 window.innerWidth >= 900 &&
                 this.state.hamburger.length
             ) {
-                this.setState({ hamburger: '', navbar: 'visible' });
+                this.setState({ hamburger: '', navbar: VISIBILITY.visible });
                 node = this.navRef.current;
             }
             if (node) {
@@ -104,7 +104,7 @@ class Navbar extends Component {
                     navbar: VISIBILITY.hidden
                 });
             else if (window.innerWidth >= 900 && this.state.hamburger.length)
-                this.setState({ hamburger: '', navbar: 'visible' });
+                this.setState({ hamburger: '', navbar: VISIBILITY.visible });
             node = this.navRef.current;
             if (node)
                 navWidth = window.getComputedStyle(node).width.split('px')[0];

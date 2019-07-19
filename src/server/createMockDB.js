@@ -7,8 +7,6 @@ const times = 50;
 const friends = [];
 
 // generate fake data inside the loop
-// this is an old fashion for loop but the alternatives using
-// ES6 I think are to complex
 for (let i = 0; i < times; i++) {
     // generate fake friends
     friends.push({
