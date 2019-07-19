@@ -3,11 +3,6 @@ import MapGL, { Marker, Popup } from 'react-map-gl';
 import AddFriendForm from './AddFriendForm/AddFriendForm';
 import InvitationSent from './AddFriendForm/InvitationSent';
 import './Home.css';
-//import DeckGL, { GeoJsonLayer } from 'deck.gl';
-import { GeoJsonLayer } from 'deck.gl';
-import Geocoder from 'react-map-gl-geocoder';
-import './mapbox-gl-geocoder.css';
-
 import FriendSearch from '../../components/FriendSearch';
 import PopupComponent from './Popup/Popup';
 
@@ -326,14 +321,6 @@ class Map extends Component {
                     ) : (
                         ''
                     )}
-                    <Geocoder
-                        mapRef={this.mapRef}
-                        onResult={this.handleOnResult}
-                        onViewportChange={this.handleGeocoderViewportChange}
-                        mapboxApiAccessToken={TOKEN}
-                        position="top-left"
-                    />
-                    {/* <DeckGL {...this.state.viewport} layers={[this.state.searchResultLayer]} /> */}
                     <FriendSearch
                         containerComponent={this.props.containerComponent}
                         //temp database

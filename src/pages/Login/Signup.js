@@ -26,6 +26,7 @@ class Signup extends Component {
             password: '',
             confirmPassword: '',
             passwordValidError: false,
+            emailAlreadyExists: false
         };
     }
 
@@ -46,9 +47,9 @@ class Signup extends Component {
 
         if (IsPasswordIdenticalVar && isPasswordValidVar) {
             (async () => {
-                const url = 'http://localhost:3001/users/register';
+                const url = process.env.URL || 'http://localhost:3001/';
                 await ky
-                    .post(url, { json: this.state }).json()
+                    .post(`${url}users/register`, { json: this.state }).json()
                     .then((res, err) => {
                         //if error msg is one that we catch
                         if (res.status === 401) {
@@ -66,6 +67,25 @@ class Signup extends Component {
         }
     };
     validatePassword = () => this.setState({ passwordValidError: true });
+    // check if email already exists
+    // in the background, after user leaves the email input field
+    checkEmail = () => {
+        fetch('http://localhost:3001/users/validate-email', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email: this.state.email })
+        })
+            .then(res => {
+                if (res.status === 200) {
+                    return this.setState({ emailAlreadyExists: false });
+                } else {
+                    return this.setState({ emailAlreadyExists: true });
+                }
+            })
+            .catch(err => console.log);
+    };
 
     render() {
         let PasswordValidError = '';
@@ -79,12 +99,12 @@ class Signup extends Component {
         }
 //This message will come from the back end - along with any other possible errors, the catch
 //is displayed below the button.
-        // let EmailValidError = '';
-        // if (this.state.emailAlreadyExists) {
-        //     EmailValidError = (
-        //         <ErrorMessage content="This email is already in use." />
-        //     );
-        // }
+        let EmailValidError = '';
+        if (this.state.emailAlreadyExists) {
+            EmailValidError = (
+                <ErrorMessage content="This email is already in use." />
+            );
+        }
 
         const { checkLoginState, error, loading } = this.props;
         return (
@@ -124,6 +144,7 @@ class Signup extends Component {
                                 onBlur={this.checkEmail}
                                 required
                             />
+                            {EmailValidError}
                         </label>
                         <label htmlFor="password">
                             Password
