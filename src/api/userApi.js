@@ -1,7 +1,7 @@
 import { handleError, handleResponse } from './apiHelpers';
 
 // we should use .env variables for constants and keys
-const url = 'http://localhost:3002/friends/';
+const url = process.env.URL || 'http://localhost:3002/friends/';
 
 export const getFriends = async () => {
     try {
