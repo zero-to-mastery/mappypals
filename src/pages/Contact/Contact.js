@@ -84,35 +84,26 @@ class Contact extends Component {
     handleSubmit = event => {
         event.preventDefault()
         const { firstname, email, subject, message } = this.state;
-        let parsed;
         const url = process.env.URL || 'http://localhost:3001/';
         (async () => {
-            const response = await fetch(`${url}users/contact`, { 
+            await fetch(`${url}users/contact`, { 
               method: 'POST',
               body: JSON.stringify({name: firstname, email: email, subject: subject, message: message}),
               headers: {
                 'content-type': 'application/json'
               }
-            })
-            .catch(err => {
-              console.log(err.statusText);
-               alert(`Uncaught Error: Please try sending again.`)
-            });
-            parsed = await response.json();
+            }).then(res => { 
+                if (res.status===200) {
+                  this.setState({error: `Successfully sent to Mappypals!`});
+                  this.props.history.push('/contact');
+                  this.refs.form.reset();
+                } else {
+                  alert(`${res.statusText}`);
+                  this.setState({error: `${res.statusText}`});
+            }}).catch(err =>
+               this.setState({error: `Uncaught ${err.statusText}. Please try sending again.`})
+            );
         })();
-        console.log(parsed);
-        if (parsed) {
-          if (parsed.indexOf('E') === 2) {
-            parsed = parsed.slice(12, parsed.length-2)
-            this.setState({error: `${parsed}`});
-            this.forceUpdate();
-          } else if (parsed.indexOf('S') === 2) {
-              //will show briefly on page before form reset
-              this.setState({error: `Successfully sent to Mappypals!`});
-              this.props.history.push('/contact');
-              this.refs.form.reset();
-          }
-        }
     };
 
     render() {

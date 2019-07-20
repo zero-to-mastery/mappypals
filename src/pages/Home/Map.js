@@ -3,6 +3,8 @@ import MapGL, { Marker, Popup } from 'react-map-gl';
 import AddFriendForm from './AddFriendForm/AddFriendForm';
 import InvitationSent from './AddFriendForm/InvitationSent';
 import './Home.css';
+import { GeoJsonLayer } from 'deck.gl';
+
 import FriendSearch from '../../components/FriendSearch';
 import PopupComponent from './Popup/Popup';
 
