@@ -32,7 +32,7 @@ class ResetPassword extends Component {
     }
 
     async componentDidMount() {
-        const url = process.env.URL || 'http://localhost:3001/';
+        const url = 'http://localhost:3001/users/updatePasswordViaEmail';
         await axios
             .get(`${url}users/resetpassword`, {
                 params: {
