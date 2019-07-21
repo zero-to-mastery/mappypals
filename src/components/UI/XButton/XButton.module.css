@@ -20,9 +20,11 @@
 }
 
 .DisplayInterests {
-    position: absolute;
-    right: 2px;
-    top: 2px;
-    font-size: 20px;
-    color: #6831de;
+    font-size: 16px;
+    border-radius: 5px;
+    box-shadow: 2px 3px 4px -2px grey;
+    margin: 0.4em 0.6rem;
+    padding: 0.4em 1.8em;
+    color: black;
+    border: 1px solid #6831de;
 }

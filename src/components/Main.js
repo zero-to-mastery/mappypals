@@ -11,6 +11,7 @@ import ProfileSettings from '../pages/Settings/ProfileSettings/ProfileSettings';
 import SettingsEmailPassword from '../pages/Settings/SettingsEmailPassword/SettingsEmailPassword';
 import FriendsList from '../pages/FriendsList/FriendsList';
 import Page404 from '../pages/Page404/Page404';
+import PersonalProfile from '../pages/PersonalProfile/PersonalProfile';
 
 // The Main component renders one of the three provided
 // Routes (provided that one matches). Both the /roster
@@ -39,6 +40,7 @@ const Main = () => (
                 path="/settings/email_&_password"
                 component={SettingsEmailPassword}
             />
+            <Route path="/profile" component={PersonalProfile} />
             <Route component={Page404} />
         </Switch>
     </main>
