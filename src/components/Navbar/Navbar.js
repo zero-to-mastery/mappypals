@@ -9,6 +9,8 @@ import { ReactComponent as Friends } from '../../pics/FriendsIcon.svg';
 import { ReactComponent as Invite } from '../../pics/InviteFriends.svg';
 import { ReactComponent as Settings } from '../../pics/MySettingsIcon.svg';
 
+const VISIBILITY = { hidden: 'hidden', visible: 'visible' };
+
 class Navbar extends Component {
     constructor(props) {
         super(props);
@@ -32,12 +34,12 @@ class Navbar extends Component {
             this.setState({ navbarWidth: calc });
         }
         if (this.state.hamburger.length) {
-            if (this.state.navbar.length)
+            if (this.state.navbar === VISIBILITY.hidden)
                 this.setState({
-                    navbar: '',
+                    navbar: VISIBILITY.visible,
                     navbarRight: this.state.navbarWidth * 1 + 10 + 'px'
                 });
-            else this.setState({ navbar: 'none', navbarRight: '' });
+            else this.setState({ navbar: VISIBILITY.hidden, navbarRight: '' });
         }
     };
     componentDidMount() {
@@ -59,7 +61,7 @@ class Navbar extends Component {
             window.innerWidth <= 900 ||
             (window.screen.orientation.angle > 0 && window.innerWidth < 900)
         ) {
-            this.setState({ hamburger: 'block', navbar: 'none' });
+            this.setState({ hamburger: 'block', navbar: VISIBILITY.hidden });
         } else {
             this.setState({ hamburger: '', navbar: '' });
         }
@@ -70,12 +72,15 @@ class Navbar extends Component {
                     window.innerWidth < 900) &&
                 !this.state.hamburger.length
             ) {
-                this.setState({ hamburger: 'block', navbar: 'none' });
+                this.setState({
+                    hamburger: 'block',
+                    navbar: VISIBILITY.hidden
+                });
             } else if (
                 window.innerWidth >= 900 &&
                 this.state.hamburger.length
             ) {
-                this.setState({ hamburger: '', navbar: '' });
+                this.setState({ hamburger: '', navbar: VISIBILITY.visible });
                 node = this.navRef.current;
             }
             if (node) {
@@ -94,9 +99,12 @@ class Navbar extends Component {
                     window.innerWidth < 900) &&
                 !this.state.hamburger.length
             )
-                this.setState({ hamburger: 'block', navbar: 'none' });
+                this.setState({
+                    hamburger: 'block',
+                    navbar: VISIBILITY.hidden
+                });
             else if (window.innerWidth >= 900 && this.state.hamburger.length)
-                this.setState({ hamburger: '', navbar: '' });
+                this.setState({ hamburger: '', navbar: VISIBILITY.visible });
             node = this.navRef.current;
             if (node)
                 navWidth = window.getComputedStyle(node).width.split('px')[0];
@@ -171,7 +179,7 @@ class Navbar extends Component {
                     <div
                         id="nav-bar"
                         ref={this.navRef}
-                        style={{ display: this.state.navbar }}
+                        style={{ visibility: this.state.navbar }}
                     >
                         <div className="item-wrapper" onClick={this.showNav}>
                             <Link className="nav-item" to="/">
@@ -217,7 +225,7 @@ class Navbar extends Component {
                     <div
                         id="nav-bar"
                         ref={this.navRef}
-                        style={{ display: this.state.navbar }}
+                        style={{ visibility: this.state.navbar }}
                     >
                         <div className="item-wrapper" onClick={this.showNav}>
                             <Link className="nav-item" to="/">

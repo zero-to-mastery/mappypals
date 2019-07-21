@@ -29,7 +29,7 @@ const Main = () => (
             <Route path="/about" component={About} />
             <Route path="/contact" component={Contact} />
             <Route path="/forgotpassword" component={ForgotPassword} />
-            <Route path="/friendslist" component={FriendsList} />
+            <Route path="/friendslist" component={props=><FriendsList {...props}/>} />
             <Route path="/resetpassword/:token" component={ResetPassword} />
             <Route
                 path="/settings/profilesettings"
