@@ -37,9 +37,9 @@ class Signup extends Component {
     };
 
     handleSubmit = event => {
-        const { password, confirmPassword, msg } = this.state;
+        const { password, confirmPassword } = this.state;
         event.preventDefault();
-        const isPasswordValidVar = IsPasswordValid(password, msg);
+        const isPasswordValidVar = IsPasswordValid(password);
         const IsPasswordIdenticalVar = IsPasswordIdentical(
             password,
             confirmPassword
