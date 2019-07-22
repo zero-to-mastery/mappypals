@@ -91,7 +91,11 @@
     transition: transform 0.3s ease-in;
     transform: scale(1.05);
 }
-
+.InviteFriends {
+    padding: 8px 18px;
+    height: 30px;
+    font-size: 0.7rem;
+}
 @media (max-width: 900px) {
     .Navbar {
         margin: 2px;
