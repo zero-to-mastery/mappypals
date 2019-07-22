@@ -11,8 +11,7 @@ import './mapbox-gl-geocoder.css';
 import FriendSearch from '../../components/FriendSearch';
 import PopupComponent from './Popup/Popup';
 
-const TOKEN =
-    'pk.eyJ1Ijoic2Npb3J0aW5vbXJjIiwiYSI6ImNqc2RocmRzYTB2OGUzeWxuZDNmdDhrcDgifQ.txLXHEJPl4lYa8an6fcjuA';
+const TOKEN = process.env.REACT_APP_TOKEN;
 class Map extends Component {
     constructor() {
         super();
@@ -93,7 +92,7 @@ class Map extends Component {
     };
     getPostcode = () => {
         fetch(
-            'https://api.mapbox.com/geocoding/v5/mapbox.places/' +
+            process.env.REACT_APP_MAPBOX_API_URL +
                 this.state.newFriend.long +
                 ',' +
                 this.state.newFriend.lat +
