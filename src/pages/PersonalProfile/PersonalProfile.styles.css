@@ -1,3 +1,7 @@
+.top-title {
+  padding-left: 2rem;
+}
+
 .profile-photo img {
   border-radius: 50%;
   width: 10rem;
@@ -11,9 +15,15 @@
 
 .text-large {
   font-size: 22px;
-  font-weight: bold;
+  font-weight: normal;
 }
 
 .color-purple {
   color: #6831de;
+}
+
+@media (max-width: 720px) {
+  .profile-content-title{
+    text-align: center;
+  }
 }
