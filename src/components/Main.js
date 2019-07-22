@@ -11,7 +11,7 @@ import ProfileSettings from '../pages/Settings/ProfileSettings/ProfileSettings';
 import SettingsEmailPassword from '../pages/Settings/SettingsEmailPassword/SettingsEmailPassword';
 import FriendsList from '../pages/FriendsList/FriendsList';
 import Page404 from '../pages/Page404/Page404';
-import InviteFriends from '../pages/InviteFriends/InviteFriends';
+// import InviteFriends from '../pages/InviteFriends/InviteFriends';
 // The Main component renders one of the three provided
 // Routes (provided that one matches). Both the /roster
 // and /schedule routes will match any pathname that starts
@@ -41,10 +41,6 @@ const Main = () => (
             <Route
                 path="/settings/email_&_password"
                 component={SettingsEmailPassword}
-            />
-            <Route
-                path="/invitefriends"
-                component={props => <InviteFriends {...props} />}
             />
             <Route component={Page404} />
         </Switch>
