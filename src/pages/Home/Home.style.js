@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-import Container from '../../utils/components/Container';
-import Text from '../../utils/components/Text';
+import Container from '../../components/UI/Container/Container';
+import Text from '../../components/UI/Text/Text';
 
-import { Column } from '../../utils/components/Grid';
+import { Column } from '../../components/UI/Grid/Grid';
 
 import bgImage from '../../assets/bgImage.png';
 
@@ -13,11 +13,10 @@ export const MainContainer = styled(Container)`
     background: #fff;
 `;
 
-
 export const Wrapper = styled(Container)`
-    background-color: rgba(255,255, 255, 0);
+    background-color: rgba(255, 255, 255, 0);
     width: 100%;
-    justifyContent: center;
+    justifycontent: center;
     text-align: center;
 
     @media only screen and (min-width: 500px) {
@@ -34,19 +33,19 @@ export const SignUpButton = styled.div`
     font-size: 2em;
     text-align: center;
     text-transform: uppercase;
-    background-image: linear-gradient(to bottom right, #E03BFB, #6831DE);
+    background-image: linear-gradient(to bottom right, #e03bfb, #6831de);
     color: #fff;
     margin-bottom: 1rem;
     padding: 1rem 4rem;
     border: 1px solid #000;
     border-radius: 10px;
-    box-shadow: 0px 4px 4px rgba(0,0,0, 0.25);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     cursor: pointer;
-    transition: transform .5s ease-in-out;
+    transition: transform 0.5s ease-in-out;
 
     &:hover {
         transform: scale(1.05);
-        box-shadow: 0px 6px 4px rgba(0,0,0,0.25);
+        box-shadow: 0px 6px 4px rgba(0, 0, 0, 0.25);
     }
 
     @media only screen and (min-width: 1200px) {
@@ -73,7 +72,6 @@ export const Title = styled(StyledText)`
 
 export const Paragraph = styled(StyledText)`
     padding: 0 2rem;
-
 `;
 
 export const StyledContainer = styled(Container)`
