@@ -47,9 +47,7 @@ class Signup extends Component {
 
         if (IsPasswordIdenticalVar && isPasswordValidVar) {
             (async () => {
-                const url =
-                    (process.env.URL || 'http://localhost:3001/') +
-                    'users/register';
+                const url = 'http://localhost:3001/users/register';
                 await ky
                     .post(url, { json: this.state })
                     .then(res => {
@@ -73,17 +71,13 @@ class Signup extends Component {
     // check if email already exists
     // in the background, after user leaves the email input field
     checkEmail = () => {
-        fetch(
-            (process.env.URL || 'http://localhost:3001/') +
-                'users/validate-email',
-            {
-                method: 'post',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ email: this.state.email })
-            }
-        )
+        fetch('http://localhost:3001/users/validate-email', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email: this.state.email })
+        })
             .then(res => {
                 if (res.status === 200) {
                     return this.setState({ emailAlreadyExists: false });
