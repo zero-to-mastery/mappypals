@@ -1,11 +1,11 @@
 .text-large-and-purple {
-  font-size: 22px;
-  font-weight: normal;
-  color: #6831de;
+    font-size: 22px;
+    font-weight: normal;
+    color: #6831de;
 }
 
 @media (max-width: 720px) {
-  .text-large-and-purple {
-    text-align: center;
-  }
+    .text-large-and-purple {
+        text-align: center;
+    }
 }
