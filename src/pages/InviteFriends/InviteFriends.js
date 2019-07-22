@@ -22,8 +22,12 @@ export const InviteFriends = ({ handleClose }) => {
         }
     };
     const handleSendInvites = event => {
-        // Do something
-        setEmailList([]);
+        if (emailList.length > 0) {
+            setEmailList([]);
+            handleClose();
+        } else {
+            alert('No emails to send');
+        }
     };
     const removeEmail = emailToRemove => {
         const index = emailList.indexOf(emailToRemove);
