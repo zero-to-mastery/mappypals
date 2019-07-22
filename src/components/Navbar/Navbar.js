@@ -8,7 +8,8 @@ import { ReactComponent as Team } from '../../pics/Team.svg';
 import { ReactComponent as Friends } from '../../pics/FriendsIcon.svg';
 import { ReactComponent as Invite } from '../../pics/InviteFriends.svg';
 import { ReactComponent as Settings } from '../../pics/MySettingsIcon.svg';
-
+import InviteFriends from '../../pages/InviteFriends/InviteFriends';
+import Modal from '../../components/UI/Modal/Modal';
 const VISIBILITY = { hidden: 'hidden', visible: 'visible' };
 
 class Navbar extends Component {
@@ -21,9 +22,17 @@ class Navbar extends Component {
             navbar: '',
             navbarRight: '',
             navbarWidth: '',
-            settingsDropdown: false
+            settingsDropdown: false,
+            showInviteFriends: false
         };
     }
+    handleShowInviteFriends = () => {
+        this.setState({ showInviteFriends: true });
+        this.showNav();
+    };
+    handleCloseInviteFriends = () => {
+        this.setState({ showInviteFriends: false });
+    };
     showNav = () => {
         if (
             this.state.navbarWidth.length &&
@@ -164,6 +173,14 @@ class Navbar extends Component {
         }
         return (
             <React.Fragment>
+                <Modal
+                    show={this.state.showInviteFriends}
+                    handleClose={this.handleCloseInviteFriends}
+                >
+                    <InviteFriends
+                        handleClose={this.handleCloseInviteFriends}
+                    />
+                </Modal>
                 {this.state.hamburger.length ? (
                     <div
                         className="hamburger"
@@ -175,7 +192,7 @@ class Navbar extends Component {
                 ) : (
                     ''
                 )}
-                {/*logged*/ false ? (
+                {/*logged*/ true ? (
                     <div
                         id="nav-bar"
                         ref={this.navRef}
@@ -195,8 +212,11 @@ class Navbar extends Component {
                             </Link>
                         </div>
 
-                        <div className="item-wrapper" onClick={this.showNav}>
-                            <Link className="nav-item" to="/invitefriends">
+                        <div
+                            className="item-wrapper"
+                            onClick={this.handleShowInviteFriends}
+                        >
+                            <Link className="nav-item" to="/">
                                 {' '}
                                 <Invite /> <p>INVITE FRIENDS</p>{' '}
                             </Link>
