@@ -3,8 +3,7 @@ import Button from '../../components/UI/Button/Button';
 import Chip from '../../components/UI/Chip/Chip';
 import classes from './InviteFriends.module.scss';
 import isEmail from 'validator/lib/isEmail';
-import { ReactComponent as Gmail } from '../../pics/gmail.svg';
-export const InviteFriends = props => {
+export const InviteFriends = ({ handleClose }) => {
     const [emailList, setEmailList] = useState([
         'example1@mail.com',
         'example1@mail.com',
@@ -14,17 +13,17 @@ export const InviteFriends = props => {
 
     const handleInputChange = event => {
         const newText = event.target.value;
-        console.log(newText);
         setText(newText);
     };
-    const handleKeyPressed = event => {
-        const key = event.key;
-        if (key === 'Enter' && isEmail(text)) {
+    const handleAddEmail = event => {
+        if (isEmail(text)) {
             setEmailList([...emailList, text]);
             setText('');
-        } else {
-            // show validation error
         }
+    };
+    const handleSendInvites = event => {
+        // Do something
+        setEmailList([]);
     };
     const removeEmail = emailToRemove => {
         const index = emailList.indexOf(emailToRemove);
@@ -34,7 +33,6 @@ export const InviteFriends = props => {
             setEmailList(newState);
         }
     };
-    window.addEventListener('keypress', handleKeyPressed);
 
     return (
         <div className={`${classes.root}`}>
@@ -51,23 +49,25 @@ export const InviteFriends = props => {
                         value={text}
                         className={classes.input}
                         onChange={handleInputChange}
-                        onKeyPress={handleKeyPressed}
-                        required
                     />
                 </label>
-                <Button btnType="MultipleFriends" type="submit">
-                    SEND INVITES
+                <Button btnType="InviteFriends" onClick={handleAddEmail}>
+                    Add Email
                 </Button>
             </div>
             <div className={classes.emailList}>
                 {emailList.map((email, index) => (
-                    <Chip text={email} id={index} closeHandler={removeEmail} />
+                    <Chip text={email} key={index} closeHandler={removeEmail} />
                 ))}
             </div>
-            <div className={classes.importFrom}>
-                <p>Or import from:</p>
-                <Gmail />
-                {/* <Gmail /> */}
+            <div className={classes.sendInvite}>
+                <Button
+                    btnType="InviteFriends"
+                    type="submit"
+                    onClick={handleSendInvites}
+                >
+                    Send Invites
+                </Button>
             </div>
         </div>
     );
