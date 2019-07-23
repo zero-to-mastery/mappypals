@@ -95,6 +95,7 @@ class Contact extends Component {
             }).then(res => { 
                 if (res.status===200) {
                   this.setState({error: `Successfully sent to Mappypals!`});
+                  alert(`Message successfully sent to Mappypals!`);
                   this.props.history.push('/contact');
                   this.refs.form.reset();
                 } else {
