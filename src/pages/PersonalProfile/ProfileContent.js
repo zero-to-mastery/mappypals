@@ -5,7 +5,10 @@ import './PersonalProfile.styles.css';
 
 const ProfileContentWrapper = styled.div`
     flex-direction: column;
-    padding: 0 2rem;
+    padding: 0 5rem 0 1rem;
+    @media (max-width: 720px) {
+        padding-left: 5rem;
+    }
 `;
 
 class ProfileContent extends React.Component {
