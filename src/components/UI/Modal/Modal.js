@@ -1,25 +1,31 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import classes from './Modal.module.scss';
-export const Modal = ({ handleClose, show, children }) => {
+import { hideInviteFriends } from '../../../store/actions/modals';
+
+export const Modal = ({ show, children }) => {
     const showHideClassName = show
         ? `${classes.modal} ${classes.displayBlock}`
         : `${classes.modal} ${classes.displayNone}`;
-
+    // react-redux hook
+    const dispatch = useDispatch();
     return (
         <div className={showHideClassName}>
-            <section className={classes.modalMain}>
-                <button className={classes.closeButton} onClick={handleClose}>
+            <section className={classes.header}>
+                <button
+                    className={classes.closeButton}
+                    onClick={() => dispatch(hideInviteFriends())}
+                >
                     X
                 </button>
-                {children}
             </section>
+            <section className={classes.modalMain}>{children}</section>
         </div>
     );
 };
 
 Modal.propTypes = {
-    show: PropTypes.bool.isRequired,
-    handleClose: PropTypes.func.isRequired
+    show: PropTypes.bool.isRequired
 };
 export default Modal;

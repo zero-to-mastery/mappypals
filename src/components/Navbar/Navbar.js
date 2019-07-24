@@ -9,8 +9,7 @@ import { ReactComponent as Team } from '../../pics/Team.svg';
 import { ReactComponent as Friends } from '../../pics/FriendsIcon.svg';
 import { ReactComponent as Invite } from '../../pics/InviteFriends.svg';
 import { ReactComponent as Settings } from '../../pics/MySettingsIcon.svg';
-import InviteFriends from '../../pages/InviteFriends/InviteFriends';
-import Modal from '../../components/UI/Modal/Modal';
+
 import {
     showInviteFriends,
     hideInviteFriends
@@ -47,8 +46,6 @@ class Navbar extends Component {
                 });
             else this.setState({ navbar: VISIBILITY.hidden, navbarRight: '' });
         }
-        // Hide inviteFriends modal form
-        this.props.hideInviteFriends();
     };
     componentDidMount() {
         // node = id="nav-bar"
@@ -126,7 +123,8 @@ class Navbar extends Component {
         this.setState({ settingsDropdown: !this.state.settingsDropdown });
 
     render() {
-        const { onLogin } = this.props;
+        const { onLogin, hideInviteFriends, showInviteFriends } = this.props;
+
         let settingsNavbar = '';
         if (this.state.settingsDropdown & (window.innerWidth > 900)) {
             settingsNavbar = (
@@ -134,7 +132,10 @@ class Navbar extends Component {
                     <Link to="/settings/profilesettings">
                         <p
                             className="setting-navbar-item  u-border-bottom"
-                            onClick={this.toggleSettingsNavbar}
+                            onClick={() => {
+                                this.toggleSettingsNavbar();
+                                hideInviteFriends();
+                            }}
                         >
                             Profile Settings
                         </p>
@@ -172,12 +173,6 @@ class Navbar extends Component {
         }
         return (
             <React.Fragment>
-                <Modal
-                    show={this.props.inviteFriendsVisibility}
-                    handleClose={() => this.props.hideInviteFriends()}
-                >
-                    <InviteFriends />
-                </Modal>
                 {this.state.hamburger.length ? (
                     <div
                         className="hamburger"
@@ -195,14 +190,26 @@ class Navbar extends Component {
                         ref={this.navRef}
                         style={{ visibility: this.state.navbar }}
                     >
-                        <div className="item-wrapper" onClick={this.showNav}>
+                        <div
+                            className="item-wrapper"
+                            onClick={() => {
+                                this.showNav();
+                                hideInviteFriends();
+                            }}
+                        >
                             <Link className="nav-item" to="/">
                                 {' '}
                                 <Logo height="50px" /> <p>MappyPals</p>{' '}
                             </Link>
                         </div>
 
-                        <div className="item-wrapper" onClick={this.showNav}>
+                        <div
+                            className="item-wrapper"
+                            onClick={() => {
+                                this.showNav();
+                                hideInviteFriends();
+                            }}
+                        >
                             <Link className="nav-item" to="/friendslist">
                                 {' '}
                                 <Friends /> <p>FRIENDS</p>{' '}
@@ -211,14 +218,23 @@ class Navbar extends Component {
 
                         <div
                             className="item-wrapper"
-                            onClick={() => this.props.showInviteFriends()}
+                            onClick={() => {
+                                this.showNav();
+                                showInviteFriends();
+                            }}
                         >
                             <Link className="nav-item" to="/">
                                 {' '}
                                 <Invite /> <p>INVITE FRIENDS</p>{' '}
                             </Link>
                         </div>
-                        <div className="item-wrapper" onClick={this.showNav}>
+                        <div
+                            className="item-wrapper"
+                            onClick={() => {
+                                this.showNav();
+                                hideInviteFriends();
+                            }}
+                        >
                             {settings}
                             {settingsNavbar}:
                         </div>
@@ -228,6 +244,7 @@ class Navbar extends Component {
                                 <Button
                                     btnType="Navbar"
                                     onClick={() => {
+                                        hideInviteFriends();
                                         onLogin();
                                         this.showNav();
                                     }}
@@ -312,10 +329,7 @@ const mapDispatchToProps = {
     showInviteFriends,
     hideInviteFriends
 };
-const mapStateToProps = state => ({
-    inviteFriendsVisibility: state.modals.inviteFriends
-});
 export default connect(
-    mapStateToProps,
+    undefined,
     mapDispatchToProps
 )(Navbar);
