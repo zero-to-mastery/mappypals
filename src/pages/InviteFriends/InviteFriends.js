@@ -16,7 +16,11 @@ export const InviteFriends = ({ handleClose }) => {
         setText(newText);
     };
     const handleAddEmail = event => {
-        if (isEmail(text)) {
+        //  check if the email already exists
+        if (emailList.includes(text)) {
+            alert('Email already added');
+            setText('');
+        } else if (isEmail(text)) {
             setEmailList([...emailList, text]);
             setText('');
         }
