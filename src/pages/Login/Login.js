@@ -14,7 +14,7 @@ class Login extends Component {
     constructor(props) {
         super(props);
         window.FB.init({
-            appId: '298824577401793',
+            appId: process.env.REACT_APP_ID,
             cookie: true,
             xfbml: true,
             version: 'v3.2'
@@ -36,11 +36,12 @@ class Login extends Component {
 
     confirmAccount() {
         const localData = getLocalData();
+        console.log(localData);
 
         // redirect user to homepage if he's already logged in
-        if ((localData.token && localData.userId) || this.props.redirect) {
-            return this.props.history.push('/');
-        }
+        // if ((localData.token && localData.userId) || this.props.redirect) {
+        //     return this.props.history.push('/');
+        // }
     }
 
     handleChange = event => {

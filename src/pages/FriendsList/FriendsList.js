@@ -1,9 +1,9 @@
 import React from 'react';
-import friends from './friends-data';
 import FriendCard from './FriendCard';
 import SearchFriends from './SearchFriends';
 import styled from 'styled-components';
-
+import { connect } from 'react-redux';
+import { getUserFriends } from '../../store/actions/user';
 const FriendsLayout = styled.div`
     width: calc(100vw - 300px);
     background: #fff;
@@ -47,12 +47,12 @@ class FriendsList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            friends: friends
+            friends: props.friends
         };
     }
 
     handleChange = e => {
-        let currentList = friends;
+        let currentList = this.props.friends;
         let newList = [];
 
         if (e.target.value !== '') {
@@ -64,14 +64,27 @@ class FriendsList extends React.Component {
                 return lc.includes(filter);
             });
         } else {
-            newList = friends;
+            newList = this.props.friends;
         }
 
         this.setState({
             friends: newList
         });
     };
-
+    // Load user's friends once the component is mounted
+    async componentDidMount() {
+        const { friends, getUserFriends } = this.props;
+        if (friends.length === 0) {
+            try {
+                await getUserFriends();
+                this.setState({ friends: this.props.friends });
+            } catch (error) {
+                const errorMessage = `Loading friends list failed ${error}`;
+                console.log(errorMessage);
+                alert(errorMessage);
+            }
+        }
+    }
     render() {
         return (
             <FriendsLayout>
@@ -90,4 +103,15 @@ class FriendsList extends React.Component {
         );
     }
 }
-export default FriendsList;
+// connect component to the store
+const mapStateToProps = ({ user, apiCallInProgress }) => ({
+    friends: user.friends,
+    loading: apiCallInProgress
+});
+const mapDispatchToProps = {
+    getUserFriends
+};
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(FriendsList);

@@ -12,7 +12,7 @@ class Signup extends Component {
     constructor(props) {
         super(props);
         window.FB.init({
-            appId: '298824577401793',
+            appId: process.env.REACT_APP_ID,
             cookie: true,
             xfbml: true,
             version: 'v3.2'
@@ -47,27 +47,26 @@ class Signup extends Component {
 
         if (IsPasswordIdenticalVar && isPasswordValidVar) {
             (async () => {
-                const url = 'http://localhost:3001/users/register';
+                const url = process.env.URL || 'http://localhost:3001/';
                 await ky
-                    .post(url, { json: this.state })
-                    .then(res => {
+                    .post(`${url}users/register`, { json: this.state }).json()
+                    .then((res, err) => {
+                        //if error msg is one that we catch
                         if (res.status === 401) {
-                            // email already exists
-                            this.setState({ emailAlreadyExists: true });
-                        } else {
+                            this.setState({ error: String(err.statusText) });
+                        } else if (res.status === 200) {
                             this.props.history.push('/login');
+                        } else {
+                            this.setState({error: `Server Error: Unable to register. Please try again.` })
                         }
                     })
                     .catch(err =>
-                        alert(
-                            'Server Error: Unable to register. Please try again.'
-                        )
-                    );
+                        alert(`Uncaught Error: ${err.statusText}`)
+                    )
             })();
         }
     };
     validatePassword = () => this.setState({ passwordValidError: true });
-
     // check if email already exists
     // in the background, after user leaves the email input field
     checkEmail = () => {
@@ -98,7 +97,8 @@ class Signup extends Component {
                 />
             );
         }
-
+//This message will come from the back end - along with any other possible errors, the catch
+//is displayed below the button.
         let EmailValidError = '';
         if (this.state.emailAlreadyExists) {
             EmailValidError = (
@@ -106,7 +106,7 @@ class Signup extends Component {
             );
         }
 
-        const { checkLoginState } = this.props;
+        const { checkLoginState, error, loading } = this.props;
         return (
             <div className="Login" style={{ minHeight: `87.8vh` }}>
                 <Form onSubmit={this.handleSubmit}>
@@ -175,6 +175,12 @@ class Signup extends Component {
                                 Create Account
                             </Button>
                         </div>
+                        {loading && <div className="u-text-center">Loading...</div>}
+                        {error && (
+                            <div className="u-text-center">
+                                <ErrorMessage content={error} />
+                            </div>
+                        )}
                     </fieldset>
                     <p className="u-text-center">Or connect with: </p>
                     <div className="btnContainer">

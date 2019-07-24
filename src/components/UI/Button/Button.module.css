@@ -50,6 +50,11 @@
     margin-left: 20px;
 }
 
+.ProfileCard {
+    padding: 10px 10px;
+    width: 100%;
+}
+
 @media all and (min-width: 630px) {
     .ForgotPassword {
         font-size: 25px;
