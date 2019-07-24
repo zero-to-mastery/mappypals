@@ -12,7 +12,7 @@ class Signup extends Component {
     constructor(props) {
         super(props);
         window.FB.init({
-            appId: '298824577401793',
+            appId: process.env.REACT_APP_ID,
             cookie: true,
             xfbml: true,
             version: 'v3.2'
