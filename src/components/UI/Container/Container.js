@@ -12,7 +12,6 @@ const ContainerStyle = styled.div`
     ${({ center }) => center && `justify-content: center; align-items: center;`}
     ${({ height }) => height && `height: ${height}vh`}
     ${({ width }) => width && `width: ${width}vw`}
-    ${({ width }) => width && `width: ${width}vw`}
     ${({ bgColor }) => `background: ${bgColor ? bgColor : `#000`};`}
     ${({ color }) => `color: ${color ? color : `#fff`};`}
 `;

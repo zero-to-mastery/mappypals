@@ -8,6 +8,7 @@ import {
     MainContainer,
     Wrapper,
     Title,
+    ImgWrapper,
     Paragraph,
     StyledContainer,
     StyledColumn,
@@ -19,6 +20,7 @@ import './Home.css';
 import SignUpIcon from '../../assets/SignUpIcon.png';
 import InviteIcon from '../../assets/InviteIcon.png';
 import ConnectIcon from '../../assets/ConnectIcon.png';
+import { ReactComponent as EarthIcon } from '../../assets/svg/bgEarth.svg'; 
 
 import { Row, Column } from '../../components/UI/Grid/Grid';
 import HomeCard from '../../components/HomeCard/home-card.component.js';
@@ -58,18 +60,30 @@ const Home = user => {
                 </Title>
                 <Paragraph size={100 * fontSize} weight="500" align="center">
                     MappyPals is an exciting new app that can keep you up to
-                    date with your international friends.
+                    date with your international friends. You can follow them, message them, make new friends and see
+                    what they are up to! All in one easy-to-use app!
                 </Paragraph>
-                <Paragraph size={100 * fontSize} weight="500" align="center">
-                    You can follow them, message them, make new friends and see
-                    what they are up to!
-                </Paragraph>
-                <Paragraph size={100 * fontSize} weight="500" align="center">
-                    All in one easy-to-use app!
-                </Paragraph>
+                
+             
+                
             </Wrapper>
+            {
+                size.width >= 1200
+                ? (
+                    <ImgWrapper center>
+                        <EarthIcon />
+                        <TheThreeSteps />
+                    </ImgWrapper> )
+                : <TheThreeSteps />
+            }   
+                    
+        </MainContainer>
+    );
+};
 
-            <StyledContainer
+function TheThreeSteps() {
+    return (
+        <StyledContainer
                 column
                 alignItems="center"
                 justifyContent="space-between"
@@ -117,9 +131,10 @@ const Home = user => {
                         </Link>
                     </Column>
                 </Row>
-            </StyledContainer>
-        </MainContainer>
-    );
-};
+        </StyledContainer>
+    )
+}
+
 
 export default Home;
+

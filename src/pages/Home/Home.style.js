@@ -23,9 +23,18 @@ export const Wrapper = styled(Container)`
         width: 90%;
     }
     @media only screen and (min-width: 768px) {
-        width: 70%;
+        width: 80%;
+    }
+    @media only screen and (min-width: 1200px) {
+        width: 800px;
     }
 `;
+
+export const ImgWrapper = styled(Container)`
+    background: #fff;
+    position: relative;
+    width: 100%;
+`
 
 export const SignUpButton = styled.div`
     font-family: 'Poppins', sans-serif;
@@ -49,7 +58,7 @@ export const SignUpButton = styled.div`
     }
 
     @media only screen and (min-width: 1200px) {
-        margin-top: 4rem;
+        margin-top: 30%;
         padding: 1rem 5rem;
     }
 `;
@@ -68,17 +77,28 @@ export const StyledText = styled(Text)`
 
 export const Title = styled(StyledText)`
     padding: 1rem;
+    margin-bottom: 0;
+
+    @media only screen and (min-width: 1200px) {
+        margin-top: 0;
+    }
 `;
 
 export const Paragraph = styled(StyledText)`
-    padding: 0 2rem;
+    padding: 0 1rem;
+    
+    @media only screen and (min-width: 1200px) {
+        margin-top: 0;
+    }
 `;
 
 export const StyledContainer = styled(Container)`
-    background: #fff;
+    background: rgba(255, 255, 255, 0);
     @media only screen and (min-width: 1200px) {
-        background: url(${bgImage});
-        background-repeat: no-repeat;
-        background-position: center;
+        position: absolute;
+        top: 20%;
+        left: 0; 
+        right: 0;
+        bottom: 0;
     }
 `;
