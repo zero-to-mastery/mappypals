@@ -48,7 +48,10 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: left;
+    max-lines: 3;
+    justify-content: center;
+    max-height:100px;
+    overflow-y:auto;
 }
 .sendInvite{
     margin:16px auto;

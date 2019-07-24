@@ -1,19 +1,27 @@
 .modal {
     position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vw;
-    min-width: 50%;
-    z-index: 2;
-}
-
-.modalMain {
-    margin-top: 50%;
-    margin-left: 25%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-80%, -50%);
+    max-width: 80%;
     background: white;
     box-shadow: 5px 10px 18px rgba(0, 0, 0, 0.05);
     border-radius: 30px;
     height: auto;
+    z-index: 2;
+}
+@media all and (max-width: 900px) {
+    .modal {
+        transform: translate(-50%, -50%);
+        min-width: 90%;
+    }
+}
+.header {
+    display: flex;
+    align-items: flex-end;
+}
+.modalMain {
+    display: flex;
 }
 .closeButton {
     border: none;
@@ -22,9 +30,10 @@
     margin-top: 16px;
     margin-right: 16px;
     font-size: 18px;
-    text-align: end;
+    // text-align: end;
     &:hover {
-        font-size: 20px;
+        color: gray;
+        font-weight: 600;
     }
 }
 .displayBlock {
