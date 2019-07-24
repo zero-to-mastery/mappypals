@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classes from './Modal.module.scss';
 export const Modal = ({ handleClose, show, children }) => {
     const showHideClassName = show
@@ -17,4 +18,8 @@ export const Modal = ({ handleClose, show, children }) => {
     );
 };
 
+Modal.propTypes = {
+    show: PropTypes.bool.isRequired,
+    handleClose: PropTypes.func.isRequired
+};
 export default Modal;
