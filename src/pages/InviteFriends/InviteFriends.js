@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { hideInviteFriends } from '../../store/actions/modals';
 import Button from '../../components/UI/Button/Button';
 import Chip from '../../components/UI/Chip/Chip';
 import classes from './InviteFriends.module.scss';
 import isEmail from 'validator/lib/isEmail';
-export const InviteFriends = ({ handleClose }) => {
+export const InviteFriends = () => {
+    // react-redux hooks
+    const dispatch = useDispatch();
+    // React hooks
     const [emailList, setEmailList] = useState([
         'example1@mail.com',
         'example1@mail.com',
         'example1@mail.com'
     ]);
+
     const [text, setText] = useState('');
 
     const handleInputChange = event => {
@@ -28,7 +34,7 @@ export const InviteFriends = ({ handleClose }) => {
     const handleSendInvites = event => {
         if (emailList.length > 0) {
             setEmailList([]);
-            handleClose();
+            dispatch(hideInviteFriends());
         } else {
             alert('No emails to send');
         }

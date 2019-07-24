@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import './Navbar.css';
 import Button from '../UI/Button/Button';
 import { ReactComponent as AboutUs } from '../../pics/AboutUs.svg';
@@ -10,6 +11,10 @@ import { ReactComponent as Invite } from '../../pics/InviteFriends.svg';
 import { ReactComponent as Settings } from '../../pics/MySettingsIcon.svg';
 import InviteFriends from '../../pages/InviteFriends/InviteFriends';
 import Modal from '../../components/UI/Modal/Modal';
+import {
+    showInviteFriends,
+    hideInviteFriends
+} from '../../store/actions/modals';
 const VISIBILITY = { hidden: 'hidden', visible: 'visible' };
 
 class Navbar extends Component {
@@ -22,17 +27,9 @@ class Navbar extends Component {
             navbar: '',
             navbarRight: '',
             navbarWidth: '',
-            settingsDropdown: false,
-            showInviteFriends: false
+            settingsDropdown: false
         };
     }
-    handleShowInviteFriends = () => {
-        this.setState({ showInviteFriends: true });
-        this.showNav();
-    };
-    handleCloseInviteFriends = () => {
-        this.setState({ showInviteFriends: false });
-    };
     showNav = () => {
         if (
             this.state.navbarWidth.length &&
@@ -50,6 +47,8 @@ class Navbar extends Component {
                 });
             else this.setState({ navbar: VISIBILITY.hidden, navbarRight: '' });
         }
+        // Hide inviteFriends modal form
+        this.props.hideInviteFriends();
     };
     componentDidMount() {
         // node = id="nav-bar"
@@ -174,12 +173,10 @@ class Navbar extends Component {
         return (
             <React.Fragment>
                 <Modal
-                    show={this.state.showInviteFriends}
-                    handleClose={this.handleCloseInviteFriends}
+                    show={this.props.inviteFriendsVisibility}
+                    handleClose={() => this.props.hideInviteFriends()}
                 >
-                    <InviteFriends
-                        handleClose={this.handleCloseInviteFriends}
-                    />
+                    <InviteFriends />
                 </Modal>
                 {this.state.hamburger.length ? (
                     <div
@@ -214,7 +211,7 @@ class Navbar extends Component {
 
                         <div
                             className="item-wrapper"
-                            onClick={this.handleShowInviteFriends}
+                            onClick={() => this.props.showInviteFriends()}
                         >
                             <Link className="nav-item" to="/">
                                 {' '}
@@ -311,5 +308,14 @@ class Navbar extends Component {
         );
     }
 }
-
-export default Navbar;
+const mapDispatchToProps = {
+    showInviteFriends,
+    hideInviteFriends
+};
+const mapStateToProps = state => ({
+    inviteFriendsVisibility: state.modals.inviteFriends
+});
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Navbar);
