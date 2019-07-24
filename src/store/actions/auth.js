@@ -28,7 +28,8 @@ export const authLogin = (email, password) => {
         (async () => {
             const url = 'http://localhost:3001/users/login';
             await ky
-                .post(url, { json: { email, password } }).json()
+                .post(url, { json: { email, password } })
+                .json()
                 .then((res, err) => {
                     if (res.token && res.userId) {
                         setLocalData(res.token, res.userId);
@@ -36,9 +37,13 @@ export const authLogin = (email, password) => {
                     } else {
                         // error message here
                         dispatch(authLoginFailed(`Error: ${err.statusText}`));
-                    }})
+                    }
+                })
                 .catch(err =>
-                    dispatch(authLoginFailed(`Uncaught Error: ${err.statusText}`)))
+                    dispatch(
+                        authLoginFailed(`Uncaught Error: ${err.statusText}`)
+                    )
+                );
         })();
     };
 };

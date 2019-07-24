@@ -49,7 +49,8 @@ class Signup extends Component {
             (async () => {
                 const url = process.env.URL || 'http://localhost:3001/';
                 await ky
-                    .post(`${url}users/register`, { json: this.state }).json()
+                    .post(`${url}users/register`, { json: this.state })
+                    .json()
                     .then((res, err) => {
                         //if error msg is one that we catch
                         if (res.status === 401) {
@@ -57,12 +58,12 @@ class Signup extends Component {
                         } else if (res.status === 200) {
                             this.props.history.push('/login');
                         } else {
-                            this.setState({error: `Server Error: Unable to register. Please try again.` })
+                            this.setState({
+                                error: `Server Error: Unable to register. Please try again.`
+                            });
                         }
                     })
-                    .catch(err =>
-                        alert(`Uncaught Error: ${err.statusText}`)
-                    )
+                    .catch(err => alert(`Uncaught Error: ${err.statusText}`));
             })();
         }
     };
@@ -97,8 +98,8 @@ class Signup extends Component {
                 />
             );
         }
-//This message will come from the back end - along with any other possible errors, the catch
-//is displayed below the button.
+        //This message will come from the back end - along with any other possible errors, the catch
+        //is displayed below the button.
         let EmailValidError = '';
         if (this.state.emailAlreadyExists) {
             EmailValidError = (
@@ -175,7 +176,9 @@ class Signup extends Component {
                                 Create Account
                             </Button>
                         </div>
-                        {loading && <div className="u-text-center">Loading...</div>}
+                        {loading && (
+                            <div className="u-text-center">Loading...</div>
+                        )}
                         {error && (
                             <div className="u-text-center">
                                 <ErrorMessage content={error} />
