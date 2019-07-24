@@ -1,0 +1,29 @@
+.top-title {
+    padding-left: 2rem;
+}
+
+.profile-photo img {
+    border-radius: 50%;
+    width: 10rem;
+    height: 10rem;
+    background-color: blueviolet;
+}
+
+.text-medium {
+    font-size: 18px;
+}
+
+.text-large {
+    font-size: 22px;
+    font-weight: normal;
+}
+
+.color-purple {
+    color: #6831de;
+}
+
+@media (max-width: 720px) {
+    .profile-content-title {
+        text-align: center;
+    }
+}
