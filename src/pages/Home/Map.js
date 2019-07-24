@@ -3,16 +3,12 @@ import MapGL, { Marker, Popup } from 'react-map-gl';
 import AddFriendForm from './AddFriendForm/AddFriendForm';
 import InvitationSent from './AddFriendForm/InvitationSent';
 import './Home.css';
-//import DeckGL, { GeoJsonLayer } from 'deck.gl';
 import { GeoJsonLayer } from 'deck.gl';
-import Geocoder from 'react-map-gl-geocoder';
-import './mapbox-gl-geocoder.css';
 
 import FriendSearch from '../../components/FriendSearch';
 import PopupComponent from './Popup/Popup';
 
-const TOKEN =
-    'pk.eyJ1Ijoic2Npb3J0aW5vbXJjIiwiYSI6ImNqc2RocmRzYTB2OGUzeWxuZDNmdDhrcDgifQ.txLXHEJPl4lYa8an6fcjuA';
+const TOKEN = process.env.REACT_APP_TOKEN;
 class Map extends Component {
     constructor() {
         super();
@@ -93,7 +89,7 @@ class Map extends Component {
     };
     getPostcode = () => {
         fetch(
-            'https://api.mapbox.com/geocoding/v5/mapbox.places/' +
+            process.env.REACT_APP_MAPBOX_API_URL +
                 this.state.newFriend.long +
                 ',' +
                 this.state.newFriend.lat +
@@ -326,14 +322,6 @@ class Map extends Component {
                     ) : (
                         ''
                     )}
-                    <Geocoder
-                        mapRef={this.mapRef}
-                        onResult={this.handleOnResult}
-                        onViewportChange={this.handleGeocoderViewportChange}
-                        mapboxApiAccessToken={TOKEN}
-                        position="top-left"
-                    />
-                    {/* <DeckGL {...this.state.viewport} layers={[this.state.searchResultLayer]} /> */}
                     <FriendSearch
                         containerComponent={this.props.containerComponent}
                         //temp database
