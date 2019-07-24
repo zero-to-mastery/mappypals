@@ -25,21 +25,20 @@ export const authLoginSucceeded = (token, userId) => ({
 export const authLogin = (email, password) => {
     return async dispatch => {
         dispatch(authLoginStart());
-
-        try {
+        (async () => {
             const url = 'http://localhost:3001/users/login';
-            const response = await ky.post(url, { json: { email, password } });
-            const data = await response.json();
-
-            if (data.token && data.userId) {
-                setLocalData(data.token, data.userId);
-                dispatch(authLoginSucceeded(data.token, data.userId));
-            } else {
-                // error message here
-                dispatch(authLoginFailed('Something went wrong!'));
-            }
-        } catch (err) {
-            dispatch(authLoginFailed(err.message));
-        }
+            await ky
+                .post(url, { json: { email, password } }).json()
+                .then((res, err) => {
+                    if (res.token && res.userId) {
+                        setLocalData(res.token, res.userId);
+                        dispatch(authLoginSucceeded(res.token, res.userId));
+                    } else {
+                        // error message here
+                        dispatch(authLoginFailed(`Error: ${err.statusText}`));
+                    }})
+                .catch(err =>
+                    dispatch(authLoginFailed(`Uncaught Error: ${err.statusText}`)))
+        })();
     };
 };
