@@ -5,8 +5,6 @@ import Text from '../../components/UI/Text/Text';
 
 import { Column } from '../../components/UI/Grid/Grid';
 
-import bgImage from '../../assets/bgImage.png';
-
 export const MainContainer = styled(Container)`
     height: 100vh;
     align-items: center;
