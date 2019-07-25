@@ -21,6 +21,13 @@ hr {
     height: 100vh;
     font-family: 'Poppins', sans-serif;
 }
+#nav-bar p {
+    margin: 0;
+    padding: 0;
+}
+#nav-bar svg {
+    height: 65px;
+}
 .item-wrapper {
     display: flex;
     width: 100%;

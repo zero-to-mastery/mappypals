@@ -71,12 +71,12 @@
 }
 
 .Navbar {
-    width: 100%;
+    width: 80%;
     max-width: 15rem;
     margin: 10px 1.875rem;
     background-image: linear-gradient(to right, #cf48ff, #6831de);
-    font-size: 1.5em;
-    line-height: 3.125rem;
+    font-size: 1.2em; 
+    line-height: 2rem; 
     transition: transform 0.3s ease-in;
 }
 
