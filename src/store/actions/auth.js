@@ -24,7 +24,6 @@ export const authLoginSucceeded = (token, userId) => ({
 export const authLogin = (email, password) => {
     return async dispatch => {
         dispatch(authLoginStart());
- 
         const url = process.env.URL || 'http://localhost:3001/';
         fetch(`${url}users/login`, {
             method: 'post',
