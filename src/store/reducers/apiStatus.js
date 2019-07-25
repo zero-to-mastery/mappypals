@@ -21,7 +21,6 @@ const apiStatus = (state = initialState.apiCallsInProgress, action) => {
         const apiCallIndex = state.findIndex(
             apiCall => apiCall === action.caller
         );
-        console.log(state.splice(apiCallIndex, 1));
         // remove from apiCallInProgress array
         if (apiCallIndex !== -1) {
             return state.slice(apiCallIndex, apiCallIndex + 1);
