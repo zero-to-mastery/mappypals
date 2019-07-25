@@ -1,4 +1,3 @@
-import ky from 'ky';
 
 import { setLocalData } from '../../utils/localStorage';
 import { AUTH_LOGIN_FAIL, AUTH_LOGIN_START, AUTH_LOGIN_SUCCESS } from './types';
