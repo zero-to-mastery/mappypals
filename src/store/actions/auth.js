@@ -24,7 +24,10 @@ export const authLoginSucceeded = (token, userId) => ({
 export const authLogin = (email, password) => {
     return dispatch => {
         dispatch(authLoginStart());
+<<<<<<< HEAD
 
+=======
+>>>>>>> ffe2c5c6272f795c09e87c9fe6ca9a4fb11eac50
         const url = process.env.URL || 'http://localhost:3001/';
         fetch(`${url}users/login`, {
             method: 'post',
