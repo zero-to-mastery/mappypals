@@ -39,9 +39,9 @@ class Login extends Component {
         localData.token = '';
         localData.userId = '';
         // redirect user to homepage if he's already logged in
-        //if ((localData.token && localData.userId) || this.props.redirect) {
-        //    return this.props.history.push('/');
-        //}
+        if ((localData.token && localData.userId) || this.props.redirect) {
+            return this.props.history.push('/');
+        }
     }
 
     handleChange = event => {

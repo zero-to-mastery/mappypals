@@ -9,6 +9,7 @@
         "concurrently": "^4.1.0",
         "deck.gl": "^7.0.11",
         "dotenv": "^8.0.0",
+        "isemail": "^3.2.0",
         "ky": "^0.10.0",
         "mapbox-gl": "^0.53.0",
         "node-sass": "^4.12.0",

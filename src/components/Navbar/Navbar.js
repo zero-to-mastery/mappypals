@@ -184,7 +184,7 @@ class Navbar extends Component {
                 ) : (
                     ''
                 )}
-                {/*logged*/ false ? (
+                {/*logged*/ true ? (
                     <div
                         id="nav-bar"
                         ref={this.navRef}

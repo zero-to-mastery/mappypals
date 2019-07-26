@@ -22,21 +22,22 @@ export const authLoginSucceeded = (token, userId) => ({
 });
 
 export const authLogin = (email, password) => {
-    return async dispatch => {
+    return dispatch => {
         dispatch(authLoginStart());
- console.log('submitted');
+
         const url = process.env.URL || 'http://localhost:3001/';
         fetch(`${url}users/login`, {
             method: 'post',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 email: email,
-                password: password
+                password: password,
+                token: '',
+                userId: '',
             })
         })
 		.then(res => {
             console.log(res);
-            console.log(res.statusText);
             if (res.statusText === 'OK') {
                 if (res.token && res.userId) {
                     setLocalData(res.token, res.userId);
