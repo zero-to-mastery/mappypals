@@ -1,0 +1,45 @@
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-80%, -50%);
+    max-width: 80%;
+    background: white;
+    box-shadow: 5px 10px 18px rgba(0, 0, 0, 0.05);
+    border-radius: 30px;
+    height: auto;
+    z-index: 2;
+}
+@media all and (max-width: 900px) {
+    .modal {
+        transform: translate(-50%, -50%);
+        min-width: 90%;
+    }
+}
+.header {
+    display: flex;
+    align-items: flex-end;
+}
+.modalMain {
+    display: flex;
+}
+.closeButton {
+    border: none;
+    background: none;
+    width: auto;
+    margin-top: 16px;
+    margin-right: 16px;
+    font-size: 18px;
+    // text-align: end;
+    &:hover {
+        color: gray;
+        font-weight: 600;
+    }
+}
+.displayBlock {
+    display: block;
+}
+
+.displayNone {
+    display: none;
+}

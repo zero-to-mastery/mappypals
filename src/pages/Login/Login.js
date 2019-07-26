@@ -36,8 +36,8 @@ class Login extends Component {
 
     confirmAccount() {
         const localData = getLocalData();
-        localData.token ='';
-        localData.userId='';
+        localData.token = '';
+        localData.userId = '';
         // redirect user to homepage if he's already logged in
         if ((localData.token && localData.userId) || this.props.redirect) {
             return this.props.history.push('/');

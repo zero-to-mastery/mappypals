@@ -24,6 +24,7 @@ export const authLoginSucceeded = (token, userId) => ({
 export const authLogin = (email, password) => {
     return async dispatch => {
         dispatch(authLoginStart());
+<<<<<<< HEAD
  
         const url = process.env.URL || 'http://localhost:3001/';
         fetch(`${url}users/login`, {
@@ -47,4 +48,27 @@ export const authLogin = (email, password) => {
             dispatch(authLoginFailed(`Uncaught Error: ${err.statusText}`))
         })
     }
+=======
+        (async () => {
+            const url = 'http://localhost:3001/users/login';
+            await ky
+                .post(url, { json: { email, password } })
+                .json()
+                .then((res, err) => {
+                    if (res.token && res.userId) {
+                        setLocalData(res.token, res.userId);
+                        dispatch(authLoginSucceeded(res.token, res.userId));
+                    } else {
+                        // error message here
+                        dispatch(authLoginFailed(`Error: ${err.statusText}`));
+                    }
+                })
+                .catch(err =>
+                    dispatch(
+                        authLoginFailed(`Uncaught Error: ${err.statusText}`)
+                    )
+                );
+        })();
+    };
+>>>>>>> upstream/dev
 };
