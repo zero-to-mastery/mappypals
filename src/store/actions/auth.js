@@ -24,7 +24,7 @@ export const authLoginSucceeded = (token, userId) => ({
 export const authLogin = (email, password) => {
     return async dispatch => {
         dispatch(authLoginStart());
- 
+ console.log('submitted');
         const url = process.env.URL || 'http://localhost:3001/';
         fetch(`${url}users/login`, {
             method: 'post',
@@ -34,11 +34,14 @@ export const authLogin = (email, password) => {
                 password: password
             })
         })
-        .then(res => res.json())
 		.then(res => {
-            if (res.token && res.userId) {
-                setLocalData(res.token, res.userId);
-                dispatch(authLoginSucceeded(res.token, res.userId));
+            console.log(res);
+            console.log(res.statusText);
+            if (res.statusText === 'OK') {
+                if (res.token && res.userId) {
+                    setLocalData(res.token, res.userId);
+                    dispatch(authLoginSucceeded(res.token, res.userId));
+                }
             } else {
                 dispatch(authLoginFailed(`Error: ${res.statusText}`));
         }})
