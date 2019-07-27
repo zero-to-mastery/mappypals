@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import Map from './Map';
-
+import { useSelector } from 'react-redux';
 import {
     MainContainer,
     Wrapper,
@@ -27,9 +27,11 @@ import HomeCard from '../../components/HomeCard/home-card.component.js';
 
 import useWindowSize from '../../components/UI/effects/useWindowSize.effect';
 
-const Home = user => {
+const Home = () => {
     const size = useWindowSize();
-
+    // react-redux hooks
+    const loggedIn = useSelector(state => state.user.uid !== undefined);
+    // raect hooks
     const [fontSize, setFontSize] = useState(1);
 
     useEffect(() => {
@@ -48,7 +50,7 @@ const Home = user => {
         }
     }, [size]);
 
-    return false ? (
+    return loggedIn ? (
         <section>
             <Map />
         </section>
