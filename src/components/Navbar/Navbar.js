@@ -9,7 +9,7 @@ import { ReactComponent as Team } from '../../pics/Team.svg';
 import { ReactComponent as Friends } from '../../pics/FriendsIcon.svg';
 import { ReactComponent as Invite } from '../../pics/InviteFriends.svg';
 import { ReactComponent as Settings } from '../../pics/MySettingsIcon.svg';
-
+import { userSignOut } from '../../store/actions/user';
 import {
     showInviteFriends,
     hideInviteFriends
@@ -123,7 +123,12 @@ class Navbar extends Component {
         this.setState({ settingsDropdown: !this.state.settingsDropdown });
 
     render() {
-        const { onLogin, hideInviteFriends, showInviteFriends } = this.props;
+        const {
+            userSignOut,
+            hideInviteFriends,
+            showInviteFriends,
+            logged
+        } = this.props;
 
         let settingsNavbar = '';
         if (this.state.settingsDropdown & (window.innerWidth > 900)) {
@@ -184,7 +189,7 @@ class Navbar extends Component {
                 ) : (
                     ''
                 )}
-                {/*logged*/ true ? (
+                {logged ? (
                     <div
                         id="nav-bar"
                         ref={this.navRef}
@@ -239,13 +244,13 @@ class Navbar extends Component {
                             {settingsNavbar}:
                         </div>
                         <div className="item-wrapper no-hover scale">
-                            <Link to="/logout">
+                            <Link to="/">
                                 {' '}
                                 <Button
                                     btnType="Navbar"
                                     onClick={() => {
                                         hideInviteFriends();
-                                        onLogin();
+                                        userSignOut();
                                         this.showNav();
                                     }}
                                 >
@@ -289,7 +294,7 @@ class Navbar extends Component {
                                     <Button
                                         btnType="Navbar"
                                         onClick={() => {
-                                            onLogin();
+                                            // userSignIn();
                                             this.showNav();
                                         }}
                                     >
@@ -325,11 +330,13 @@ class Navbar extends Component {
         );
     }
 }
+const mapStateToProps = state => ({ logged: state.user.uid !== undefined });
 const mapDispatchToProps = {
     showInviteFriends,
-    hideInviteFriends
+    hideInviteFriends,
+    userSignOut
 };
 export default connect(
-    undefined,
+    mapStateToProps,
     mapDispatchToProps
 )(Navbar);
