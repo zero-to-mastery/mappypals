@@ -35,18 +35,18 @@ export const authLogin = (email, password) => {
                 userId: '',
             })
         })
-		.then(res => {
-            console.log(res);
-            if (res.statusText === 'OK') {
-                if (res.token && res.userId) {
-                    setLocalData(res.token, res.userId);
-                    dispatch(authLoginSucceeded(res.token, res.userId));
-                }
+        .then(res => {
+            if (res.status === 200) {
+                return res.json()
             } else {
-                dispatch(authLoginFailed(`Error: ${res.statusText}`));
+                return dispatch(authLoginFailed(`Error: ${res.statusText}`));
+        }})
+        .then(res => {
+            if (res.token && res.userId) {
+                setLocalData(res.token, res.userId);
+                dispatch(authLoginSucceeded(res.token, res.userId));
         }})
         .catch(err => {
-            console.log(err);
             dispatch(authLoginFailed(`Uncaught Error: ${err.statusText}`))
         })
     }
