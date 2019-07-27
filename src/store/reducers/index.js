@@ -5,7 +5,7 @@ import apiStatusReducer from './apiStatus';
 import modalsReducer from './modals';
 const rootReducer = combineReducers({
     user: userReducer,
-    apiStatus: apiStatusReducer,
+    apiCallsInProgress: apiStatusReducer,
     modals: modalsReducer
 });
 
