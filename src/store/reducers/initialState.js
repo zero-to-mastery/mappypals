@@ -1,9 +1,9 @@
 export default {
     user: {
-        id: undefined,
-        avatar: undefined,
-        firstName: '',
-        lastName: '',
+        uid: undefined,
+        photoULR: undefined,
+        displayName: '',
+        email: '',
         settings: {},
         friends: [] // other users
     },
