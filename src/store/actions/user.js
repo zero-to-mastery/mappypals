@@ -38,28 +38,25 @@ const updateProfileSuccess = (updates, caller) => ({
 // });
 
 // thunks (async actions)
-export const userSignIn = (email, password) => {
-    return async dispatch => {
-        dispatch(beginApiCall(ACTION.USER_SIGN_IN_API_CALL));
-        // asynchronous call to firebase
-        try {
-            const { user } = await firebase.signInEmailPassword(
-                email,
-                password
-            );
-            const user__ = {
-                uid: user.uid,
-                displayName: user.displayName,
-                email: user.email,
-                photoURL: user.photoURL
-            };
-            return dispatch(signInSuccess(user__, ACTION.USER_SIGN_IN_SUCCESS));
-        } catch (error) {
-            dispatch(apiCallError(ACTION.USER_SIGN_IN_API_CALL));
-            throw error;
-        }
-    };
+export const userSignIn = (email, password) => async dispatch => {
+    dispatch(beginApiCall(ACTION.USER_SIGN_IN_API_CALL));
+    // asynchronous call to firebase
+    try {
+        const { user } = await firebase.signInEmailPassword(email, password);
+        const user__ = {
+            uid: user.uid,
+            displayName: user.displayName,
+            email: user.email,
+            photoURL: user.photoURL,
+            emailVerified: user.emailVerified
+        };
+        return dispatch(signInSuccess(user__, ACTION.USER_SIGN_IN_SUCCESS));
+    } catch (error) {
+        dispatch(apiCallError(ACTION.USER_SIGN_IN_API_CALL));
+        throw error;
+    }
 };
+
 export const userUpdateProfile = updates => async dispatch => {
     dispatch(beginApiCall(ACTION.USER_UPDATE_PROFILE_API_CALL));
     try {
@@ -91,6 +88,8 @@ export const userSignUp = (email, password) => async dispatch => {
             email,
             password
         );
+        // send email verification link
+        firebase.auth.currentUser.sendEmailVerification();
         const user__ = {
             uid: user.uid,
             email: user.email,

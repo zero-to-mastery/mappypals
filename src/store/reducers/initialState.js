@@ -4,6 +4,7 @@ export default {
         photoULR: undefined,
         displayName: '',
         email: '',
+        emailVerified: false,
         settings: {},
         friends: [] // other users
     },

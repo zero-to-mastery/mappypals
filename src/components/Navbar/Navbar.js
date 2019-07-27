@@ -330,7 +330,9 @@ class Navbar extends Component {
         );
     }
 }
-const mapStateToProps = state => ({ logged: state.user.uid !== undefined });
+const mapStateToProps = state => ({
+    logged: state.user.uid !== undefined && state.user.emailVerified
+});
 const mapDispatchToProps = {
     showInviteFriends,
     hideInviteFriends,

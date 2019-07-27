@@ -52,7 +52,7 @@ const Signup = () => {
 
     return (
         <>
-            {redirect && <Redirect to={'/'} />}
+            {redirect && <Redirect to={'/login'} />}
             <div className="Login" style={{ minHeight: `87.8vh` }}>
                 <Form onSubmit={handleSubmit}>
                     <fieldset>

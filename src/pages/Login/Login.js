@@ -14,19 +14,21 @@ export const Login = () => {
     const loading = useSelector(state =>
         state.apiCallsInProgress.includes(USER_SIGN_IN_API_CALL)
     );
+    const emailVerified = useSelector(state => state.user.emailVerified);
     // react hooks
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const [redirectToHome, setRedirectToHome] = useState(false);
+    const [redirect, setRedirect] = useState(false);
+
     const handleSubmit = async event => {
         event.preventDefault();
         try {
             await dispatch(userSignIn(email, password));
             setEmail('');
             setPassword('');
-            // redirect to home
-            setRedirectToHome(true);
+            // redirect
+            setRedirect(true);
         } catch (error) {
             setError(error.message);
             console.error(error);
@@ -35,7 +37,7 @@ export const Login = () => {
 
     return (
         <>
-            {redirectToHome && <Redirect to={'/'} />}
+            {redirect && <Redirect to={emailVerified ? '/' : '/verifyemail'} />}
             <div className="Login">
                 <Form onSubmit={handleSubmit}>
                     <label htmlFor="email">
