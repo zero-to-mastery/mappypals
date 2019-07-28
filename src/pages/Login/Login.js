@@ -38,18 +38,29 @@ export const Login = () => {
         }
     };
 
-    const handleGoogleLogin = async () => {
-        await dispatch(userSignInGoogle());
-        setRedirect(true);
+    const handleGoogleLogin = async event => {
+        event.preventDefault();
+        try {
+            await dispatch(userSignInGoogle());
+            setRedirect(true);
+        } catch (error) {
+            setError(error.message);
+            console.error(error);
+        }
     };
-    const handleFacebookLogin = async () => {
-        await dispatch(userSignInFacebook());
-        setRedirect(true);
+    const handleFacebookLogin = async event => {
+        event.preventDefault();
+        try {
+            await dispatch(userSignInFacebook());
+            setRedirect(true);
+        } catch (error) {
+            setError(error.message);
+            console.error(error);
+        }
     };
-    const handleTwitterLogin = async () => {
+    const handleTwitterLogin = async event => {
+        event.preventDefault();
         alert('Coming soon');
-        // await dispatch(userSignInTwitter());
-        // setRedirect(true);
     };
 
     return (
