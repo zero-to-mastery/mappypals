@@ -42,16 +42,21 @@ export const userSignIn = (email, password) => async dispatch => {
     dispatch(beginApiCall(ACTION.USER_SIGN_IN_API_CALL));
     // asynchronous call to firebase
     try {
-        const { user } = await firebase.signInEmailPassword(email, password);
-        const user__ = {
-            uid: user.uid,
-            displayName: user.displayName,
-            email: user.email,
-            photoURL: user.photoURL,
-            emailVerified: user.emailVerified
-        };
-        return dispatch(signInSuccess(user__, ACTION.USER_SIGN_IN_SUCCESS));
-    } catch (error) {
+            const { user } = await firebase.signInEmailPassword(
+                email,
+                password
+            );
+            const user__ = {
+                uid: user.uid,
+                displayName: user.displayName,
+                email: user.email,
+                photoURL: user.photoURL,
+                emailVerified: user.emailVerified
+            };
+            // save user to fire store database
+            await firebase.user(user__.uid).set({ ...user__ });
+            return dispatch(signInSuccess(user__, ACTION.USER_SIGN_IN_SUCCESS));
+        } catch (error) {
         dispatch(apiCallError(ACTION.USER_SIGN_IN_API_CALL));
         throw error;
     }
@@ -70,6 +75,8 @@ export const userSignInGoogle = () => async dispatch => {
             photoURL: user.photoURL,
             emailVerified: user.emailVerified
         };
+        // save user to fire store database
+        await firebase.user(user__.uid).set({ ...user__ });
         return dispatch(signInSuccess(user__, ACTION.USER_SIGN_IN_SUCCESS));
     } catch (error) {
         dispatch(apiCallError(ACTION.USER_SIGN_IN_API_CALL));
@@ -81,17 +88,19 @@ export const userSignInFacebook = () => async dispatch => {
     dispatch(beginApiCall(ACTION.USER_SIGN_IN_API_CALL));
     // asynchronous call to firebase
     try {
-        const { user } = await firebase.facebookSignIn();
-        console.log(user);
-        const user__ = {
-            uid: user.uid,
-            displayName: user.displayName,
-            email: user.email,
-            photoURL: user.photoURL,
-            emailVerified: true
-        };
-        return dispatch(signInSuccess(user__, ACTION.USER_SIGN_IN_SUCCESS));
-    } catch (error) {
+            const { user } = await firebase.facebookSignIn();
+            console.log(user);
+            const user__ = {
+                uid: user.uid,
+                displayName: user.displayName,
+                email: user.email,
+                photoURL: user.photoURL,
+                emailVerified: true
+            };
+            // save user to fire store database
+            await firebase.user(user__.uid).set({ ...user__ });
+            return dispatch(signInSuccess(user__, ACTION.USER_SIGN_IN_SUCCESS));
+        } catch (error) {
         dispatch(apiCallError(ACTION.USER_SIGN_IN_API_CALL));
         throw error;
     }
@@ -101,17 +110,19 @@ export const userSignInTwitter = () => async dispatch => {
     dispatch(beginApiCall(ACTION.USER_SIGN_IN_API_CALL));
     // asynchronous call to firebase
     try {
-        const { user } = await firebase.twitterSignIn();
-        console.log(user);
-        const user__ = {
-            uid: user.uid,
-            displayName: user.displayName,
-            email: user.email,
-            photoURL: user.photoURL,
-            emailVerified: true
-        };
-        return dispatch(signInSuccess(user__, ACTION.USER_SIGN_IN_SUCCESS));
-    } catch (error) {
+            const { user } = await firebase.twitterSignIn();
+            console.log(user);
+            const user__ = {
+                uid: user.uid,
+                displayName: user.displayName,
+                email: user.email,
+                photoURL: user.photoURL,
+                emailVerified: true
+            };
+            // save user to fire store database
+            await firebase.user(user__.uid).set({ ...user__ });
+            return dispatch(signInSuccess(user__, ACTION.USER_SIGN_IN_SUCCESS));
+        } catch (error) {
         dispatch(apiCallError(ACTION.USER_SIGN_IN_API_CALL));
         throw error;
     }
