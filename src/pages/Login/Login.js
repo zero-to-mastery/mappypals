@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import './Login.css';
 import Form from './Form.js';
 import { getLocalData } from '../../utils/localStorage';
-import { authLogin } from '../../store/actions';
+import { authLogin } from '../../store/actions/auth';
 import ErrorMessage from '../../components/ErrorMessages/ErrorMessages';
 import Button from '../../components/UI/Button/Button';
 
@@ -36,12 +36,12 @@ class Login extends Component {
 
     confirmAccount() {
         const localData = getLocalData();
-        console.log(localData);
-
+        localData.token = '';
+        localData.userId = '';
         // redirect user to homepage if he's already logged in
-        // if ((localData.token && localData.userId) || this.props.redirect) {
-        //     return this.props.history.push('/');
-        // }
+        if ((localData.token && localData.userId) || this.props.redirect) {
+            return this.props.history.push('/');
+        }
     }
 
     handleChange = event => {
@@ -55,9 +55,9 @@ class Login extends Component {
         event.preventDefault();
 
         const { email, password } = this.state;
-
+        
         this.props.authLogin(email, password);
-
+        
         // Clear inputs.
         this.setState({ email: '' });
         this.setState({ password: '' });
@@ -134,7 +134,6 @@ class Login extends Component {
 
 const mapStateToProps = state => {
     const { loading, error, redirect } = state.auth;
-
     return { loading, error, redirect };
 };
 

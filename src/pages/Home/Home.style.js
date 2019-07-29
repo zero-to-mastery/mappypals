@@ -32,7 +32,7 @@ export const ImgWrapper = styled(Container)`
     background: #fff;
     position: relative;
     width: 100%;
-`
+`;
 
 export const SignUpButton = styled.div`
     font-family: 'Poppins', sans-serif;
@@ -84,7 +84,7 @@ export const Title = styled(StyledText)`
 
 export const Paragraph = styled(StyledText)`
     padding: 0 1rem;
-    
+
     @media only screen and (min-width: 1200px) {
         margin-top: 0;
     }
@@ -95,7 +95,7 @@ export const StyledContainer = styled(Container)`
     @media only screen and (min-width: 1200px) {
         position: absolute;
         top: 20%;
-        left: 0; 
+        left: 0;
         right: 0;
         bottom: 0;
     }
