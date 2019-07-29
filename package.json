@@ -1,7 +1,6 @@
 {
     "name": "mappypals",
     "version": "0.1.0",
-    "homepage": "https://zero-to-mastery.github.io/mappypals/",
     "private": true,
     "devserver": "live-server --browser=Chrome",
     "dependencies": {
@@ -9,6 +8,7 @@
         "concurrently": "^4.1.0",
         "deck.gl": "^7.0.11",
         "dotenv": "^8.0.0",
+        "firebase": "^6.3.3",
         "isemail": "^3.2.0",
         "ky": "^0.10.0",
         "mapbox-gl": "^0.53.0",
