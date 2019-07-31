@@ -40,6 +40,12 @@ hr {
     text-align: center;
     height: auto;
 }
+#nav-bar svg {
+    height: 4rem;
+}
+.nav-item p {
+    margin: 0;
+}
 
 .item-wrapper:hover,
 .item-wrapper:hover a {
