@@ -56,8 +56,22 @@ export const SignUpButton = styled.div`
     }
 
     @media only screen and (min-width: 1200px) {
-        margin-top: 30%;
-        padding: 1rem 5rem;
+        margin-top: 25%;
+        padding: 0.8rem 5rem;
+    }
+
+    @media only screen and (max-width: 370px) {
+        height: 2rem;
+        font-size: 1.2rem;
+        margin-top: 20%;
+        
+        
+    }
+
+    @media only screen and (min-width: 370px) {
+        height: 1.7rem;
+        font-size: 1.2rem;
+        margin-top: 18%;
     }
 `;
 
