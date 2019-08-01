@@ -33,7 +33,7 @@ export const HomeCard = ({ number, title, icon, text, ...otherProps }) => {
             </Row>
 
             <Row alignItems="center" justifyContent="center">
-                <Column xs={6} alignItems="center">
+                <Column xs={8} alignItems="center">
                     <Text color="#555555" align="center" family="Poppins">
                         {text}
                     </Text>
