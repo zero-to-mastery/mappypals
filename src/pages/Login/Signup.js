@@ -109,7 +109,7 @@ class Signup extends Component {
 
         const { checkLoginState, error, loading } = this.props;
         return (
-            <div className="Login" style={{ minHeight: `87.8vh` }}>
+            <div className="Login" style={{ minHeight: `100vh` }}>
                 <Form onSubmit={this.handleSubmit}>
                     <fieldset>
                         <div className="nameContainer">
