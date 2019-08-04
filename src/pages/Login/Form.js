@@ -6,19 +6,15 @@ const Form = styled.form`
   font-family: 'Poppins', sans-serif;
   font-weight: 400;
   @media (max-width: 410px) {
-    padding-top: 10px;
-    padding-right: 25px;
-    padding-bottom: 10px;
-    padding-left: 25px;
-    font-size: 1rem;
+    padding: 10px 25px;
+    font-size: 0.5rem;
+    margin-top: 50px;
+    margin-left: 10px;
     line-height: 1.25;
   }
   @media (min-width: 411px) {
-    padding-top: 30px;
-    padding-right: 70px;
-    padding-bottom: 30px;
-    padding-left: 70px;
-    font-size: 1.2rem;
+    padding: 30px 70px;
+    font-size: 0.8rem;
     line-height: 1.75;
   }
   fieldset {
@@ -26,7 +22,7 @@ const Form = styled.form`
     }
   label {
     display: block;
-    margin-bottom: 2.3rem;
+    margin-bottom: 1rem;
   }
   input,
   select {
@@ -111,6 +107,7 @@ const Form = styled.form`
   }
 
   .btnContainer {
+    padding-top: 15px;
     margin: 0 auto;
     text-align: center;
   }

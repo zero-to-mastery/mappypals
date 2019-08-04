@@ -9,8 +9,8 @@
     }
 
     .Login form {
-        margin: 0 auto;
-        max-width: 320px;
+        margin: 10px;
+        max-width: 345px;
         overflow-x: hidden;
         background-color: white;
         font-family: 'Poppins', sans-serif;
@@ -42,5 +42,6 @@
     .u-text-center {
         text-align: center;
         white-space: nowrap;
+        margin: 0;
     }
 }
