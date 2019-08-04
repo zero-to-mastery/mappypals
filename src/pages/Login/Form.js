@@ -101,13 +101,14 @@ const Form = styled.form`
   }
 
   .forgot-password {
-    display: flex;
+    display: inline;
     justify-content: flex-end;
     transform: translateY(-2rem);
   }
 
   .btnContainer {
     padding-top: 15px;
+    padding-bottom: 7px;
     margin: 0 auto;
     text-align: center;
   }
