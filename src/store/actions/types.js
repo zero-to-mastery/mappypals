@@ -1,7 +1,3 @@
-export const AUTH_LOGIN_START = 'AUTH_LOGIN_START';
-export const AUTH_LOGIN_FAIL = 'AUTH_LOGIN_FAIL';
-export const AUTH_LOGIN_SUCCESS = 'AUTH_LOGIN_SUCCESS';
-
 // user related actions
 export const USER_GET_FRIENDS_SUCCESS = 'USER_GET_FRIENDS_SUCCESS';
 
