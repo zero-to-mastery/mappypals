@@ -1,81 +1,51 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-
+import React, { useState } from 'react';
+import { Link, Redirect } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { USER_SIGN_IN_API_CALL } from '../../store/actions/types';
 import './Login.css';
 import Form from './Form.js';
-import { getLocalData } from '../../utils/localStorage';
-import { authLogin } from '../../store/actions/auth';
+import { userSignIn } from '../../store/actions/user';
 import ErrorMessage from '../../components/ErrorMessages/ErrorMessages';
 import Button from '../../components/UI/Button/Button';
 
-class Login extends Component {
-    constructor(props) {
-        super(props);
-        window.FB.init({
-            appId: process.env.REACT_APP_ID,
-            cookie: true,
-            xfbml: true,
-            version: 'v3.2'
-        });
-
-        this.state = {
-            email: '',
-            password: ''
-        };
-    }
-
-    componentDidMount() {
-        this.confirmAccount();
-    }
-
-    componentDidUpdate() {
-        this.confirmAccount();
-    }
-
-    confirmAccount() {
-        const localData = getLocalData();
-        localData.token = '';
-        localData.userId = '';
-        // redirect user to homepage if he's already logged in
-        if ((localData.token && localData.userId) || this.props.redirect) {
-            return this.props.history.push('/');
-        }
-    }
-
-    handleChange = event => {
-        this.setState({
-            [event.target.name]: event.target.value
-        });
-    };
-
-    // Submited values
-    handleSubmit = event => {
+export const Login = () => {
+    // react-redux hooks
+    const dispatch = useDispatch();
+    const loading = useSelector(state =>
+        state.apiCallsInProgress.includes(USER_SIGN_IN_API_CALL)
+    );
+    // react hooks
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [redirectToHome, setRedirectToHome] = useState(false);
+    const handleSubmit = async event => {
         event.preventDefault();
-
-        const { email, password } = this.state;
-        
-        this.props.authLogin(email, password);
-        
-        // Clear inputs.
-        this.setState({ email: '' });
-        this.setState({ password: '' });
+        try {
+            await dispatch(userSignIn(email, password));
+            setEmail('');
+            setPassword('');
+            // redirect to home
+            setRedirectToHome(true);
+        } catch (error) {
+            setError(error.message);
+            console.error(error);
+        }
     };
 
-    render() {
-        const { error, loading } = this.props;
-
-        return (
+    return (
+        <>
+            {redirectToHome && <Redirect to={'/'} />}
             <div className="Login">
-                <Form onSubmit={this.handleSubmit}>
+                <Form onSubmit={handleSubmit}>
                     <label htmlFor="email">
                         Email
                         <input
                             type="email"
                             name="email"
                             placeholder=""
-                            onChange={this.handleChange}
+                            onChange={event => setEmail(event.target.value)}
+                            value={email}
                             required
                         />
                     </label>
@@ -85,7 +55,8 @@ class Login extends Component {
                             type="password"
                             name="password"
                             placeholder=""
-                            onChange={this.handleChange}
+                            onChange={event => setPassword(event.target.value)}
+                            value={password}
                             required
                         />
                     </label>
@@ -128,19 +99,7 @@ class Login extends Component {
                     </div>
                 </Form>
             </div>
-        );
-    }
-}
-
-const mapStateToProps = state => {
-    const { loading, error, redirect } = state.auth;
-    return { loading, error, redirect };
+        </>
+    );
 };
-
-const mapDispatchToProps = dispatch =>
-    bindActionCreators({ authLogin }, dispatch);
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Login);
+export default Login;
