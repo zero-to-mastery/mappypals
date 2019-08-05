@@ -1,7 +1,7 @@
 import * as ACTION from './types';
 import { getFriends } from '../../api/userApi';
 import { beginApiCall, apiCallError } from './apiStatus';
-import firebase from '../../components/Firebase';
+import firebase from '../../components/Firebase/firebase';
 // synchronous actions
 const getUserFriendsSuccess = (friends, caller) => ({
     type: ACTION.USER_GET_FRIENDS_SUCCESS,
