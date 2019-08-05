@@ -31,7 +31,7 @@ const Home = () => {
     const size = useWindowSize();
     // react-redux hooks
     const loggedIn = useSelector(state => state.user.uid !== undefined);
-    // raect hooks
+    // react hooks
     const [fontSize, setFontSize] = useState(1);
 
     useEffect(() => {

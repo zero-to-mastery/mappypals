@@ -56,6 +56,66 @@ export const userSignIn = (email, password) => async dispatch => {
         throw error;
     }
 };
+// Social logins
+// Google
+export const userSignInGoogle = () => async dispatch => {
+    dispatch(beginApiCall(ACTION.USER_SIGN_IN_API_CALL));
+    // asynchronous call to firebase
+    try {
+        const { user } = await firebase.googleSignIn();
+        const user__ = {
+            uid: user.uid,
+            displayName: user.displayName,
+            email: user.email,
+            photoURL: user.photoURL,
+            emailVerified: user.emailVerified
+        };
+        return dispatch(signInSuccess(user__, ACTION.USER_SIGN_IN_SUCCESS));
+    } catch (error) {
+        dispatch(apiCallError(ACTION.USER_SIGN_IN_API_CALL));
+        throw error;
+    }
+};
+// Facebook
+export const userSignInFacebook = () => async dispatch => {
+    dispatch(beginApiCall(ACTION.USER_SIGN_IN_API_CALL));
+    // asynchronous call to firebase
+    try {
+        const { user } = await firebase.facebookSignIn();
+        console.log(user);
+        const user__ = {
+            uid: user.uid,
+            displayName: user.displayName,
+            email: user.email,
+            photoURL: user.photoURL,
+            emailVerified: true
+        };
+        return dispatch(signInSuccess(user__, ACTION.USER_SIGN_IN_SUCCESS));
+    } catch (error) {
+        dispatch(apiCallError(ACTION.USER_SIGN_IN_API_CALL));
+        throw error;
+    }
+};
+// Twitter
+export const userSignInTwitter = () => async dispatch => {
+    dispatch(beginApiCall(ACTION.USER_SIGN_IN_API_CALL));
+    // asynchronous call to firebase
+    try {
+        const { user } = await firebase.twitterSignIn();
+        console.log(user);
+        const user__ = {
+            uid: user.uid,
+            displayName: user.displayName,
+            email: user.email,
+            photoURL: user.photoURL,
+            emailVerified: true
+        };
+        return dispatch(signInSuccess(user__, ACTION.USER_SIGN_IN_SUCCESS));
+    } catch (error) {
+        dispatch(apiCallError(ACTION.USER_SIGN_IN_API_CALL));
+        throw error;
+    }
+};
 
 export const userUpdateProfile = updates => async dispatch => {
     dispatch(beginApiCall(ACTION.USER_UPDATE_PROFILE_API_CALL));

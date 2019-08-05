@@ -4,10 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { USER_SIGN_IN_API_CALL } from '../../store/actions/types';
 import './Login.css';
 import Form from './Form.js';
-import { userSignIn } from '../../store/actions/user';
+import {
+    userSignIn,
+    userSignInGoogle,
+    userSignInFacebook
+} from '../../store/actions/user';
 import ErrorMessage from '../../components/ErrorMessages/ErrorMessages';
 import Button from '../../components/UI/Button/Button';
-
 export const Login = () => {
     // react-redux hooks
     const dispatch = useDispatch();
@@ -33,6 +36,20 @@ export const Login = () => {
             setError(error.message);
             console.error(error);
         }
+    };
+
+    const handleGoogleLogin = async () => {
+        await dispatch(userSignInGoogle());
+        setRedirect(true);
+    };
+    const handleFacebookLogin = async () => {
+        await dispatch(userSignInFacebook());
+        setRedirect(true);
+    };
+    const handleTwitterLogin = async () => {
+        alert('Coming soon');
+        // await dispatch(userSignInTwitter());
+        // setRedirect(true);
     };
 
     return (
@@ -85,19 +102,9 @@ export const Login = () => {
                         &ensp;Or connect via:
                     </p>
                     <div className="btnContainer">
-                        <label
-                            htmlFor="fb-login-button"
-                            aria-label="Login with Facebook"
-                        >
-                            <div
-                                className="fb-login-button"
-                                data-size="large"
-                                data-button-type="login_with"
-                                data-auto-logout-link="false"
-                                data-use-continue-as="false"
-                                onClick={() => ({})}
-                            />
-                        </label>
+                        <button onClick={handleGoogleLogin}>Google</button>
+                        <button onClick={handleFacebookLogin}>Facebook</button>
+                        <button onClick={handleTwitterLogin}>Twitter</button>
                     </div>
                 </Form>
             </div>
