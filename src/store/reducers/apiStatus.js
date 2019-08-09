@@ -4,6 +4,13 @@ import initialState from './initialState';
 const actionTypeEndsInSuccess = type => {
     return type.substring(type.length - 8) === '_SUCCESS';
 };
+const compareTypes = (apiCall, caller) => {
+    return (
+        apiCall === caller ||
+        apiCall.substring(0, apiCall.length - 9) ===
+            caller.substring(0, caller.length - 8)
+    );
+};
 // Every time an api call is made, add it to the  global state
 // and when it fail or succeed remove it from the global state
 // Use the apiCallsInProgress to render spinners while the data is being fetched
@@ -18,14 +25,7 @@ const apiStatus = (state = initialState.apiCallsInProgress, action) => {
         action.type === API_CALL_ERROR ||
         actionTypeEndsInSuccess(action.type)
     ) {
-        const apiCallIndex = state.findIndex(
-            apiCall => apiCall === action.caller
-        );
-        // remove from apiCallInProgress array
-        if (apiCallIndex !== -1) {
-            return state.slice(apiCallIndex, apiCallIndex + 1);
-        }
-        return state;
+        return state.filter(apiCall => !compareTypes(apiCall, action.caller));
     }
 
     return state;

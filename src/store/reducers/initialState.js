@@ -1,16 +1,10 @@
 export default {
-    auth: {
-        token: null,
-        userId: null,
-        redirect: false,
-        loading: false,
-        error: null
-    },
     user: {
-        id: undefined,
-        avatar: undefined,
-        name: '',
-        lastName: '',
+        uid: undefined,
+        photoULR: undefined,
+        displayName: '',
+        email: '',
+        emailVerified: false,
         settings: {},
         friends: [] // other users
     },

@@ -1,116 +1,60 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import Form from './Form.js';
-import { IsPasswordValid, IsPasswordIdentical } from '../../components/helper';
+import { IsPasswordValid } from '../../components/helper';
 import ErrorMessage from '../../components/ErrorMessages/ErrorMessages';
-import PasswordMessage from '../../components/ErrorMessages/PasswordMessage/PasswordMessage';
 import './Login.css';
-import ky from 'ky';
+import { userSignUp, userUpdateProfile } from '../../store/actions/user';
 import Button from '../../components/UI/Button/Button';
+import { useDispatch, useSelector } from 'react-redux';
+import { USER_SIGN_UP_API_CALL } from '../../store/actions/types';
+import isEmail from 'validator/lib/isEmail';
+const Signup = () => {
+    // react-redux hooks
+    const dispatch = useDispatch();
+    const loading = useSelector(state =>
+        state.apiCallsInProgress.includes(USER_SIGN_UP_API_CALL)
+    );
+    // react hooks
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [error, setError] = useState('');
+    const [redirect, setRedirect] = useState(false);
 
-class Signup extends Component {
-    constructor(props) {
-        super(props);
-        window.FB.init({
-            appId: process.env.REACT_APP_ID,
-            cookie: true,
-            xfbml: true,
-            version: 'v3.2'
-        });
+    const passwordMatch = () => password === confirmPassword;
 
-        this.state = {
-            name: '',
-            lastname: '',
-            email: '',
-            number: '',
-            password: '',
-            confirmPassword: '',
-            passwordValidError: false,
-            emailAlreadyExists: false
-        };
-    }
-
-    handleChange = event => {
-        this.setState({
-            [event.target.name]: event.target.value
-        });
-    };
-
-    handleSubmit = event => {
-        const { password, confirmPassword } = this.state;
+    const handleSubmit = async event => {
         event.preventDefault();
-        const isPasswordValidVar = IsPasswordValid(password);
-        const IsPasswordIdenticalVar = IsPasswordIdentical(
-            password,
-            confirmPassword
-        );
-
-        if (IsPasswordIdenticalVar && isPasswordValidVar) {
-            (async () => {
-                const url = process.env.URL || 'http://localhost:3001/';
-                await ky
-                    .post(`${url}users/register`, { json: this.state })
-                    .json()
-                    .then((res, err) => {
-                        //if error msg is one that we catch
-                        if (res.status === 401) {
-                            this.setState({ error: String(err.statusText) });
-                        } else if (res.status === 200) {
-                            this.props.history.push('/login');
-                        } else {
-                            this.setState({
-                                error: `Server Error: Unable to register. Please try again.`
-                            });
-                        }
+        const isPasswordValid = IsPasswordValid(password);
+        if (!isEmail(email)) {
+            setError('Please enter a valid email address');
+            return;
+        }
+        // asynchronous call
+        try {
+            if (isPasswordValid && passwordMatch()) {
+                await dispatch(userSignUp(email, password));
+                await dispatch(
+                    userUpdateProfile({
+                        displayName: `${firstName} ${lastName}`
                     })
-                    .catch(err => alert(`Uncaught Error: ${err.statusText}`));
-            })();
+                );
+                setRedirect(true);
+            }
+        } catch (error) {
+            setError(error.message);
+            console.error(error);
         }
     };
-    validatePassword = () => this.setState({ passwordValidError: true });
-    // check if email already exists
-    // in the background, after user leaves the email input field
-    checkEmail = () => {
-        fetch('http://localhost:3001/users/validate-email', {
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email: this.state.email })
-        })
-            .then(res => {
-                if (res.status === 200) {
-                    return this.setState({ emailAlreadyExists: false });
-                } else {
-                    return this.setState({ emailAlreadyExists: true });
-                }
-            })
-            .catch(err => console.log);
-    };
 
-    render() {
-        let PasswordValidError = '';
-        if (this.state.passwordValidError) {
-            PasswordValidError = (
-                <PasswordMessage
-                    password={this.state.password}
-                    confirmPassword={this.state.confirmPassword}
-                />
-            );
-        }
-        //This message will come from the back end - along with any other possible errors, the catch
-        //is displayed below the button.
-        let EmailValidError = '';
-        if (this.state.emailAlreadyExists) {
-            EmailValidError = (
-                <ErrorMessage content="This email is already in use." />
-            );
-        }
-
-        const { checkLoginState, error, loading } = this.props;
-        return (
-            <div className="Login" style={{ minHeight: `100vh` }}>
-                <Form onSubmit={this.handleSubmit}>
+    return (
+        <>
+            {redirect && <Redirect to={'/login'} />}
+            <div className="Login" style={{ minHeight: `87.8vh` }}>
+                <Form onSubmit={handleSubmit}>
                     <fieldset>
                         <div className="nameContainer">
                             <label className="item1" htmlFor="firstname">
@@ -120,7 +64,10 @@ class Signup extends Component {
                                     id="firstname"
                                     className="item2"
                                     name="name"
-                                    onChange={this.handleChange}
+                                    value={firstName}
+                                    onChange={event =>
+                                        setFirstName(event.target.value)
+                                    }
                                     required
                                 />
                             </label>
@@ -131,7 +78,10 @@ class Signup extends Component {
                                     id="lastname"
                                     className="item4"
                                     name="lastname"
-                                    onChange={this.handleChange}
+                                    value={lastName}
+                                    onChange={event =>
+                                        setLastName(event.target.value)
+                                    }
                                     required
                                 />
                             </label>
@@ -141,11 +91,10 @@ class Signup extends Component {
                             <input
                                 type="email"
                                 name="email"
-                                onChange={this.handleChange}
-                                onBlur={this.checkEmail}
+                                value={email}
+                                onChange={event => setEmail(event.target.value)}
                                 required
                             />
-                            {EmailValidError}
                         </label>
                         <label htmlFor="password">
                             Password
@@ -153,9 +102,10 @@ class Signup extends Component {
                                 type="password"
                                 name="password"
                                 aria-describedby="newPassword"
-                                value={this.state.password}
-                                onBlur={this.validatePassword}
-                                onChange={this.handleChange}
+                                value={password}
+                                onChange={event =>
+                                    setPassword(event.target.value)
+                                }
                                 required
                             />
                         </label>
@@ -164,13 +114,13 @@ class Signup extends Component {
                             <input
                                 type="password"
                                 name="confirmPassword"
-                                value={this.state.checkPassword}
-                                onBlur={this.validatePassword}
-                                onChange={this.handleChange}
+                                value={confirmPassword}
+                                onChange={event =>
+                                    setConfirmPassword(event.target.value)
+                                }
                                 required
                             />
                         </label>
-                        {PasswordValidError}
                         <div className="btnContainer">
                             <Button btnType="Submit" type="submit">
                                 Create Account
@@ -198,7 +148,6 @@ class Signup extends Component {
                                 data-button-type="login_with"
                                 data-auto-logout-link="false"
                                 data-use-continue-as="false"
-                                onClick={checkLoginState}
                             />
                         </label>
                     </div>
@@ -211,8 +160,8 @@ class Signup extends Component {
                     </p>
                 </Form>
             </div>
-        );
-    }
-}
+        </>
+    );
+};
 
 export default Signup;
