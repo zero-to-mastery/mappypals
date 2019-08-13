@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import classes from './ProfileSettings.module.css';
+
 import defaultProfilePicture from '../../../pics/blank-profile-picture.png';
+
 import DisplayInterestsImport from './displayInterests/displayInterests';
 import SettingsNavbar from '../SettingsNavbar/SettingsNavbar';
 import Button from '../../../components/UI/Button/Button';
+import Select from 'react-select';
+import makeAnimated from 'react-select/animated';
 
 class ProfileSettings extends Component {
     state = {
@@ -11,7 +15,13 @@ class ProfileSettings extends Component {
         displayDuplicateError: false,
         displayEmptyInterestError: false,
         // User inputed interest
-        Interests: '',
+        interests: [
+            { value: 'volunteering', label: 'Volunteering' },
+            { value: 'art', label: 'Art' },
+            { value: 'music', label: 'Music' },
+            { value: 'traveling', label: 'Traveling' },
+            { value: 'tennis', label: 'Tennis' }
+        ],
         storeInterests: [],
         profileSelected: true,
         changedProfileData: {
@@ -23,6 +33,7 @@ class ProfileSettings extends Component {
         },
         avatarURI: null
     };
+
     fileSelectedHandler = e => {
         const string = 'image';
         if (e.target.files && e.target.files[0]) {
@@ -32,15 +43,15 @@ class ProfileSettings extends Component {
             if (file.type.includes(string) && !svg && !gif) {
                 this.hideUploadError();
                 let reader = new FileReader();
-                reader.onload = ev=>{
+                reader.onload = ev => {
                     this.setState({
                         changedProfileData: {
                             ...this.state.changedProfileData,
                             selectedFile: file.name
                         },
-                        avatarURI:ev.target.result
+                        avatarURI: ev.target.result
                     });
-                }
+                };
                 reader.readAsDataURL(e.target.files[0]);
             }
         } else {
@@ -87,36 +98,10 @@ class ProfileSettings extends Component {
             }
         );
     };
-    isInterestDuplicate = () => {
-        let isDuplicate = this.state.storeInterests.find(
-            interest => interest === this.state.Interests
-        );
-        return isDuplicate;
-    };
-    removeInterest = data => {
-        const interestsToKeep = this.state.storeInterests.filter(
-            interest => interest !== data
-        );
-        if (this.state.storeInterests.length > interestsToKeep.length) {
-            this.setState({
-                storeInterests: interestsToKeep
-            });
-        }
-    };
 
     displayUploadError = () => this.setState({ displayUploadError: true });
     hideUploadError = () => this.setState({ displayUploadError: false });
 
-    displayDuplicateError = () =>
-        this.setState({ displayDuplicateError: true });
-    hideDuplicateError = () => this.setState({ displayDuplicateError: false });
-
-    cleanInterestState = () => this.setState({ Interests: '' });
-
-    displayEmptyInterestError = () =>
-        this.setState({ displayEmptyInterestError: true });
-    hideEmptyInterestError = () =>
-        this.setState({ displayEmptyInterestError: false });
     // Get input value to object
     handleChangeObject = event => {
         this.setState({
@@ -134,19 +119,11 @@ class ProfileSettings extends Component {
     };
 
     render() {
+        const animatedComponents = makeAnimated();
         // Render only if file format is not supported.
         let uploadError = '';
         if (this.state.displayUploadError) {
             uploadError = <p>This type of file is not supported</p>;
-        }
-
-        let DuplicateError = '';
-        if (this.state.displayDuplicateError) {
-            DuplicateError = <p>This interest already exist</p>;
-        }
-        let emptyInterest = '';
-        if (this.state.displayEmptyInterestError) {
-            emptyInterest = <p>Interests can be empty space</p>;
         }
 
         return (
@@ -213,6 +190,7 @@ class ProfileSettings extends Component {
                             <div>
                                 <p>About me</p>
                                 <textarea
+                                    name="AboutMe"
                                     className={[
                                         classes.input,
                                         classes.u_width_80,
@@ -223,37 +201,21 @@ class ProfileSettings extends Component {
                             </div>
                             <div>
                                 <p>Interests</p>
-                                <input
-                                    type="text"
-                                    name="Interests"
-                                    className={classes.input}
-                                    onChange={this.handleChange}
-                                />
-                                <Button
-                                    btnType="ProfileSettingsInterests"
-                                    onClick={this.addInterest}
-                                >
-                                    Add
-                                </Button>
-                                {DuplicateError}
-                                {emptyInterest}
-                                <div className={classes.displayInterests}>
-                                    {this.state.storeInterests.map(
-                                        (data, index) => {
-                                            return (
-                                                <DisplayInterestsImport
-                                                    key={index}
-                                                    info={data}
-                                                    removeInterest={() =>
-                                                        this.removeInterest(
-                                                            data
-                                                        )
-                                                    }
-                                                />
-                                            );
+                                <Select
+                                    closeMenuOnSelect={false}
+                                    components={animatedComponents}
+                                    isMulti
+                                    options={this.state.interests}
+                                    className={classes.displayInterests}
+                                    theme={theme => ({
+                                        ...theme,
+                                        borderRadius: 0,
+                                        colors: {
+                                            ...theme.colors,
+                                            primary: '#6831de'
                                         }
-                                    )}
-                                </div>
+                                    })}
+                                />
                             </div>
                             <div className={classes.submitContainer}>
                                 <Button

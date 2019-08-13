@@ -13,16 +13,16 @@
 }
 .changePicture {
     position: absolute;
-    top:0;
+    top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     display: flex;
     justify-items: center;
-    opacity: 0;  
+    opacity: 0;
     transition: opacity 0.3s, background-color 0.3s;
 }
-.changePicture p{
+.changePicture p {
     margin: auto;
     color: #fff;
 }
@@ -50,36 +50,33 @@
     text-align: right;
 }
 
-
 /* Inputs copied from form.js */
-.input,.inputTextarea {
+.input,
+.inputTextarea {
     box-sizing: border-box;
     padding: 0.5rem;
     font-size: 1.2rem;
     border: none;
     border-bottom: 2px solid grey;
     width: 50%;
-    margin: 10px 0;
+    margin: 15px 0;
 }
- .inputTextarea{
-     min-width: 100%;
-     max-width: 100%;
-     height: 150px;
+.inputTextarea {
+    min-width: 100%;
+    max-width: 100%;
+    height: 150px;
     border: 2px solid grey;
 }
-.input:hover {
-    outline: 0;
-    border-bottom: 2px solid #6831de;
-}
+.input:hover,
 .input:focus {
     outline: 0;
     border-bottom: 2px solid #6831de;
 }
-.inputTextarea:hover {
-    outline: 0;
-    border: 2px solid #6831de;
-}
-.inputTextarea:focus {
+
+.inputTextarea:hover,
+.inputTextarea:focus,
+.displayInterests:hover,
+.displayInterests:focus {
     outline: 0;
     border: 2px solid #6831de;
 }
@@ -96,12 +93,12 @@
     align-items: center;
     margin: 0 auto;
 }
+
 .displayInterests {
-    padding-top: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    margin-right: 5px;
-    margin-left: 5px;
+    border: 2px solid grey;
+}
+.displayInterests div:first-of-type {
+    border: transparent;
 }
 
 @media (max-width: 700px) {
