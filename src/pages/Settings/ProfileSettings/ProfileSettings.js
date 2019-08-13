@@ -3,11 +3,9 @@ import classes from './ProfileSettings.module.css';
 
 import defaultProfilePicture from '../../../pics/blank-profile-picture.png';
 
-import DisplayInterestsImport from './displayInterests/displayInterests';
 import SettingsNavbar from '../SettingsNavbar/SettingsNavbar';
 import Button from '../../../components/UI/Button/Button';
-import Select from 'react-select';
-import makeAnimated from 'react-select/animated';
+import DropdownSelect from '../../../components/UI/DropdownSelect/DropdownSelect';
 
 class ProfileSettings extends Component {
     state = {
@@ -119,7 +117,6 @@ class ProfileSettings extends Component {
     };
 
     render() {
-        const animatedComponents = makeAnimated();
         // Render only if file format is not supported.
         let uploadError = '';
         if (this.state.displayUploadError) {
@@ -201,21 +198,7 @@ class ProfileSettings extends Component {
                             </div>
                             <div>
                                 <p>Interests</p>
-                                <Select
-                                    closeMenuOnSelect={false}
-                                    components={animatedComponents}
-                                    isMulti
-                                    options={this.state.interests}
-                                    className={classes.displayInterests}
-                                    theme={theme => ({
-                                        ...theme,
-                                        borderRadius: 0,
-                                        colors: {
-                                            ...theme.colors,
-                                            primary: '#6831de'
-                                        }
-                                    })}
-                                />
+                                <DropdownSelect options={this.state.interests}/>
                             </div>
                             <div className={classes.submitContainer}>
                                 <Button
