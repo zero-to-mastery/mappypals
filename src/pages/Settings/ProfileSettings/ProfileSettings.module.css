@@ -5,6 +5,7 @@
 }
 .container {
     width: 80%;
+    max-width: 1250px;
     margin: 40px auto 20px;
     padding: 15px;
     padding-bottom: 50px;
@@ -66,6 +67,7 @@
     max-width: 100%;
     height: 150px;
     border: 2px solid grey;
+    resize: vertical;
 }
 .input:hover,
 .input:focus {
@@ -74,7 +76,7 @@
 }
 
 .inputTextarea:hover,
-.inputTextarea:focus {
+.inputTextarea:focus,.pictureItem:hover,.pictureItem:focus {
     outline: 0;
     border: 2px solid #6831de;
 }
