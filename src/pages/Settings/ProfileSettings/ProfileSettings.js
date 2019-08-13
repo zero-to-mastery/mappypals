@@ -20,7 +20,6 @@ class ProfileSettings extends Component {
             { value: 'traveling', label: 'Traveling' },
             { value: 'tennis', label: 'Tennis' }
         ],
-        storeInterests: [],
         profileSelected: true,
         changedProfileData: {
             FirstName: '',
@@ -61,40 +60,16 @@ class ProfileSettings extends Component {
         event.preventDefault();
         console.log(this.state.changedProfileData);
     };
-    addInterest = () => {
-        let isDuplicate = this.isInterestDuplicate();
 
-        if (this.state.Interests === '') {
-            this.displayEmptyInterestError();
-        } else if (isDuplicate) {
-            this.displayDuplicateError();
-        } else {
-            this.hideDuplicateError();
-            this.storeInterests();
-        }
-    };
-    storeInterests = () => {
-        this.setState(
-            {
-                storeInterests: [
-                    ...this.state.storeInterests,
-                    this.state.Interests
-                ]
-            },
-            function() {
-                /* TODO
-                    Couldn't figure it out how to update storeAllInterest in object
-                    So I Created another variable that transfers
-                    storeAllInterests value into this.state.storeInterests.
-                    */
-                this.setState({
-                    changedProfileData: {
-                        ...this.state.changedProfileData,
-                        storeAllInterests: this.state.storeInterests
-                    }
-                });
+    //update interest array
+    handleInterest = newArray => {
+        let interests = newArray.map(arr => arr.value);
+        this.setState({
+            changedProfileData: {
+                ...this.state.changedProfileData,
+                storeAllInterests: interests
             }
-        );
+        });
     };
 
     displayUploadError = () => this.setState({ displayUploadError: true });
@@ -198,7 +173,10 @@ class ProfileSettings extends Component {
                             </div>
                             <div>
                                 <p>Interests</p>
-                                <DropdownSelect options={this.state.interests}/>
+                                <DropdownSelect
+                                    options={this.state.interests}
+                                    handleChange={this.handleInterest}
+                                />
                             </div>
                             <div className={classes.submitContainer}>
                                 <Button

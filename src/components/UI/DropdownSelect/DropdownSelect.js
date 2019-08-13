@@ -5,13 +5,14 @@ import classes from './DropdownSelect.module.css'
 
 const DropdownSelect = (props) => {
 	const animatedComponents = makeAnimated();
-	const {options} = props
+	const {options,handleChange} = props
 	return (
 		<Select
 		closeMenuOnSelect={false}
 		components={animatedComponents}
 		isMulti
 		options={options}
+		onChange={obj=>handleChange(obj)} //returns an array with updated values
 		className={classes.displayInterests}
 		theme={theme => ({
 			...theme,
