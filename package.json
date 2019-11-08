@@ -1,15 +1,18 @@
 {
     "name": "mappypals",
     "version": "0.1.0",
-    "homepage": "https://zero-to-mastery.github.io/mappypals/",
     "private": true,
     "devserver": "live-server --browser=Chrome",
     "dependencies": {
         "axios": "^0.18.0",
         "concurrently": "^4.1.0",
         "deck.gl": "^7.0.11",
+        "dotenv": "^8.0.0",
+        "firebase": "^6.3.3",
+        "isemail": "^3.2.0",
         "ky": "^0.10.0",
         "mapbox-gl": "^0.53.0",
+        "node-sass": "^4.12.0",
         "react": "^16.8.2",
         "react-dom": "^16.8.2",
         "react-map-gl": "^4.0.11",
@@ -17,25 +20,21 @@
         "react-mapbox-gl": "^4.2.0",
         "react-redux": "^7.1.0",
         "react-router-dom": "^4.3.1",
-        "react-scripts": "^3.0.0",
+        "react-scripts": "3.0.1",
         "redux": "^4.0.1",
         "redux-thunk": "^2.3.0",
-        "styled-components": "^4.1.3",
-        "tachyons": "^4.11.1"
-    },
-    "//": {
-        "server": "cd server && npm start",
-        "serverinstall": "cd server && npm install && npm audit fix",
-        "postinstall": "npm audit fix && npm run serverinstall",
-        "frontend": "react-scripts start",
-        "start": "concurrently \"npm run frontend\" \"npm run server\""
+        "styled-components": "^4.3.2",
+        "tachyons": "^4.11.1",
+        "validator": "^11.1.0"
     },
     "scripts": {
-        "start": "react-scripts start",
+        "start": "react-scripts start && node --require dotenv/config index.js",
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
-        "format": "prettier --write \"**/*.{js,css,md}\""
+        "format": "prettier --write \"**/*.{js,css,md}\"",
+        "prestart:api": "node src/server/createMockDB.js",
+        "start:api": "node src/server/server.js"
     },
     "eslintConfig": {
         "extends": "react-app"
@@ -47,6 +46,8 @@
         "not op_mini all"
     ],
     "devDependencies": {
+        "json-server": "^0.15.0",
+        "faker": "^4.1.0",
         "prettier": "1.17.1"
     }
 }

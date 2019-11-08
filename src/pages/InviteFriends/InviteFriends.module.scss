@@ -1,0 +1,60 @@
+@import '../../components/BaseScss/variables.scss';
+.root {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+}
+.title {
+    color: $dark;
+    font-weight: 400;
+    font-size: 1.4rem;
+    text-align: center;
+}
+.form {
+    display: flex;
+    text-align: left;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 2;
+    padding: 16px;
+    margin: 8px 16px;
+}
+.input {
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 1.2rem;
+    border: none;
+    border-bottom: 2px solid grey;
+}
+.input:hover {
+    outline: 0;
+    border-bottom: 3px solid #6831de;
+}
+.input:hover:focus {
+    outline: 0;
+    border-bottom: 3px solid #6831de;
+}
+.input[type='text'] {
+    width: 90%;
+}
+.label {
+    display: block;
+    margin-right: 12px;
+    padding-bottom: 30px;
+    color: #6831de;
+}
+.emailList {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    max-lines: 3;
+    justify-content: center;
+    max-height:100px;
+    overflow-y:auto;
+}
+.sendInvite{
+    margin:16px auto;
+}

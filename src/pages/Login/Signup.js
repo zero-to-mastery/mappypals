@@ -1,93 +1,60 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import Form from './Form.js';
+import { IsPasswordValid } from '../../components/helper';
 import ErrorMessage from '../../components/ErrorMessages/ErrorMessages';
-import { IsPasswordValid, IsPasswordIdentical } from '../../components/helper';
 import './Login.css';
-import ky from 'ky';
+import { userSignUp, userUpdateProfile } from '../../store/actions/user';
 import Button from '../../components/UI/Button/Button';
+import { useDispatch, useSelector } from 'react-redux';
+import { USER_SIGN_UP_API_CALL } from '../../store/actions/types';
+import isEmail from 'validator/lib/isEmail';
+const Signup = () => {
+    // react-redux hooks
+    const dispatch = useDispatch();
+    const loading = useSelector(state =>
+        state.apiCallsInProgress.includes(USER_SIGN_UP_API_CALL)
+    );
+    // react hooks
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [error, setError] = useState('');
+    const [redirect, setRedirect] = useState(false);
 
-class Login extends Component {
-    constructor(props) {
-        super(props);
-        window.FB.init({
-            appId: '298824577401793',
-            cookie: true,
-            xfbml: true,
-            version: 'v3.2'
-        });
+    const passwordMatch = () => password === confirmPassword;
 
-        this.state = {
-            name: '',
-            lastname: '',
-            email: '',
-            number: '',
-            password: '',
-            confirmPassword: '',
-            passwordMatchError: false,
-            passwordValidError: false
-        };
-    }
-
-    handleChange = event => {
-        this.setState({
-            [event.target.name]: event.target.value
-        });
-    };
-
-    handleSubmit = event => {
-        const { password, confirmPassword } = this.state;
+    const handleSubmit = async event => {
         event.preventDefault();
-        const isPasswordValidVar = IsPasswordValid(password);
-        const IsPasswordIdenticalVar = IsPasswordIdentical(
-            password,
-            confirmPassword
-        );
-
-        if (!IsPasswordIdenticalVar) {
-            this.displayPasswordMatchError();
-        } else if (!isPasswordValidVar) {
-            this.hidePasswordMatchError();
-            this.displayPasswordValidError();
-        } else {
-            this.hidePasswordMatchError();
-            this.hidePasswordValidError();
-            (async () => {
-                const url = 'http://localhost:3001/users/register';
-                await ky.post(url, { json: this.state }).then(res => {
-                    if (res.status === 200) {
-                        this.props.history.push('/login');
-                    }
-                });
-            })();
+        const isPasswordValid = IsPasswordValid(password);
+        if (!isEmail(email)) {
+            setError('Please enter a valid email address');
+            return;
+        }
+        // asynchronous call
+        try {
+            if (isPasswordValid && passwordMatch()) {
+                await dispatch(userSignUp(email, password));
+                await dispatch(
+                    userUpdateProfile({
+                        displayName: `${firstName} ${lastName}`
+                    })
+                );
+                setRedirect(true);
+            }
+        } catch (error) {
+            setError(error.message);
+            console.error(error);
         }
     };
-    displayPasswordMatchError = () =>
-        this.setState({ passwordMatchError: true });
-    hidePasswordMatchError = () => this.setState({ passwordMatchError: false });
 
-    displayPasswordValidError = () =>
-        this.setState({ passwordValidError: true });
-    hidePasswordValidError = () => this.setState({ passwordValidError: false });
-
-    render() {
-        let passwordMatchError = '';
-        if (this.state.passwordMatchError) {
-            passwordMatchError = (
-                <ErrorMessage content="Password doesn't match" />
-            );
-        }
-        let PasswordValidError = '';
-        if (this.state.passwordValidError) {
-            PasswordValidError = (
-                <ErrorMessage content="At least 6 characters, a number or a symbol, at least 1 letter" />
-            );
-        }
-
-        const { checkLoginState } = this.props;
-        return (
-            <div className="Login">
-                <Form onSubmit={this.handleSubmit}>
+    return (
+        <>
+            {redirect && <Redirect to={'/login'} />}
+            <div className="Login" style={{ minHeight: `87.8vh` }}>
+                <Form onSubmit={handleSubmit}>
                     <fieldset>
                         <div className="nameContainer">
                             <label className="item1" htmlFor="firstname">
@@ -97,7 +64,10 @@ class Login extends Component {
                                     id="firstname"
                                     className="item2"
                                     name="name"
-                                    onChange={this.handleChange}
+                                    value={firstName}
+                                    onChange={event =>
+                                        setFirstName(event.target.value)
+                                    }
                                     required
                                 />
                             </label>
@@ -108,7 +78,10 @@ class Login extends Component {
                                     id="lastname"
                                     className="item4"
                                     name="lastname"
-                                    onChange={this.handleChange}
+                                    value={lastName}
+                                    onChange={event =>
+                                        setLastName(event.target.value)
+                                    }
                                     required
                                 />
                             </label>
@@ -118,29 +91,33 @@ class Login extends Component {
                             <input
                                 type="email"
                                 name="email"
-                                onChange={this.handleChange}
+                                value={email}
+                                onChange={event => setEmail(event.target.value)}
                                 required
                             />
                         </label>
                         <label htmlFor="password">
-                            Password {PasswordValidError}
+                            Password
                             <input
                                 type="password"
                                 name="password"
                                 aria-describedby="newPassword"
-                                value={this.state.password}
-                                onClick={this.toggleHidden}
-                                onChange={this.handleChange}
+                                value={password}
+                                onChange={event =>
+                                    setPassword(event.target.value)
+                                }
                                 required
                             />
                         </label>
                         <label htmlFor="confirmPassword">
-                            Confirm password {passwordMatchError}
+                            Confirm password
                             <input
                                 type="password"
                                 name="confirmPassword"
-                                value={this.state.checkPassword}
-                                onChange={this.handleChange}
+                                value={confirmPassword}
+                                onChange={event =>
+                                    setConfirmPassword(event.target.value)
+                                }
                                 required
                             />
                         </label>
@@ -149,6 +126,14 @@ class Login extends Component {
                                 Create Account
                             </Button>
                         </div>
+                        {loading && (
+                            <div className="u-text-center">Loading...</div>
+                        )}
+                        {error && (
+                            <div className="u-text-center">
+                                <ErrorMessage content={error} />
+                            </div>
+                        )}
                     </fieldset>
                     <p className="u-text-center">Or connect with: </p>
                     <div className="btnContainer">
@@ -163,7 +148,6 @@ class Login extends Component {
                                 data-button-type="login_with"
                                 data-auto-logout-link="false"
                                 data-use-continue-as="false"
-                                onClick={checkLoginState}
                             />
                         </label>
                     </div>
@@ -176,8 +160,8 @@ class Login extends Component {
                     </p>
                 </Form>
             </div>
-        );
-    }
-}
+        </>
+    );
+};
 
-export default Login;
+export default Signup;

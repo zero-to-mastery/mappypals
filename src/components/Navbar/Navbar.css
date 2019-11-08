@@ -40,6 +40,12 @@ hr {
     text-align: center;
     height: auto;
 }
+#nav-bar svg {
+    height: 4rem;
+}
+.nav-item p {
+    margin: 0;
+}
 
 .item-wrapper:hover,
 .item-wrapper:hover a {
@@ -92,12 +98,13 @@ hr {
     background-color: #ffffff;
 }
 .setting-navbar-item {
-    width: 140px;
+    width: 300px;
     padding: 33px 0;
     font-weight: 400;
     margin: 0;
     cursor: pointer;
     color: #000;
+    border: 4px solid lightgray;
 }
 .setting-navbar-item:hover {
     background-color: #d3d3d3;

@@ -1,80 +1,81 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-
+import React, { useState } from 'react';
+import { Link, Redirect } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { USER_SIGN_IN_API_CALL } from '../../store/actions/types';
 import './Login.css';
 import Form from './Form.js';
-import { getLocalData } from '../../utils/localStorage';
-import { authLogin } from '../../store/actions';
+import {
+    userSignIn,
+    userSignInGoogle,
+    userSignInFacebook
+} from '../../store/actions/user';
 import ErrorMessage from '../../components/ErrorMessages/ErrorMessages';
 import Button from '../../components/UI/Button/Button';
+export const Login = () => {
+    // react-redux hooks
+    const dispatch = useDispatch();
+    const loading = useSelector(state =>
+        state.apiCallsInProgress.includes(USER_SIGN_IN_API_CALL)
+    );
+    const emailVerified = useSelector(state => state.user.emailVerified);
+    // react hooks
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [redirect, setRedirect] = useState(false);
 
-class Login extends Component {
-    constructor(props) {
-        super(props);
-        window.FB.init({
-            appId: '298824577401793',
-            cookie: true,
-            xfbml: true,
-            version: 'v3.2'
-        });
-
-        this.state = {
-            email: '',
-            password: ''
-        };
-    }
-
-    componentDidMount() {
-        this.confirmAccount();
-    }
-
-    componentDidUpdate() {
-        this.confirmAccount();
-    }
-
-    confirmAccount() {
-        const localData = getLocalData();
-
-        // redirect user to homepage if he's already logged in
-        if ((localData.token && localData.userId) || this.props.redirect) {
-            return this.props.history.push('/');
-        }
-    }
-
-    handleChange = event => {
-        this.setState({
-            [event.target.name]: event.target.value
-        });
-    };
-
-    // Submited values
-    handleSubmit = event => {
+    const handleSubmit = async event => {
         event.preventDefault();
-
-        const { email, password } = this.state;
-
-        this.props.authLogin(email, password);
-
-        // Clear inputs.
-        this.setState({ email: '' });
-        this.setState({ password: '' });
+        try {
+            await dispatch(userSignIn(email, password));
+            setEmail('');
+            setPassword('');
+            // redirect
+            setRedirect(true);
+        } catch (error) {
+            setError(error.message);
+            console.error(error);
+        }
     };
 
-    render() {
-        const { error, loading } = this.props;
+    const handleGoogleLogin = async event => {
+        event.preventDefault();
+        try {
+            await dispatch(userSignInGoogle());
+            setRedirect(true);
+        } catch (error) {
+            setError(error.message);
+            console.error(error);
+        }
+    };
+    const handleFacebookLogin = async event => {
+        event.preventDefault();
+        try {
+            await dispatch(userSignInFacebook());
+            setRedirect(true);
+        } catch (error) {
+            setError(error.message);
+            console.error(error);
+        }
+    };
+    const handleTwitterLogin = async event => {
+        event.preventDefault();
+        alert('Coming soon');
+    };
 
-        return (
+    return (
+        <>
+            {redirect && <Redirect to={emailVerified ? '/' : '/verifyemail'} />}
             <div className="Login">
-                <Form onSubmit={this.handleSubmit}>
+                <Form onSubmit={handleSubmit}>
                     <label htmlFor="email">
                         Email
                         <input
                             type="email"
                             name="email"
                             placeholder=""
-                            onChange={this.handleChange}
+                            onChange={event => setEmail(event.target.value)}
+                            value={email}
                             required
                         />
                     </label>
@@ -84,7 +85,8 @@ class Login extends Component {
                             type="password"
                             name="password"
                             placeholder=""
-                            onChange={this.handleChange}
+                            onChange={event => setPassword(event.target.value)}
+                            value={password}
                             required
                         />
                     </label>
@@ -111,36 +113,13 @@ class Login extends Component {
                         &ensp;Or connect via:
                     </p>
                     <div className="btnContainer">
-                        <label
-                            htmlFor="fb-login-button"
-                            aria-label="Login with Facebook"
-                        >
-                            <div
-                                className="fb-login-button"
-                                data-size="large"
-                                data-button-type="login_with"
-                                data-auto-logout-link="false"
-                                data-use-continue-as="false"
-                                onClick={() => ({})}
-                            />
-                        </label>
+                        <button onClick={handleGoogleLogin}>Google</button>
+                        <button onClick={handleFacebookLogin}>Facebook</button>
+                        <button onClick={handleTwitterLogin}>Twitter</button>
                     </div>
                 </Form>
             </div>
-        );
-    }
-}
-
-const mapStateToProps = state => {
-    const { loading, error, redirect } = state.auth;
-
-    return { loading, error, redirect };
+        </>
+    );
 };
-
-const mapDispatchToProps = dispatch =>
-    bindActionCreators({ authLogin }, dispatch);
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Login);
+export default Login;

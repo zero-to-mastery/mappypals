@@ -50,6 +50,11 @@
     margin-left: 20px;
 }
 
+.ProfileCard {
+    padding: 10px 10px;
+    width: 100%;
+}
+
 @media all and (min-width: 630px) {
     .ForgotPassword {
         font-size: 25px;
@@ -63,6 +68,11 @@
     font-size: 1rem;
 }
 
+.Page404 {
+    padding: 0.5rem 3rem;
+    font-size: 1rem;
+}
+
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
     .SettingsEmailPassword {
         font-size: 1.35rem;
@@ -71,7 +81,7 @@
 }
 
 .Navbar {
-    width: 100%;
+    width: 80%;
     max-width: 15rem;
     margin: 10px 1.875rem;
     background-image: linear-gradient(to right, #cf48ff, #6831de);
@@ -86,7 +96,11 @@
     transition: transform 0.3s ease-in;
     transform: scale(1.05);
 }
-
+.InviteFriends {
+    padding: 8px 18px;
+    height: 30px;
+    font-size: 0.7rem;
+}
 @media (max-width: 900px) {
     .Navbar {
         margin: 2px;

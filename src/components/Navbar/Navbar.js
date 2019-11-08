@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import './Navbar.css';
 import Button from '../UI/Button/Button';
 import { ReactComponent as AboutUs } from '../../pics/AboutUs.svg';
@@ -8,6 +9,12 @@ import { ReactComponent as Team } from '../../pics/Team.svg';
 import { ReactComponent as Friends } from '../../pics/FriendsIcon.svg';
 import { ReactComponent as Invite } from '../../pics/InviteFriends.svg';
 import { ReactComponent as Settings } from '../../pics/MySettingsIcon.svg';
+import { userSignOut } from '../../store/actions/user';
+import {
+    showInviteFriends,
+    hideInviteFriends
+} from '../../store/actions/modals';
+const VISIBILITY = { hidden: 'hidden', visible: 'visible' };
 
 class Navbar extends Component {
     constructor(props) {
@@ -32,12 +39,12 @@ class Navbar extends Component {
             this.setState({ navbarWidth: calc });
         }
         if (this.state.hamburger.length) {
-            if (this.state.navbar.length)
+            if (this.state.navbar === VISIBILITY.hidden)
                 this.setState({
-                    navbar: '',
+                    navbar: VISIBILITY.visible,
                     navbarRight: this.state.navbarWidth * 1 + 10 + 'px'
                 });
-            else this.setState({ navbar: 'none', navbarRight: '' });
+            else this.setState({ navbar: VISIBILITY.hidden, navbarRight: '' });
         }
     };
     componentDidMount() {
@@ -59,7 +66,7 @@ class Navbar extends Component {
             window.innerWidth <= 900 ||
             (window.screen.orientation.angle > 0 && window.innerWidth < 900)
         ) {
-            this.setState({ hamburger: 'block', navbar: 'none' });
+            this.setState({ hamburger: 'block', navbar: VISIBILITY.hidden });
         } else {
             this.setState({ hamburger: '', navbar: '' });
         }
@@ -70,12 +77,15 @@ class Navbar extends Component {
                     window.innerWidth < 900) &&
                 !this.state.hamburger.length
             ) {
-                this.setState({ hamburger: 'block', navbar: 'none' });
+                this.setState({
+                    hamburger: 'block',
+                    navbar: VISIBILITY.hidden
+                });
             } else if (
                 window.innerWidth >= 900 &&
                 this.state.hamburger.length
             ) {
-                this.setState({ hamburger: '', navbar: '' });
+                this.setState({ hamburger: '', navbar: VISIBILITY.visible });
                 node = this.navRef.current;
             }
             if (node) {
@@ -94,9 +104,12 @@ class Navbar extends Component {
                     window.innerWidth < 900) &&
                 !this.state.hamburger.length
             )
-                this.setState({ hamburger: 'block', navbar: 'none' });
+                this.setState({
+                    hamburger: 'block',
+                    navbar: VISIBILITY.hidden
+                });
             else if (window.innerWidth >= 900 && this.state.hamburger.length)
-                this.setState({ hamburger: '', navbar: '' });
+                this.setState({ hamburger: '', navbar: VISIBILITY.visible });
             node = this.navRef.current;
             if (node)
                 navWidth = window.getComputedStyle(node).width.split('px')[0];
@@ -110,7 +123,13 @@ class Navbar extends Component {
         this.setState({ settingsDropdown: !this.state.settingsDropdown });
 
     render() {
-        const { onLogin } = this.props;
+        const {
+            userSignOut,
+            hideInviteFriends,
+            showInviteFriends,
+            logged
+        } = this.props;
+
         let settingsNavbar = '';
         if (this.state.settingsDropdown & (window.innerWidth > 900)) {
             settingsNavbar = (
@@ -118,7 +137,10 @@ class Navbar extends Component {
                     <Link to="/settings/profilesettings">
                         <p
                             className="setting-navbar-item  u-border-bottom"
-                            onClick={this.toggleSettingsNavbar}
+                            onClick={() => {
+                                this.toggleSettingsNavbar();
+                                hideInviteFriends();
+                            }}
                         >
                             Profile Settings
                         </p>
@@ -167,43 +189,68 @@ class Navbar extends Component {
                 ) : (
                     ''
                 )}
-                {/*logged*/ false ? (
+                {logged ? (
                     <div
                         id="nav-bar"
                         ref={this.navRef}
-                        style={{ display: this.state.navbar }}
+                        style={{ visibility: this.state.navbar }}
                     >
-                        <div className="item-wrapper" onClick={this.showNav}>
+                        <div
+                            className="item-wrapper"
+                            onClick={() => {
+                                this.showNav();
+                                hideInviteFriends();
+                            }}
+                        >
                             <Link className="nav-item" to="/">
                                 {' '}
                                 <Logo height="50px" /> <p>MappyPals</p>{' '}
                             </Link>
                         </div>
 
-                        <div className="item-wrapper" onClick={this.showNav}>
+                        <div
+                            className="item-wrapper"
+                            onClick={() => {
+                                this.showNav();
+                                hideInviteFriends();
+                            }}
+                        >
                             <Link className="nav-item" to="/friendslist">
                                 {' '}
                                 <Friends /> <p>FRIENDS</p>{' '}
                             </Link>
                         </div>
 
-                        <div className="item-wrapper" onClick={this.showNav}>
-                            <Link className="nav-item" to="/invitefriends">
+                        <div
+                            className="item-wrapper"
+                            onClick={() => {
+                                this.showNav();
+                                showInviteFriends();
+                            }}
+                        >
+                            <Link className="nav-item" to="/">
                                 {' '}
                                 <Invite /> <p>INVITE FRIENDS</p>{' '}
                             </Link>
                         </div>
-                        <div className="item-wrapper" onClick={this.showNav}>
+                        <div
+                            className="item-wrapper"
+                            onClick={() => {
+                                this.showNav();
+                                hideInviteFriends();
+                            }}
+                        >
                             {settings}
                             {settingsNavbar}:
                         </div>
                         <div className="item-wrapper no-hover scale">
-                            <Link to="/logout">
+                            <Link to="/">
                                 {' '}
                                 <Button
                                     btnType="Navbar"
                                     onClick={() => {
-                                        onLogin();
+                                        hideInviteFriends();
+                                        userSignOut();
                                         this.showNav();
                                     }}
                                 >
@@ -217,7 +264,7 @@ class Navbar extends Component {
                     <div
                         id="nav-bar"
                         ref={this.navRef}
-                        style={{ display: this.state.navbar }}
+                        style={{ visibility: this.state.navbar }}
                     >
                         <div className="item-wrapper" onClick={this.showNav}>
                             <Link className="nav-item" to="/">
@@ -247,7 +294,7 @@ class Navbar extends Component {
                                     <Button
                                         btnType="Navbar"
                                         onClick={() => {
-                                            onLogin();
+                                            // userSignIn();
                                             this.showNav();
                                         }}
                                     >
@@ -283,5 +330,15 @@ class Navbar extends Component {
         );
     }
 }
-
-export default Navbar;
+const mapStateToProps = state => ({
+    logged: state.user.uid !== undefined && state.user.emailVerified
+});
+const mapDispatchToProps = {
+    showInviteFriends,
+    hideInviteFriends,
+    userSignOut
+};
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Navbar);
