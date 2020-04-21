@@ -1,3 +1,6 @@
+*,*::before,*::after{
+    box-sizing: border-box;
+}
 body,
 html {
     padding: 0px;

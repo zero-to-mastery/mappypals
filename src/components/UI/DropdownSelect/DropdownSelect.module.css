@@ -1,0 +1,14 @@
+.displayInterests {
+    border: 2px solid grey;
+}
+.displayInterests div:first-of-type {
+    border: transparent;
+}
+
+.inputTextarea:hover,
+.inputTextarea:focus,
+.displayInterests:hover,
+.displayInterests:focus {
+    outline: 0;
+    border: 2px solid #6831de;
+}
