@@ -56,7 +56,7 @@ Our mission is to make it easier for people (travelers, students) to connect wit
 
 ## Success Metrics
 
--   Have 500 signuos within the first week of our launch.
+-   Have 500 sign ups within the first week of our launch.
 -   Get 1000 pinned pals within the first week of our launch.
 -   Have 500 invites sign ups within the first week of our launch.
 
